@@ -47,7 +47,9 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
+@SuppressWarnings("deprecation")
 public class Coelacanthus extends PrehistoricAquaticMob implements Bucketable, VariantHolder<Coelacanthus.CoelacanthusVariant> {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Coelacanthus.class, EntityDataSerializers.INT);
@@ -230,8 +232,8 @@ public class Coelacanthus extends PrehistoricAquaticMob implements Bucketable, V
         this.entityData.set(SIZE, maxSize);
         this.reapplyPosition();
         this.refreshDimensions();
-        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(1 + this.getCoelacanthusSize());
-        this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(0.01D + this.getCoelacanthusSize() * 0.01D);
+        Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).setBaseValue(1 + this.getCoelacanthusSize());
+        Objects.requireNonNull(this.getAttribute(Attributes.KNOCKBACK_RESISTANCE)).setBaseValue(0.01D + this.getCoelacanthusSize() * 0.01D);
     }
 
     @Override

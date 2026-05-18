@@ -60,6 +60,123 @@
     ],
     "subtitle": "subtitles.aegirocassis_idle"
   },
+  "ammonite_block": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/ammonite/block1",
+      "unusual_prehistory:entity/mob/ammonite/block2"
+    ],
+    "subtitle": "subtitles.ammonite_block"
+  },
+  "ammonite_death": {
+    "sounds": [
+      {
+        "name": "entity/squid/death3",
+        "pitch": 1.4,
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.ammonite_death"
+  },
+  "ammonite_flop": {
+    "sounds": [
+      {
+        "name": "entity/fish/flop1",
+        "pitch": 0.9,
+        "volume": 0.2
+      },
+      {
+        "name": "entity/fish/flop2",
+        "pitch": 0.9,
+        "volume": 0.2
+      },
+      {
+        "name": "entity/fish/flop3",
+        "pitch": 0.9,
+        "volume": 0.2
+      },
+      {
+        "name": "entity/fish/flop4",
+        "pitch": 0.9,
+        "volume": 0.2
+      }
+    ],
+    "subtitle": "subtitles.ammonite_flop"
+  },
+  "ammonite_hurt": {
+    "sounds": [
+      {
+        "name": "entity/squid/hurt1",
+        "pitch": 1.3,
+        "volume": 0.5
+      },
+      {
+        "name": "entity/squid/hurt2",
+        "pitch": 1.3,
+        "volume": 0.5
+      },
+      {
+        "name": "entity/squid/hurt3",
+        "pitch": 1.3,
+        "volume": 0.5
+      },
+      {
+        "name": "entity/squid/hurt4",
+        "pitch": 1.3,
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.ammonite_hurt"
+  },
+  "ammonite_idle": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/ammonite/idle1",
+        "volume": 0.4
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/ammonite/idle2",
+        "volume": 0.4
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/ammonite/idle3",
+        "volume": 0.4
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/ammonite/idle4",
+        "volume": 0.4
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/ammonite/idle5",
+        "volume": 0.4
+      }
+    ],
+    "subtitle": "subtitles.ammonite_idle"
+  },
+  "ammonite_swim": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/ammonite/swim1",
+        "volume": 0.4
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/ammonite/swim2",
+        "volume": 0.4
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/ammonite/swim3",
+        "volume": 0.4
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/ammonite/swim4",
+        "volume": 0.4
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/ammonite/swim5",
+        "volume": 0.4
+      }
+    ],
+    "subtitle": "subtitles.ammonite_swim"
+  },
   "antarctopelta_death": {
     "sounds": [
       "unusual_prehistory:entity/mob/antarctopelta/death1"

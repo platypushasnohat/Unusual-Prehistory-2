@@ -400,6 +400,13 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.BUG_BUZZ, "Bug buzzes");
 
         // Update 6
+        this.sound(UP2SoundEvents.AMMONITE_HURT, "Ammonite hurts");
+        this.sound(UP2SoundEvents.AMMONITE_DEATH, "Ammonite dies");
+        this.sound(UP2SoundEvents.AMMONITE_IDLE, "Ammonite chatters");
+        this.sound(UP2SoundEvents.AMMONITE_FLOP, "Ammonite flops");
+        this.sound(UP2SoundEvents.AMMONITE_BLOCK, "Ammonite blocks");
+        this.sound(UP2SoundEvents.AMMONITE_SWIM, "Ammonite swims");
+
         this.sound(UP2SoundEvents.ANTARCTOPELTA_HURT, "Antarctopelta hurts");
         this.sound(UP2SoundEvents.ANTARCTOPELTA_DEATH, "Antarctopelta dies");
         this.sound(UP2SoundEvents.ANTARCTOPELTA_IDLE, "Antarctopelta groans");

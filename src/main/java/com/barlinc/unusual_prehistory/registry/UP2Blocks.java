@@ -200,6 +200,7 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> DELITZSCHALA_STALK = registerBlock("delitzschala_stalk", () -> new TallAmbientPlantBlock(UP2BlockProperties.TALL_PLANT, UP2Entities.DELITZSCHALA::get, 3));
 
     // Update 6
+    public static final DeferredBlock<Block> AMMONITE_EGGS = registerEggBlock("ammonite_eggs", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.AMMONITE::get, 4));
     public static final DeferredBlock<Block> CONCAVENATOR_EGG = registerEggBlock("concavenator_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.CONCAVENATOR::get, 11, 15));
     public static final DeferredBlock<Block> HYNERPETON_EGGS = registerWaterEggBlock("hynerpeton_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.HYNERPETON::get, 1));
     public static final DeferredBlock<Block> RHIZODUS_ROE = registerEggBlock("rhizodus_roe", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.RHIZODUS::get, 1));
@@ -250,6 +251,7 @@ public class UP2Blocks {
         return block;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static <B extends Block> DeferredBlock<B> registerEggBlockNoLang(String name, Supplier<B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
@@ -273,6 +275,7 @@ public class UP2Blocks {
         return properties;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static ToIntFunction<BlockState> litBlockEmission(int lightLevel) {
         return (state) -> state.getValue(BlockStateProperties.LIT) ? lightLevel : 0;
     }

@@ -1,6 +1,6 @@
 {
   "type": "unusual_prehistory:transmogrification",
-  "experience": 1.0,
+  "experience": 0.5,
   "input": {
     "item": "unusual_prehistory:wing_fossil"
   },
@@ -8,5 +8,5 @@
     "count": 1,
     "id": "unusual_prehistory:pterodactylus_egg"
   },
-  "processing_time": 1200
+  "processing_time": 800
 }

@@ -33,6 +33,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.ambient.
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.ambient.AmpyxModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.ambient.SetapeditesModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.ammonite.*;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraBodyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraHeadModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraTailModel;
@@ -157,6 +158,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.GRUG.get(), GrugRenderer::new);
 
         // Update 6
+        event.registerEntityRenderer(UP2Entities.AMMONITE.get(), AmmoniteRenderer::new);
         event.registerEntityRenderer(UP2Entities.AMPYX.get(), AmpyxRenderer::new);
         event.registerEntityRenderer(UP2Entities.ANTARCTOPELTA.get(), AntarctopeltaRenderer::new);
         event.registerEntityRenderer(UP2Entities.ARTHROPLEURA.get(), ArthropleuraRenderer::new);
@@ -241,6 +243,11 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.GRUG, GrugModel::createBodyLayer);
 
         // Update 6
+        event.registerLayerDefinition(UP2ModelLayers.AMMONITE_CRIOCERATITES, CrioceratitesModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.AMMONITE_HOPLITES, HoplitesModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.AMMONITE_NOSTOCERAS, NostocerasModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.AMMONITE_PINACOCERAS, PinacocerasModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.AMMONITE_TROPITES, TropitesModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.AMPYX, AmpyxModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ANTARCTOPELTA, AntarctopeltaModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ARTHROPLEURA_HEAD, ArthropleuraHeadModel::createBodyLayer);

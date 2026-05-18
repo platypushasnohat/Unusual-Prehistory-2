@@ -68,6 +68,11 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation GRUG = mainLayer("grug");
 
     // Update 6
+    public static final ModelLayerLocation AMMONITE_CRIOCERATITES = mainLayer("ammonite_cephalaspis");
+    public static final ModelLayerLocation AMMONITE_HOPLITES = mainLayer("ammonite_hoplites");
+    public static final ModelLayerLocation AMMONITE_NOSTOCERAS = mainLayer("ammonite_nostoceras");
+    public static final ModelLayerLocation AMMONITE_PINACOCERAS = mainLayer("ammonite_pinacoceras");
+    public static final ModelLayerLocation AMMONITE_TROPITES = mainLayer("ammonite_tropites");
     public static final ModelLayerLocation AMPYX = mainLayer("ampyx");
     public static final ModelLayerLocation ANTARCTOPELTA = mainLayer("antarctopelta");
     public static final ModelLayerLocation ARTHROPLEURA_HEAD = mainLayer("arthropleura_head");

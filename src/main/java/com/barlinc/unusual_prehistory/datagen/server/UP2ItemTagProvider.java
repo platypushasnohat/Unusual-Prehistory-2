@@ -339,7 +339,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 UP2Blocks.TARTUOSTEUS_ROE.get().asItem(),
                 BRONTOSCORPIO_EMBRYO.get(),
                 UP2Blocks.HYNERPETON_EGGS.asItem(),
-                UP2Blocks.RHIZODUS_ROE.asItem()
+                UP2Blocks.RHIZODUS_ROE.asItem(),
+                UP2Blocks.AMMONITE_EGGS.asItem()
         );
         this.tag(UP2ItemTags.MESOZOIC_EGGS).add(
                 UP2Blocks.BRACHIOSAURUS_EGG.asItem(),
@@ -361,7 +362,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 LORRAINOSAURUS_EMBRYO.get(),
                 CRYPTOCLIDUS_EMBRYO.get(),
                 UP2Blocks.CONCAVENATOR_EGG.asItem(),
-                UP2Blocks.THERIZINOSAURUS_EGG.asItem()
+                UP2Blocks.THERIZINOSAURUS_EGG.asItem(),
+                UP2Blocks.AMMONITE_EGGS.asItem()
         );
         this.tag(UP2ItemTags.CENOZOIC_EGGS).add(
                 LEPTICTIDIUM_EMBRYO.get(),
@@ -382,6 +384,10 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.copy(UP2BlockTags.PREVENTS_EGG_HATCHING, UP2ItemTags.PREVENTS_EGG_HATCHING);
 
         // Update 6
+        this.tag(UP2ItemTags.AMMONITE_FOOD).addTags(
+                ItemTags.FISHES
+        );
+
         this.tag(UP2ItemTags.ANTARCTOPELTA_FOOD).add(
                 Blocks.FERN.asItem(),
                 UP2Blocks.HORSETAIL.asItem()

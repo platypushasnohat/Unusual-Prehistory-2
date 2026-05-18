@@ -76,6 +76,7 @@ public class ModEvents {
         event.put(UP2Entities.GRUG.get(), Grug.createAttributes().build());
 
         // Update 6
+        event.put(UP2Entities.AMMONITE.get(), Ammonite.createAttributes().build());
         event.put(UP2Entities.AMPYX.get(), Ampyx.createAttributes().build());
         event.put(UP2Entities.ANTARCTOPELTA.get(), Antarctopelta.createAttributes().build());
         event.put(UP2Entities.ARTHROPLEURA.get(), Arthropleura.createAttributes().build());

@@ -175,7 +175,8 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 HYNERPETON.get(),
                 BRONTOSCORPIO.get(),
                 RHIZODUS.get(),
-                ARTHROPLEURA.get()
+                ARTHROPLEURA.get(),
+                AMMONITE.get()
         );
 
         this.tag(UP2EntityTags.MESOZOIC_MOBS).add(
@@ -198,7 +199,8 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 ANTARCTOPELTA.get(),
                 CONCAVENATOR.get(),
                 ICHTHYOSAURUS.get(),
-                LORRAINOSAURUS.get()
+                LORRAINOSAURUS.get(),
+                AMMONITE.get()
         );
 
         this.tag(UP2EntityTags.CENOZOIC_MOBS).add(

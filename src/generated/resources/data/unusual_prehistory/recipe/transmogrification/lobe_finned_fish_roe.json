@@ -1,6 +1,6 @@
 {
   "type": "unusual_prehistory:transmogrification",
-  "experience": 1.0,
+  "experience": 0.5,
   "input": {
     "item": "unusual_prehistory:fish_fossil"
   },
@@ -8,5 +8,5 @@
     "count": 1,
     "id": "unusual_prehistory:lobe_finned_fish_roe"
   },
-  "processing_time": 1200
+  "processing_time": 800
 }

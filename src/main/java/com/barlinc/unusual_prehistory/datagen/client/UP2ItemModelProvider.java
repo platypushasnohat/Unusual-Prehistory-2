@@ -176,6 +176,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
         // Update 6
         this.generatedItem(
+                SPIRAL_FOSSIL,
                 SNOW_SHOVEL_FOSSIL,
                 FORCIPULE_FOSSIL,
                 THUNDEROUS_FOSSIL,
@@ -191,6 +192,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 ROT_FOSSIL,
                 SCYTHE_FOSSIL,
 
+                UP2Blocks.AMMONITE_EGGS,
                 BRONTOSCORPIO_EMBRYO,
                 UP2Blocks.CONCAVENATOR_EGG,
                 UP2Blocks.HYNERPETON_EGGS,

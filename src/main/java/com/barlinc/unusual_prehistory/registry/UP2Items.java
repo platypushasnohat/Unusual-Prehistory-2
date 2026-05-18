@@ -218,6 +218,7 @@ public class UP2Items {
     public static final DeferredItem<Item> PERIOD_HOLOCENE = registerItem("period_holocene", () -> new Item(new Item.Properties()));
 
     // Update 6
+    public static final DeferredItem<Item> AMMONITE_SPAWN_EGG = registerSpawnEggItem("ammonite", UP2Entities.AMMONITE, 0x715439, 0xe77eb8);
     public static final DeferredItem<Item> AMPYX_SPAWN_EGG = registerSpawnEggItem("ampyx", UP2Entities.AMPYX, 0x5c33d7, 0xf479f9);
     public static final DeferredItem<Item> ANTARCTOPELTA_SPAWN_EGG = registerSpawnEggItem("antarctopelta", UP2Entities.ANTARCTOPELTA, 0x201a17, 0xf3e2db);
     public static final DeferredItem<Item> ARTHROPLEURA_SPAWN_EGG = registerSpawnEggItem("arthropleura", UP2Entities.ARTHROPLEURA, 0x854885, 0xf8dc3d);
@@ -235,6 +236,7 @@ public class UP2Items {
     public static final DeferredItem<Item> THERIZINOSAURUS_SPAWN_EGG = registerSpawnEggItem("therizinosaurus", UP2Entities.THERIZINOSAURUS, 0x0f0e0e, 0x514699);
     public static final DeferredItem<Item> WOOLLY_MAMMOTH_SPAWN_EGG = registerSpawnEggItem("woolly_mammoth", UP2Entities.WOOLLY_MAMMOTH, 0x66331a, 0x1a0901);
 
+    public static final DeferredItem<Item> SPIRAL_FOSSIL = registerFossilItem("spiral"); // ammonite
     public static final DeferredItem<Item> SNOW_SHOVEL_FOSSIL = registerFossilItem("snow_shovel"); // antarctopelta
     public static final DeferredItem<Item> FORCIPULE_FOSSIL = registerFossilItem("forcipule"); // arthropleura
     public static final DeferredItem<Item> THUNDEROUS_FOSSIL = registerFossilItem("thunderous"); // brontoscorpio
@@ -290,6 +292,7 @@ public class UP2Items {
         return registerItem(name + "_spawn_egg", () -> new DeferredSpawnEggItem(type, baseColor, spotColor, new Item.Properties()));
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static DeferredItem<Item> registerSpawnEggItemNoLang(String name, Supplier<? extends EntityType<? extends Mob>> type, int baseColor, int spotColor) {
         return registerItemNoLang(name + "_spawn_egg", () -> new DeferredSpawnEggItem(type, baseColor, spotColor, new Item.Properties()));
     }

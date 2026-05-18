@@ -195,6 +195,13 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> PUMMEL_AND_SNATCH_DISC = registerSoundEvent("pummel_and_snatch_disc");
 
     // Update 6
+    public static final DeferredHolder<SoundEvent, SoundEvent> AMMONITE_HURT = registerSoundEvent("ammonite_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> AMMONITE_DEATH = registerSoundEvent("ammonite_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> AMMONITE_IDLE = registerSoundEvent("ammonite_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> AMMONITE_FLOP = registerSoundEvent("ammonite_flop");
+    public static final DeferredHolder<SoundEvent, SoundEvent> AMMONITE_BLOCK = registerSoundEvent("ammonite_block");
+    public static final DeferredHolder<SoundEvent, SoundEvent> AMMONITE_SWIM = registerSoundEvent("ammonite_swim");
+
     public static final DeferredHolder<SoundEvent, SoundEvent> ANTARCTOPELTA_HURT = registerSoundEvent("antarctopelta_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> ANTARCTOPELTA_DEATH = registerSoundEvent("antarctopelta_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> ANTARCTOPELTA_IDLE = registerSoundEvent("antarctopelta_idle");

@@ -16,16 +16,15 @@ public class UnusualPrehistory2Tab {
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> UNUSUAL_PREHISTORY_2_TAB = CREATIVE_TABS.register("unusual_prehistory",
             () -> CreativeModeTab.builder()
-                    .icon(() -> new ItemStack(UNUSUAL_PREHISTORY.get()))
+                    .icon(() -> new ItemStack(SPIRAL_FOSSIL.get()))
                     .title(Component.translatable("itemGroup.unusual_prehistory"))
                     .displayItems((parameters, output) -> {
 
                         // Prehistoric
                         output.accept(AEGIROCASSIS_SPAWN_EGG.get());
+                        output.accept(AMMONITE_SPAWN_EGG.get());
                         output.accept(ANTARCTOPELTA_SPAWN_EGG.get());
-
                         output.accept(ARTHROPLEURA_SPAWN_EGG.get());
-
                         output.accept(BRACHIOSAURUS_SPAWN_EGG.get());
                         output.accept(BRONTOSCORPIO_SPAWN_EGG.get());
                         output.accept(CARNOTAURUS_SPAWN_EGG.get());
@@ -91,10 +90,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.MESONITE.get());
                         output.accept(UP2Blocks.MESONITE_STAIRS.get());
                         output.accept(UP2Blocks.MESONITE_SLAB.get());
-
-//                        output.accept(UP2Blocks.FLORALITE.get());
-//                        output.accept(UP2Blocks.FLORALITE_STAIRS.get());
-//                        output.accept(UP2Blocks.FLORALITE_SLAB.get());
 
                         output.accept(UP2Blocks.PALEOZOIC_MATRIX.get());
                         output.accept(UP2Blocks.PALEOZOIC_MATRIX_FOSSIL.get());
@@ -177,6 +172,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(CENOZOIC_BANNER_PATTERN.get());
 
                         output.accept(BRISTLE_FOSSIL.get()); // aegirocassis
+                        output.accept(SPIRAL_FOSSIL.get()); // ammonite
                         output.accept(SNOW_SHOVEL_FOSSIL.get()); // antarctopelta
                         output.accept(FORCIPULE_FOSSIL.get()); // arthropleura
                         output.accept(ARM_FOSSIL.get()); // brachiosaurus
@@ -221,6 +217,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(MOLAR_FOSSIL.get()); // woolly mammoth
 
                         output.accept(UP2Blocks.AEGIROCASSIS_EGGS.get());
+                        output.accept(UP2Blocks.AMMONITE_EGGS.get());
                         output.accept(UP2Blocks.BRACHIOSAURUS_EGG.get());
                         output.accept(BRONTOSCORPIO_EMBRYO.get());
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());

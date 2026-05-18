@@ -723,6 +723,40 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
 
         // Update 6
+        this.sound(UP2SoundEvents.AMMONITE_DEATH,
+                sound("entity/squid/death3").pitch(1.4F).volume(0.5F)
+        );
+        this.sound(UP2SoundEvents.AMMONITE_HURT,
+                sound("entity/squid/hurt1").pitch(1.3F).volume(0.5F),
+                sound("entity/squid/hurt2").pitch(1.3F).volume(0.5F),
+                sound("entity/squid/hurt3").pitch(1.3F).volume(0.5F),
+                sound("entity/squid/hurt4").pitch(1.3F).volume(0.5F)
+        );
+        this.sound(UP2SoundEvents.AMMONITE_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ammonite/idle1")).volume(0.4F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ammonite/idle2")).volume(0.4F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ammonite/idle3")).volume(0.4F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ammonite/idle4")).volume(0.4F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ammonite/idle5")).volume(0.4F)
+        );
+        this.sound(UP2SoundEvents.AMMONITE_FLOP,
+                sound("entity/fish/flop1").pitch(0.9F).volume(0.2F),
+                sound("entity/fish/flop2").pitch(0.9F).volume(0.2F),
+                sound("entity/fish/flop3").pitch(0.9F).volume(0.2F),
+                sound("entity/fish/flop4").pitch(0.9F).volume(0.2F)
+        );
+        this.sound(UP2SoundEvents.AMMONITE_BLOCK,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ammonite/block1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ammonite/block2"))
+        );
+        this.sound(UP2SoundEvents.AMMONITE_SWIM,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ammonite/swim1")).volume(0.4F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ammonite/swim2")).volume(0.4F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ammonite/swim3")).volume(0.4F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ammonite/swim4")).volume(0.4F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/ammonite/swim5")).volume(0.4F)
+        );
+
         this.sound(UP2SoundEvents.ANTARCTOPELTA_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/antarctopelta/death1"))
         );

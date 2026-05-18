@@ -29,7 +29,7 @@ public class UP2RecipeProvider extends RecipeProvider {
         transmogrification(output, UP2Items.BOOMERANG_FOSSIL, DIPLOCAULUS_EGGS, 1200, 1.0F);
         transmogrification(output, UP2Items.RUNNER_FOSSIL, UP2Items.DROMAEOSAURUS_EGG, 1200, 1.0F);
         transmogrification(output, UP2Items.GUILLOTINE_FOSSIL, DUNKLEOSTEUS_SAC, 2400, 1.5F);
-        transmogrification(output, UP2Items.JAWLESS_FOSSIL, JAWLESS_FISH_ROE, 1200, 1.0F);
+        transmogrification(output, UP2Items.JAWLESS_FOSSIL, JAWLESS_FISH_ROE, 800, 0.5F);
         transmogrification(output, UP2Items.IMPERATIVE_FOSSIL, KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS, 1200, 1.0F);
         transmogrification(output, UP2Items.PRICKLY_FOSSIL, KENTROSAURUS_EGG, 2400, 1.5F);
         transmogrification(output, UP2Items.RUGOSE_FOSSIL, MAJUNGASAURUS_EGG, 2400, 1.5F);
@@ -51,11 +51,11 @@ public class UP2RecipeProvider extends RecipeProvider {
         transmogrification(output, UP2Items.PLOW_FOSSIL, HIBBERTOPTERUS_EGGS, 2400, 1.5F);
         transmogrification(output, UP2Items.BOAR_TOOTH_FOSSIL, KAPROSUCHUS_EGG, 2400, 1.5F);
         transmogrification(output, UP2Items.TRUNK_MOUSE_FOSSIL, UP2Items.LEPTICTIDIUM_EMBRYO, 1200, 1.0F);
-        transmogrification(output, UP2Items.FISH_FOSSIL, LOBE_FINNED_FISH_ROE, 1200, 1.0F);
+        transmogrification(output, UP2Items.FISH_FOSSIL, LOBE_FINNED_FISH_ROE, 800, 0.5F);
         transmogrification(output, UP2Items.IMPERVIOUS_FOSSIL, LYSTROSAURUS_EGG, 1200, 1.0F);
         transmogrification(output, UP2Items.CRANIUM_FOSSIL, PACHYCEPHALOSAURUS_EGG, 1200, 1.0F);
         transmogrification(output, UP2Items.FLIPPER_FOSSIL, UP2Items.PRAEPUSA_EMBRYO, 1200, 1.0F);
-        transmogrification(output, UP2Items.WING_FOSSIL, UP2Items.PTERODACTYLUS_EGG, 1200, 1.0F);
+        transmogrification(output, UP2Items.WING_FOSSIL, UP2Items.PTERODACTYLUS_EGG, 800, 0.5F);
         transmogrification(output, UP2Items.DUBIOUS_FOSSIL, ULUGHBEGSAURUS_EGG, 2400, 1.5F);
 
         // Update 5
@@ -64,6 +64,7 @@ public class UP2RecipeProvider extends RecipeProvider {
         transmogrification(output, UP2Items.CROOKED_BEAK_FOSSIL, UP2Items.PSILOPTERUS_EGG, 1200, 1.0F);
 
         // Update 6
+        transmogrification(output, UP2Items.SPIRAL_FOSSIL, AMMONITE_EGGS, 800, 0.5F);
         transmogrification(output, UP2Items.THUNDEROUS_FOSSIL, UP2Items.BRONTOSCORPIO_EMBRYO, 1200, 1.0F);
         transmogrification(output, UP2Items.CONCAVE_FOSSIL, CONCAVENATOR_EGG, 1200, 1.0F);
         transmogrification(output, UP2Items.CRYPTIC_FOSSIL, UP2Items.CRYPTOCLIDUS_EMBRYO, 1200, 1.0F);

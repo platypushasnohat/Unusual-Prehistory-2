@@ -261,6 +261,7 @@ public class UP2LootTableProvider extends LootTableProvider {
             this.add(LIVING_PEAT.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, PEAT.get()));
 
             // Update 6
+            this.dropSelf(AMMONITE_EGGS.get());
             this.dropSelf(CONCAVENATOR_EGG.get());
             this.dropSelf(HYNERPETON_EGGS.get());
             this.dropSelf(RHIZODUS_ROE.get());
