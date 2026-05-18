@@ -57,6 +57,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(PSILOPTERUS_SPAWN_EGG.get());
                         output.accept(PTERODACTYLUS_SPAWN_EGG.get());
                         output.accept(RHIZODUS_SPAWN_EGG.get());
+                        output.accept(SHRINGASAURUS_SPAWN_EGG.get());
                         output.accept(SPIKE_TOOTHED_SALMON_SPAWN_EGG.get());
                         output.accept(STETHACANTHUS_SPAWN_EGG.get());
                         output.accept(TALPANAS_SPAWN_EGG.get());

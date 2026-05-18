@@ -200,7 +200,8 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 CONCAVENATOR.get(),
                 ICHTHYOSAURUS.get(),
                 LORRAINOSAURUS.get(),
-                AMMONITE.get()
+                AMMONITE.get(),
+                SHRINGASAURUS.get()
         );
 
         this.tag(UP2EntityTags.CENOZOIC_MOBS).add(
