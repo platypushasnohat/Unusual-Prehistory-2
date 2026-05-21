@@ -33,8 +33,8 @@ public class Shringasaurus extends PrehistoricMob {
 
     private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.5F, 2.2F).withEyeHeight(2.1F);
 
-    public int attackCooldown = 0;
-    public int chargeCooldown = 100;
+    private int attackCooldown = 0;
+    private int chargeCooldown = 100;
 
     public final SmoothAnimationState attack1AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState attack2AnimationState = new SmoothAnimationState(1.0F);
@@ -254,8 +254,7 @@ public class Shringasaurus extends PrehistoricMob {
                 this.shringasaurus.setPose(UP2Poses.START_CHARGING.get());
             }
             if (timer < 15) {
-                this.shringasaurus.lookAt(target, 360F, 30F);
-                this.shringasaurus.getLookControl().setLookAt(target, 30F, 30F);
+                this.lookAtATarget(target);
             }
             if (timer == 15) {
                 this.shringasaurus.setPose(UP2Poses.CHARGING.get());

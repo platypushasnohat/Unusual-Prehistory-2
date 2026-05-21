@@ -20,33 +20,34 @@ public class BrontoscorpioModel extends UP2Model<Brontoscorpio> {
     private final ModelPart body;
     private final ModelPart tail1;
     private final ModelPart tail2;
-    private final ModelPart left_arm1;
-    private final ModelPart left_arm2;
-    private final ModelPart left_upper_claw;
-    private final ModelPart left_lower_claw;
-    private final ModelPart right_arm1;
-    private final ModelPart right_arm2;
-    private final ModelPart right_upper_claw;
-    private final ModelPart right_lower_claw;
+    private final ModelPart tail3;
+    private final ModelPart arm_left1;
+    private final ModelPart arm_left2;
+    private final ModelPart claw_upper_left;
+    private final ModelPart claw_lower_left;
+    private final ModelPart arm_right1;
+    private final ModelPart arm_right2;
+    private final ModelPart claw_upper_right;
+    private final ModelPart claw_lower_right;
     private final ModelPart leg_control;
-    private final ModelPart left_leg_cluster;
-    private final ModelPart left_leg_1;
-    private final ModelPart left_leg_pivot_1;
-    private final ModelPart left_leg_2;
-    private final ModelPart left_leg_pivot_2;
-    private final ModelPart left_leg_3;
-    private final ModelPart left_leg_pivot_3;
-    private final ModelPart left_leg_4;
-    private final ModelPart left_leg_pivot_4;
-    private final ModelPart right_leg_cluster;
-    private final ModelPart right_leg_1;
-    private final ModelPart right_leg_pivot_1;
-    private final ModelPart right_leg_2;
-    private final ModelPart right_leg_pivot_2;
-    private final ModelPart right_leg_3;
-    private final ModelPart right_leg_pivot_3;
-    private final ModelPart right_leg_4;
-    private final ModelPart right_leg_pivot_4;
+    private final ModelPart leg_cluster_left;
+    private final ModelPart leg_left1;
+    private final ModelPart leg_pivot_left1;
+    private final ModelPart leg_left2;
+    private final ModelPart leg_pivot_left2;
+    private final ModelPart leg_left3;
+    private final ModelPart leg_pivot_left3;
+    private final ModelPart leg_left4;
+    private final ModelPart leg_pivot_left4;
+    private final ModelPart leg_cluster_right;
+    private final ModelPart leg_right1;
+    private final ModelPart leg_pivot_right1;
+    private final ModelPart leg_right2;
+    private final ModelPart leg_pivot_right2;
+    private final ModelPart leg_right3;
+    private final ModelPart leg_pivot_right3;
+    private final ModelPart leg_right4;
+    private final ModelPart leg_pivot_right4;
 
 	public BrontoscorpioModel(ModelPart root) {
         super(0.5F, 24);
@@ -55,33 +56,34 @@ public class BrontoscorpioModel extends UP2Model<Brontoscorpio> {
         this.body = this.body_main.getChild("body");
         this.tail1 = this.body.getChild("tail1");
         this.tail2 = this.tail1.getChild("tail2");
-        this.left_arm1 = this.body.getChild("left_arm1");
-        this.left_arm2 = this.left_arm1.getChild("left_arm2");
-        this.left_upper_claw = this.left_arm2.getChild("left_upper_claw");
-        this.left_lower_claw = this.left_arm2.getChild("left_lower_claw");
-        this.right_arm1 = this.body.getChild("right_arm1");
-        this.right_arm2 = this.right_arm1.getChild("right_arm2");
-        this.right_upper_claw = this.right_arm2.getChild("right_upper_claw");
-        this.right_lower_claw = this.right_arm2.getChild("right_lower_claw");
+        this.tail3 = this.tail2.getChild("tail3");
+        this.arm_left1 = this.body.getChild("arm_left1");
+        this.arm_left2 = this.arm_left1.getChild("arm_left2");
+        this.claw_upper_left = this.arm_left2.getChild("claw_upper_left");
+        this.claw_lower_left = this.arm_left2.getChild("claw_lower_left");
+        this.arm_right1 = this.body.getChild("arm_right1");
+        this.arm_right2 = this.arm_right1.getChild("arm_right2");
+        this.claw_upper_right = this.arm_right2.getChild("claw_upper_right");
+        this.claw_lower_right = this.arm_right2.getChild("claw_lower_right");
         this.leg_control = this.body_main.getChild("leg_control");
-        this.left_leg_cluster = this.leg_control.getChild("left_leg_cluster");
-        this.left_leg_1 = this.left_leg_cluster.getChild("left_leg_1");
-        this.left_leg_pivot_1 = this.left_leg_1.getChild("left_leg_pivot_1");
-        this.left_leg_2 = this.left_leg_cluster.getChild("left_leg_2");
-        this.left_leg_pivot_2 = this.left_leg_2.getChild("left_leg_pivot_2");
-        this.left_leg_3 = this.left_leg_cluster.getChild("left_leg_3");
-        this.left_leg_pivot_3 = this.left_leg_3.getChild("left_leg_pivot_3");
-        this.left_leg_4 = this.left_leg_cluster.getChild("left_leg_4");
-        this.left_leg_pivot_4 = this.left_leg_4.getChild("left_leg_pivot_4");
-        this.right_leg_cluster = this.leg_control.getChild("right_leg_cluster");
-        this.right_leg_1 = this.right_leg_cluster.getChild("right_leg_1");
-        this.right_leg_pivot_1 = this.right_leg_1.getChild("right_leg_pivot_1");
-        this.right_leg_2 = this.right_leg_cluster.getChild("right_leg_2");
-        this.right_leg_pivot_2 = this.right_leg_2.getChild("right_leg_pivot_2");
-        this.right_leg_3 = this.right_leg_cluster.getChild("right_leg_3");
-        this.right_leg_pivot_3 = this.right_leg_3.getChild("right_leg_pivot_3");
-        this.right_leg_4 = this.right_leg_cluster.getChild("right_leg_4");
-        this.right_leg_pivot_4 = this.right_leg_4.getChild("right_leg_pivot_4");
+        this.leg_cluster_left = this.leg_control.getChild("leg_cluster_left");
+        this.leg_left1 = this.leg_cluster_left.getChild("leg_left1");
+        this.leg_pivot_left1 = this.leg_left1.getChild("leg_pivot_left1");
+        this.leg_left2 = this.leg_cluster_left.getChild("leg_left2");
+        this.leg_pivot_left2 = this.leg_left2.getChild("leg_pivot_left2");
+        this.leg_left3 = this.leg_cluster_left.getChild("leg_left3");
+        this.leg_pivot_left3 = this.leg_left3.getChild("leg_pivot_left3");
+        this.leg_left4 = this.leg_cluster_left.getChild("leg_left4");
+        this.leg_pivot_left4 = this.leg_left4.getChild("leg_pivot_left4");
+        this.leg_cluster_right = this.leg_control.getChild("leg_cluster_right");
+        this.leg_right1 = this.leg_cluster_right.getChild("leg_right1");
+        this.leg_pivot_right1 = this.leg_right1.getChild("leg_pivot_right1");
+        this.leg_right2 = this.leg_cluster_right.getChild("leg_right2");
+        this.leg_pivot_right2 = this.leg_right2.getChild("leg_pivot_right2");
+        this.leg_right3 = this.leg_cluster_right.getChild("leg_right3");
+        this.leg_pivot_right3 = this.leg_right3.getChild("leg_pivot_right3");
+        this.leg_right4 = this.leg_cluster_right.getChild("leg_right4");
+        this.leg_pivot_right4 = this.leg_right4.getChild("leg_pivot_right4");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -97,70 +99,71 @@ public class BrontoscorpioModel extends UP2Model<Brontoscorpio> {
 
         PartDefinition tail1 = body.addOrReplaceChild("tail1", CubeListBuilder.create().texOffs(30, 2).addBox(-1.0F, -8.0F, 0.0F, 2.0F, 9.0F, 2.0F, new CubeDeformation(0.01F)), PartPose.offset(0.0F, -1.5F, 5.5F));
 
-        PartDefinition tail2 = tail1.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(30, 27).addBox(0.0F, -3.0F, -8.0F, 0.0F, 3.0F, 5.0F, new CubeDeformation(0.0025F))
-                .texOffs(0, 24).addBox(-1.0F, -3.0F, -5.0F, 2.0F, 2.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -7.0F, 1.0F));
+        PartDefinition tail2 = tail1.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(0, 24).addBox(-1.0F, -2.0F, -6.0F, 2.0F, 2.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -7.0F, 1.0F));
 
-        PartDefinition left_arm1 = body.addOrReplaceChild("left_arm1", CubeListBuilder.create().texOffs(0, 12).addBox(0.0F, -1.0F, -2.0F, 13.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(2.5F, -0.5F, -4.0F));
+        PartDefinition tail3 = tail2.addOrReplaceChild("tail3", CubeListBuilder.create().texOffs(30, 27).addBox(0.0F, -1.0F, -4.0F, 0.0F, 3.0F, 5.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, -6.0F));
 
-        PartDefinition left_arm2 = left_arm1.addOrReplaceChild("left_arm2", CubeListBuilder.create().texOffs(16, 27).addBox(-5.0F, -4.0F, -2.0F, 5.0F, 8.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(13.0F, 0.0F, -2.0F));
+        PartDefinition arm_left1 = body.addOrReplaceChild("arm_left1", CubeListBuilder.create().texOffs(0, 12).addBox(0.0F, -1.0F, -2.0F, 13.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(2.5F, -0.5F, -4.0F));
 
-        PartDefinition left_upper_claw = left_arm2.addOrReplaceChild("left_upper_claw", CubeListBuilder.create().texOffs(22, 20).addBox(-7.0F, -5.0F, -1.0F, 8.0F, 5.0F, 2.0F, new CubeDeformation(0.01F))
+        PartDefinition arm_left2 = arm_left1.addOrReplaceChild("arm_left2", CubeListBuilder.create().texOffs(16, 27).addBox(-5.0F, -4.0F, -2.0F, 5.0F, 8.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(13.0F, 0.0F, -2.0F));
+
+        PartDefinition claw_upper_left = arm_left2.addOrReplaceChild("claw_upper_left", CubeListBuilder.create().texOffs(22, 20).addBox(-7.0F, -5.0F, -1.0F, 8.0F, 5.0F, 2.0F, new CubeDeformation(0.01F))
                 .texOffs(8, 32).addBox(-9.0F, -5.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 36).addBox(-9.0F, -3.0F, -1.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 1.0F, -1.0F));
 
-        PartDefinition left_lower_claw = left_arm2.addOrReplaceChild("left_lower_claw", CubeListBuilder.create().texOffs(17, 16).addBox(-8.0F, -1.0F, -1.0F, 10.0F, 2.0F, 2.0F, new CubeDeformation(0.01F))
+        PartDefinition claw_lower_left = arm_left2.addOrReplaceChild("claw_lower_left", CubeListBuilder.create().texOffs(17, 16).addBox(-8.0F, -1.0F, -1.0F, 10.0F, 2.0F, 2.0F, new CubeDeformation(0.01F))
                 .texOffs(30, 13).addBox(-10.0F, 0.0F, -1.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(30, 35).addBox(-10.0F, -2.0F, -1.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-4.0F, 3.0F, -1.0F));
 
-        PartDefinition right_arm1 = body.addOrReplaceChild("right_arm1", CubeListBuilder.create().texOffs(0, 12).mirror().addBox(-13.0F, -1.0F, -2.0F, 13.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-2.5F, -0.5F, -4.0F));
+        PartDefinition arm_right1 = body.addOrReplaceChild("arm_right1", CubeListBuilder.create().texOffs(0, 12).mirror().addBox(-13.0F, -1.0F, -2.0F, 13.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-2.5F, -0.5F, -4.0F));
 
-        PartDefinition right_arm2 = right_arm1.addOrReplaceChild("right_arm2", CubeListBuilder.create().texOffs(16, 27).mirror().addBox(0.0F, -4.0F, -2.0F, 5.0F, 8.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-13.0F, 0.0F, -2.0F));
+        PartDefinition arm_right2 = arm_right1.addOrReplaceChild("arm_right2", CubeListBuilder.create().texOffs(16, 27).mirror().addBox(0.0F, -4.0F, -2.0F, 5.0F, 8.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-13.0F, 0.0F, -2.0F));
 
-        PartDefinition right_upper_claw = right_arm2.addOrReplaceChild("right_upper_claw", CubeListBuilder.create().texOffs(22, 20).mirror().addBox(-1.0F, -5.0F, -1.0F, 8.0F, 5.0F, 2.0F, new CubeDeformation(0.01F)).mirror(false)
+        PartDefinition claw_upper_right = arm_right2.addOrReplaceChild("claw_upper_right", CubeListBuilder.create().texOffs(22, 20).mirror().addBox(-1.0F, -5.0F, -1.0F, 8.0F, 5.0F, 2.0F, new CubeDeformation(0.01F)).mirror(false)
                 .texOffs(8, 32).mirror().addBox(7.0F, -5.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(0, 36).mirror().addBox(8.0F, -3.0F, -1.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(5.0F, 1.0F, -1.0F));
 
-        PartDefinition right_lower_claw = right_arm2.addOrReplaceChild("right_lower_claw", CubeListBuilder.create().texOffs(17, 16).mirror().addBox(-2.0F, -1.0F, -1.0F, 10.0F, 2.0F, 2.0F, new CubeDeformation(0.01F)).mirror(false)
+        PartDefinition claw_lower_right = arm_right2.addOrReplaceChild("claw_lower_right", CubeListBuilder.create().texOffs(17, 16).mirror().addBox(-2.0F, -1.0F, -1.0F, 10.0F, 2.0F, 2.0F, new CubeDeformation(0.01F)).mirror(false)
                 .texOffs(30, 13).mirror().addBox(8.0F, 0.0F, -1.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(30, 35).mirror().addBox(9.0F, -2.0F, -1.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(4.0F, 3.0F, -1.0F));
 
         PartDefinition leg_control = body_main.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 3.0F));
 
-        PartDefinition left_leg_cluster = leg_control.addOrReplaceChild("left_leg_cluster", CubeListBuilder.create(), PartPose.offset(3.0F, 0.0F, 0.0F));
+        PartDefinition leg_cluster_left = leg_control.addOrReplaceChild("leg_cluster_left", CubeListBuilder.create(), PartPose.offset(3.0F, 0.0F, 0.0F));
 
-        PartDefinition left_leg_1 = left_leg_cluster.addOrReplaceChild("left_leg_1", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.0F, -2.0F, 0.0F, 0.0F, 0.5236F));
+        PartDefinition leg_left1 = leg_cluster_left.addOrReplaceChild("leg_left1", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.0F, -2.0F, 0.0F, 0.0F, 0.5236F));
 
-        PartDefinition left_leg_pivot_1 = left_leg_1.addOrReplaceChild("left_leg_pivot_1", CubeListBuilder.create().texOffs(30, 0).addBox(0.0F, 0.75F, -0.5F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition leg_pivot_left1 = leg_left1.addOrReplaceChild("leg_pivot_left1", CubeListBuilder.create().texOffs(30, 0).addBox(0.0F, 0.0F, -0.5F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition left_leg_2 = left_leg_cluster.addOrReplaceChild("left_leg_2", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.125F, -0.25F, 0.0F, 0.0F, 0.5236F));
+        PartDefinition leg_left2 = leg_cluster_left.addOrReplaceChild("leg_left2", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.125F, -0.25F, 0.0F, 0.0F, 0.5236F));
 
-        PartDefinition left_leg_pivot_2 = left_leg_2.addOrReplaceChild("left_leg_pivot_2", CubeListBuilder.create().texOffs(30, 0).addBox(0.0F, 0.75F, -0.5F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.125F, 0.0F));
+        PartDefinition leg_pivot_left2 = leg_left2.addOrReplaceChild("leg_pivot_left2", CubeListBuilder.create().texOffs(30, 0).addBox(0.0F, 0.0F, -0.5F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.125F, 0.0F));
 
-        PartDefinition left_leg_3 = left_leg_cluster.addOrReplaceChild("left_leg_3", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.0F, 1.5F, 0.0F, 0.0F, 0.5236F));
+        PartDefinition leg_left3 = leg_cluster_left.addOrReplaceChild("leg_left3", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.0F, 1.5F, 0.0F, 0.0F, 0.5236F));
 
-        PartDefinition left_leg_pivot_3 = left_leg_3.addOrReplaceChild("left_leg_pivot_3", CubeListBuilder.create().texOffs(30, 0).addBox(0.0F, 0.75F, -0.5F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition leg_pivot_left3 = leg_left3.addOrReplaceChild("leg_pivot_left3", CubeListBuilder.create().texOffs(30, 0).addBox(0.0F, 0.0F, -0.5F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition left_leg_4 = left_leg_cluster.addOrReplaceChild("left_leg_4", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.125F, 3.0F, 0.0F, 0.0F, 0.5236F));
+        PartDefinition leg_left4 = leg_cluster_left.addOrReplaceChild("leg_left4", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.125F, 3.0F, 0.0F, 0.0F, 0.5236F));
 
-        PartDefinition left_leg_pivot_4 = left_leg_4.addOrReplaceChild("left_leg_pivot_4", CubeListBuilder.create().texOffs(30, 0).addBox(0.0F, 0.75F, -0.25F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.125F, 0.0F));
+        PartDefinition leg_pivot_left4 = leg_left4.addOrReplaceChild("leg_pivot_left4", CubeListBuilder.create().texOffs(30, 0).addBox(0.0F, 0.0F, -0.5F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.125F, 0.0F));
 
-        PartDefinition right_leg_cluster = leg_control.addOrReplaceChild("right_leg_cluster", CubeListBuilder.create(), PartPose.offset(-3.0F, 0.0F, 0.0F));
+        PartDefinition leg_cluster_right = leg_control.addOrReplaceChild("leg_cluster_right", CubeListBuilder.create(), PartPose.offset(-3.0F, 0.0F, 0.0F));
 
-        PartDefinition right_leg_1 = right_leg_cluster.addOrReplaceChild("right_leg_1", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.0F, -2.0F, 0.0F, 0.0F, -0.5236F));
+        PartDefinition leg_right1 = leg_cluster_right.addOrReplaceChild("leg_right1", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.0F, -2.0F, 0.0F, 0.0F, -0.5236F));
 
-        PartDefinition right_leg_pivot_1 = right_leg_1.addOrReplaceChild("right_leg_pivot_1", CubeListBuilder.create().texOffs(30, 0).mirror().addBox(-8.0F, 0.75F, -0.5F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition leg_pivot_right1 = leg_right1.addOrReplaceChild("leg_pivot_right1", CubeListBuilder.create().texOffs(30, 0).mirror().addBox(-8.0F, 0.0F, -0.5F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition right_leg_2 = right_leg_cluster.addOrReplaceChild("right_leg_2", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.125F, -0.25F, 0.0F, 0.0F, -0.5236F));
+        PartDefinition leg_right2 = leg_cluster_right.addOrReplaceChild("leg_right2", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.125F, -0.25F, 0.0F, 0.0F, -0.5236F));
 
-        PartDefinition right_leg_pivot_2 = right_leg_2.addOrReplaceChild("right_leg_pivot_2", CubeListBuilder.create().texOffs(30, 0).mirror().addBox(-8.0F, 0.75F, -0.5F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(0.0F, 0.125F, 0.0F));
+        PartDefinition leg_pivot_right2 = leg_right2.addOrReplaceChild("leg_pivot_right2", CubeListBuilder.create().texOffs(30, 0).mirror().addBox(-8.0F, 0.0F, -0.5F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(0.0F, 0.125F, 0.0F));
 
-        PartDefinition right_leg_3 = right_leg_cluster.addOrReplaceChild("right_leg_3", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.0F, 1.5F, 0.0F, 0.0F, -0.5236F));
+        PartDefinition leg_right3 = leg_cluster_right.addOrReplaceChild("leg_right3", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.0F, 1.5F, 0.0F, 0.0F, -0.5236F));
 
-        PartDefinition right_leg_pivot_3 = right_leg_3.addOrReplaceChild("right_leg_pivot_3", CubeListBuilder.create().texOffs(30, 0).mirror().addBox(-8.0F, 0.75F, -0.5F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition leg_pivot_right3 = leg_right3.addOrReplaceChild("leg_pivot_right3", CubeListBuilder.create().texOffs(30, 0).mirror().addBox(-8.0F, 0.0F, -0.5F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition right_leg_4 = right_leg_cluster.addOrReplaceChild("right_leg_4", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.125F, 3.0F, 0.0F, 0.0F, -0.5236F));
+        PartDefinition leg_right4 = leg_cluster_right.addOrReplaceChild("leg_right4", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -1.125F, 3.0F, 0.0F, 0.0F, -0.5236F));
 
-        PartDefinition right_leg_pivot_4 = right_leg_4.addOrReplaceChild("right_leg_pivot_4", CubeListBuilder.create().texOffs(30, 0).mirror().addBox(-8.0F, 0.75F, -0.25F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(0.0F, 0.125F, 0.0F));
+        PartDefinition leg_pivot_right4 = leg_right4.addOrReplaceChild("leg_pivot_right4", CubeListBuilder.create().texOffs(30, 0).mirror().addBox(-8.0F, 0.0F, -0.5F, 8.0F, 0.0F, 1.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(0.0F, 0.125F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
 	}
