@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "unusual_prehistory:image",
-      "image": "unusual_prehistory:/textures/gui/paleopedia/images/holocene_artifact.png",
+      "image": "unusual_prehistory:textures/gui/paleopedia/images/holocene_artifact.png",
       "title": "item.unusual_prehistory.paleopedia.entry.holocene_artifact.title"
     },
     {

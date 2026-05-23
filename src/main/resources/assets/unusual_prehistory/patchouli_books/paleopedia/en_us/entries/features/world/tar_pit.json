@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "unusual_prehistory:image",
-      "image": "unusual_prehistory:/textures/gui/paleopedia/images/tar_pit.png",
+      "image": "unusual_prehistory:textures/gui/paleopedia/images/tar_pit.png",
       "title": "item.unusual_prehistory.paleopedia.entry.tar_pit.title"
     },
     {

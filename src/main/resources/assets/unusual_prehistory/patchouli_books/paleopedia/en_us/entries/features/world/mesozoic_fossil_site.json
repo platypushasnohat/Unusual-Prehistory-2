@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "unusual_prehistory:image",
-      "image": "unusual_prehistory:/textures/gui/paleopedia/images/mesozoic_fossil.png",
+      "image": "unusual_prehistory:textures/gui/paleopedia/images/mesozoic_fossil.png",
       "title": "item.unusual_prehistory.paleopedia.entry.mesozoic_fossil_site.title"
     },
     {
