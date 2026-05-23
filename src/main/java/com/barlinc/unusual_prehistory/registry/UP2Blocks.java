@@ -220,6 +220,9 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> CENOZOIC_MATRIX = registerBlock("cenozoic_matrix", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
     public static final DeferredBlock<Block> CENOZOIC_MATRIX_FOSSIL = registerBlock("cenozoic_matrix_fossil", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
 
+    public static final DeferredBlock<Block> BRACHIOSAURUS_PLUSHIE = registerBlock("brachiosaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 12, 16, UP2SoundEvents.BRACHIOSAURUS_IDLE.get()));
+    public static final DeferredBlock<Block> HIBBERTOPTERUS_PLUSHIE = registerBlock("hibbertopterus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 8, UP2SoundEvents.HIBBERTOPTERUS_IDLE.get()));
+
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));

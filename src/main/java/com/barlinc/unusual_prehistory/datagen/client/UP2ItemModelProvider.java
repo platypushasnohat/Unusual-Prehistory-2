@@ -206,7 +206,9 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 UP2Blocks.THERIZINOSAURUS_EGG,
 
                 SWEET_GROG_BOTTLE,
-                FOUL_GROG_BOTTLE
+                FOUL_GROG_BOTTLE,
+
+                PLUSHIE_KIT
         );
 
         this.generatedItem(GINKGO_FOSSIL);

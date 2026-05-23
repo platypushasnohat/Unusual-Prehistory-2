@@ -9,14 +9,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.NotNull;
 
 public class FossilizedSkullBlock extends HorizontalDirectionalBlock implements Equipable {
 
     public static final MapCodec<FossilizedSkullBlock> CODEC = simpleCodec(FossilizedSkullBlock::new);
-
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     public FossilizedSkullBlock(Properties properties) {
         super(properties);

@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-18T10:14:49.3112058	Item Models: unusual_prehistory
+// 1.21.1	2026-05-22T18:32:51.4779559	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -156,6 +156,7 @@ b9f0bfbcbef6dc0f5186c3002528288597a2ef35 assets/unusual_prehistory/models/item/p
 a7ac1f6d8dd1be8a153c663f5d18e96973f68a83 assets/unusual_prehistory/models/item/plant_fossil.json
 eb121524bfd9fb77df2ed44fb1251ecd811667ca assets/unusual_prehistory/models/item/plow_fossil.json
 e106ab14f340b5b5603688de55195384124ec0f1 assets/unusual_prehistory/models/item/plumage_fossil.json
+a2ed6d64e535c970cd515025be236edc87fd3513 assets/unusual_prehistory/models/item/plushie_kit.json
 88db65b592a9b11d0fe1c7dd00b90dbf212f6ed2 assets/unusual_prehistory/models/item/praepusa_bucket.json
 7ff840e281e3df175a69c7aadf46de9ff4960865 assets/unusual_prehistory/models/item/praepusa_embryo.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/praepusa_spawn_egg.json

@@ -167,6 +167,10 @@ public class UnusualPrehistory2Tab {
                         output.accept(TARIFYING_DISC.get());
                         output.accept(MEGALANIA_DISC.get());
 
+                        output.accept(PLUSHIE_KIT.get());
+                        output.accept(UP2Blocks.BRACHIOSAURUS_PLUSHIE.get());
+                        output.accept(UP2Blocks.HIBBERTOPTERUS_PLUSHIE.get());
+
                         output.accept(OOZE_BANNER_PATTERN.get());
                         output.accept(PALEOZOIC_BANNER_PATTERN.get());
                         output.accept(MESOZOIC_BANNER_PATTERN.get());
