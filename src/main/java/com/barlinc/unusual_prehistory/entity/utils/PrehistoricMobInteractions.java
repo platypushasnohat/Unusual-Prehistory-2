@@ -25,14 +25,15 @@ public interface PrehistoricMobInteractions {
 
     default void applyFoodEffects(PrehistoricMob mob, ItemStack food, Level level, LivingEntity livingEntity) {
         Item item = food.getItem();
+        if (!item.components().has(DataComponents.FOOD)) return;
         FoodProperties foodproperties = food.getFoodProperties(mob);
-        if (item.components().has(DataComponents.FOOD) && foodproperties != null) {
-            for (FoodProperties.PossibleEffect effect : foodproperties.effects()) {
-                if (!level.isClientSide && effect != null && level.random.nextFloat() < effect.probability()) {
-                    livingEntity.addEffect(new MobEffectInstance(effect.effect()));
-                }
+        if (foodproperties == null) return;
+        for (FoodProperties.PossibleEffect effect : foodproperties.effects()) {
+            if (!level.isClientSide && effect != null && level.random.nextFloat() < effect.probability()) {
+                livingEntity.addEffect(effect.effect());
             }
         }
+
     }
 
     default void feedItemToMob(PrehistoricMob mob, Player player, ItemStack food) {
@@ -66,6 +67,7 @@ public interface PrehistoricMobInteractions {
 
     default void healMob(PrehistoricMob mob, Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
+        if (!itemStack.has(DataComponents.FOOD)) return;
         this.feedItemToMob(mob, player, itemStack);
         FoodProperties foodproperties = itemStack.getFoodProperties(mob);
         float healAmount = foodproperties != null ? (float) foodproperties.nutrition() : 2.0F;
