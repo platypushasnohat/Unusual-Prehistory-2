@@ -6,13 +6,11 @@ import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -22,7 +20,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -120,7 +117,8 @@ public class ArthropleuraPart extends Entity {
             }
             if (!this.isVehicle()) {
                 player.startRiding(this);
-            } else {
+            }
+            else {
                 for (Entity passenger : this.getPassengers()) {
                     if (this.getControllingPassenger() != passenger) {
                         passenger.stopRiding();
@@ -192,7 +190,8 @@ public class ArthropleuraPart extends Entity {
             } else {
                 this.reapplyPosition();
             }
-        } else {
+        }
+        else {
             this.entityData.set(HEAD_ENTITY_ID, head != null ? head.getId() : -1);
             this.entityData.set(FRONT_ENTITY_ID, front != null ? front.getId() : -1);
             this.entityData.set(BACK_ENTITY_ID, back != null ? back.getId() : -1);
@@ -214,13 +213,13 @@ public class ArthropleuraPart extends Entity {
     }
 
     public Vec3 getIdealPosition(Entity head, Entity front) {
-        float zOffset = 2.0F;
+        float zOffset = 1.425F;
         float wiggle = 0.0F;
         if (this.isHeadMoving()) {
             wiggle = 0.1F * (float) Math.sin(head.tickCount * 0.3F - this.getIndex());
         }
         if (this.getBackEntity() == null) {
-            zOffset -= 1.0F;
+            zOffset -= 0.125F;
         }
         if (head instanceof Arthropleura arthropleura && arthropleura.isBaby()) {
             zOffset -= 0.7F;
@@ -229,243 +228,27 @@ public class ArthropleuraPart extends Entity {
         return front.position().add(offsetFromParent);
     }
 
-    private double smoothedGroundY;
-
     private void tickPartPosition(Entity head, Entity front, Entity back) {
-        Vec3 ideal = this.getIdealPosition(head, front);
-
-        if (!head.isInFluidType()) {
-            double groundY = this.getGroundY(ideal.x, ideal.y, ideal.z);
-            this.smoothedGroundY = Mth.lerp(0.15D, this.smoothedGroundY, groundY);
-            double desiredY = this.smoothedGroundY + 0.15D;
-            // Ignore unrealistic terrain jumps
-            if (Math.abs(desiredY - front.getY()) < 2.0D) {
-                double terrainDelta = desiredY - ideal.y;
-                double terrainInfluence = terrainDelta < 0.0D ? 0.28D : 0.10D;
-                ideal = new Vec3(ideal.x, ideal.y + terrainDelta * terrainInfluence, ideal.z);
-            }
+        Vec3 ideal = this.getIdealPosition(head, front).subtract(this.position());
+        Vec3 distance = ideal.length() > 1.0F ? ideal.normalize() : ideal;
+        Vec3 pos = this.position().add(distance);
+        if (head.isInFluidType()) {
+            this.setPos(pos.x, pos.y, pos.z);
+        } else {
+            this.setPos(pos.x, this.calculateSurfaceY(pos, front, back), pos.z);
         }
-
-
-        Vec3 delta = ideal.subtract(this.position());
-
-        if (delta.lengthSqr() < 0.0025D) {
-            return;
-        }
-
-        Vec3 finalPos = this.position().lerp(ideal, 0.25D);
-
-        Vec3 move = finalPos.subtract(this.position());
-
-        Vec3 horizontalMove = new Vec3(move.x, 0.0D, move.z);
-
-        Vec3 testPos = this.position().add(horizontalMove);
-
-        if (this.collidesWithBlocks(testPos)) {
-            horizontalMove = Vec3.ZERO;
-        }
-
-        finalPos = this.position().add(horizontalMove.x, move.y, horizontalMove.z);
-        finalPos = this.applySegmentConstraints(finalPos, front, head);
-
-        double groundY = this.getGroundY(finalPos.x, finalPos.y, finalPos.z);
-        double distanceToGround = finalPos.y - groundY;
-
-        if (distanceToGround > 0.3D) {
-            double sag = Math.min(0.12D, (distanceToGround - 0.3D) * 0.08D);
-            finalPos = finalPos.subtract(0.0D, sag, 0.0D);
-        }
-
-        if (this.collidesWithBlocks(finalPos)) {
-            finalPos = new Vec3(this.getX(), finalPos.y, this.getZ());
-            finalPos = this.applySegmentConstraints(finalPos, front, head);
-        }
-
-        finalPos = this.pushOutOfBlocks(finalPos);
-
-        this.setPos(finalPos.x, finalPos.y, finalPos.z);
+        this.move(MoverType.SELF, this.getDeltaMovement());
     }
-
-    private Vec3 applySegmentConstraints(Vec3 pos, Entity front, Entity head) {
-        Vec3 offset = pos.subtract(front.position());
-
-        Vec3 horizontal = new Vec3(offset.x, 0.0D, offset.z);
-
-        double horizontalLength = horizontal.length();
-        double desiredDistance = 1.1D;
-
-        if (head instanceof Arthropleura arthropleura && arthropleura.isBaby()) {
-            desiredDistance = 0.7D;
-        }
-
-        if (horizontalLength > 0.0001D) {
-            double correctionStrength = 0.3D;
-            double targetDistance = Mth.lerp(correctionStrength, horizontalLength, desiredDistance);
-            horizontal = horizontal.normalize().scale(targetDistance);
-        }
-
-        double maxVerticalOffset = 0.3D;
-        //Math.max(
-        //        0.3D,
-        //        0.45D - (this.getIndex() * 0.01D)
-        //);
-//
-        double bodyInfluence = Math.min(0.08D, this.getIndex() * 0.01D);
-
-        double bodyY = Mth.lerp(bodyInfluence, front.getY(), head.getY());
-        double targetY = Mth.clamp(pos.y, bodyY - maxVerticalOffset, bodyY + maxVerticalOffset);
-        double dy = targetY - front.getY();
-        double supportY = this.getGroundY(pos.x, pos.y, pos.z);
-        double distanceToGround = pos.y - supportY;
-        // Unsupported segments sag downward
-        if (distanceToGround > 0.4D) {
-            double sagStrength = 0.22D;
-            dy -= (distanceToGround - 0.4D) * sagStrength;
-        }
-
-        return new Vec3(front.getX() + horizontal.x, front.getY() + dy, front.getZ() + horizontal.z);
-    }
-
-    private Vec3 pushOutOfBlocks(Vec3 pos) {
-
-        AABB aabb = this.getBoundingBox().move(pos.x - this.getX(), pos.y - this.getY(), pos.z - this.getZ());
-
-        // Check nearby blocks
-        BlockPos min = BlockPos.containing(aabb.minX, aabb.minY, aabb.minZ);
-        BlockPos max = BlockPos.containing(aabb.maxX, aabb.maxY, aabb.maxZ);
-
-        double pushY = 0.0D;
-
-        for (int x = min.getX(); x <= max.getX(); x++) {
-            for (int y = min.getY(); y <= max.getY(); y++) {
-                for (int z = min.getZ(); z <= max.getZ(); z++) {
-                    BlockPos blockPos = new BlockPos(x, y, z);
-                    BlockState state = this.level().getBlockState(blockPos);
-                    if (state.isAir()) {
-                        continue;
-                    }
-                    VoxelShape shape = state.getCollisionShape(this.level(), blockPos);
-                    if (shape.isEmpty()) {
-                        continue;
-                    }
-                    AABB blockBox = shape.bounds().move(blockPos);
-                    if (aabb.intersects(blockBox)) {
-                        // Push upward above intersecting block
-                        double penetration = blockBox.maxY - aabb.minY;
-
-                        // Only allow tiny upward corrections
-                        if (penetration < 0.7D) {
-                            pushY = Math.max(pushY, penetration);
-                        }
-                    }
-                }
-            }
-        }
-
-        if (pushY > 0.0D) {
-            pushY = Math.min(pushY, 1D);
-            pos = pos.add(0.0D, pushY + 0.01D, 0.0D);
-        }
-
-        return pos;
-    }
-
-    private boolean collidesWithBlocks(Vec3 pos) {
-
-        AABB box = this.getBoundingBox().move(pos.x - this.getX(), pos.y - this.getY(), pos.z - this.getZ());
-
-        BlockPos min = BlockPos.containing(box.minX, box.minY, box.minZ);
-
-        BlockPos max = BlockPos.containing(box.maxX, box.maxY, box.maxZ);
-
-        for (int x = min.getX(); x <= max.getX(); x++) {
-            for (int y = min.getY(); y <= max.getY(); y++) {
-                for (int z = min.getZ(); z <= max.getZ(); z++) {
-                    BlockPos blockPos = new BlockPos(x, y, z);
-                    BlockState state = this.level().getBlockState(blockPos);
-
-                    if (state.isAir()) {
-                        continue;
-                    }
-
-                    // Ignore leaves
-//                    if (state.is(BlockTags.LEAVES)) {
-//                        continue;
-//                    }
-
-                    VoxelShape shape = state.getCollisionShape(this.level(), blockPos);
-
-                    if (shape.isEmpty()) {
-                        continue;
-                    }
-
-                    AABB blockBox = shape.bounds().move(blockPos);
-                    double height = blockBox.maxY - blockBox.minY;
-
-                    double width = blockBox.maxX - blockBox.minX;
-
-                    double depth = blockBox.maxZ - blockBox.minZ;
-
-                    // Ignore tall narrow obstacles
-                    if (height > width * 1.5D && height > depth * 1.5D) {
-                        continue;
-                    }
-                    if (box.intersects(blockBox)) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private double getGroundY(double x, double startY, double z) {
-        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
-
-        for (double y = startY + 2.0D; y > startY - 4.0D; y -= 0.1D) {
-
-            pos.set(x, y, z);
-
-            BlockState state = this.level().getBlockState(pos);
-
-            if (state.isAir()) {
-                continue;
-            }
-
-            VoxelShape shape = state.getCollisionShape(this.level(), pos);
-
-            if (shape.isEmpty()) {
-                continue;
-            }
-
-            AABB box = shape.bounds();
-
-            double width = box.maxX - box.minX;
-            double depth = box.maxZ - box.minZ;
-//            double height = box.maxY - box.minY;
-
-            boolean floorLike = width > 0.6D && depth > 0.6D;
-            if (!floorLike) {
-                continue;
-            }
-            return pos.getY() + box.maxY;
-        }
-        return startY;
-    }
-
 
     private void tickPartRotation(Entity front, float speed) {
-        Vec3 direction = front.position().subtract(this.position());
-//        Vec3 direction = front.position().add(new Vec3(0.0F, 0.0F, 1.0F).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot())));
-
-        double xDirection = direction.x;
-        double yDirection = direction.y;
-        double zDirection = direction.z;
+        Vec3 frontsBack = front.position().add(new Vec3(0.0F, 0.0F, 1.0F).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot())));
+        double xDirection = frontsBack.x - this.getX();
+        double yDirection = frontsBack.y - this.getY();
+        double zDirection = frontsBack.z - this.getZ();
         double magnitude = Math.sqrt(xDirection * xDirection + zDirection * zDirection);
         float xRot = Mth.wrapDegrees((float) (-(Mth.atan2(yDirection, magnitude) * (double) (180.0F / (float) Math.PI))));
         float yRot = Mth.wrapDegrees((float) (Mth.atan2(zDirection, xDirection) * (double) (180.0F / (float) Math.PI)) - 90.0F);
-        float yDelta = Mth.clamp(Mth.wrapDegrees(yRot - this.getYRot()), -45.0F, 45.0F);
+        float yDelta = Mth.clamp(Mth.wrapDegrees(yRot - this.getYRot()), -35.0F, 35.0F);
         float xDelta = Mth.wrapDegrees(xRot - this.getXRot());
         this.setXRot(this.getXRot() + xDelta);
         this.setYRot(this.getYRot() + yDelta * speed);
@@ -479,6 +262,56 @@ public class ArthropleuraPart extends Entity {
         return head.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
     }
 
+    private double calculateSurfaceY(Vec3 pos, Entity front, Entity back) {
+        double posX = pos.x;
+        double posY = pos.y;
+        double posZ = pos.z;
+        double frontY = front.getY();
+        double backY = back != null ? back.getY() : frontY;
+        double average = (frontY + backY) * 0.5D;
+        double terrainCenter = posY + (this.getLowPartHeight(posX, posY, posZ) + this.getHighPartHeight(posX, posY, posZ)) * 0.5D;
+        double targetY = Mth.lerp(0.25D, average, terrainCenter);
+        double minY = Math.max(frontY - 1.0D, backY - 1.0D);
+        double maxY = Math.min(frontY + 1.0D, backY + 1.0D);
+        return Mth.clamp(targetY, minY, maxY);
+    }
+
+    public double getLowPartHeight(double x, double y, double z) {
+        double check = 0.0D;
+        while (check > -3.0D && !this.isOpaqueBlockAt(x,y + check, z)) {
+            check -= 0.2D;
+        }
+        return check;
+    }
+
+    public double getHighPartHeight(double x, double y, double z) {
+        double check = 0.0D;
+        while (check <= 3.0D) {
+            if (this.isOpaqueBlockAt(x, y + check, z)) {
+                check += 0.2D;
+            } else {
+                break;
+            }
+        }
+        return check;
+    }
+
+    public boolean isOpaqueBlockAt(double x, double y, double z) {
+        if (this.noPhysics) {
+            return false;
+        }
+        BlockPos pos = BlockPos.containing(x, y, z);
+        BlockState state = this.level().getBlockState(pos);
+        if (state.isAir()) {
+            return false;
+        }
+        VoxelShape shape = state.getCollisionShape(this.level(), pos);
+        if (shape.isEmpty()) {
+            return false;
+        }
+        AABB aabb = shape.bounds().move(pos);
+        return aabb.contains(x, y, z);
+    }
 
     public static void createArthropleuraSegments(Arthropleura arthropleura, int count) {
         ArthropleuraPart prev = null;
@@ -571,7 +404,6 @@ public class ArthropleuraPart extends Entity {
     public UUID getBackEntityUUID() {
         return this.entityData.get(BACK_ENTITY_UUID).orElse(null);
     }
-
     public void setBackEntityUUID(@Nullable UUID uniqueId) {
         this.entityData.set(BACK_ENTITY_UUID, Optional.ofNullable(uniqueId));
     }
@@ -580,7 +412,6 @@ public class ArthropleuraPart extends Entity {
     public UUID getHeadUUID() {
         return this.entityData.get(HEAD_ENTITY_UUID).orElse(null);
     }
-
     public void setHeadUUID(@Nullable UUID uniqueId) {
         this.entityData.set(HEAD_ENTITY_UUID, Optional.ofNullable(uniqueId));
     }
@@ -589,7 +420,6 @@ public class ArthropleuraPart extends Entity {
     public UUID getFrontEntityUUID() {
         return this.entityData.get(FRONT_ENTITY_UUID).orElse(null);
     }
-
     public void setFrontEntityUUID(@Nullable UUID uniqueId) {
         this.entityData.set(FRONT_ENTITY_UUID, Optional.ofNullable(uniqueId));
     }
@@ -603,7 +433,6 @@ public class ArthropleuraPart extends Entity {
             return id == -1 ? null : this.level().getEntity(id);
         }
     }
-
     public Entity getFrontEntity() {
         if (!this.level().isClientSide) {
             UUID id = this.getFrontEntityUUID();
@@ -613,7 +442,6 @@ public class ArthropleuraPart extends Entity {
             return id == -1 ? null : this.level().getEntity(id);
         }
     }
-
     public Entity getBackEntity() {
         if (!this.level().isClientSide) {
             UUID id = this.getBackEntityUUID();
@@ -627,7 +455,6 @@ public class ArthropleuraPart extends Entity {
     public int getIndex() {
         return this.entityData.get(INDEX);
     }
-
     public void setIndex(int i) {
         this.entityData.set(INDEX, i);
     }
