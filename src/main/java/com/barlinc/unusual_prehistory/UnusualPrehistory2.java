@@ -107,7 +107,11 @@ public class UnusualPrehistory2 {
         provider = datapackEntries.getRegistryProvider();
 
         UP2BlockTagProvider blockTags = new UP2BlockTagProvider(output, provider, helper);
+        UP2FluidTagsProvider fluidTags = new UP2FluidTagsProvider(output, provider, helper);
+
         generator.addProvider(server, blockTags);
+        generator.addProvider(server, fluidTags);
+
         generator.addProvider(server, new UP2ItemTagProvider(output, provider, blockTags.contentsGetter(), helper));
         generator.addProvider(server, new UP2EntityTagProvider(output, provider, helper));
         generator.addProvider(server, new UP2BiomeTagProvider(output, provider, helper));
