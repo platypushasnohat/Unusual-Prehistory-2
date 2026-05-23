@@ -38,6 +38,7 @@ public class UP2Blocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(UnusualPrehistory2.MOD_ID);
 
     public static final List<Supplier<? extends Block>> EGG_BLOCKS = new ArrayList<>();
+    public static final List<Supplier<? extends Block>> PLUSHIE_BLOCKS = new ArrayList<>();
     public static List<DeferredBlock<? extends Block>> BLOCK_TRANSLATIONS = new ArrayList<>();
     public static List<WoodSet> WOOD_SETS = new ArrayList<>();
 
@@ -224,8 +225,13 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> RARE_FOSSIL_BED = registerBlock("rare_fossil_bed", () -> new Block(UP2BlockProperties.FOSSIL_BLOCK));
     public static final DeferredBlock<Block> UNUSUAL_FOSSIL_BED = registerBlock("unusual_fossil_bed", () -> new Block(UP2BlockProperties.FOSSIL_BLOCK));
 
-    public static final DeferredBlock<Block> BRACHIOSAURUS_PLUSHIE = registerBlock("brachiosaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 12, 16, UP2SoundEvents.BRACHIOSAURUS_IDLE.get()));
-    public static final DeferredBlock<Block> HIBBERTOPTERUS_PLUSHIE = registerBlock("hibbertopterus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 8, UP2SoundEvents.HIBBERTOPTERUS_IDLE.get()));
+    public static final DeferredBlock<Block> BRACHIOSAURUS_PLUSHIE = registerPlushieBlock("brachiosaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 12, 16, UP2SoundEvents.BRACHIOSAURUS_IDLE.get()));
+    public static final DeferredBlock<Block> CARNOTAURUS_PLUSHIE = registerPlushieBlock("carnotaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 10, 16, UP2SoundEvents.CARNOTAURUS_IDLE.get()));
+    public static final DeferredBlock<Block> COTYLORHYNCHUS_PLUSHIE = registerPlushieBlock("cotylorhynchus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 9, UP2SoundEvents.COTYLORHYNCHUS_IDLE.get()));
+    public static final DeferredBlock<Block> HIBBERTOPTERUS_PLUSHIE = registerPlushieBlock("hibbertopterus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 8, UP2SoundEvents.HIBBERTOPTERUS_IDLE.get()));
+    public static final DeferredBlock<Block> KENTROSAURUS_PLUSHIE = registerPlushieBlock("kentrosaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 8, UP2SoundEvents.KENTROSAURUS_IDLE.get()));
+    public static final DeferredBlock<Block> MAJUNGASAURUS_PLUSHIE = registerPlushieBlock("majungasaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 10, 16, UP2SoundEvents.MAJUNGASAURUS_IDLE.get()));
+    public static final DeferredBlock<Block> TARTUOSTEUS_PLUSHIE = registerPlushieBlock("tartuosteus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 16, 4, UP2SoundEvents.JAWLESS_FISH_FLOP.get()));
 
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
@@ -271,6 +277,14 @@ public class UP2Blocks {
         UP2Items.ITEMS.register(name, () -> new PlaceOnWaterBlockItem(block.get(), new Item.Properties()));
         BLOCK_TRANSLATIONS.add(block);
         EGG_BLOCKS.add(block);
+        return block;
+    }
+
+    private static <B extends Block> DeferredBlock<B> registerPlushieBlock(String name, Supplier<B> supplier) {
+        DeferredBlock<B> block = BLOCKS.register(name, supplier);
+        UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        BLOCK_TRANSLATIONS.add(block);
+        PLUSHIE_BLOCKS.add(block);
         return block;
     }
 

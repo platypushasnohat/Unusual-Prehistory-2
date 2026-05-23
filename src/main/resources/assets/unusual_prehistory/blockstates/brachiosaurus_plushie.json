@@ -1,19 +1,7 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "unusual_prehistory:block/brachiosaurus_plushie",
-      "y": 90
-    },
-    "facing=north": {
+    "": {
       "model": "unusual_prehistory:block/brachiosaurus_plushie"
-    },
-    "facing=south": {
-      "model": "unusual_prehistory:block/brachiosaurus_plushie",
-      "y": 180
-    },
-    "facing=west": {
-      "model": "unusual_prehistory:block/brachiosaurus_plushie",
-      "y": 270
     }
   }
 }

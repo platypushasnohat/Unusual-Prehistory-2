@@ -69,6 +69,15 @@ public class UP2Compat {
         // Update 5
         registerFlammable(UP2Blocks.DELITZSCHALA_STALK.get(), 60, 100);
         registerFlammable(UP2Blocks.ZHANGSOLVA_BLOOM.get(), 60, 100);
+
+        // Update 6
+        registerFlammable(UP2Blocks.BRACHIOSAURUS_PLUSHIE.get(), 30, 60);
+        registerFlammable(UP2Blocks.CARNOTAURUS_PLUSHIE.get(), 30, 60);
+        registerFlammable(UP2Blocks.COTYLORHYNCHUS_PLUSHIE.get(), 30, 60);
+        registerFlammable(UP2Blocks.HIBBERTOPTERUS_PLUSHIE.get(), 30, 60);
+        registerFlammable(UP2Blocks.KENTROSAURUS_PLUSHIE.get(), 30, 60);
+        registerFlammable(UP2Blocks.MAJUNGASAURUS_PLUSHIE.get(), 30, 60);
+        registerFlammable(UP2Blocks.TARTUOSTEUS_PLUSHIE.get(), 30, 60);
     }
 
     public static void registerDispenserBehaviours() {

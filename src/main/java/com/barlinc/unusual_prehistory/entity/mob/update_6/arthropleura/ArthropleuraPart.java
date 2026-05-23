@@ -221,6 +221,9 @@ public class ArthropleuraPart extends Entity {
         if (this.getBackEntity() == null) {
             zOffset -= 0.125F;
         }
+        if (head instanceof Arthropleura arthropleura && arthropleura.isBaby()) {
+            zOffset -= 0.7F;
+        }
         Vec3 offsetFromParent = new Vec3(wiggle, 0.0F, -zOffset).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot()));
         return front.position().add(offsetFromParent);
     }

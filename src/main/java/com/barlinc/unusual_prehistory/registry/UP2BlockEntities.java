@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.blocks.entity.ExtraDataBlockEntity;
+import com.barlinc.unusual_prehistory.blocks.entity.PlushieBlockEntity;
 import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
@@ -18,6 +19,8 @@ public class UP2BlockEntities {
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TransmogrifierBlockEntity>> TRANSMOGRIFIER = BLOCK_ENTITIES.register("transmogrifier", () -> BlockEntityType.Builder.of(TransmogrifierBlockEntity::new, UP2Blocks.TRANSMOGRIFIER.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ExtraDataBlockEntity>> EXTRA_DATA_BLOCK_ENTITY = BLOCK_ENTITIES.register("extra_data_block_entity", () -> BlockEntityType.Builder.of(ExtraDataBlockEntity::new, UP2Blocks.EGG_BLOCKS.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PlushieBlockEntity>> PLUSHIE_BLOCK_ENTITY = BLOCK_ENTITIES.register("plushie_block_entity", () -> BlockEntityType.Builder.of(PlushieBlockEntity::new, UP2Blocks.PLUSHIE_BLOCKS.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
 
     public static void addBlockEntities(final BlockEntityTypeAddBlocksEvent event) {
         event.modify(BlockEntityType.SIGN,

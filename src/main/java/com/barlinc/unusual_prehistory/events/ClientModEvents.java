@@ -40,6 +40,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropl
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.therizinosaurus.TherizinosaurusBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.therizinosaurus.TherizinosaurusModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
+import com.barlinc.unusual_prehistory.client.renderer.block.PlushieBlockRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_2.OnchopristisRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.LivingOozeRenderer;
@@ -101,6 +102,11 @@ public class ClientModEvents {
         event.registerSpriteSet(UP2Particles.SWEET_GROG_BUBBLE.get(), OutOfWaterBubbleParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.FOUL_GROG_BUBBLE.get(), OutOfWaterBubbleParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.SAND_SNORT.get(), SandSnortParticle.Provider::new);
+    }
+
+    @SubscribeEvent
+    public static void registerBlockEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(UP2BlockEntities.PLUSHIE_BLOCK_ENTITY.get(), PlushieBlockRenderer::new);
     }
 
     @SubscribeEvent
