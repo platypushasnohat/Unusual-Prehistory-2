@@ -145,11 +145,6 @@ public class Hynerpeton extends AmphibiousMob implements Bucketable {
     }
 
     @Override
-    public float getWalkAnimationSpeed() {
-        return this.isBaby() ? 6.0F : 10.0F;
-    }
-
-    @Override
     public boolean fromBucket() {
         return false;
     }

@@ -5,7 +5,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "unusual_prehistory:block/brachiosaurus_plushie",
-		"particle": "block/light_blue_wool"
+		"particle": "block/white_wool"
 	},
 	"elements": [
 		{
@@ -148,8 +148,8 @@
 			"scale": [0.75, 0.75, 0.75]
 		},
 		"head": {
-			"translation": [0, 16.5, 0],
-			"scale": [1.25, 1.25, 1.25]
+			"translation": [0, 18.25, 0],
+			"scale": [1.5, 1.5, 1.5]
 		},
 		"fixed": {
 			"rotation": [0, 90, 0],

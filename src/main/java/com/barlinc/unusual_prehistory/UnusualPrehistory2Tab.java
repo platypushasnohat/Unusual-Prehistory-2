@@ -92,12 +92,16 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.MESONITE_STAIRS.get());
                         output.accept(UP2Blocks.MESONITE_SLAB.get());
 
-                        output.accept(UP2Blocks.PALEOZOIC_MATRIX.get());
-                        output.accept(UP2Blocks.PALEOZOIC_MATRIX_FOSSIL.get());
-                        output.accept(UP2Blocks.MESOZOIC_MATRIX.get());
-                        output.accept(UP2Blocks.MESOZOIC_MATRIX_FOSSIL.get());
-                        output.accept(UP2Blocks.CENOZOIC_MATRIX.get());
-                        output.accept(UP2Blocks.CENOZOIC_MATRIX_FOSSIL.get());
+                        output.accept(UP2Blocks.DIRT_MATRIX.get());
+                        output.accept(UP2Blocks.GRAVEL_MATRIX.get());
+                        output.accept(UP2Blocks.SAND_MATRIX.get());
+                        output.accept(UP2Blocks.RED_SAND_MATRIX.get());
+                        output.accept(UP2Blocks.SNOW_MATRIX.get());
+
+                        output.accept(UP2Blocks.FOSSIL_BED.get());
+                        output.accept(UP2Blocks.UNCOMMON_FOSSIL_BED.get());
+                        output.accept(UP2Blocks.RARE_FOSSIL_BED.get());
+                        output.accept(UP2Blocks.UNUSUAL_FOSSIL_BED.get());
 
                         output.accept(UP2Blocks.PETRIFIED_BUSH.get());
                         output.accept(UP2Blocks.PETRIFIED_LOG.get());
@@ -153,6 +157,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET.get());
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_BOTTLE.get());
                         output.accept(LOBE_FINNED_FISH_BUCKET.get());
+                        output.accept(ONCHOPRISTIS_BUCKET.get());
                         output.accept(PRAEPUSA_BUCKET.get());
                         output.accept(PTERODACTYLUS_POT.get());
                         output.accept(STETHACANTHUS_BUCKET.get());

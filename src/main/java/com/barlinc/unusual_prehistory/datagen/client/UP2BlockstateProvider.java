@@ -25,12 +25,16 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        this.block(PALEOZOIC_MATRIX);
-        this.block(PALEOZOIC_MATRIX_FOSSIL);
-        this.block(MESOZOIC_MATRIX);
-        this.block(MESOZOIC_MATRIX_FOSSIL);
-        this.block(CENOZOIC_MATRIX);
-        this.block(CENOZOIC_MATRIX_FOSSIL);
+        this.block(RED_SAND_MATRIX);
+        this.block(SAND_MATRIX);
+        this.block(SNOW_MATRIX);
+        this.block(DIRT_MATRIX);
+        this.block(GRAVEL_MATRIX);
+
+        this.block(FOSSIL_BED);
+        this.block(UNCOMMON_FOSSIL_BED);
+        this.block(RARE_FOSSIL_BED);
+        this.block(UNUSUAL_FOSSIL_BED);
 
         this.block(ASPHALT);
 

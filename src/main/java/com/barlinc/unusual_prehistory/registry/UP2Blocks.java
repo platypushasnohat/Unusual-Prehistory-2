@@ -213,12 +213,16 @@ public class UP2Blocks {
 
     public static final DeferredBlock<Block> ORGANIC_OOZE_BLOCK = registerBlock("organic_ooze_block", ()-> new OrganicOozeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion().instabreak()));
 
-    public static final DeferredBlock<Block> PALEOZOIC_MATRIX = registerBlock("paleozoic_matrix", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
-    public static final DeferredBlock<Block> PALEOZOIC_MATRIX_FOSSIL = registerBlock("paleozoic_matrix_fossil", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
-    public static final DeferredBlock<Block> MESOZOIC_MATRIX = registerBlock("mesozoic_matrix", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
-    public static final DeferredBlock<Block> MESOZOIC_MATRIX_FOSSIL = registerBlock("mesozoic_matrix_fossil", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
-    public static final DeferredBlock<Block> CENOZOIC_MATRIX = registerBlock("cenozoic_matrix", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
-    public static final DeferredBlock<Block> CENOZOIC_MATRIX_FOSSIL = registerBlock("cenozoic_matrix_fossil", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+    public static final DeferredBlock<Block> DIRT_MATRIX = registerBlock("dirt_matrix", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+    public static final DeferredBlock<Block> GRAVEL_MATRIX = registerBlock("gravel_matrix", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.GRAVEL)));
+    public static final DeferredBlock<Block> SAND_MATRIX = registerBlock("sand_matrix", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
+    public static final DeferredBlock<Block> RED_SAND_MATRIX = registerBlock("red_sand_matrix", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
+    public static final DeferredBlock<Block> SNOW_MATRIX = registerBlock("snow_matrix", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).requiresCorrectToolForDrops().strength(0.2F).sound(SoundType.SNOW)));
+
+    public static final DeferredBlock<Block> FOSSIL_BED = registerBlock("fossil_bed", () -> new Block(UP2BlockProperties.FOSSIL_BLOCK));
+    public static final DeferredBlock<Block> UNCOMMON_FOSSIL_BED = registerBlock("uncommon_fossil_bed", () -> new Block(UP2BlockProperties.FOSSIL_BLOCK));
+    public static final DeferredBlock<Block> RARE_FOSSIL_BED = registerBlock("rare_fossil_bed", () -> new Block(UP2BlockProperties.FOSSIL_BLOCK));
+    public static final DeferredBlock<Block> UNUSUAL_FOSSIL_BED = registerBlock("unusual_fossil_bed", () -> new Block(UP2BlockProperties.FOSSIL_BLOCK));
 
     public static final DeferredBlock<Block> BRACHIOSAURUS_PLUSHIE = registerBlock("brachiosaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 12, 16, UP2SoundEvents.BRACHIOSAURUS_IDLE.get()));
     public static final DeferredBlock<Block> HIBBERTOPTERUS_PLUSHIE = registerBlock("hibbertopterus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 8, UP2SoundEvents.HIBBERTOPTERUS_IDLE.get()));

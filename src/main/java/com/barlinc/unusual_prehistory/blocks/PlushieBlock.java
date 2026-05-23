@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.blocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -49,6 +50,7 @@ public class PlushieBlock extends HorizontalDirectionalBlock implements Equipabl
     @Override
     protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hitResult) {
         if (level.isClientSide) {
+            level.addParticle(ParticleTypes.HEART, pos.getX() + 0.5D, pos.getY() + (shape.max(Direction.Axis.Y) * 1.5D), pos.getZ() + 0.5D, 1.0D, 0.0D, 0.0D);
             return InteractionResult.SUCCESS;
         } else {
             level.playSound(null, pos, interactSound, SoundSource.BLOCKS, 0.25F, 1.5F + level.getRandom().nextFloat() * 0.15F);
@@ -80,7 +82,7 @@ public class PlushieBlock extends HorizontalDirectionalBlock implements Equipabl
     }
 
     @Override
-    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter blockGetter, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return shape;
     }
 

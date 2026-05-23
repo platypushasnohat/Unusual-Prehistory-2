@@ -11,15 +11,19 @@ import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
+import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -29,17 +33,17 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Onchopristis extends PrehistoricAquaticMob {
+public class Onchopristis extends PrehistoricAquaticMob implements Bucketable {
 
     public static final EntityDataAccessor<Boolean> BURROWED = SynchedEntityData.defineId(Onchopristis.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> BURROW_COOLDOWN = SynchedEntityData.defineId(Onchopristis.class, EntityDataSerializers.INT);
@@ -110,7 +114,13 @@ public class Onchopristis extends PrehistoricAquaticMob {
 
     @Override
     public void doPush(@NotNull Entity entity) {
-        if (!this.isBurrowed()) super.doPush(entity);
+        if (!this.isPacified() && !this.isBaby() && entity instanceof LivingEntity livingEntity && this.canAttack(livingEntity) && !(livingEntity instanceof Onchopristis) && this.isBurrowed()) {
+            this.setTarget(livingEntity);
+            this.setBurrowed(false);
+            this.setBurrowCooldown(600 + this.getRandom().nextInt(600));
+        } else {
+            super.doPush(entity);
+        }
     }
 
     @Override
@@ -119,12 +129,10 @@ public class Onchopristis extends PrehistoricAquaticMob {
 
         if (attackCooldown > 0) attackCooldown--;
 
-        if (this.isAlive() && this.isBurrowed() && !this.level().isClientSide && this.getTarget() == null && tickCount % 20 == 0) {
-            this.getSteppedOn();
-        }
-
         if (this.isInWaterOrBubble() && !this.isAggressive() && this.getLastHurtMob() == null) {
-            if (this.getBurrowCooldown() > 0) this.setBurrowCooldown(this.getBurrowCooldown() - 1);
+            if (this.getBurrowCooldown() > 0) {
+                this.setBurrowCooldown(this.getBurrowCooldown() - 1);
+            }
         }
 
         this.tickBurrowing();
@@ -144,31 +152,6 @@ public class Onchopristis extends PrehistoricAquaticMob {
             this.setBurrowed(false);
         }
     }
-
-    private void getSteppedOn() {
-        this.level().getEntities(this, this.getAggroHitbox()).forEach((entity) -> {
-            if (entity instanceof LivingEntity mob && mob.isAlive() && !(mob instanceof Onchopristis)) {
-                if (EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(mob) && !this.isPacified()) {
-                    this.setTarget(mob);
-                    this.setBurrowed(false);
-                    this.setBurrowCooldown(600 + this.getRandom().nextInt(600));
-                }
-            }
-        });
-    }
-
-    @NotNull
-    public AABB getAggroHitbox() {
-        return this.getBoundingBox().deflate(0, 0.1, 0).move(0, 0.4, 0);
-    }
-
-//    @Override
-//    protected void onLeashDistance(float distance) {
-//        if (distance > 6.0F && this.isBurrowed()) {
-//            this.setBurrowed(false);
-//            this.setBurrowCooldown(600 + this.getRandom().nextInt(600));
-//        }
-//    }
 
     @Override
     protected void actuallyHurt(@NotNull DamageSource source, float amount) {
@@ -217,6 +200,40 @@ public class Onchopristis extends PrehistoricAquaticMob {
     }
 
     @Override
+    public boolean fromBucket() {
+        return false;
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+    }
+
+    @Override
+    public @NotNull ItemStack getBucketItemStack() {
+        return new ItemStack(UP2Items.ONCHOPRISTIS_BUCKET.get());
+    }
+
+    @Override
+    public @NotNull SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_EMPTY_FISH;
+    }
+
+    @Override
+    public void saveToBucketTag(@NotNull ItemStack bucket) {
+        MobUtils.savePrehistoricDataToBucket(this, bucket);
+    }
+
+    @Override
+    public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
+        MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
+    }
+
+    @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.ONCHOPRISTIS_FOOD);
     }
@@ -256,12 +273,12 @@ public class Onchopristis extends PrehistoricAquaticMob {
 
         @Override
         public boolean canUse() {
-            return super.canUse() && (onchopristis.getTarget().isInWaterOrBubble() || !onchopristis.isInWaterOrBubble());
+            return super.canUse() && onchopristis.getTarget() != null && (onchopristis.getTarget().isInWaterOrBubble() || !onchopristis.isInWaterOrBubble());
         }
 
         @Override
         public boolean canContinueToUse() {
-            return super.canContinueToUse() && (onchopristis.getTarget().isInWaterOrBubble() || !onchopristis.isInWaterOrBubble());
+            return super.canContinueToUse() && onchopristis.getTarget() != null && (onchopristis.getTarget().isInWaterOrBubble() || !onchopristis.isInWaterOrBubble());
         }
 
         @Override
@@ -277,16 +294,15 @@ public class Onchopristis extends PrehistoricAquaticMob {
                 this.onchopristis.getNavigation().moveTo(target, 1.5D);
 
                 if (attackState == 1) {
-                    this.tickAttack();
+                    this.tickAttack(target);
                 } else if (distance < this.getAttackReachSqr(target)) {
                     this.onchopristis.setAttackState(1);
                 }
             }
         }
 
-        protected void tickAttack() {
+        protected void tickAttack(LivingEntity target) {
             this.timer++;
-            LivingEntity target = onchopristis.getTarget();
             if (timer == 1) {
                 this.onchopristis.attackAlt = onchopristis.getRandom().nextBoolean();
                 this.onchopristis.setPose(UP2Poses.ATTACKING.get());

@@ -47,11 +47,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
+@SuppressWarnings("deprecation")
 public class Megalania extends AmphibiousMob {
 
     private static final EntityDataAccessor<Integer> TEMPERATURE_STATE = SynchedEntityData.defineId(Megalania.class, EntityDataSerializers.INT);
@@ -259,22 +260,8 @@ public class Megalania extends AmphibiousMob {
     }
 
     @Override
-    public boolean canBeAffected(MobEffectInstance effect) {
-        if (effect.getEffect() == MobEffects.POISON) {
-            MobEffectEvent.Applicable event = new MobEffectEvent.Applicable(this, effect, null);
-            NeoForge.EVENT_BUS.post(event);
-//            return event.getResult() == Event.Result.ALLOW;
-            return true;
-        }
-        if (effect.getEffect() == MobEffects.WITHER && this.getTemperatureState() == TemperatureStates.NETHER) {
-            MobEffectEvent.Applicable event = new MobEffectEvent.Applicable(this, effect, null);
-            NeoForge.EVENT_BUS.post(event);
-//            return event.getResult() == Event.Result.ALLOW;
-            return true;
-        }
-        else {
-            return super.canBeAffected(effect);
-        }
+    public boolean canBeAffected(MobEffectInstance effectInstance) {
+        return !effectInstance.is(MobEffects.POISON) && !effectInstance.is(MobEffects.WITHER) && super.canBeAffected(effectInstance);
     }
 
     @Override
@@ -408,29 +395,29 @@ public class Megalania extends AmphibiousMob {
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (TEMPERATURE_STATE.equals(accessor)) {
             if (this.getTemperatureState().equals(TemperatureStates.COLD)) {
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.14F);
-                this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(10.0D);
+                Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.14F);
+                Objects.requireNonNull(this.getAttribute(Attributes.FOLLOW_RANGE)).setBaseValue(10.0D);
                 if (this.randomStrollGoal != null) {
                     this.randomStrollGoal.setInterval(200);
                 }
             }
             else if (this.getTemperatureState().equals(TemperatureStates.TEMPERATE)) {
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.18F);
-                this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(16.0D);
+                Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.18F);
+                Objects.requireNonNull(this.getAttribute(Attributes.FOLLOW_RANGE)).setBaseValue(16.0D);
                 if (this.randomStrollGoal != null) {
                     this.randomStrollGoal.setInterval(120);
                 }
             }
             else if (this.getTemperatureState().equals(TemperatureStates.WARM)) {
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2F);
-                this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(20.0D);
+                Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.2F);
+                Objects.requireNonNull(this.getAttribute(Attributes.FOLLOW_RANGE)).setBaseValue(20.0D);
                 if (this.randomStrollGoal != null) {
                     this.randomStrollGoal.setInterval(80);
                 }
             }
             else if (this.getTemperatureState().equals(TemperatureStates.NETHER)) {
-                this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3F);
-                this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(32.0D);
+                Objects.requireNonNull(this.getAttribute(Attributes.MOVEMENT_SPEED)).setBaseValue(0.3F);
+                Objects.requireNonNull(this.getAttribute(Attributes.FOLLOW_RANGE)).setBaseValue(32.0D);
                 if (this.randomStrollGoal != null) {
                     this.randomStrollGoal.setInterval(50);
                 }

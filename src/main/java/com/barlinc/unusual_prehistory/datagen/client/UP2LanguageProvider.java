@@ -488,6 +488,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateBannerPattern("prognathodon");
 
         this.addItem(UP2Items.HYNERPETON_BUCKET, "Bucket of Hynerpeton");
+        this.addItem(UP2Items.ONCHOPRISTIS_BUCKET, "Bucket of Onchopristis");
+
         this.addItem(UP2Items.BROWN_MUSHROOM_ON_A_STICK, "Brown Mushroom on a Stick");
 
         this.addBlock(UP2Blocks.SPIKE_TOOTHED_SALMON_ROE, "Spike-Toothed Salmon Roe");

@@ -55,7 +55,7 @@ public class UP2Items {
     public static final DeferredItem<Item> RUGOSE_FOSSIL = registerFossilItem("rugose"); // majungasaurus
     public static final DeferredItem<Item> THERMAL_FOSSIL = registerFossilItem("thermal"); // megalania
     public static final DeferredItem<Item> ANVIL_FOSSIL = registerFossilItem("anvil"); // stethacanthus
-    public static final DeferredItem<Item> AGED_FEATHER = registerItem("aged_feather", () -> new Item(new Item.Properties())); // talpanas
+    public static final DeferredItem<Item> AGED_FEATHER = registerItem("aged_feather", () -> new Item(new Item.Properties().rarity(UP2EnumProxy.FOSSIL.getValue()))); // talpanas
     public static final DeferredItem<Item> PLUMAGE_FOSSIL = registerFossilItem("plumage"); // telecrex
 
     public static final DeferredItem<Item> DROMAEOSAURUS_EGG = registerEggItem("dromaeosaurus", UP2Entities.DROMAEOSAURUS_EGG);
@@ -261,6 +261,7 @@ public class UP2Items {
     public static final DeferredItem<Item> WOOLLY_MAMMOTH_EMBRYO = registerEmbryoItem("woolly_mammoth", UP2Entities.WOOLLY_MAMMOTH);
 
     public static final DeferredItem<Item> HYNERPETON_BUCKET = registerItemNoLang("hynerpeton_bucket", () -> new UP2MobBucketItem(UP2Entities.HYNERPETON.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> ONCHOPRISTIS_BUCKET = registerItemNoLang("onchopristis_bucket", () -> new UP2MobBucketItem(UP2Entities.ONCHOPRISTIS.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));
 
     public static final DeferredItem<Item> SWEET_GROG_BOTTLE = registerItem("sweet_grog_bottle", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> FOUL_GROG_BOTTLE = registerItem("foul_grog_bottle", () -> new Item(new Item.Properties()));
@@ -301,7 +302,7 @@ public class UP2Items {
     }
 
     private static DeferredItem<Item> registerFossilItem(String name) {
-        return registerItem(name + "_fossil", () -> new Item(new Item.Properties()));
+        return registerItem(name + "_fossil", () -> new Item(new Item.Properties().rarity(UP2EnumProxy.FOSSIL.getValue())));
     }
 
     public static Item.Properties registerFoodValue(FoodProperties food) {

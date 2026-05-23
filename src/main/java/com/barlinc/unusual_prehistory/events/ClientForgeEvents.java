@@ -33,7 +33,7 @@ public class ClientForgeEvents {
 
     public static final List<ScreenShakeEvent> SCREEN_SHAKE_EVENTS = new ArrayList<>();
 
-    @SuppressWarnings("all")
+    @SuppressWarnings({"rawtypes", "unchecked", "UnstableApiUsage"})
     @SubscribeEvent
     public void preRenderLiving(RenderLivingEvent.Pre event) {
         if (ClientProxy.blockedEntityRenders.contains(event.getEntity().getUUID())) {
@@ -45,6 +45,7 @@ public class ClientForgeEvents {
         }
     }
 
+    // todo: fix screen shaking (probably mixin)
     @SubscribeEvent
     public void clientTick(ClientTickEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();

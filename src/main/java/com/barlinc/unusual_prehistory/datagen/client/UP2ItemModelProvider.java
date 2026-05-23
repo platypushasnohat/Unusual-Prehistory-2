@@ -28,6 +28,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
         this.generatedItem(PRAEPUSA_BUCKET);
         this.generatedItem(BABY_AEGIROCASSIS_BUCKET);
         this.generatedItem(HYNERPETON_BUCKET);
+        this.generatedItem(ONCHOPRISTIS_BUCKET);
 
         this.generatedItem(LIVING_OOZE_BUCKET);
 

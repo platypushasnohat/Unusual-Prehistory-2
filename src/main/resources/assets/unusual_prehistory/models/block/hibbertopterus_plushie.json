@@ -5,7 +5,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"1": "unusual_prehistory:block/hibbertopterus_plushie",
-		"particle": "block/brown_wool"
+		"particle": "block/white_wool"
 	},
 	"elements": [
 		{
@@ -222,8 +222,8 @@
 			"scale": [0.8, 0.8, 0.8]
 		},
 		"head": {
-			"translation": [0, 16.25, 0.5],
-			"scale": [1.25, 1.25, 1.25]
+			"translation": [0, 16.75, 0.75],
+			"scale": [1.5, 1.5, 1.5]
 		},
 		"fixed": {
 			"rotation": [-90, 0, 0],
