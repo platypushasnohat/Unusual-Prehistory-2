@@ -496,6 +496,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.addItem(UP2Items.SPIKE_TOOTHED_SALMON_SPAWN_EGG, "Spike-Toothed Salmon Spawn Egg");
         this.addEntityType(UP2Entities.SPIKE_TOOTHED_SALMON, "Spike-Toothed Salmon");
 
+        this.add("item.unusual_prehistory.plushie_kit.desc", "Used to sew plushies from mobs");
+
         // Future
         this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");
         this.addItem(UP2Items.LUCA, "L.U.C.A");

@@ -4,9 +4,11 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
  import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
  import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
+ import com.barlinc.unusual_prehistory.registry.UP2Blocks;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Particles;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -42,7 +44,7 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class Brachiosaurus extends AmphibiousMob {
+ public class Brachiosaurus extends AmphibiousMob implements PlushableMob {
 
      private static final EntityDataAccessor<Integer> STOMP_COOLDOWN = SynchedEntityData.defineId(Brachiosaurus.class, EntityDataSerializers.INT);
 
@@ -187,6 +189,11 @@
      @Override
      public Vec3 getEepyParticleVec() {
          return new Vec3(0, -0.7F, -this.getBbWidth() * 0.4F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+     }
+
+     @Override
+     public @NotNull ItemStack getPlushieItemStack() {
+         return new ItemStack(UP2Blocks.BRACHIOSAURUS_PLUSHIE.get());
      }
 
      @Override

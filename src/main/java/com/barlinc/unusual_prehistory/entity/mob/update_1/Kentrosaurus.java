@@ -2,8 +2,10 @@ package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
@@ -42,7 +44,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
-public class Kentrosaurus extends PrehistoricMob {
+public class Kentrosaurus extends PrehistoricMob implements PlushableMob {
 
     private int attackCooldown = 0;
 
@@ -142,6 +144,11 @@ public class Kentrosaurus extends PrehistoricMob {
     @Override
     public Vec3 getEepyParticleVec() {
         return new Vec3(0, 0, -this.getBbWidth() * 1.1F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+    }
+
+    @Override
+    public @NotNull ItemStack getPlushieItemStack() {
+        return new ItemStack(UP2Blocks.KENTROSAURUS_PLUSHIE.get());
     }
 
     @Override

@@ -6,6 +6,8 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
+import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
+import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
@@ -35,7 +37,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob, VariantHolder<Tartuosteus.TartuosteusVariant> {
+public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob, VariantHolder<Tartuosteus.TartuosteusVariant>, PlushableMob {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Tartuosteus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Tartuosteus.class, EntityDataSerializers.BOOLEAN);
@@ -90,6 +92,11 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob, Va
     @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.TARTUOSTEUS_FOOD);
+    }
+
+    @Override
+    public @NotNull ItemStack getPlushieItemStack() {
+        return new ItemStack(UP2Blocks.TARTUOSTEUS_PLUSHIE.get());
     }
 
     @Override

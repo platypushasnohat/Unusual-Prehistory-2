@@ -5,10 +5,8 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
- import com.barlinc.unusual_prehistory.entity.utils.DancingMob;
- import com.barlinc.unusual_prehistory.entity.utils.JukeboxListener;
- import com.barlinc.unusual_prehistory.entity.utils.SaddlelessItemBasedSteering;
- import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
+ import com.barlinc.unusual_prehistory.entity.utils.*;
+ import com.barlinc.unusual_prehistory.registry.UP2Blocks;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -53,7 +51,7 @@
 
  import java.util.function.BiConsumer;
 
- public class Hibbertopterus extends AmphibiousMob implements ItemSteerable, DancingMob {
+ public class Hibbertopterus extends AmphibiousMob implements ItemSteerable, DancingMob, PlushableMob {
 
      private static final EntityDataAccessor<Integer> PLOW_TIME = SynchedEntityData.defineId(Hibbertopterus.class, EntityDataSerializers.INT);
      protected static final EntityDataAccessor<Boolean> DANCING = SynchedEntityData.defineId(Hibbertopterus.class, EntityDataSerializers.BOOLEAN);
@@ -219,6 +217,11 @@
                  this.level().levelEvent(2001, pos, Block.getId(state));
              }
          }
+     }
+
+     @Override
+     public @NotNull ItemStack getPlushieItemStack() {
+         return new ItemStack(UP2Blocks.HIBBERTOPTERUS_PLUSHIE.get());
      }
 
      @Override

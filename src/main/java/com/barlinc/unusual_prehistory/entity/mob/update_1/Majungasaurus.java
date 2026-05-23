@@ -2,8 +2,10 @@ package com.barlinc.unusual_prehistory.entity.mob.update_1;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
@@ -39,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majungasaurus.MajungasaurusVariant> {
+public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majungasaurus.MajungasaurusVariant>, PlushableMob {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> CAMO = SynchedEntityData.defineId(Majungasaurus.class, EntityDataSerializers.BOOLEAN);
@@ -162,6 +164,11 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
     @Override
     public boolean isEepyTime() {
         return this.level().isDay();
+    }
+
+    @Override
+    public @NotNull ItemStack getPlushieItemStack() {
+        return new ItemStack(UP2Blocks.MAJUNGASAURUS_PLUSHIE.get());
     }
 
     @Override

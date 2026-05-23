@@ -6,8 +6,10 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoa
 import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.CarnotaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
@@ -47,7 +49,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnotaurus.CarnotaurusVariant> {
+public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnotaurus.CarnotaurusVariant>, PlushableMob {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Carnotaurus.class, EntityDataSerializers.INT);
 
@@ -133,6 +135,11 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
             this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 4));
             this.gameEvent(GameEvent.ENTITY_ACTION);
         }
+    }
+
+    @Override
+    public @NotNull ItemStack getPlushieItemStack() {
+        return new ItemStack(UP2Blocks.CARNOTAURUS_PLUSHIE.get());
     }
 
     @Override

@@ -5,12 +5,10 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
-import com.barlinc.unusual_prehistory.registry.UP2Entities;
-import com.barlinc.unusual_prehistory.registry.UP2Items;
-import com.barlinc.unusual_prehistory.registry.UP2Particles;
-import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
+import com.barlinc.unusual_prehistory.registry.*;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
@@ -41,7 +39,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Cotylorhynchus extends PrehistoricMob {
+public class Cotylorhynchus extends PrehistoricMob implements PlushableMob {
 
     private static final EntityDataAccessor<Integer> GROG_TICKS = SynchedEntityData.defineId(Cotylorhynchus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> GROG_TYPE = SynchedEntityData.defineId(Cotylorhynchus.class, EntityDataSerializers.INT);
@@ -134,6 +132,11 @@ public class Cotylorhynchus extends PrehistoricMob {
     @Override
     public Vec3 getEepyParticleVec() {
         return new Vec3(0, 0, -this.getBbWidth() * 0.9F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+    }
+
+    @Override
+    public @NotNull ItemStack getPlushieItemStack() {
+        return new ItemStack(UP2Blocks.COTYLORHYNCHUS_PLUSHIE.get());
     }
 
     private int getTimeUntilGrog() {

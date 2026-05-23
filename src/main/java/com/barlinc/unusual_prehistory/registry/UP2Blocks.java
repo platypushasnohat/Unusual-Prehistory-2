@@ -227,11 +227,11 @@ public class UP2Blocks {
 
     public static final DeferredBlock<Block> BRACHIOSAURUS_PLUSHIE = registerPlushieBlock("brachiosaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 12, 16, UP2SoundEvents.BRACHIOSAURUS_IDLE.get()));
     public static final DeferredBlock<Block> CARNOTAURUS_PLUSHIE = registerPlushieBlock("carnotaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 10, 16, UP2SoundEvents.CARNOTAURUS_IDLE.get()));
-    public static final DeferredBlock<Block> COTYLORHYNCHUS_PLUSHIE = registerPlushieBlock("cotylorhynchus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 9, UP2SoundEvents.COTYLORHYNCHUS_IDLE.get()));
+    public static final DeferredBlock<Block> COTYLORHYNCHUS_PLUSHIE = registerPlushieBlock("cotylorhynchus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 8, UP2SoundEvents.COTYLORHYNCHUS_IDLE.get()));
     public static final DeferredBlock<Block> HIBBERTOPTERUS_PLUSHIE = registerPlushieBlock("hibbertopterus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 8, UP2SoundEvents.HIBBERTOPTERUS_IDLE.get()));
     public static final DeferredBlock<Block> KENTROSAURUS_PLUSHIE = registerPlushieBlock("kentrosaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 8, UP2SoundEvents.KENTROSAURUS_IDLE.get()));
     public static final DeferredBlock<Block> MAJUNGASAURUS_PLUSHIE = registerPlushieBlock("majungasaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 10, 16, UP2SoundEvents.MAJUNGASAURUS_IDLE.get()));
-    public static final DeferredBlock<Block> TARTUOSTEUS_PLUSHIE = registerPlushieBlock("tartuosteus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 16, 4, UP2SoundEvents.JAWLESS_FISH_FLOP.get()));
+    public static final DeferredBlock<Block> TARTUOSTEUS_PLUSHIE = registerPlushieBlock("tartuosteus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 4, UP2SoundEvents.JAWLESS_FISH_FLOP.get()));
 
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);

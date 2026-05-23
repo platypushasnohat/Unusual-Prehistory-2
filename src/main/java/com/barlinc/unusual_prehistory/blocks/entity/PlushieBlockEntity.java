@@ -28,12 +28,12 @@ public class PlushieBlockEntity extends BlockEntity {
     }
 
     public void squish() {
-        this.squishTicks = 5;
+        this.squishTicks = 4;
         this.setChanged();
     }
 
     public float getSquishAmount(float partialTicks) {
-        return (prevSquishTicks + (squishTicks - prevSquishTicks) * partialTicks) / 5.0F;
+        return (prevSquishTicks + (squishTicks - prevSquishTicks) * partialTicks) / 4.0F;
     }
 
     @SuppressWarnings("unused")
