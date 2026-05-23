@@ -213,18 +213,23 @@ public class ArthropleuraPart extends Entity {
     }
 
     public Vec3 getIdealPosition(Entity head, Entity front) {
-        float zOffset = 1.425F;
+        float scale = 1.0F;
+        float offset = 1.65F * scale;
         float wiggle = 0.0F;
+
+        if (head instanceof Arthropleura arthropleura) {
+            scale = arthropleura.getAgeScale();
+        }
         if (this.isHeadMoving()) {
             wiggle = 0.1F * (float) Math.sin(head.tickCount * 0.3F - this.getIndex());
         }
         if (this.getBackEntity() == null) {
-            zOffset -= 0.125F;
+            offset -= 0.35F * scale;
         }
-        if (head instanceof Arthropleura arthropleura && arthropleura.isBaby()) {
-            zOffset -= 0.7F;
+        if (this.getIndex() == 0) {
+            offset -= 0.15F * scale;
         }
-        Vec3 offsetFromParent = new Vec3(wiggle, 0.0F, -zOffset).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot()));
+        Vec3 offsetFromParent = new Vec3(wiggle, 0.0F, -offset).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot()));
         return front.position().add(offsetFromParent);
     }
 
@@ -232,23 +237,41 @@ public class ArthropleuraPart extends Entity {
         Vec3 ideal = this.getIdealPosition(head, front).subtract(this.position());
         Vec3 distance = ideal.length() > 1.0F ? ideal.normalize() : ideal;
         Vec3 pos = this.position().add(distance);
-        if (head.isInFluidType()) {
-            this.setPos(pos.x, pos.y, pos.z);
-        } else {
-            this.setPos(pos.x, this.calculateSurfaceY(pos, front, back), pos.z);
+
+        if (head != null) {
+            Vec3 toHead = head.position().subtract(pos);
+            double distToHead = toHead.length();
+            if (distToHead > 1.0E-4D) {
+                Vec3 dirToHead = toHead.scale(1.0D / distToHead);
+                double error = distToHead - 1.2D;
+                if (error > 0.0D) {
+                    double correction = Math.min(error * 0.7D, 0.25D);
+                    pos = pos.add(dirToHead.scale(correction));
+                }
+            }
+            if (head.isInFluidType()) {
+                this.setPos(pos.x, pos.y, pos.z);
+            } else {
+                double currentY = this.getY();
+                double targetY = this.calculateSurfaceY(pos, front, back);
+                if (Math.abs(targetY - currentY) > 0.08D) {
+                    currentY = targetY;
+                }
+                this.setPos(pos.x, currentY, pos.z);
+            }
         }
         this.move(MoverType.SELF, this.getDeltaMovement());
     }
 
     private void tickPartRotation(Entity front, float speed) {
-        Vec3 frontsBack = front.position().add(new Vec3(0.0F, 0.0F, 1.0F).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot())));
-        double xDirection = frontsBack.x - this.getX();
-        double yDirection = frontsBack.y - this.getY();
-        double zDirection = frontsBack.z - this.getZ();
+        Vec3 direction = front.position().add(new Vec3(0.0F, 0.0F, 1.0F).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot())));
+        double xDirection = direction.x - this.getX();
+        double yDirection = direction.y - this.getY();
+        double zDirection = direction.z - this.getZ();
         double magnitude = Math.sqrt(xDirection * xDirection + zDirection * zDirection);
         float xRot = Mth.wrapDegrees((float) (-(Mth.atan2(yDirection, magnitude) * (double) (180.0F / (float) Math.PI))));
         float yRot = Mth.wrapDegrees((float) (Mth.atan2(zDirection, xDirection) * (double) (180.0F / (float) Math.PI)) - 90.0F);
-        float yDelta = Mth.clamp(Mth.wrapDegrees(yRot - this.getYRot()), -35.0F, 35.0F);
+        float yDelta = Mth.clamp(Mth.wrapDegrees(yRot - this.getYRot()), -40.0F, 40.0F);
         float xDelta = Mth.wrapDegrees(xRot - this.getXRot());
         this.setXRot(this.getXRot() + xDelta);
         this.setYRot(this.getYRot() + yDelta * speed);
@@ -263,17 +286,52 @@ public class ArthropleuraPart extends Entity {
     }
 
     private double calculateSurfaceY(Vec3 pos, Entity front, Entity back) {
-        double posX = pos.x;
-        double posY = pos.y;
-        double posZ = pos.z;
+        Vec3 pushed = this.pushOutOfBlocks(pos);
+        double posX = pushed.x;
+        double posY = pushed.y;
+        double posZ = pushed.z;
         double frontY = front.getY();
         double backY = back != null ? back.getY() : frontY;
         double average = (frontY + backY) * 0.5D;
         double terrainCenter = posY + (this.getLowPartHeight(posX, posY, posZ) + this.getHighPartHeight(posX, posY, posZ)) * 0.5D;
-        double targetY = Mth.lerp(0.25D, average, terrainCenter);
+        double targetY = Mth.lerp(0.38D, average, terrainCenter);
         double minY = Math.max(frontY - 1.0D, backY - 1.0D);
         double maxY = Math.min(frontY + 1.0D, backY + 1.0D);
         return Mth.clamp(targetY, minY, maxY);
+    }
+
+    private Vec3 pushOutOfBlocks(Vec3 pos) {
+        AABB aabb = this.getBoundingBox().move(pos.x - this.getX(), pos.y - this.getY(), pos.z - this.getZ());
+        double pushX = 0.0D;
+        double pushY = 0.0D;
+        double pushZ = 0.0D;
+        BlockPos min = BlockPos.containing(aabb.minX, aabb.minY, aabb.minZ);
+        BlockPos max = BlockPos.containing(aabb.maxX, aabb.maxY, aabb.maxZ);
+        for (int x = min.getX(); x <= max.getX(); x++) {
+            for (int y = min.getY(); y <= max.getY(); y++) {
+                for (int z = min.getZ(); z <= max.getZ(); z++) {
+                    BlockPos blockPos = new BlockPos(x, y, z);
+                    BlockState state = this.level().getBlockState(blockPos);
+                    if (state.isAir()) {
+                        continue;
+                    }
+                    VoxelShape shape = state.getCollisionShape(this.level(), blockPos);
+                    if (shape.isEmpty()) {
+                        continue;
+                    }
+                    AABB aabb1 = shape.bounds().move(blockPos);
+                    if (!aabb.intersects(aabb1)) {
+                        continue;
+                    }
+                    double dx = (aabb.getXsize() > 0) ? (aabb.getCenter().x - blockPos.getX()) : 0;
+                    double dz = (aabb.getZsize() > 0) ? (aabb.getCenter().z - blockPos.getZ()) : 0;
+                    pushX += (dx >= 0 ? 0.05D : -0.05D);
+                    pushZ += (dz >= 0 ? 0.05D : -0.05D);
+                    pushY += 0.38D;
+                }
+            }
+        }
+        return pos.add(pushX, pushY, pushZ);
     }
 
     public double getLowPartHeight(double x, double y, double z) {
