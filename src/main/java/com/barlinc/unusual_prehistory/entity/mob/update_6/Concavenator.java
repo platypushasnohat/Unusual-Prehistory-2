@@ -544,25 +544,22 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         BlockState blockstate = this.level().getBlockState(onPos);
         Vec3 deltaMovement = this.getDeltaMovement();
         BlockPos blockPos = this.blockPosition();
-
-        for (int i = 0; i < 2; i++) {
-            if (!blockstate.addRunningEffects(this.level(), onPos, this) && blockstate.getRenderShape() != RenderShape.INVISIBLE) {
-                double xPos = this.getX() + (this.getRandom().nextDouble() - (double) 0.5F) * (double) this.getDimensions(this.getPose()).width();
-                double zPos = this.getZ() + (this.getRandom().nextDouble() - (double) 0.5F) * (double) this.getDimensions(this.getPose()).width();
-                if (blockPos.getX() != onPos.getX()) {
-                    xPos = Mth.clamp(xPos, onPos.getX(), (double) onPos.getX() + (double) 1.5F);
-                }
-                if (blockPos.getZ() != onPos.getZ()) {
-                    zPos = Mth.clamp(zPos, onPos.getZ(), (double) onPos.getZ() + (double) 1.5F);
-                }
-                this.level().addParticle((new BlockParticleOption(ParticleTypes.BLOCK, blockstate)).setPos(onPos), xPos, this.getY() + 0.1, zPos, deltaMovement.x * (double) -6.0F, 1.5F, deltaMovement.z * (double) -6.0F);
+        if (!blockstate.addRunningEffects(this.level(), onPos, this) && blockstate.getRenderShape() != RenderShape.INVISIBLE) {
+            double xPos = this.getX() + (this.getRandom().nextDouble() - (double) 0.5F) * (double) this.getDimensions(this.getPose()).width();
+            double zPos = this.getZ() + (this.getRandom().nextDouble() - (double) 0.5F) * (double) this.getDimensions(this.getPose()).width();
+            if (blockPos.getX() != onPos.getX()) {
+                xPos = Mth.clamp(xPos, onPos.getX(), (double) onPos.getX() + (double) 1.5F);
             }
+            if (blockPos.getZ() != onPos.getZ()) {
+                zPos = Mth.clamp(zPos, onPos.getZ(), (double) onPos.getZ() + (double) 1.5F);
+            }
+            this.level().addParticle((new BlockParticleOption(ParticleTypes.BLOCK, blockstate)).setPos(onPos), xPos, this.getY() + 0.1, zPos, deltaMovement.x * (double) -6.0F, 1.5F, deltaMovement.z * (double) -6.0F);
         }
     }
 
     public void spawnSandDigParticles(BlockPos blockPos) {
         float radius = this.getBbWidth();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 4; i++) {
             double motionX = this.getRandom().nextGaussian() * 0.07D;
             double motionY = this.getRandom().nextGaussian() * 0.07D;
             double motionZ = this.getRandom().nextGaussian() * 0.07D;
