@@ -149,6 +149,7 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 	@Override
 	public void setupAnim(Majungasaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
         if (!entity.isInWaterOrBubble() && !entity.isEepy()) {
             if (entity.isCamo()) {
@@ -164,21 +165,20 @@ public class MajungasaurusModel extends UP2Model<Majungasaurus> {
 
 		if (this.young) this.applyStatic(MajungasaurusAnimations.BABY_TRANSFORM);
 
-        this.animateIdleSmooth(entity.idleAnimationState, MajungasaurusAnimations.IDLE, ageInTicks, limbSwingAmount, entity.isRunning() ? 3 : 4);
-        this.animateIdleSmooth(entity.camoIdleAnimationState, MajungasaurusAnimations.CAMO_IDLE, ageInTicks, limbSwingAmount, 4);
-        this.animateSmooth(entity.swimAnimationState, MajungasaurusAnimations.SWIM, ageInTicks);
-		this.animateSmooth(entity.attack1AnimationState, MajungasaurusAnimations.BITE_BLEND1, ageInTicks);
-		this.animateSmooth(entity.attack2AnimationState, MajungasaurusAnimations.BITE_BLEND2, ageInTicks);
-		this.animateSmooth(entity.eyesAnimationState, MajungasaurusAnimations.EYESWIVEL_OVERLAY, ageInTicks);
-        this.animateSmooth(entity.yawnAnimationState, MajungasaurusAnimations.IDLE_YAWN_BLEND, ageInTicks);
-        this.animateSmooth(entity.sniff1AnimationState, MajungasaurusAnimations.SNIFF_BLEND1, ageInTicks);
-        this.animateSmooth(entity.sniff2AnimationState, MajungasaurusAnimations.SNIFF_BLEND2, ageInTicks);
-        this.animateSmooth(entity.shakeAnimationState, MajungasaurusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, MajungasaurusAnimations.SLEEP, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, MajungasaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, entity.isRunning() ? 3 : 4);
+        this.animateIdleSmooth(entity.camoIdleAnimationState, MajungasaurusAnimations.CAMO_IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
+        this.animateSmooth(entity.swimAnimationState, MajungasaurusAnimations.SWIM, ageInTicks, partialTicks);
+		this.animateSmooth(entity.attack1AnimationState, MajungasaurusAnimations.BITE_BLEND1, ageInTicks, partialTicks);
+		this.animateSmooth(entity.attack2AnimationState, MajungasaurusAnimations.BITE_BLEND2, ageInTicks, partialTicks);
+		this.animateSmooth(entity.eyesAnimationState, MajungasaurusAnimations.EYESWIVEL_OVERLAY, ageInTicks, partialTicks);
+        this.animateSmooth(entity.yawnAnimationState, MajungasaurusAnimations.IDLE_YAWN_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.sniff1AnimationState, MajungasaurusAnimations.SNIFF_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.sniff2AnimationState, MajungasaurusAnimations.SNIFF_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.shakeAnimationState, MajungasaurusAnimations.IDLE_SHAKE_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eepyAnimationState, MajungasaurusAnimations.SLEEP, ageInTicks, partialTicks);
 
         this.animateHead(entity, this.neck, netHeadYaw, headPitch);
 
-        float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.2F);
         this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.15F);

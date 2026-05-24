@@ -87,6 +87,8 @@ public class PraepusaModel extends UP2Model<Praepusa> {
 	@Override
 	public void setupAnim(@NotNull Praepusa entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (entity.isInWaterOrBubble()) {
             if (entity.isRunning()) this.animateWalk(PraepusaAnimations.SWIM_FAST, limbSwing, limbSwingAmount, 1.5F, 3);
             else this.animateWalk(PraepusaAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
@@ -95,15 +97,15 @@ public class PraepusaModel extends UP2Model<Praepusa> {
             else this.animateWalk(PraepusaAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
         }
 
-		this.animateIdleSmooth(entity.idleAnimationState, PraepusaAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateIdleSmooth(entity.swimIdleAnimationState, PraepusaAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.eepyAnimationState, PraepusaAnimations.ROLL, ageInTicks);
-        this.animateSmooth(entity.slap1AnimationState, PraepusaAnimations.SLAP_BLEND1, ageInTicks);
-        this.animateSmooth(entity.slap2AnimationState, PraepusaAnimations.SLAP_BLEND2, ageInTicks);
-        this.animateSmooth(entity.applauseAnimationState, PraepusaAnimations.APPLAUSE, ageInTicks);
-        this.animateSmooth(entity.loafAnimationState, PraepusaAnimations.LOAF_BLEND, ageInTicks);
-        this.animateSmooth(entity.attackAnimationState, PraepusaAnimations.ATTACK_BLEND, ageInTicks);
-        this.animateSmooth(entity.mitosisAnimationState, PraepusaAnimations.MITOSIS_BLEND, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, PraepusaAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, PraepusaAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.eepyAnimationState, PraepusaAnimations.ROLL, ageInTicks, partialTicks);
+        this.animateSmooth(entity.slap1AnimationState, PraepusaAnimations.SLAP_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.slap2AnimationState, PraepusaAnimations.SLAP_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.applauseAnimationState, PraepusaAnimations.APPLAUSE, ageInTicks, partialTicks);
+        this.animateSmooth(entity.loafAnimationState, PraepusaAnimations.LOAF_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attackAnimationState, PraepusaAnimations.ATTACK_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.mitosisAnimationState, PraepusaAnimations.MITOSIS_BLEND, ageInTicks, partialTicks);
         this.animate(entity.bounceAnimationState, PraepusaAnimations.BOUNCE_BLEND, ageInTicks);
 
         if (this.young) this.applyStatic(PraepusaAnimations.BABY_TRANSFORM);

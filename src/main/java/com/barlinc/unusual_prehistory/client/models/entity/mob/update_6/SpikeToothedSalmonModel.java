@@ -90,6 +90,8 @@ public class SpikeToothedSalmonModel extends UP2Model<SpikeToothedSalmon> {
 	@Override
 	public void setupAnim(SpikeToothedSalmon entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (entity.isInWaterOrBubble() || entity.isLeaping()) {
             if (entity.isRunning()) {
                 this.animateWalk(SpikeToothedSalmonAnimations.SWIM_FAST, limbSwing, limbSwingAmount, 1.5F, 3);
@@ -98,11 +100,11 @@ public class SpikeToothedSalmonModel extends UP2Model<SpikeToothedSalmon> {
             }
         }
 
-        this.animateIdleSmooth(entity.swimIdleAnimationState, SpikeToothedSalmonAnimations.IDLE, ageInTicks, limbSwingAmount, entity.isRunning() ? 3 : 4);
-		this.animateSmooth(entity.flopAnimationState, SpikeToothedSalmonAnimations.FLOP, ageInTicks);
-		this.animateSmooth(entity.attackAnimationState, SpikeToothedSalmonAnimations.ATTACK_BLEND, ageInTicks);
-        this.animateSmooth(entity.attackZombieAnimationState, SpikeToothedSalmonAnimations.ATTACK_BLEND_UNDEAD, ageInTicks);
-        this.animateSmooth(entity.zombieAnimationState, SpikeToothedSalmonAnimations.UNDEAD_BLEND, ageInTicks);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, SpikeToothedSalmonAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, entity.isRunning() ? 3 : 4);
+		this.animateSmooth(entity.flopAnimationState, SpikeToothedSalmonAnimations.FLOP, ageInTicks,partialTicks);
+		this.animateSmooth(entity.attackAnimationState, SpikeToothedSalmonAnimations.ATTACK_BLEND, ageInTicks,partialTicks);
+        this.animateSmooth(entity.attackZombieAnimationState, SpikeToothedSalmonAnimations.ATTACK_BLEND_UNDEAD, ageInTicks,partialTicks);
+        this.animateSmooth(entity.zombieAnimationState, SpikeToothedSalmonAnimations.UNDEAD_BLEND, ageInTicks,partialTicks);
 
         if (entity.isInWaterOrBubble() || entity.isLeaping()) {
             this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);

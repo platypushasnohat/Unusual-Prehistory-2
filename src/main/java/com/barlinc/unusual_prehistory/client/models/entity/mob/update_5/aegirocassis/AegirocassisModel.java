@@ -247,13 +247,13 @@ public class AegirocassisModel extends UP2Model<Aegirocassis> {
             }
             this.animateWalk(AegirocassisAnimations.SWIM, limbSwing, limbSwingAmount, 2, 2);
         }
-        this.animateIdleSmooth(entity.swimIdleAnimationState, AegirocassisAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateIdleSmooth(entity.mouthAnimationState, AegirocassisAnimations.MOUTH_IDLE_OVERLAY, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.eyesAnimationState, AegirocassisAnimations.EYE_OVERLAY, ageInTicks);
-        this.animateSmooth(entity.flopAnimationState, AegirocassisAnimations.BEACHED, ageInTicks);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, AegirocassisAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.mouthAnimationState, AegirocassisAnimations.MOUTH_IDLE_OVERLAY, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.eyesAnimationState, AegirocassisAnimations.EYE_OVERLAY, ageInTicks, partialTicks);
+        this.animateSmooth(entity.flopAnimationState, AegirocassisAnimations.BEACHED, ageInTicks, partialTicks);
         this.animate(entity.leapStartAnimationState, AegirocassisLeapAnimations.LEAP_START, ageInTicks);
         this.animate(entity.leapAnimationState, AegirocassisLeapAnimations.LEAP_HOLD, ageInTicks);
-        this.animateSmooth(entity.eatAnimationState, AegirocassisAnimations.EAT_OVERLAY, ageInTicks);
+        this.animateSmooth(entity.eatAnimationState, AegirocassisAnimations.EAT_OVERLAY, ageInTicks, partialTicks);
         this.animate(entity.rollAnimationState, AegirocassisAnimations.ROLL_BLEND, ageInTicks);
 
         double segment1Y = (entity.getTrailTransformation(5, partialTicks)) - bodyYRot;

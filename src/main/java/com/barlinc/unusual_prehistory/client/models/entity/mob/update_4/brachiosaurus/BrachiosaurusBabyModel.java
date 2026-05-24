@@ -96,16 +96,18 @@ public class BrachiosaurusBabyModel extends UP2Model<Brachiosaurus> {
 	@Override
 	public void setupAnim(@NotNull Brachiosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (entity.isRunning()) this.animateWalk(BrachiosaurusAnimations.BABY_RUN, limbSwing, limbSwingAmount, 1, 2);
         else this.animateWalk(BrachiosaurusAnimations.BABY_WALK, limbSwing, limbSwingAmount, 1.5F, 3);
-		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusAnimations.BABY_IDLE, ageInTicks, limbSwingAmount);
+		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusAnimations.BABY_IDLE, ageInTicks, partialTicks, limbSwingAmount);
 
         this.head.xRot += headPitch * ((float) Math.PI / 180F) / 6;
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 6;
         this.neck.xRot += headPitch * ((float) Math.PI / 180F) / 4;
         this.neck.yRot += netHeadYaw * ((float) Math.PI / 180F) / 4;
 
-        float partialTicks = ageInTicks - entity.tickCount;
         double bodyYRot = Mth.wrapDegrees(entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks);
         double segment1Y = (entity.getTrailTransformation(8, partialTicks)) - bodyYRot;
         double segment2Y = (entity.getTrailTransformation(16, partialTicks)) - bodyYRot - segment1Y;

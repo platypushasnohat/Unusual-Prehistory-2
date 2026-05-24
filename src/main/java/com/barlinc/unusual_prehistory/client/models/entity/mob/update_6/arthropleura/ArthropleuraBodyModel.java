@@ -88,12 +88,14 @@ public class ArthropleuraBodyModel extends UP2Model<ArthropleuraPart> {
 	@Override
 	public void setupAnim(@NotNull ArthropleuraPart entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (entity.getIndex() % 2 == 0) {
             this.animateWalk(ArthropleuraAnimations.BODY_WALK1, limbSwing, limbSwingAmount, 2, 4);
-            this.animateIdleSmooth(entity.idleAnimationState, ArthropleuraAnimations.BODY_IDLE1, ageInTicks, limbSwingAmount, 4);
+            this.animateIdleSmooth(entity.idleAnimationState, ArthropleuraAnimations.BODY_IDLE1, ageInTicks, partialTicks, limbSwingAmount, 4);
         } else {
             this.animateWalk(ArthropleuraAnimations.BODY_WALK2, limbSwing, limbSwingAmount, 2, 4);
-            this.animateIdleSmooth(entity.idleAnimationState, ArthropleuraAnimations.BODY_IDLE2, ageInTicks, limbSwingAmount, 4);
+            this.animateIdleSmooth(entity.idleAnimationState, ArthropleuraAnimations.BODY_IDLE2, ageInTicks, partialTicks, limbSwingAmount, 4);
         }
         this.look(rotation_control, rotationY, rotationX, 1.0F, 1.0F);
 	}

@@ -122,16 +122,16 @@ public class LorrainosaurusModel extends UP2Model<Lorrainosaurus> {
 
         if (this.young) this.applyStatic(LorrainosaurusAnimations.BABY_TRANSFORM);
 
-        this.animateIdleSmooth(entity.swimIdleAnimationState, LorrainosaurusAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount);
-        this.animateIdleSmooth(entity.idleAnimationState, LorrainosaurusAnimations.IDLE, ageInTicks, limbSwingAmount, 4);
-        this.animateSmooth(entity.attack1AnimationState, LorrainosaurusAnimations.BITE_BLEND1, ageInTicks);
-        this.animateSmooth(entity.attack2AnimationState, LorrainosaurusAnimations.BITE_BLEND2, ageInTicks);
-        this.animateSmooth(entity.yawnAnimationState, LorrainosaurusAnimations.YAWN_BLEND, ageInTicks);
-        this.animateSmooth(entity.nip1AnimationState, LorrainosaurusAnimations.NIP_BLEND1, ageInTicks);
-        this.animateSmooth(entity.nip2AnimationState, LorrainosaurusAnimations.NIP_BLEND2, ageInTicks);
-        this.animateSmooth(entity.grabStartAnimationState, LorrainosaurusAnimations.GRAB_START_BLEND, ageInTicks);
-        this.animateSmooth(entity.grabAnimationState, LorrainosaurusAnimations.GRAB_BLEND, ageInTicks);
-        this.animateSmooth(entity.aggroAnimationState, LorrainosaurusAnimations.AGGRO_BLEND, ageInTicks);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, LorrainosaurusAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.idleAnimationState, LorrainosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
+        this.animateSmooth(entity.attack1AnimationState, LorrainosaurusAnimations.BITE_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack2AnimationState, LorrainosaurusAnimations.BITE_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.yawnAnimationState, LorrainosaurusAnimations.YAWN_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.nip1AnimationState, LorrainosaurusAnimations.NIP_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.nip2AnimationState, LorrainosaurusAnimations.NIP_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.grabStartAnimationState, LorrainosaurusAnimations.GRAB_START_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.grabAnimationState, LorrainosaurusAnimations.GRAB_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.aggroAnimationState, LorrainosaurusAnimations.AGGRO_BLEND, ageInTicks, partialTicks);
 
         if (entity.isInWaterOrBubble()) {
             this.swim_control.xRot = headPitch * deg;

@@ -76,12 +76,13 @@ public class UnicornModel extends UP2Model<Unicorn> {
 	@Override
 	public void setupAnim(@NotNull Unicorn entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+		float partialTicks = ageInTicks - entity.tickCount;
 
         this.animateWalk(UnicornAnimations.WALK, limbSwing, limbSwingAmount, 4, 8);
 
         if (this.young) this.applyStatic(UnicornAnimations.BABY_TRANSFORM);
 
-		this.animateIdleSmooth(entity.idleAnimationState, UnicornAnimations.IDLE, ageInTicks, limbSwingAmount);
+		this.animateIdleSmooth(entity.idleAnimationState, UnicornAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
 
         float deg = ((float) Math.PI / 180F);
 		this.head.xRot += headPitch * (deg) - (headPitch * (deg)) / 4;

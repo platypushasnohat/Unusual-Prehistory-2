@@ -133,26 +133,26 @@ public class DesmatosuchusModel extends UP2Model<Desmatosuchus> {
     @Override
     public void setupAnim(Desmatosuchus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
 		if (!entity.isInWater() && !entity.isEepy()) {
             if (entity.isRunning()) this.animateWalk(DesmatosuchusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
             else this.animateWalk(DesmatosuchusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
-        this.animateIdleSmooth(entity.idleAnimationState, DesmatosuchusAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.swimAnimationState, DesmatosuchusAnimations.SWIM, ageInTicks);
-        this.animateSmooth(entity.grazeAnimationState, DesmatosuchusAnimations.IDLE_GRAZE_BLEND, ageInTicks);
-        this.animateSmooth(entity.rollAnimationState, DesmatosuchusAnimations.ROLL, ageInTicks);
-        this.animateSmooth(entity.shakeAnimationState, DesmatosuchusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
-        this.animateSmooth(entity.sniff1AnimationState, DesmatosuchusAnimations.IDLE_SNIFF_BLEND1, ageInTicks);
-        this.animateSmooth(entity.sniff2AnimationState, DesmatosuchusAnimations.IDLE_SNIFF_BLEND2, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, DesmatosuchusAnimations.SLEEP, ageInTicks);
-        this.animateSmooth(entity.sitAnimationState, DesmatosuchusAnimations.BURROW, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, DesmatosuchusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.swimAnimationState, DesmatosuchusAnimations.SWIM, ageInTicks, partialTicks);
+        this.animateSmooth(entity.grazeAnimationState, DesmatosuchusAnimations.IDLE_GRAZE_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.rollAnimationState, DesmatosuchusAnimations.ROLL, ageInTicks, partialTicks);
+        this.animateSmooth(entity.shakeAnimationState, DesmatosuchusAnimations.IDLE_SHAKE_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.sniff1AnimationState, DesmatosuchusAnimations.IDLE_SNIFF_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.sniff2AnimationState, DesmatosuchusAnimations.IDLE_SNIFF_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eepyAnimationState, DesmatosuchusAnimations.SLEEP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.sitAnimationState, DesmatosuchusAnimations.BURROW, ageInTicks, partialTicks);
 
         if (this.young) this.applyStatic(DesmatosuchusAnimations.BABY_TRANSFORM);
 
         this.animateHead(entity, this.head, netHeadYaw, headPitch);
-        float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail.yRot = Mth.lerp(0.2F, this.tail.yRot, tailYaw * 0.25F);
 	}

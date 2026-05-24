@@ -182,6 +182,8 @@ public class ShringasaurusModel extends UP2Model<Shringasaurus> {
 	@Override
 	public void setupAnim(@NotNull Shringasaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (!entity.isCharging()) {
             if (entity.isRunning()) {
                 this.animateWalk(ShringasaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.3F, 2.6F);
@@ -190,17 +192,17 @@ public class ShringasaurusModel extends UP2Model<Shringasaurus> {
                 this.animateWalk(ShringasaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
             }
         }
-		this.animateIdleSmooth(entity.idleAnimationState, ShringasaurusAnimations.IDLE, ageInTicks, limbSwingAmount, entity.isRunning() ? 2.6F : 4);
-        this.animateSmooth(entity.eepyAnimationState, ShringasaurusAnimations.SLEEP, ageInTicks);
-        this.animateSmooth(entity.attack1AnimationState, ShringasaurusAnimations.ATTACK_BLEND1, ageInTicks);
-        this.animateSmooth(entity.attack2AnimationState, ShringasaurusAnimations.ATTACK_BLEND2, ageInTicks);
-        this.animateSmooth(entity.chargeStartAnimationState, ShringasaurusAnimations.CHARGE_START, ageInTicks);
-        this.animateSmooth(entity.chargeAnimationState, ShringasaurusAnimations.CHARGE, ageInTicks, 1.25F);
-        this.animateSmooth(entity.chargeEndAnimationState, ShringasaurusAnimations.CHARGE_END, ageInTicks);
+
+		this.animateIdleSmooth(entity.idleAnimationState, ShringasaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, entity.isRunning() ? 2.6F : 4);
+        this.animateSmooth(entity.eepyAnimationState, ShringasaurusAnimations.SLEEP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack1AnimationState, ShringasaurusAnimations.ATTACK_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack2AnimationState, ShringasaurusAnimations.ATTACK_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.chargeStartAnimationState, ShringasaurusAnimations.CHARGE_START, ageInTicks, partialTicks);
+        this.animateSmooth(entity.chargeAnimationState, ShringasaurusAnimations.CHARGE, ageInTicks, partialTicks ,1.25F);
+        this.animateSmooth(entity.chargeEndAnimationState, ShringasaurusAnimations.CHARGE_END, ageInTicks, partialTicks);
 
         this.faceTarget(entity, netHeadYaw, headPitch, 2, neck, head);
 
-        float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail.yRot = Mth.lerp(0.2F, this.tail.yRot, tailYaw * 0.15F);
 	}

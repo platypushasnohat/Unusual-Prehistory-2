@@ -79,10 +79,11 @@ public class ZhangsolvaModel extends UP2Model<Zhangsolva> {
 	@Override
 	public void setupAnim(@NotNull Zhangsolva entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animateIdleSmooth(entity.idleAnimationState, ZhangsolvaAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.flyAnimationState, ZhangsolvaAnimations.FLY, ageInTicks);
-
         float partialTicks = ageInTicks - entity.tickCount;
+
+        this.animateIdleSmooth(entity.idleAnimationState, ZhangsolvaAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.flyAnimationState, ZhangsolvaAnimations.FLY, ageInTicks, partialTicks);
+
         float rollAmount = entity.getFlightRoll(partialTicks) / (180F / (float) Math.PI);
         float flightPitchAmount = entity.getFlightPitch(partialTicks) / (180F / (float) Math.PI);
 

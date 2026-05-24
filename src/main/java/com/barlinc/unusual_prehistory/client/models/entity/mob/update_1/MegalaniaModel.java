@@ -135,6 +135,7 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 	public void setupAnim(Megalania entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float deg = ((float) Math.PI / 180);
+		float partialTicks = ageInTicks - entity.tickCount;
 
 		if (entity.getIdleState() != 2 && entity.getPose() != UP2Poses.TAIL_WHIPPING.get() && !entity.isEepy()) {
             if (entity.isInWaterOrBubble()) {
@@ -151,16 +152,16 @@ public class MegalaniaModel extends UP2Model<Megalania> {
 
 		if (this.young) this.applyStatic(MegalaniaAnimations.BABY_TRANSFORM);
 
-        this.animateIdleSmooth(entity.idleAnimationState, this.getIdleAnimation(entity), ageInTicks, limbSwingAmount);
-		this.animateSmooth(entity.tongueAnimationState, MegalaniaAnimations.TONGUE_BLEND, ageInTicks);
-		this.animateSmooth(entity.roarAnimationState, MegalaniaAnimations.ROAR, ageInTicks);
-        this.animateSmooth(entity.sitAnimationState, MegalaniaAnimations.SIT, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, MegalaniaAnimations.SLEEP, ageInTicks);
-        this.animateSmooth(entity.attack1AnimationState, MegalaniaAnimations.BITE_BLEND1, ageInTicks);
-        this.animateSmooth(entity.attack2AnimationState, MegalaniaAnimations.BITE_BLEND2, ageInTicks);
-        this.animateSmooth(entity.tailWhipAnimationState, MegalaniaAnimations.TAILWHIP, ageInTicks);
-        this.animateSmooth(entity.aggroAnimationState, MegalaniaAnimations.AGGRO_BLEND, ageInTicks);
-        this.animateIdleSmooth(entity.swimAnimationState, MegalaniaAnimations.SWIM, ageInTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.idleAnimationState, this.getIdleAnimation(entity), ageInTicks, partialTicks, limbSwingAmount);
+		this.animateSmooth(entity.tongueAnimationState, MegalaniaAnimations.TONGUE_BLEND, ageInTicks, partialTicks);
+		this.animateSmooth(entity.roarAnimationState, MegalaniaAnimations.ROAR, ageInTicks, partialTicks);
+        this.animateSmooth(entity.sitAnimationState, MegalaniaAnimations.SIT, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eepyAnimationState, MegalaniaAnimations.SLEEP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack1AnimationState, MegalaniaAnimations.BITE_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack2AnimationState, MegalaniaAnimations.BITE_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.tailWhipAnimationState, MegalaniaAnimations.TAILWHIP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.aggroAnimationState, MegalaniaAnimations.AGGRO_BLEND, ageInTicks, partialTicks);
+        this.animateIdleSmooth(entity.swimAnimationState, MegalaniaAnimations.SWIM, ageInTicks, partialTicks, limbSwingAmount);
 
         if (!entity.isEepy() && !entity.isSitting()) {
             this.head.xRot += headPitch * deg / 4;
@@ -169,7 +170,6 @@ public class MegalaniaModel extends UP2Model<Megalania> {
             this.neck.yRot += netHeadYaw * deg / 4;
         }
 
-        float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.35F);
         this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.3F);

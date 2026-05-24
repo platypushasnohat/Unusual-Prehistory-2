@@ -132,6 +132,8 @@ public class RhizodusModel extends UP2Model<Rhizodus> {
 	@Override
 	public void setupAnim(@NotNull Rhizodus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (entity.isInWaterOrBubble()) {
             if (entity.getPose() != UP2Poses.ATTACKING.get() && entity.getPose() != UP2Poses.GRABBING.get()) {
                 if (entity.isRunning()) {
@@ -144,20 +146,19 @@ public class RhizodusModel extends UP2Model<Rhizodus> {
             this.animateWalk(RhizodusAnimations.LAND_WALK, limbSwing, limbSwingAmount, 2, 4);
         }
 
-		this.animateIdleSmooth(entity.idleAnimationState, RhizodusAnimations.LAND_IDLE, ageInTicks, limbSwingAmount, 4);
-        this.animateIdleSmooth(entity.swimIdleAnimationState, RhizodusAnimations.IDLE, ageInTicks, limbSwingAmount, 4);
+		this.animateIdleSmooth(entity.idleAnimationState, RhizodusAnimations.LAND_IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, RhizodusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
 
-        this.animateSmooth(entity.attack1AnimationState, RhizodusAttackAnimations.ATTACK1, ageInTicks);
-        this.animateSmooth(entity.attack2AnimationState, RhizodusAttackAnimations.ATTACK2, ageInTicks);
-        this.animateSmooth(entity.landAttack1AnimationState, RhizodusAttackAnimations.LAND_BITE_BLEND1, ageInTicks);
-        this.animateSmooth(entity.landAttack2AnimationState, RhizodusAttackAnimations.LAND_BITE_BLEND2, ageInTicks);
-        this.animateSmooth(entity.suctionAttackAnimationState, RhizodusAttackAnimations.SUCTION_ATTACK, ageInTicks);
+        this.animateSmooth(entity.attack1AnimationState, RhizodusAttackAnimations.ATTACK1, ageInTicks,partialTicks);
+        this.animateSmooth(entity.attack2AnimationState, RhizodusAttackAnimations.ATTACK2, ageInTicks,partialTicks);
+        this.animateSmooth(entity.landAttack1AnimationState, RhizodusAttackAnimations.LAND_BITE_BLEND1, ageInTicks,partialTicks);
+        this.animateSmooth(entity.landAttack2AnimationState, RhizodusAttackAnimations.LAND_BITE_BLEND2, ageInTicks,partialTicks);
+        this.animateSmooth(entity.suctionAttackAnimationState, RhizodusAttackAnimations.SUCTION_ATTACK, ageInTicks,partialTicks);
 
         if (entity.isInWaterOrBubble()) {
             this.root.xRot = headPitch * ((float) Math.PI / 180F);
         }
 
-        float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.body_back.yRot = Mth.lerp(0.2F, this.body_back.yRot, tailYaw * 0.35F);
         this.tail.yRot = Mth.lerp(0.2F, this.tail.yRot, tailYaw * 0.3F);

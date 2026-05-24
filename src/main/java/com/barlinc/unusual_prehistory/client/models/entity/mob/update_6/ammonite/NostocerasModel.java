@@ -93,16 +93,18 @@ public class NostocerasModel extends UP2Model<Ammonite> {
 	@Override
 	public void setupAnim(Ammonite entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (entity.isInWaterOrBubble()) {
             this.animateWalk(AmmoniteAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
         }
-        this.animateIdleSmooth(entity.swimIdleAnimationState, AmmoniteAnimations.SWIM, ageInTicks, limbSwingAmount, 4);
-        this.animateSmooth(entity.hideAnimationState, AmmoniteAnimations.HIT_BLEND, ageInTicks);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, AmmoniteAnimations.SWIM, ageInTicks, partialTicks, limbSwingAmount, 4);
+        this.animateSmooth(entity.hideAnimationState, AmmoniteAnimations.HIT_BLEND, ageInTicks, partialTicks);
 
         if ((entity.getId() & 1) == 0) {
-            this.animateSmooth(entity.flopAnimationState, AmmoniteAnimations.FLOP1, ageInTicks);
+            this.animateSmooth(entity.flopAnimationState, AmmoniteAnimations.FLOP1, ageInTicks, partialTicks);
         } else {
-            this.animateSmooth(entity.flopAnimationState, AmmoniteAnimations.FLOP2, ageInTicks);
+            this.animateSmooth(entity.flopAnimationState, AmmoniteAnimations.FLOP2, ageInTicks, partialTicks);
         }
 
         if (entity.isInWaterOrBubble()) {

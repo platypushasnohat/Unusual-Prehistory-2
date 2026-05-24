@@ -101,8 +101,8 @@ public class IchthyosaurusModel extends UP2Model<Ichthyosaurus> {
             this.animateWalk(IchthyosaurusAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
-        this.animateIdleSmooth(entity.swimIdleAnimationState, IchthyosaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.flopAnimationState, IchthyosaurusAnimations.FLOP, ageInTicks);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, IchthyosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.flopAnimationState, IchthyosaurusAnimations.FLOP, ageInTicks, partialTicks);
         this.animate(entity.roll1AnimationState, IchthyosaurusAnimations.ROLL_BLEND1, ageInTicks);
         this.animate(entity.roll2AnimationState, IchthyosaurusAnimations.ROLL_BLEND2, ageInTicks);
 

@@ -84,15 +84,17 @@ public class DunkleosteusSmallModel extends UP2Model<Dunkleosteus> {
 	@Override
 	public void setupAnim(Dunkleosteus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (entity.isRunning()) {
             this.animateWalk(DunkleosteusSmallAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
         } else {
             this.animateWalk(DunkleosteusSmallAnimations.SWIM_CHASE, limbSwing, limbSwingAmount, 1, 2);
         }
-        this.animateIdleSmooth(entity.swimIdleAnimationState, DunkleosteusSmallAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.flopAnimationState, DunkleosteusSmallAnimations.FLOP, ageInTicks);
-        this.animateSmooth(entity.attackAnimationState, DunkleosteusSmallAnimations.ATTACK_BLEND, ageInTicks);
-        this.animateSmooth(entity.quirkAnimationState, DunkleosteusSmallAnimations.QUIRK_BLEND, ageInTicks);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, DunkleosteusSmallAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.flopAnimationState, DunkleosteusSmallAnimations.FLOP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attackAnimationState, DunkleosteusSmallAnimations.ATTACK_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.quirkAnimationState, DunkleosteusSmallAnimations.QUIRK_BLEND, ageInTicks, partialTicks);
         this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
 	}
 

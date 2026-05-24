@@ -53,9 +53,14 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
     }
 
     protected void animateIdle(AnimationState animationState, AnimationDefinition definition, float ageInTicks, float speed, float limbSwingAmount) {
+
+        if (!animationState.isStarted()) {
+            return;
+        }
+
         float scale = Math.max(0, Math.min(1 - Math.abs(limbSwingAmount), 1));
         animationState.updateTime(ageInTicks, speed);
-        animationState.ifStarted((state) -> KeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), scale, UP2Model.ANIMATION_VECTOR_CACHE));
+        KeyframeAnimations.animate(this, definition, animationState.getAccumulatedTime(), scale, UP2Model.ANIMATION_VECTOR_CACHE);
     }
 
     @Override
@@ -65,33 +70,51 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
 
     @Override
     protected void animateWalk(@NotNull AnimationDefinition definition, float limbSwing, float limbSwingAmount, float maxAnimationSpeed, float animationScaleFactor) {
-        if (limbSwing != 0 && limbSwingAmount != 0) {
-            long i = (long) (limbSwing * 50.0F * maxAnimationSpeed);
-            float f = Math.min(limbSwingAmount * animationScaleFactor, 1.0F);
-            KeyframeAnimations.animate(this, definition, i, f, UP2Model.ANIMATION_VECTOR_CACHE);
+        if (limbSwingAmount < 0.01F || limbSwing < 0.01F) {
+            return;
         }
+        long i = (long) (limbSwing * 50.0F * maxAnimationSpeed);
+        float f = Math.min(limbSwingAmount * animationScaleFactor, 1.0F);
+        KeyframeAnimations.animate(this, definition, i, f, UP2Model.ANIMATION_VECTOR_CACHE);
+
     }
 
-    @Override
     protected void animate(AnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float speed) {
+        if (!animationState.isStarted()) {
+            return;
+        }
+
         animationState.updateTime(ageInTicks, speed);
-        animationState.ifStarted((state) -> KeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), 1.0F, UP2Model.ANIMATION_VECTOR_CACHE));
+
+        KeyframeAnimations.animate(this, definition, animationState.getAccumulatedTime(), 1.0F, UP2Model.ANIMATION_VECTOR_CACHE);
     }
 
-    protected void animateIdleSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float limbSwingAmount) {
-        animationState.animateIdle(this, definition, ageInTicks, limbSwingAmount, 1.5F);
+    protected void animateIdleSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount) {
+        if (!animationState.isActive(partialTicks)) {
+            return;
+        }
+
+        animationState.animateIdle(this, definition, ageInTicks, partialTicks, limbSwingAmount, 1.5F);
     }
 
-    protected void animateIdleSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float limbSwingAmount, float animationScaleFactor) {
-        animationState.animateIdle(this, definition, ageInTicks, limbSwingAmount, animationScaleFactor);
+    protected void animateIdleSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor) {
+
+        if (!animationState.isActive(partialTicks)) {
+            return;
+        }
+        animationState.animateIdle(this, definition, ageInTicks, partialTicks, limbSwingAmount, animationScaleFactor);
     }
 
-    protected void animateSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks) {
-        this.animateSmooth(animationState, definition, ageInTicks, 1.0F);
+    protected void animateSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float partialTicks) {
+        this.animateSmooth(animationState, definition, ageInTicks, partialTicks, 1.0F);
     }
 
-    protected void animateSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float speed) {
-        animationState.animate(this, definition, ageInTicks, speed);
+    protected void animateSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float partialTicks, float speed) {
+        if (!animationState.isActive(partialTicks)) {
+            return;
+        }
+
+        animationState.animate(this, definition, ageInTicks, partialTicks, speed);
     }
 
     @Override

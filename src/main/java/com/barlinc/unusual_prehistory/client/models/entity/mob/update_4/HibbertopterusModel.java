@@ -164,11 +164,14 @@ public class HibbertopterusModel extends UP2Model<Hibbertopterus> {
 	@Override
 	public void setupAnim(@NotNull Hibbertopterus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
+
         this.animateWalk(HibbertopterusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
-		this.animateIdleSmooth(entity.idleAnimationState, HibbertopterusAnimations.IDLE, ageInTicks, limbSwingAmount, 4);
-        this.animateIdleSmooth(entity.idleAnimationState, HibbertopterusAnimations.IDLE_OVERLAY_BLEND, ageInTicks, limbSwingAmount, 4);
-        this.animateSmooth(entity.plowAnimationState, HibbertopterusAnimations.DIG_BLEND, ageInTicks);
-        this.animateSmooth(entity.danceAnimationState, HibbertopterusAnimations.DANCE, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, HibbertopterusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
+        this.animateIdleSmooth(entity.idleAnimationState, HibbertopterusAnimations.IDLE_OVERLAY_BLEND, ageInTicks, partialTicks, limbSwingAmount, 4);
+        this.animateSmooth(entity.plowAnimationState, HibbertopterusAnimations.DIG_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.danceAnimationState, HibbertopterusAnimations.DANCE, ageInTicks, partialTicks);
     }
 
 	@Override
