@@ -214,7 +214,7 @@ public class ArthropleuraPart extends Entity {
 
     public Vec3 getIdealPosition(Entity head, Entity front) {
         float scale = 1.0F;
-        float offset = 1.65F * scale;
+        float offset = 1.87F * scale;
         float wiggle = 0.0F;
 
         if (head instanceof Arthropleura arthropleura) {
@@ -224,10 +224,10 @@ public class ArthropleuraPart extends Entity {
             wiggle = 0.1F * (float) Math.sin(head.tickCount * 0.3F - this.getIndex());
         }
         if (this.getBackEntity() == null) {
-            offset -= 0.35F * scale;
+            offset -= 0.27F * scale;
         }
         if (this.getIndex() == 0) {
-            offset -= 0.15F * scale;
+            offset -= 0.2F * scale;
         }
         Vec3 offsetFromParent = new Vec3(wiggle, 0.0F, -offset).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot()));
         return front.position().add(offsetFromParent);
@@ -243,10 +243,9 @@ public class ArthropleuraPart extends Entity {
             double distToHead = toHead.length();
             if (distToHead > 1.0E-4D) {
                 Vec3 dirToHead = toHead.scale(1.0D / distToHead);
-                double error = distToHead - 1.2D;
+                double error = distToHead - 1.5D;
                 if (error > 0.0D) {
-                    double correction = Math.min(error * 0.7D, 0.25D);
-                    pos = pos.add(dirToHead.scale(correction));
+                    pos = pos.add(dirToHead.scale(0.5F));
                 }
             }
             if (head.isInFluidType()) {

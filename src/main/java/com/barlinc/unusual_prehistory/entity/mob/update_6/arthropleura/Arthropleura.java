@@ -57,16 +57,6 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
 
     private final SaddlelessItemBasedSteering steering = new SaddlelessItemBasedSteering(this.entityData, BOOST_TIME);
 
-    private int lSteps;
-    private double lx;
-    private double ly;
-    private double lz;
-    private double lyr;
-    private double lxr;
-    private double lxd;
-    private double lyd;
-    private double lzd;
-
     public Arthropleura(EntityType<? extends PrehistoricMob> type, Level level) {
         super(type, level);
         this.moveControl = new ArthropleuraMoveControl(this, 4);
@@ -276,21 +266,6 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
         super.tick();
         this.yBodyRot = this.getYRot();
         this.yHeadRot = this.getYRot();
-
-        if (this.level().isClientSide) {
-            if (this.lSteps > 0) {
-                double x = this.getX() + (this.lx - this.getX()) / (double) this.lSteps;
-                double y = this.getY() + (this.ly - this.getY()) / (double) this.lSteps;
-                double z = this.getZ() + (this.lz - this.getZ()) / (double) this.lSteps;
-                this.setYRot(Mth.wrapDegrees((float) this.lyr));
-                this.setXRot(this.getXRot() + (float) (this.lxr - (double) this.getXRot()) / (float) this.lSteps);
-                this.lSteps--;
-                this.setPos(x, y, z);
-                this.calculateEntityAnimation(false);
-            } else {
-                this.reapplyPosition();
-            }
-        }
         this.steering.tickBoost();
     }
 
@@ -387,25 +362,6 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
 
     public int getSegments() {
         return this.entityData.get(SEGMENTS);
-    }
-
-    @Override
-    public void lerpTo(double x, double y, double z, float yr, float xr, int steps) {
-        this.lx = x;
-        this.ly = y;
-        this.lz = z;
-        this.lyr = yr;
-        this.lxr = xr;
-        this.lSteps = steps;
-        this.setDeltaMovement(this.lxd, this.lyd, this.lzd);
-    }
-
-    @Override
-    public void lerpMotion(double lerpX, double lerpY, double lerpZ) {
-        this.lxd = lerpX;
-        this.lyd = lerpY;
-        this.lzd = lerpZ;
-        this.setDeltaMovement(this.lxd, this.lyd, this.lzd);
     }
 
     @Override
@@ -592,7 +548,7 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
                     return 0.17F;
                 }
                 float factor = 1.0F - Mth.sin(arthropleura.steering.getBoostProgress() * (float) Math.PI);
-                factor = Mth.lerp(factor * factor, 0.008F / 0.17F, 1.0F);
+                factor = Mth.lerp(factor * factor, 0.02F / 0.17F, 1.0F);
                 return 0.17F * factor;
             } else {
                 return 0.17F;
