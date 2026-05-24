@@ -48,6 +48,7 @@ public class SmoothAnimationState extends AnimationState {
         return Mth.lerp(partialTicks, this.factorOld, this.factor);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     @OnlyIn(Dist.CLIENT)
     public boolean isActive(float partialTicks) {
         return this.factor(partialTicks) > 0.05F;
@@ -60,21 +61,16 @@ public class SmoothAnimationState extends AnimationState {
 
     @OnlyIn(Dist.CLIENT)
     public void animate(HierarchicalModel<?> model, AnimationDefinition definition, float ageInTicks, float partialTicks, float speed) {
-
         float factor = this.factor(partialTicks);
-
         if (factor < 0.05F) {
             return;
         }
-
         this.updateTime(ageInTicks, speed);
-
         KeyframeAnimations.animate(model, definition, this.getAccumulatedTime(), factor, ANIMATION_VECTOR_CACHE);
     }
 
     @OnlyIn(Dist.CLIENT)
     public void animateIdle(HierarchicalModel<?> model, AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor, SmoothAnimationState... states) {
-
         this.animateIdle(model, definition, ageInTicks, partialTicks, limbSwingAmount, animationScaleFactor, 0.01F, states);
     }
 
@@ -85,22 +81,13 @@ public class SmoothAnimationState extends AnimationState {
         float extraFactor = 0.0F;
 
         for (SmoothAnimationState state : states) {
-
             float factor = state.factor(partialTicks);
-
             totalFactor *= 1.0F - factor;
             extraFactor += factor;
         }
 
-        float limb = Math.min(
-                (limbSwingAmount * (totalFactor + extraFactor)) * animationScaleFactor,
-                1.0F
-        );
-
-        float factor = Math.max(
-                this.factor(partialTicks) * (1.0F - limb),
-                threshold
-        );
+        float limb = Math.min((limbSwingAmount * (totalFactor + extraFactor)) * animationScaleFactor, 1.0F);
+        float factor = Math.max(this.factor(partialTicks) * (1.0F - limb), threshold);
 
         // HUGE optimization
         if (factor < 0.05F) {
@@ -108,7 +95,6 @@ public class SmoothAnimationState extends AnimationState {
         }
 
         this.updateTime(ageInTicks, 1.0F);
-
         KeyframeAnimations.animate(model, definition, this.getAccumulatedTime(), factor, ANIMATION_VECTOR_CACHE);
     }
 }

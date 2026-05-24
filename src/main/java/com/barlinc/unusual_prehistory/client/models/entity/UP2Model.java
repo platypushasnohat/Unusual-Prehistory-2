@@ -17,6 +17,10 @@ import org.joml.Vector3f;
 
 import java.util.function.Function;
 
+/* todo:
+*   - Remove some redundant things like old animateIdle, animate head
+* */
+
 public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
 
     private static final Vector3f ANIMATION_VECTOR_CACHE = new Vector3f();
@@ -53,11 +57,9 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
     }
 
     protected void animateIdle(AnimationState animationState, AnimationDefinition definition, float ageInTicks, float speed, float limbSwingAmount) {
-
         if (!animationState.isStarted()) {
             return;
         }
-
         float scale = Math.max(0, Math.min(1 - Math.abs(limbSwingAmount), 1));
         animationState.updateTime(ageInTicks, speed);
         KeyframeAnimations.animate(this, definition, animationState.getAccumulatedTime(), scale, UP2Model.ANIMATION_VECTOR_CACHE);
@@ -76,16 +78,13 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
         long i = (long) (limbSwing * 50.0F * maxAnimationSpeed);
         float f = Math.min(limbSwingAmount * animationScaleFactor, 1.0F);
         KeyframeAnimations.animate(this, definition, i, f, UP2Model.ANIMATION_VECTOR_CACHE);
-
     }
 
     protected void animate(AnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float speed) {
         if (!animationState.isStarted()) {
             return;
         }
-
         animationState.updateTime(ageInTicks, speed);
-
         KeyframeAnimations.animate(this, definition, animationState.getAccumulatedTime(), 1.0F, UP2Model.ANIMATION_VECTOR_CACHE);
     }
 
@@ -93,12 +92,10 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
         if (!animationState.isActive(partialTicks)) {
             return;
         }
-
         animationState.animateIdle(this, definition, ageInTicks, partialTicks, limbSwingAmount, 1.5F);
     }
 
     protected void animateIdleSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor) {
-
         if (!animationState.isActive(partialTicks)) {
             return;
         }
@@ -113,7 +110,6 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
         if (!animationState.isActive(partialTicks)) {
             return;
         }
-
         animationState.animate(this, definition, ageInTicks, partialTicks, speed);
     }
 
