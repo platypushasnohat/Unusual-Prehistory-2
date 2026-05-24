@@ -14,7 +14,7 @@ import java.util.List;
 public class ShearsItemMixin {
 
     @ModifyReturnValue(method = "createToolProperties", at = @At("RETURN"))
-    private static Tool addShearsRules(Tool original) {
+    private static Tool unusualPrehistory$shearMineable(Tool original) {
         List<Tool.Rule> rules = new ArrayList<>(original.rules());
         rules.add(Tool.Rule.overrideSpeed(UP2BlockTags.MINEABLE_WITH_SHEARS, 5.0F));
         return new Tool(rules, original.defaultMiningSpeed(), original.damagePerBlock());
