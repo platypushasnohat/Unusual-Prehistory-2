@@ -44,6 +44,8 @@ public class ArthropleuraPart extends Entity {
 
     private static final EntityDataAccessor<Integer> INDEX = SynchedEntityData.defineId(ArthropleuraPart.class, EntityDataSerializers.INT);
 
+    private double prevHeadSpeed;
+
     public boolean renderHurtFlag = false;
     private boolean wasPreviouslyBaby;
 
@@ -212,52 +214,38 @@ public class ArthropleuraPart extends Entity {
         this.idleAnimationState.animateWhen(this.isAlive(), this.tickCount);
     }
 
-    public Vec3 getIdealPosition(Entity head, Entity front) {
-        float scale = 1.0F;
-        float offset = 1.87F * scale;
-        float wiggle = 0.0F;
-
-        if (head instanceof Arthropleura arthropleura) {
-            scale = arthropleura.getAgeScale();
-        }
-        if (this.isHeadMoving()) {
-            wiggle = 0.1F * (float) Math.sin(head.tickCount * 0.3F - this.getIndex());
-        }
-        if (this.getBackEntity() == null) {
-            offset -= 0.27F * scale;
-        }
-        if (this.getIndex() == 0) {
-            offset -= 0.2F * scale;
-        }
-        Vec3 offsetFromParent = new Vec3(wiggle, 0.0F, -offset).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot()));
-        return front.position().add(offsetFromParent);
-    }
-
     private void tickPartPosition(Entity head, Entity front, Entity back) {
-        Vec3 ideal = this.getIdealPosition(head, front).subtract(this.position());
-        Vec3 distance = ideal.length() > 1.0F ? ideal.normalize() : ideal;
-        Vec3 pos = this.position().add(distance);
+        float scale = head instanceof Arthropleura arthropleura ? arthropleura.getAgeScale() : 1.0F;
+        float offset = 1.35F * scale;
 
-        if (head != null) {
-            Vec3 toHead = head.position().subtract(pos);
-            double distToHead = toHead.length();
-            if (distToHead > 1.0E-4D) {
-                Vec3 dirToHead = toHead.scale(1.0D / distToHead);
-                double error = distToHead - 1.5D;
-                if (error > 0.0D) {
-                    pos = pos.add(dirToHead.scale(0.5F));
-                }
+        double headSpeed = head.getDeltaMovement().horizontalDistance();
+        double speed = Mth.lerp(0.5D, prevHeadSpeed, headSpeed);
+        double speedDelta = speed - prevHeadSpeed;
+        this.prevHeadSpeed = speed;
+
+        if (this.getBackEntity() == null) {
+            offset -= 0.19F * scale;
+        }
+
+        float wiggle = 0.0F;
+        if (this.isHeadMoving()) {
+            float speedScale = (float) Mth.clamp(speedDelta * 6.0D, -1.0D, 1.0D);
+            float indexScale = 1.0F + (this.getIndex() * 0.08F);
+            offset -= speedScale * 0.25F * scale * indexScale;
+            wiggle = 0.07F * (float) Math.sin(head.tickCount * 0.15F - this.getIndex());
+        }
+
+        Vec3 target = front.position().add(new Vec3(wiggle, 0, -offset).xRot(-(float)Math.toRadians(front.getXRot())).yRot(-(float)Math.toRadians(front.getYRot())));
+
+        if (head.isInFluidType()) {
+            this.setPos(target.x, target.y, target.z);
+        } else {
+            double currentY = this.getY();
+            double targetY = this.calculateSurfaceY(target, head, front, back);
+            if (Math.abs(targetY - this.getY()) > 0.05D) {
+                currentY = targetY;
             }
-            if (head.isInFluidType()) {
-                this.setPos(pos.x, pos.y, pos.z);
-            } else {
-                double currentY = this.getY();
-                double targetY = this.calculateSurfaceY(pos, front, back);
-                if (Math.abs(targetY - currentY) > 0.08D) {
-                    currentY = targetY;
-                }
-                this.setPos(pos.x, currentY, pos.z);
-            }
+            this.setPos(target.x, currentY, target.z);
         }
         this.move(MoverType.SELF, this.getDeltaMovement());
     }
@@ -284,26 +272,33 @@ public class ArthropleuraPart extends Entity {
         return head.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
     }
 
-    private double calculateSurfaceY(Vec3 pos, Entity front, Entity back) {
+    private double calculateSurfaceY(Vec3 pos, Entity head, Entity front, Entity back) {
         Vec3 pushed = this.pushOutOfBlocks(pos);
-        double posX = pushed.x;
+        double posX = pos.x;
         double posY = pushed.y;
-        double posZ = pushed.z;
+        double posZ = pos.z;
+
         double frontY = front.getY();
         double backY = back != null ? back.getY() : frontY;
         double average = (frontY + backY) * 0.5D;
+
         double terrainCenter = posY + (this.getLowPartHeight(posX, posY, posZ) + this.getHighPartHeight(posX, posY, posZ)) * 0.5D;
-        double targetY = Mth.lerp(0.38D, average, terrainCenter);
-        double minY = Math.max(frontY - 1.0D, backY - 1.0D);
-        double maxY = Math.min(frontY + 1.0D, backY + 1.0D);
+        double targetY = Mth.lerp(0.5D, average, terrainCenter);
+
+        double t = Mth.clamp((double) this.getIndex() / (head instanceof Arthropleura arthropleura ? arthropleura.getSegments() : 5.0D), 0.0D, 1.0D);
+
+        double down = Mth.lerp(t, 0.1D, 0.9D);
+        double up = Mth.lerp(t, 0.1D, 0.9D);
+
+        double minY = frontY - down;
+        double maxY = frontY + up;
+
         return Mth.clamp(targetY, minY, maxY);
     }
 
     private Vec3 pushOutOfBlocks(Vec3 pos) {
         AABB aabb = this.getBoundingBox().move(pos.x - this.getX(), pos.y - this.getY(), pos.z - this.getZ());
-        double pushX = 0.0D;
         double pushY = 0.0D;
-        double pushZ = 0.0D;
         BlockPos min = BlockPos.containing(aabb.minX, aabb.minY, aabb.minZ);
         BlockPos max = BlockPos.containing(aabb.maxX, aabb.maxY, aabb.maxZ);
         for (int x = min.getX(); x <= max.getX(); x++) {
@@ -322,15 +317,11 @@ public class ArthropleuraPart extends Entity {
                     if (!aabb.intersects(aabb1)) {
                         continue;
                     }
-                    double dx = (aabb.getXsize() > 0) ? (aabb.getCenter().x - blockPos.getX()) : 0;
-                    double dz = (aabb.getZsize() > 0) ? (aabb.getCenter().z - blockPos.getZ()) : 0;
-                    pushX += (dx >= 0 ? 0.05D : -0.05D);
-                    pushZ += (dz >= 0 ? 0.05D : -0.05D);
-                    pushY += 0.38D;
+                    pushY += 0.05D;
                 }
             }
         }
-        return pos.add(pushX, pushY, pushZ);
+        return pos.add(0.0D, pushY, 0.0D);
     }
 
     public double getLowPartHeight(double x, double y, double z) {
@@ -380,7 +371,11 @@ public class ArthropleuraPart extends Entity {
                 prev.setBackEntityUUID(current.getUUID());
             }
             current.setIndex(i);
-            current.setPos(current.getIdealPosition(arthropleura, prev == null ? arthropleura : prev));
+            Entity front = prev == null ? arthropleura : prev;
+            float scale = arthropleura.getAgeScale();
+            float offset = 0.9F * scale;
+            Vec3 pos = front.position().add(new Vec3(0.0F, 0.0F, -offset).xRot(-(float) Math.toRadians(front.getXRot())).yRot(-(float) Math.toRadians(front.getYRot())));
+            current.setPos(pos);
             current.setYRot(arthropleura.getYRot());
             arthropleura.setSegments(arthropleura.getSegments() + 1);
             arthropleura.level().addFreshEntity(current);
