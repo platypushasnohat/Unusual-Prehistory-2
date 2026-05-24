@@ -75,8 +75,10 @@ public class KimmeridgebrachypteraeschnidiumNymphModel extends UP2Model<Kimmerid
 	@Override
 	public void setupAnim(Kimmeridgebrachypteraeschnidium entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animateWalk(KimmeridgebrachypteraeschnidiumAnimations.BABY_WALK, limbSwing, limbSwingAmount, 1.5F, 3);
-        this.animateIdleSmooth(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumAnimations.BABY_IDLE, ageInTicks, limbSwingAmount);
+        float partialTicks = ageInTicks - entity.tickCount;
+
+        this.animateWalk(KimmeridgebrachypteraeschnidiumAnimations.BABY_WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+        this.animateIdleSmooth(entity.idleAnimationState, KimmeridgebrachypteraeschnidiumAnimations.BABY_IDLE, ageInTicks, partialTicks, limbSwingAmount);
 	}
 
 	@Override

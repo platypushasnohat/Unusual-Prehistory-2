@@ -106,16 +106,18 @@ public class HynerpetonModel extends UP2Model<Hynerpeton> {
 	@Override
 	public void setupAnim(@NotNull Hynerpeton entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (entity.isInWaterOrBubble()) {
             this.animateWalk(HynerpetonAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
         } else {
             this.animateWalk(HynerpetonAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
         }
-		this.animateIdleSmooth(entity.idleAnimationState, HynerpetonAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateIdleSmooth(entity.idleAnimationState, HynerpetonAnimations.IDLE_OVERLAY_BLEND, ageInTicks, limbSwingAmount);
-        this.animateIdleSmooth(entity.swimIdleAnimationState, HynerpetonAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.bask1AnimationState, HynerpetonAnimations.BASK1, ageInTicks);
-        this.animateSmooth(entity.bask2AnimationState, HynerpetonAnimations.BASK2, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, HynerpetonAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.idleAnimationState, HynerpetonAnimations.IDLE_OVERLAY_BLEND, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, HynerpetonAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.bask1AnimationState, HynerpetonAnimations.BASK1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.bask2AnimationState, HynerpetonAnimations.BASK2, ageInTicks, partialTicks);
 
         if (this.young) this.applyStatic(HynerpetonAnimations.BABY_TRANSFORM);
         this.faceTarget(entity, netHeadYaw, headPitch, 2, head);

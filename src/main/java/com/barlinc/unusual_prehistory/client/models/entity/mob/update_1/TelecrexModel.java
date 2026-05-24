@@ -74,22 +74,22 @@ public class TelecrexModel extends UP2Model<Telecrex> {
 	@Override
 	public void setupAnim(Telecrex entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
 		if (!entity.isFlying() && !entity.hasSplat()) {
             this.animateWalk(TelecrexAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
 		}
 
-        this.animateIdleSmooth(entity.idleAnimationState, TelecrexAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.flyAnimationState, TelecrexAnimations.FLY, ageInTicks, 1.4F);
-        this.animateSmooth(entity.flyFastAnimationState, TelecrexAnimations.FLYFAST, ageInTicks);
-		this.animateSmooth(entity.peckAnimationState, TelecrexAnimations.PECK, ageInTicks);
-        this.animateSmooth(entity.preen1AnimationState, TelecrexAnimations.PREEN1, ageInTicks);
-        this.animateSmooth(entity.preen2AnimationState, TelecrexAnimations.PREEN2, ageInTicks);
-        this.animateSmooth(entity.splatAnimationState, TelecrexAnimations.SPLAT, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, TelecrexAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.flyAnimationState, TelecrexAnimations.FLY, ageInTicks, 1.4F, partialTicks);
+        this.animateSmooth(entity.flyFastAnimationState, TelecrexAnimations.FLYFAST, ageInTicks, partialTicks);
+		this.animateSmooth(entity.peckAnimationState, TelecrexAnimations.PECK, ageInTicks, partialTicks);
+        this.animateSmooth(entity.preen1AnimationState, TelecrexAnimations.PREEN1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.preen2AnimationState, TelecrexAnimations.PREEN2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.splatAnimationState, TelecrexAnimations.SPLAT, ageInTicks, partialTicks);
 
         this.animateHead(entity, this.head, netHeadYaw, headPitch);
 
-        float partialTicks = ageInTicks - entity.tickCount;
         float rollAmount = entity.getFlightRoll(partialTicks) / (180F / (float) Math.PI);
         float flightPitchAmount = entity.getFlightPitch(partialTicks) / (180F / (float) Math.PI);
 

@@ -134,14 +134,15 @@ public class GrugModel extends UP2Model<Grug> {
     @Override
     public void setupAnim(@NotNull Grug entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
         if (!entity.isLeaping()) {
             if (entity.isRunning()) this.animateWalk(GrugAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
             else this.animateWalk(GrugAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
-        this.animateIdleSmooth(entity.idleAnimationState, GrugAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.jumpAnimationState, GrugAnimations.JUMP, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, GrugAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.jumpAnimationState, GrugAnimations.JUMP, ageInTicks, partialTicks);
 
         this.animateHead(entity, this.chadface, netHeadYaw, headPitch);
     }

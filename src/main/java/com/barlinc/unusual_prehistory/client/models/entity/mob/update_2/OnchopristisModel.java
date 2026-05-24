@@ -83,19 +83,20 @@ public class OnchopristisModel extends UP2Model<Onchopristis> {
 	@Override
 	public void setupAnim(Onchopristis entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (entity.isInWater() && !entity.isBurrowed()) {
             this.animateWalk(OnchopristisAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
         }
-        this.animateIdleSmooth(entity.swimIdleAnimationState, OnchopristisAnimations.IDLE, ageInTicks, limbSwingAmount);
-		this.animateSmooth(entity.flopAnimationState, OnchopristisAnimations.SWIM, ageInTicks, 2);
-		this.animateSmooth(entity.attack1AnimationState, OnchopristisAnimations.ATTACK_BLEND1, ageInTicks);
-        this.animateSmooth(entity.attack2AnimationState, OnchopristisAnimations.ATTACK_BLEND2, ageInTicks);
-        this.animateSmooth(entity.burrowAnimationState, OnchopristisAnimations.BURROW, ageInTicks);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, OnchopristisAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+		this.animateSmooth(entity.flopAnimationState, OnchopristisAnimations.SWIM, ageInTicks, 2, partialTicks);
+		this.animateSmooth(entity.attack1AnimationState, OnchopristisAnimations.ATTACK_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack2AnimationState, OnchopristisAnimations.ATTACK_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.burrowAnimationState, OnchopristisAnimations.BURROW, ageInTicks, partialTicks);
         if (!entity.isBurrowed()) {
             this.swim_control.xRot = headPitch * (((float) Math.PI / 180F) / 2);
         }
 
-        float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail1.yRot = Mth.lerp(0.3F, this.tail1.yRot, tailYaw * 0.2F);
         this.tail2.yRot = Mth.lerp(0.3F, this.tail2.yRot, tailYaw * 0.15F);

@@ -65,10 +65,11 @@ public class DelitzschalaModel extends UP2Model<Delitzschala> {
 	@Override
 	public void setupAnim(@NotNull Delitzschala entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animateIdleSmooth(entity.idleAnimationState, DelitzschalaAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.flyAnimationState, DelitzschalaAnimations.FLY, ageInTicks);
-
         float partialTicks = ageInTicks - entity.tickCount;
+
+        this.animateIdleSmooth(entity.idleAnimationState, DelitzschalaAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.flyAnimationState, DelitzschalaAnimations.FLY, ageInTicks, partialTicks);
+
         float rollAmount = entity.getFlightRoll(partialTicks) / (180F / (float) Math.PI);
         float flightPitchAmount = entity.getFlightPitch(partialTicks) / (180F / (float) Math.PI);
 

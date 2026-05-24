@@ -149,9 +149,9 @@ public class CryptoclidusModel extends UP2Model<Cryptoclidus> {
             this.animateWalk(CryptoclidusAnimations.LAND_WALK, limbSwing, limbSwingAmount, 2, 4);
         }
 
-        this.animateIdleSmooth(entity.swimIdleAnimationState, CryptoclidusAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount, entity.isRunning() ? 3 : 4);
-        this.animateIdleSmooth(entity.idleAnimationState, CryptoclidusAnimations.LAND_IDLE, ageInTicks, limbSwingAmount, 4);
-        this.animateSmooth(entity.attackAnimationState, CryptoclidusAnimations.BITE_BLEND, ageInTicks);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, CryptoclidusAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount, entity.isRunning() ? 3 : 4);
+        this.animateIdleSmooth(entity.idleAnimationState, CryptoclidusAnimations.LAND_IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
+        this.animateSmooth(entity.attackAnimationState, CryptoclidusAnimations.BITE_BLEND, ageInTicks, partialTicks);
 
         if (entity.isInWaterOrBubble()) {
             this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);

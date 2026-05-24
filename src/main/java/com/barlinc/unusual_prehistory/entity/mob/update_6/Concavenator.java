@@ -161,7 +161,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
                 .add(Attributes.MOVEMENT_SPEED, 0.24F)
                 .add(Attributes.ARMOR, 1.0D)
                 .add(Attributes.STEP_HEIGHT, 1.1D)
-                .add(Attributes.FOLLOW_RANGE, 20.0D);
+                .add(Attributes.FOLLOW_RANGE, 10.0D);
     }
 
     @Override
@@ -481,18 +481,18 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
             this.setSandSwimTime(0);
         }
 
-        LivingEntity target = this.getTarget();
-        if (target != null && target.isAlive() && !(target instanceof Player player && player.isCreative())) {
-            if (this.isPackLeader()) {
-                PackAnimal leader = this;
-                while (leader.getAfterPackMember() != null) {
-                    leader = leader.getAfterPackMember();
-                    if (!((Concavenator) leader).isAlliedTo(target)) {
-                        ((Concavenator) leader).setTarget(target);
-                    }
-                }
-            }
-        }
+       LivingEntity target = this.getTarget();
+       if (target != null && target.isAlive() && !(target instanceof Player player && player.isCreative())) {
+           if (this.isPackLeader()) {
+               PackAnimal leader = this;
+               while (leader.getAfterPackMember() != null) {
+                   leader = leader.getAfterPackMember();
+                   if (!((Concavenator) leader).isAlliedTo(target)) {
+                       ((Concavenator) leader).setTarget(target);
+                   }
+               }
+           }
+       }
     }
 
     private void tickSandSwimming() {

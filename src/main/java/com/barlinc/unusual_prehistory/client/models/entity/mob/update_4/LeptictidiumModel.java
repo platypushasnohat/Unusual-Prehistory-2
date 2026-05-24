@@ -95,6 +95,7 @@ public class LeptictidiumModel extends UP2Model<Leptictidium> {
 	@Override
 	public void setupAnim(Leptictidium entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
 		if (!entity.isInWaterOrBubble()) {
             if (entity.isRunning()) this.animateWalk(LeptictidiumAnimations.RUN, limbSwing, limbSwingAmount, 1.3F, 2.6F);
@@ -103,11 +104,11 @@ public class LeptictidiumModel extends UP2Model<Leptictidium> {
 
 		if (this.young) this.applyStatic(LeptictidiumAnimations.BABY_TRANSFORM);
 
-		this.animateIdleSmooth(entity.idleAnimationState, LeptictidiumAnimations.IDLE, ageInTicks, limbSwingAmount, 4);
-        this.animateSmooth(entity.attackAnimationState, LeptictidiumAnimations.ATTACK, ageInTicks);
-        this.animateSmooth(entity.swimAnimationState, LeptictidiumAnimations.SWIM, ageInTicks);
-        this.animateSmooth(entity.preenAnimationState, LeptictidiumAnimations.IDLE_PREEN, ageInTicks);
-        this.animateSmooth(entity.sniffAnimationState, LeptictidiumAnimations.SNIFF_BLEND, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, LeptictidiumAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
+        this.animateSmooth(entity.attackAnimationState, LeptictidiumAnimations.ATTACK, ageInTicks, partialTicks);
+        this.animateSmooth(entity.swimAnimationState, LeptictidiumAnimations.SWIM, ageInTicks, partialTicks);
+        this.animateSmooth(entity.preenAnimationState, LeptictidiumAnimations.IDLE_PREEN, ageInTicks, partialTicks);
+        this.animateSmooth(entity.sniffAnimationState, LeptictidiumAnimations.SNIFF_BLEND, ageInTicks, partialTicks);
     }
 
 	@Override

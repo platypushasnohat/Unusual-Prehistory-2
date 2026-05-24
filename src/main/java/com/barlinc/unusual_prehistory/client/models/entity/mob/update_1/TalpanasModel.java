@@ -87,6 +87,7 @@ public class TalpanasModel extends UP2Model<Talpanas> {
 	@Override
 	public void setupAnim(@NotNull Talpanas entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
         if (entity.onGround() && !entity.isEepy()) {
             if (entity.isRunning()) this.animateWalk(TalpanasAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
@@ -95,10 +96,10 @@ public class TalpanasModel extends UP2Model<Talpanas> {
 
 		if (this.young) this.applyStatic(TalpanasAnimations.BABY_TRANSFORM);
 
-        this.animateIdleSmooth(entity.idleAnimationState, TalpanasAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.flapAnimationState, TalpanasAnimations.FALL, ageInTicks);
-		this.animateSmooth(entity.peckAnimationState, TalpanasAnimations.PECK_BLEND, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, TalpanasAnimations.SIT, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, TalpanasAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.flapAnimationState, TalpanasAnimations.FALL, ageInTicks, partialTicks);
+		this.animateSmooth(entity.peckAnimationState, TalpanasAnimations.PECK_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eepyAnimationState, TalpanasAnimations.SIT, ageInTicks, partialTicks);
 
         this.animateHead(entity, this.head, netHeadYaw, headPitch);
     }

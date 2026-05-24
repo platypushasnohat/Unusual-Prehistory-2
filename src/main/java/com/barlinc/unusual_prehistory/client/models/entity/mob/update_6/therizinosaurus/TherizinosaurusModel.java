@@ -164,6 +164,8 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
 	@Override
 	public void setupAnim(@NotNull Therizinosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (entity.getPose() != UP2Poses.ATTACKING.get() && !entity.isEepy() && !entity.isInWaterOrBubble()) {
             if (entity.isRunning()) {
                 this.animateWalk(TherizinosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
@@ -172,14 +174,14 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
             }
         }
 
-		this.animateIdleSmooth(entity.idleAnimationState, TherizinosaurusAnimations.IDLE, ageInTicks, limbSwingAmount, 3);
-        this.animateSmooth(entity.attack1AnimationState, TherizinosaurusAnimations.SLASH1, ageInTicks);
-        this.animateSmooth(entity.attack2AnimationState, TherizinosaurusAnimations.SLASH2, ageInTicks);
-        this.animateSmooth(entity.roarAnimationState, TherizinosaurusAnimations.AGGRO_ROAR_BLEND, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, TherizinosaurusAnimations.SLEEP, ageInTicks);
-        this.animateSmooth(entity.swimAnimationState, TherizinosaurusAnimations.SWIM, ageInTicks);
-        this.animateSmooth(entity.shakeAnimationState, TherizinosaurusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
-        this.animateSmooth(entity.stretchAnimationState, TherizinosaurusAnimations.IDLE_STRETCH_BLEND, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, TherizinosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 3);
+        this.animateSmooth(entity.attack1AnimationState, TherizinosaurusAnimations.SLASH1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack2AnimationState, TherizinosaurusAnimations.SLASH2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.roarAnimationState, TherizinosaurusAnimations.AGGRO_ROAR_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eepyAnimationState, TherizinosaurusAnimations.SLEEP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.swimAnimationState, TherizinosaurusAnimations.SWIM, ageInTicks, partialTicks);
+        this.animateSmooth(entity.shakeAnimationState, TherizinosaurusAnimations.IDLE_SHAKE_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.stretchAnimationState, TherizinosaurusAnimations.IDLE_STRETCH_BLEND, ageInTicks, partialTicks);
 
         this.faceTarget(entity, netHeadYaw, headPitch, 2, head, neck);
 	}

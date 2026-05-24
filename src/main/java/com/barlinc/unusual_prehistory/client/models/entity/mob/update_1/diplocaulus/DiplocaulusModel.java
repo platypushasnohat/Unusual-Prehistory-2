@@ -56,6 +56,7 @@ public class DiplocaulusModel extends UP2Model<Diplocaulus> {
 	@Override
 	public void setupAnim(Diplocaulus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
         float deg = ((float) Math.PI / 180F);
 
@@ -70,10 +71,10 @@ public class DiplocaulusModel extends UP2Model<Diplocaulus> {
             }
         }
 
-		this.animateIdleSmooth(entity.idleAnimationState, DiplocaulusAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateIdleSmooth(entity.swimIdleAnimationState, DiplocaulusAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.quirkAnimationState, this.getQuirkAnimation(), ageInTicks);
-		this.animateSmooth(entity.burrowAnimationState, DiplocaulusAnimations.BURROW_HOLD, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, DiplocaulusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, DiplocaulusAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.quirkAnimationState, this.getQuirkAnimation(), ageInTicks, partialTicks);
+		this.animateSmooth(entity.burrowAnimationState, DiplocaulusAnimations.BURROW_HOLD, ageInTicks, partialTicks);
         this.animate(entity.boomerangAnimationState, DiplocaulusAnimations.BOOMERANG, ageInTicks);
 
 		if (this.young) this.applyStatic(DiplocaulusAnimations.BABY_TRANSFORM);

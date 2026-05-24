@@ -56,16 +56,16 @@ public class TartuosteusModel extends UP2Model<Tartuosteus> {
 	@Override
 	public void setupAnim(Tartuosteus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
 		if (entity.isInWater()) {
             this.animateWalk(TartuosteusAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
         }
 
-        this.animateIdleSmooth(entity.swimIdleAnimationState, TartuosteusAnimations.IDLE, ageInTicks, limbSwingAmount);
-		this.animateSmooth(entity.flopAnimationState, TartuosteusAnimations.FLOP, ageInTicks);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, TartuosteusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+		this.animateSmooth(entity.flopAnimationState, TartuosteusAnimations.FLOP, ageInTicks, partialTicks);
 
         this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
-        float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail.yRot = Mth.lerp(0.2F, this.tail.yRot, tailYaw * 0.2F);
 	}

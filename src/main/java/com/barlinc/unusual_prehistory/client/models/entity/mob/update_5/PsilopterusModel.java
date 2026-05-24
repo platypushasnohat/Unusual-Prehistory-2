@@ -104,24 +104,25 @@ public class PsilopterusModel extends UP2Model<Psilopterus> {
     @Override
     public void setupAnim(Psilopterus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
         if (!entity.isInWaterOrBubble() && !entity.isEepy() && entity.onGround()) {
             if (entity.isRunning() && entity.getAttackState() != 2) this.animateWalk(PsilopterusAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 2.5F);
             else this.animateWalk(PsilopterusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
-        this.animateIdleSmooth(entity.idleAnimationState, PsilopterusAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.eepyAnimationState, PsilopterusAnimations.SLEEP, ageInTicks);
-        this.animateSmooth(entity.swimAnimationState, PsilopterusAnimations.SWIM, ageInTicks);
-        this.animateSmooth(entity.attack1AnimationState, PsilopterusAnimations.ATTACK_BLEND1, ageInTicks);
-        this.animateSmooth(entity.attack2AnimationState, PsilopterusAnimations.ATTACK_BLEND2, ageInTicks);
-        this.animateSmooth(entity.kickAnimationState, PsilopterusAnimations.KICK, ageInTicks);
-        this.animateSmooth(entity.pokeAnimationState, PsilopterusAnimations.POKE_BLEND, ageInTicks);
-        this.animateSmooth(entity.dig1AnimationState, PsilopterusAnimations.DIG1, ageInTicks);
-        this.animateSmooth(entity.dig2AnimationState, PsilopterusAnimations.DIG2, ageInTicks);
-        this.animateSmooth(entity.preen1AnimationState, PsilopterusAnimations.PREEN1, ageInTicks);
-        this.animateSmooth(entity.preen2AnimationState, PsilopterusAnimations.PREEN2, ageInTicks);
-        this.animateSmooth(entity.flapAnimationState, PsilopterusAnimations.FALL, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, PsilopterusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.eepyAnimationState, PsilopterusAnimations.SLEEP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.swimAnimationState, PsilopterusAnimations.SWIM, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack1AnimationState, PsilopterusAnimations.ATTACK_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack2AnimationState, PsilopterusAnimations.ATTACK_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.kickAnimationState, PsilopterusAnimations.KICK, ageInTicks, partialTicks);
+        this.animateSmooth(entity.pokeAnimationState, PsilopterusAnimations.POKE_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.dig1AnimationState, PsilopterusAnimations.DIG1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.dig2AnimationState, PsilopterusAnimations.DIG2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.preen1AnimationState, PsilopterusAnimations.PREEN1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.preen2AnimationState, PsilopterusAnimations.PREEN2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.flapAnimationState, PsilopterusAnimations.FALL, ageInTicks, partialTicks);
 
         if (this.young) this.applyStatic(PsilopterusAnimations.BABY_TRANSFORM);
 

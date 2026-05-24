@@ -152,6 +152,7 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
 	@Override
 	public void setupAnim(Carnotaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
 		if (!entity.isInWaterOrBubble() && !entity.isEepy() && entity.getPose() != UP2Poses.START_CHARGING.get() && entity.getPose() != UP2Poses.STOP_CHARGING.get()) {
             if (entity.getPose() != UP2Poses.CHARGING.get()) {
@@ -168,22 +169,21 @@ public class CarnotaurusModel extends UP2Model<Carnotaurus> {
 
 		if (this.young) this.applyStatic(CarnotaurusAnimations.BABY_TRANSFORM);
 
-		this.animateIdleSmooth(entity.idleAnimationState, CarnotaurusAnimations.IDLE, ageInTicks,limbSwingAmount, entity.isRunning() ? 2.5F : 3.6F);
-		this.animateSmooth(entity.attack1AnimationState, CarnotaurusAttackAnimations.BITE_BLEND1, ageInTicks);
-        this.animateSmooth(entity.attack2AnimationState, CarnotaurusAttackAnimations.BITE_BLEND2, ageInTicks);
-        this.animateSmooth(entity.headbuttAnimationState, CarnotaurusAttackAnimations.HEADBUTT_BLEND, ageInTicks);
-        this.animateSmooth(entity.chargeStartAnimationState, CarnotaurusAttackAnimations.CHARGE_START, ageInTicks);
-        this.animateSmooth(entity.chargeEndAnimationState, CarnotaurusAttackAnimations.CHARGE_END, ageInTicks);
-		this.animateSmooth(entity.roarAnimationState, CarnotaurusAttackAnimations.AGGRO_ROAR_BLEND, ageInTicks);
-		this.animateSmooth(entity.angryAnimationState, CarnotaurusAttackAnimations.AGGRO_BLEND, ageInTicks);
-        this.animateSmooth(entity.swimAnimationState, CarnotaurusAnimations.SWIM, ageInTicks);
-        this.animateSmooth(entity.sniff1AnimationState, CarnotaurusAnimations.SNIFF_BLEND1, ageInTicks);
-        this.animateSmooth(entity.sniff2AnimationState, CarnotaurusAnimations.SNIFF_BLEND2, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, CarnotaurusAnimations.SLEEP, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, CarnotaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, entity.isRunning() ? 2.5F : 3.6F);
+		this.animateSmooth(entity.attack1AnimationState, CarnotaurusAttackAnimations.BITE_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack2AnimationState, CarnotaurusAttackAnimations.BITE_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.headbuttAnimationState, CarnotaurusAttackAnimations.HEADBUTT_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.chargeStartAnimationState, CarnotaurusAttackAnimations.CHARGE_START, ageInTicks, partialTicks);
+        this.animateSmooth(entity.chargeEndAnimationState, CarnotaurusAttackAnimations.CHARGE_END, ageInTicks, partialTicks);
+		this.animateSmooth(entity.roarAnimationState, CarnotaurusAttackAnimations.AGGRO_ROAR_BLEND, ageInTicks, partialTicks);
+		this.animateSmooth(entity.angryAnimationState, CarnotaurusAttackAnimations.AGGRO_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.swimAnimationState, CarnotaurusAnimations.SWIM, ageInTicks, partialTicks);
+        this.animateSmooth(entity.sniff1AnimationState, CarnotaurusAnimations.SNIFF_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.sniff2AnimationState, CarnotaurusAnimations.SNIFF_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eepyAnimationState, CarnotaurusAnimations.SLEEP, ageInTicks, partialTicks);
 
         this.faceTarget(entity, netHeadYaw, headPitch, 2, neck);
 
-        float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.2F);
         this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.15F);

@@ -83,14 +83,16 @@ public class CoelacanthusModel extends UP2Model<Coelacanthus> {
 	@Override
 	public void setupAnim(@NotNull Coelacanthus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (entity.isInWaterOrBubble()) {
             if (entity.isRunning()) this.animateWalk(CoelacanthusAnimations.SWIMFAST, limbSwing, limbSwingAmount, 1.25F, 2.5F);
             this.animateWalk(CoelacanthusAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
-        this.animateIdleSmooth(entity.swimIdleAnimationState, CoelacanthusAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.flopAnimationState, CoelacanthusAnimations.LAND, ageInTicks);
-        this.animateSmooth(entity.absorbAnimationState, CoelacanthusAnimations.EAT_BLEND, ageInTicks);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, CoelacanthusAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.flopAnimationState, CoelacanthusAnimations.LAND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.absorbAnimationState, CoelacanthusAnimations.EAT_BLEND, ageInTicks, partialTicks);
 
         if (entity.isInWaterOrBubble()) {
             this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);

@@ -46,13 +46,15 @@ public class AmpyxModel extends UP2Model<Ampyx> {
 	@Override
 	public void setupAnim(@NotNull Ampyx entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (entity.isCrawling() || !entity.isInWaterOrBubble()) {
             this.animateWalk(AmpyxAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
         } else {
             this.animateWalk(AmpyxAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
         }
-        this.animateIdleSmooth(entity.swimIdleAnimationState, AmpyxAnimations.SWIM, ageInTicks, limbSwingAmount);
-        this.animateIdleSmooth(entity.idleAnimationState, AmpyxAnimations.IDLE, ageInTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, AmpyxAnimations.SWIM, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.idleAnimationState, AmpyxAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
         if (entity.isInWaterOrBubble() && !entity.isCrawling()) {
             this.root.xRot = headPitch * ((float) Math.PI / 180F);
         }

@@ -148,15 +148,17 @@ public class BrachiosaurusModel extends UP2Model<Brachiosaurus> {
 	@Override
 	public void setupAnim(@NotNull Brachiosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (!entity.isEepy() && entity.getPose() != UP2Poses.STOMPING.get()) {
             if (entity.isRunning()) this.animateWalk(BrachiosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
             else this.animateWalk(BrachiosaurusAnimations.WALK, limbSwing, limbSwingAmount, 3.5F, 7);
         }
-		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusAnimations.IDLE, ageInTicks, limbSwingAmount, 7.1F);
-		this.animateSmooth(entity.eepyAnimationState, BrachiosaurusAnimations.SIT, ageInTicks);
-        this.animateSmooth(entity.stompAnimationState, BrachiosaurusAnimations.SLAM, ageInTicks);
-        this.animateSmooth(entity.shakeAnimationState, BrachiosaurusAnimations.SHAKE_BLEND, ageInTicks);
-        this.animateSmooth(entity.callAnimationState, BrachiosaurusAnimations.BELLOW_BLEND, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 7.1F);
+		this.animateSmooth(entity.eepyAnimationState, BrachiosaurusAnimations.SIT, ageInTicks, partialTicks);
+        this.animateSmooth(entity.stompAnimationState, BrachiosaurusAnimations.SLAM, ageInTicks, partialTicks);
+        this.animateSmooth(entity.shakeAnimationState, BrachiosaurusAnimations.SHAKE_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.callAnimationState, BrachiosaurusAnimations.BELLOW_BLEND, ageInTicks, partialTicks);
 
         if (!entity.isEepy()) {
             this.head.xRot += headPitch * ((float) Math.PI / 180F) / 6;
@@ -165,7 +167,6 @@ public class BrachiosaurusModel extends UP2Model<Brachiosaurus> {
             this.neck1.yRot += netHeadYaw * ((float) Math.PI / 180F) / 4;
         }
 
-        float partialTicks = ageInTicks - entity.tickCount;
         double bodyYRot = Mth.wrapDegrees(entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks);
         double segment1Y = (entity.getTrailTransformation(8, partialTicks)) - bodyYRot;
         double segment2Y = (entity.getTrailTransformation(16, partialTicks)) - bodyYRot - segment1Y;

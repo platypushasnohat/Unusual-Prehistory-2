@@ -94,15 +94,15 @@ public class PterodactylusModel extends UP2Model<Pterodactylus> {
 	@Override
 	public void setupAnim(Pterodactylus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
-        this.animateSmooth(entity.idleAnimationState, PterodactylusAnimations.GROUD_IDLE, ageInTicks);
-        this.animateSmooth(entity.hangIdleAnimationState, PterodactylusAnimations.HANG_IDLE, ageInTicks);
-        this.animateSmooth(entity.flyAnimationState, PterodactylusAnimations.FLY, ageInTicks, 1.25F);
-        this.animateSmooth(entity.flyFastAnimationState, PterodactylusAnimations.FLYFAST, ageInTicks);
-        this.animateSmooth(entity.stretchAnimationState, PterodactylusAnimations.GROUND_STRETCH_BLEND, ageInTicks);
-        this.animateSmooth(entity.hangingStretchAnimationState, PterodactylusAnimations.HANG_STRETCH_BLEND, ageInTicks);
+        this.animateSmooth(entity.idleAnimationState, PterodactylusAnimations.GROUD_IDLE, ageInTicks, partialTicks);
+        this.animateSmooth(entity.hangIdleAnimationState, PterodactylusAnimations.HANG_IDLE, ageInTicks, partialTicks);
+        this.animateSmooth(entity.flyAnimationState, PterodactylusAnimations.FLY, ageInTicks, 1.25F, partialTicks);
+        this.animateSmooth(entity.flyFastAnimationState, PterodactylusAnimations.FLYFAST, ageInTicks, partialTicks);
+        this.animateSmooth(entity.stretchAnimationState, PterodactylusAnimations.GROUND_STRETCH_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.hangingStretchAnimationState, PterodactylusAnimations.HANG_STRETCH_BLEND, ageInTicks, partialTicks);
 
-		float partialTicks = ageInTicks - entity.tickCount;
 		float rollAmount = entity.getFlightRoll(partialTicks) / (180F / (float) Math.PI);
 		float flightPitchAmount = entity.getFlightPitch(partialTicks) / (180F / (float) Math.PI);
 

@@ -104,6 +104,8 @@ public class TherizinosaurusBabyModel extends UP2Model<Therizinosaurus> {
 	@Override
 	public void setupAnim(@NotNull Therizinosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (!entity.isInWaterOrBubble()) {
             if (entity.isRunning()) {
                 this.animateWalk(TherizinosaurusAnimations.BABY_RUN, limbSwing, limbSwingAmount, 1, 2);
@@ -112,10 +114,9 @@ public class TherizinosaurusBabyModel extends UP2Model<Therizinosaurus> {
             }
         }
 
-		this.animateIdleSmooth(entity.idleAnimationState, TherizinosaurusAnimations.BABY_IDLE, ageInTicks, limbSwingAmount, entity.isRunning() ? 2 : 3);
-        this.animateSmooth(entity.swimAnimationState, TherizinosaurusAnimations.BABY_SWIM, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, TherizinosaurusAnimations.BABY_IDLE, ageInTicks, partialTicks, limbSwingAmount, entity.isRunning() ? 2 : 3);
+        this.animateSmooth(entity.swimAnimationState, TherizinosaurusAnimations.BABY_SWIM, ageInTicks, partialTicks);
 
-        float partialTicks = ageInTicks - entity.tickCount;
         this.faceTarget(entity, netHeadYaw, headPitch, 2, head, neck);
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail_adjust.yRot = Mth.lerp(0.2F, this.tail_adjust.yRot, tailYaw * 0.2F);

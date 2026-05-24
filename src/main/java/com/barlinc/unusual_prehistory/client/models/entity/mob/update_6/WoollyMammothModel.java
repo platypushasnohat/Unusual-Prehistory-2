@@ -137,8 +137,10 @@ public class WoollyMammothModel extends UP2Model<WoollyMammoth> {
 	@Override
 	public void setupAnim(@NotNull WoollyMammoth entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         this.animateWalk(WoollyMammothAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3.0F);
-		this.animateIdleSmooth(entity.idleAnimationState, WoollyMammothAnimations.IDLE, ageInTicks, limbSwingAmount);
+		this.animateIdleSmooth(entity.idleAnimationState, WoollyMammothAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
         if (this.young) this.applyStatic(WoollyMammothAnimations.BABY_TRANSFORM);
         this.faceTarget(entity, netHeadYaw, headPitch, 3, head);
 	}

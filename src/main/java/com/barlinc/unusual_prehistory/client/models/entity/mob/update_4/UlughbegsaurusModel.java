@@ -128,6 +128,8 @@ public class UlughbegsaurusModel extends UP2Model<Ulughbegsaurus> {
 	@Override
 	public void setupAnim(@NotNull Ulughbegsaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (!entity.isInWaterOrBubble() && !entity.isSitting() && !entity.isEepy() && !entity.isLeaping()) {
             if (entity.isRunning() || (entity.hasControllingPassenger() && entity.getControllingPassenger().isSprinting())) {
                 this.animateWalk(UlughbegsaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 2.5F);
@@ -135,22 +137,22 @@ public class UlughbegsaurusModel extends UP2Model<Ulughbegsaurus> {
                 this.animateWalk(UlughbegsaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
             }
         }
-		this.animateIdleSmooth(entity.idleAnimationState, UlughbegsaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.swimAnimationState, UlughbegsaurusAnimations.SWIM, ageInTicks);
-        this.animateSmooth(entity.attack1AnimationState, UlughbegsaurusAnimations.ATTACK_BLEND1, ageInTicks);
-        this.animateSmooth(entity.attack2AnimationState, UlughbegsaurusAnimations.ATTACK_BLEND2, ageInTicks);
-		this.animateSmooth(entity.sitAnimationState, UlughbegsaurusAnimations.SIT, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, UlughbegsaurusAnimations.SLEEP, ageInTicks);
-        this.animateSmooth(entity.yawnAnimationState, UlughbegsaurusAnimations.YAWN_BLEND, ageInTicks);
-        this.animateSmooth(entity.shakeAnimationState, UlughbegsaurusAnimations.SHAKE_BLEND, ageInTicks);
-        this.animateSmooth(entity.jumpAnimationState, UlughbegsaurusAnimations.JUMP, ageInTicks);
-        this.animateSmooth(entity.blinkAnimationState, UlughbegsaurusAnimations.BLINK_BLEND, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, UlughbegsaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.swimAnimationState, UlughbegsaurusAnimations.SWIM, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack1AnimationState, UlughbegsaurusAnimations.ATTACK_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack2AnimationState, UlughbegsaurusAnimations.ATTACK_BLEND2, ageInTicks, partialTicks);
+		this.animateSmooth(entity.sitAnimationState, UlughbegsaurusAnimations.SIT, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eepyAnimationState, UlughbegsaurusAnimations.SLEEP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.yawnAnimationState, UlughbegsaurusAnimations.YAWN_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.shakeAnimationState, UlughbegsaurusAnimations.SHAKE_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.jumpAnimationState, UlughbegsaurusAnimations.JUMP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.blinkAnimationState, UlughbegsaurusAnimations.BLINK_BLEND, ageInTicks, partialTicks);
         this.animate(entity.eatAnimationState, UlughbegsaurusAnimations.EAT_BLEND, ageInTicks);
 
         if (this.young) this.applyStatic(UlughbegsaurusAnimations.BABY_TRANSFORM);
 
         this.animateHead(entity, this.neck, netHeadYaw, headPitch);
-        float partialTicks = ageInTicks - entity.tickCount;
+
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.2F);
         this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.15F);

@@ -176,6 +176,7 @@ public class KentrosaurusModel extends UP2Model<Kentrosaurus> {
 	@Override
 	public void setupAnim(Kentrosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
 		if (!entity.isInWater() && !entity.isEepy()) {
             if (entity.isRunning()) {
@@ -185,22 +186,21 @@ public class KentrosaurusModel extends UP2Model<Kentrosaurus> {
             }
         }
 
-        this.animateIdleSmooth(entity.idleAnimationState, KentrosaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
-		this.animateSmooth(entity.attack1AnimationState, KentrosaurusAnimations.ATTACK1, ageInTicks);
-		this.animateSmooth(entity.attack2AnimationState, KentrosaurusAnimations.ATTACK2, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, KentrosaurusAnimations.SIT, ageInTicks);
-		this.animateSmooth(entity.grazeAnimationState, KentrosaurusAnimations.GRAZE_BLEND, ageInTicks);
-        this.animateSmooth(entity.shakeAnimationState, KentrosaurusAnimations.SHAKE_BLEND, ageInTicks);
-        this.animateSmooth(entity.stretch1AnimationState, KentrosaurusAnimations.STRETCH_IDLE_BLEND1, ageInTicks);
-        this.animateSmooth(entity.stretch2AnimationState, KentrosaurusAnimations.STRETCH_IDLE_BLEND2, ageInTicks);
-        this.animateSmooth(entity.yawnAnimationState, KentrosaurusAnimations.YAWN_IDLE_BLEND, ageInTicks);
-        this.animateSmooth(entity.swimAnimationState, KentrosaurusAnimations.SWIM, ageInTicks);
-        this.animateSmooth(entity.angryAnimationState, KentrosaurusAnimations.AGGRO_BLEND, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, KentrosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+		this.animateSmooth(entity.attack1AnimationState, KentrosaurusAnimations.ATTACK1, ageInTicks, partialTicks);
+		this.animateSmooth(entity.attack2AnimationState, KentrosaurusAnimations.ATTACK2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eepyAnimationState, KentrosaurusAnimations.SIT, ageInTicks, partialTicks);
+		this.animateSmooth(entity.grazeAnimationState, KentrosaurusAnimations.GRAZE_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.shakeAnimationState, KentrosaurusAnimations.SHAKE_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.stretch1AnimationState, KentrosaurusAnimations.STRETCH_IDLE_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.stretch2AnimationState, KentrosaurusAnimations.STRETCH_IDLE_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.yawnAnimationState, KentrosaurusAnimations.YAWN_IDLE_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.swimAnimationState, KentrosaurusAnimations.SWIM, ageInTicks, partialTicks);
+        this.animateSmooth(entity.angryAnimationState, KentrosaurusAnimations.AGGRO_BLEND, ageInTicks, partialTicks);
 
 		if (this.young) this.applyStatic(KentrosaurusAnimations.BABY_TRANSFORM);
 
         this.animateHead(entity, this.head, netHeadYaw, headPitch);
-        float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail1.yRot = Mth.lerp(0.3F, this.tail1.yRot, tailYaw * 0.15F);
         this.tail2.yRot = Mth.lerp(0.3F, this.tail2.yRot, tailYaw * 0.1F);

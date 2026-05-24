@@ -114,6 +114,7 @@ public class MetriorhynchusModel extends UP2Model<Metriorhynchus> {
 	public void setupAnim(Metriorhynchus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float deg = ((float) Math.PI / 180F);
+        float partialTicks = ageInTicks - entity.tickCount;
 
         if (!entity.isLeaping() && !entity.isSitting()) {
             if (!entity.isInWaterOrBubble()) {
@@ -125,16 +126,16 @@ public class MetriorhynchusModel extends UP2Model<Metriorhynchus> {
 
 		if (this.young) this.applyStatic(MetriorhynchusAnimations.BABY_TRANSFORM);
 
-		this.animateIdleSmooth(entity.idleAnimationState, MetriorhynchusAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateIdleSmooth(entity.swimIdleAnimationState, MetriorhynchusAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.attack1AnimationState, MetriorhynchusAnimations.BITE_BLEND1, ageInTicks);
-        this.animateSmooth(entity.attack2AnimationState, MetriorhynchusAnimations.BITE_BLEND2, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, MetriorhynchusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, MetriorhynchusAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.attack1AnimationState, MetriorhynchusAnimations.BITE_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack2AnimationState, MetriorhynchusAnimations.BITE_BLEND2, ageInTicks, partialTicks);
         this.animate(entity.grab1AnimationState, MetriorhynchusAnimations.DEATHROLL1, ageInTicks);
         this.animate(entity.grab2AnimationState, MetriorhynchusAnimations.DEATHROLL2, ageInTicks);
-        this.animateSmooth(entity.bellowAnimationState, MetriorhynchusAnimations.BELLOW_BLEND, ageInTicks);
-        this.animateSmooth(entity.angryAnimationState, MetriorhynchusAnimations.AGGRO_BLEND, ageInTicks);
-        this.animateSmooth(entity.leapAnimationState, MetriorhynchusAnimations.JUMP, ageInTicks);
-        this.animateSmooth(entity.sitAnimationState, MetriorhynchusAnimations.SLEEP, ageInTicks);
+        this.animateSmooth(entity.bellowAnimationState, MetriorhynchusAnimations.BELLOW_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.angryAnimationState, MetriorhynchusAnimations.AGGRO_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.leapAnimationState, MetriorhynchusAnimations.JUMP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.sitAnimationState, MetriorhynchusAnimations.SLEEP, ageInTicks, partialTicks);
 
         if (!entity.isLeaping() && entity.getPose() != UP2Poses.GRABBING.get() && !entity.isInWaterOrBubble() && !entity.isSitting()) {
             this.head.xRot += (headPitch * deg) / 2;
@@ -145,7 +146,6 @@ public class MetriorhynchusModel extends UP2Model<Metriorhynchus> {
             this.swim_control.xRot = headPitch * deg;
         }
 
-        float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.4F);
         this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.2F);

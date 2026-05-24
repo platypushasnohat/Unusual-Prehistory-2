@@ -171,18 +171,20 @@ public class BrontoscorpioModel extends UP2Model<Brontoscorpio> {
 	@Override
 	public void setupAnim(@NotNull Brontoscorpio entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (entity.getPose() != UP2Poses.WARNING.get() && entity.getPose() != UP2Poses.TAIL_WHIPPING.get()) {
             this.animateWalk(BrontoscorpioAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
         }
-		this.animateIdleSmooth(entity.idleAnimationState, BrontoscorpioAnimations.IDLE, ageInTicks, limbSwingAmount, 4);
-        this.animateSmooth(entity.warnAnimationState, BrontoscorpioAnimations.SCREECH, ageInTicks);
-        this.animateSmooth(entity.attack1AnimationState, BrontoscorpioAnimations.PINCH_BLEND1, ageInTicks);
-        this.animateSmooth(entity.attack2AnimationState, BrontoscorpioAnimations.PINCH_BLEND2, ageInTicks);
-        this.animateSmooth(entity.stingAnimationState, BrontoscorpioAnimations.STING, ageInTicks);
-        this.animateSmooth(entity.snip1AnimationState, BrontoscorpioAnimations.IDLE_SNIP_BLEND1, ageInTicks);
-        this.animateSmooth(entity.snip2AnimationState, BrontoscorpioAnimations.IDLE_SNIP_BLEND2, ageInTicks);
-        this.animateSmooth(entity.quirkAnimationState, BrontoscorpioAnimations.IDLE_QUIRK_BLEND, ageInTicks);
-        this.animateSmooth(entity.feedAnimationState, BrontoscorpioAnimations.FEED_BLEND, ageInTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, BrontoscorpioAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
+        this.animateSmooth(entity.warnAnimationState, BrontoscorpioAnimations.SCREECH, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack1AnimationState, BrontoscorpioAnimations.PINCH_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack2AnimationState, BrontoscorpioAnimations.PINCH_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.stingAnimationState, BrontoscorpioAnimations.STING, ageInTicks, partialTicks);
+        this.animateSmooth(entity.snip1AnimationState, BrontoscorpioAnimations.IDLE_SNIP_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.snip2AnimationState, BrontoscorpioAnimations.IDLE_SNIP_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.quirkAnimationState, BrontoscorpioAnimations.IDLE_QUIRK_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.feedAnimationState, BrontoscorpioAnimations.FEED_BLEND, ageInTicks, partialTicks);
     }
 
 	@Override

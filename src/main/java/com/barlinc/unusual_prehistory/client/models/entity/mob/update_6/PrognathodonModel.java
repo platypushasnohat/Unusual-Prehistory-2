@@ -132,14 +132,14 @@ public class PrognathodonModel extends UP2Model<Prognathodon> {
 
         if (this.young) this.applyStatic(PrognathodonAnimations.BABY_TRANSFORM);
 
-        this.animateIdleSmooth(entity.swimIdleAnimationState, PrognathodonAnimations.SWIM_IDLE, ageInTicks, limbSwingAmount);
-        this.animateIdleSmooth(entity.idleAnimationState, PrognathodonAnimations.BEACHED, ageInTicks, limbSwingAmount, 4);
-        this.animateSmooth(entity.attack1AnimationState, PrognathodonAnimations.BITE_BLEND1, ageInTicks);
-        this.animateSmooth(entity.attack2AnimationState, PrognathodonAnimations.BITE_BLEND2, ageInTicks);
-        this.animateSmooth(entity.yawnAnimationState, PrognathodonAnimations.YAWN_BLEND, ageInTicks);
-        this.animateSmooth(entity.tongueAnimationState, PrognathodonAnimations.FLICK_BLEND, ageInTicks);
-        this.animateSmooth(entity.nip1AnimationState, PrognathodonAnimations.NIP_BLEND1, ageInTicks);
-        this.animateSmooth(entity.nip2AnimationState, PrognathodonAnimations.NIP_BLEND2, ageInTicks);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, PrognathodonAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.idleAnimationState, PrognathodonAnimations.BEACHED, ageInTicks, partialTicks, limbSwingAmount, 4);
+        this.animateSmooth(entity.attack1AnimationState, PrognathodonAnimations.BITE_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attack2AnimationState, PrognathodonAnimations.BITE_BLEND2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.yawnAnimationState, PrognathodonAnimations.YAWN_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.tongueAnimationState, PrognathodonAnimations.FLICK_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.nip1AnimationState, PrognathodonAnimations.NIP_BLEND1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.nip2AnimationState, PrognathodonAnimations.NIP_BLEND2, ageInTicks, partialTicks);
 
         if (entity.isInWaterOrBubble() && !entity.isLeaping()) {
             this.swim_control.xRot = headPitch * deg / 2;

@@ -173,6 +173,8 @@ public class AegirocassisBabyModel extends UP2Model<Aegirocassis> {
     @Override
     public void setupAnim(@NotNull Aegirocassis entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
+
         if (entity.isInWaterOrBubble()) {
             if (entity.getIdleState() != 2) {
                 this.animateWalk(AegirocassisAnimations.BABY_MOUTH_SWIM_OVERLAY, limbSwing, limbSwingAmount, 1.5F, 1.5F);
@@ -180,15 +182,14 @@ public class AegirocassisBabyModel extends UP2Model<Aegirocassis> {
             this.animateWalk(AegirocassisAnimations.BABY_SWIM, limbSwing, limbSwingAmount, 2, 2);
         }
 
-        this.animateIdleSmooth(entity.swimIdleAnimationState, AegirocassisAnimations.BABY_IDLE, ageInTicks, limbSwingAmount);
-        this.animateIdleSmooth(entity.mouthAnimationState, AegirocassisAnimations.BABY_MOUTH_IDLE_OVERLAY, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.flopAnimationState, AegirocassisAnimations.BABY_BEACHED, ageInTicks);
-        this.animateSmooth(entity.eyesAnimationState, AegirocassisAnimations.BABY_EYE_OVERLAY, ageInTicks);
-        this.animateSmooth(entity.eatAnimationState, AegirocassisAnimations.BABY_EAT_OVERLAY, ageInTicks);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, AegirocassisAnimations.BABY_IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.mouthAnimationState, AegirocassisAnimations.BABY_MOUTH_IDLE_OVERLAY, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.flopAnimationState, AegirocassisAnimations.BABY_BEACHED, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eyesAnimationState, AegirocassisAnimations.BABY_EYE_OVERLAY, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eatAnimationState, AegirocassisAnimations.BABY_EAT_OVERLAY, ageInTicks, partialTicks);
         this.animate(entity.rollAnimationState, AegirocassisAnimations.BABY_ROLL_BLEND, ageInTicks);
 
         float deg = ((float) Math.PI / 180F);
-        float partialTicks = ageInTicks - entity.tickCount;
         double bodyYRot = Mth.wrapDegrees(entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks);
 
         double segment1Y = (entity.getTrailTransformation(5, partialTicks)) - bodyYRot;

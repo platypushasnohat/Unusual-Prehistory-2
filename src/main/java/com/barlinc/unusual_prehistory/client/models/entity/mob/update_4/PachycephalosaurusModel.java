@@ -106,6 +106,7 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
 	@Override
 	public void setupAnim(Pachycephalosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
 		if (!entity.isInWaterOrBubble() && !entity.isEepy() && entity.getPose() != UP2Poses.WARNING.get() && entity.getPose() != UP2Poses.RECOVERING.get()) {
             if (entity.isRunning() && entity.getAttackState() != 1) {
@@ -117,18 +118,17 @@ public class PachycephalosaurusModel extends UP2Model<Pachycephalosaurus> {
             }
         }
 
-        this.animateIdleSmooth(entity.idleAnimationState, PachycephalosaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.recoverAnimationState, PachycephalosaurusAnimations.CHARGE_STUN, ageInTicks);
-        this.animateSmooth(entity.warnAnimationState, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks);
-        this.animateSmooth(entity.huffAnimationState, PachycephalosaurusAnimations.HUFF_BLEND, ageInTicks);
-        this.animateSmooth(entity.grazeAnimationState, PachycephalosaurusAnimations.GRAZE_BLEND, ageInTicks);
-        this.animateSmooth(entity.swimAnimationState, PachycephalosaurusAnimations.SWIM, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, PachycephalosaurusAnimations.SLEEP, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, PachycephalosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.recoverAnimationState, PachycephalosaurusAnimations.CHARGE_STUN, ageInTicks, partialTicks);
+        this.animateSmooth(entity.warnAnimationState, PachycephalosaurusAnimations.WARN_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.huffAnimationState, PachycephalosaurusAnimations.HUFF_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.grazeAnimationState, PachycephalosaurusAnimations.GRAZE_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.swimAnimationState, PachycephalosaurusAnimations.SWIM, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eepyAnimationState, PachycephalosaurusAnimations.SLEEP, ageInTicks, partialTicks);
 
         if (this.young) this.applyStatic(PachycephalosaurusAnimations.BABY_TRANSFORM);
 
         this.animateHead(entity, this.head, netHeadYaw, headPitch);
-        float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail.yRot = Mth.lerp(0.3F, this.tail.yRot, tailYaw * 0.25F);
 	}

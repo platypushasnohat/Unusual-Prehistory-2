@@ -112,22 +112,23 @@ public class LystrosaurusModel extends UP2Model<Lystrosaurus> {
 	@Override
 	public void setupAnim(Lystrosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
 		if ((entity.isInWaterOrBubble() && entity.onGround()) || !entity.isEepy()) {
             if (entity.isRunning()) this.animateWalk(LystrosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
             else this.animateWalk(LystrosaurusAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
         }
 
-        this.animateIdleSmooth(entity.idleAnimationState, LystrosaurusAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.shakeAnimationState, LystrosaurusAnimations.IDLE_SHAKE_BLEND, ageInTicks);
-        this.animateSmooth(entity.attackAnimationState, LystrosaurusAnimations.BITE_BLEND, ageInTicks);
-        this.animateSmooth(entity.grazeAnimationState, LystrosaurusAnimations.EAT_BLEND, ageInTicks);
-        this.animateSmooth(entity.digAnimationState, LystrosaurusAnimations.DIG, ageInTicks);
-        this.animateSmooth(entity.scratch1AnimationState, LystrosaurusAnimations.IDLE_SCATCH1, ageInTicks);
-        this.animateSmooth(entity.scratch2AnimationState, LystrosaurusAnimations.IDLE_SCATCH2, ageInTicks);
-        this.animateSmooth(entity.blinkAnimationState, LystrosaurusAnimations.IDLE_BLINK_BLEND, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, LystrosaurusAnimations.SLEEP, ageInTicks);
-        this.animateSmooth(entity.swimAnimationState, LystrosaurusAnimations.SWIM, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, LystrosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.shakeAnimationState, LystrosaurusAnimations.IDLE_SHAKE_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attackAnimationState, LystrosaurusAnimations.BITE_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.grazeAnimationState, LystrosaurusAnimations.EAT_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.digAnimationState, LystrosaurusAnimations.DIG, ageInTicks, partialTicks);
+        this.animateSmooth(entity.scratch1AnimationState, LystrosaurusAnimations.IDLE_SCATCH1, ageInTicks, partialTicks);
+        this.animateSmooth(entity.scratch2AnimationState, LystrosaurusAnimations.IDLE_SCATCH2, ageInTicks, partialTicks);
+        this.animateSmooth(entity.blinkAnimationState, LystrosaurusAnimations.IDLE_BLINK_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eepyAnimationState, LystrosaurusAnimations.SLEEP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.swimAnimationState, LystrosaurusAnimations.SWIM, ageInTicks, partialTicks);
 
 		if (this.young) this.applyStatic(LystrosaurusAnimations.BABY_TRANSFORM);
 

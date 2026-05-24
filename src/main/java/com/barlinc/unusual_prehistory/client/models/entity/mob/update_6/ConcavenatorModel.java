@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.Conc
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Concavenator;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -11,6 +12,8 @@ import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -51,8 +54,9 @@ public class ConcavenatorModel extends UP2Model<Concavenator> {
     private final ModelPart leg_right1;
     private final ModelPart leg_right2;
     private final ModelPart leg_right3;
+    private final List<ModelPart> cachedParts;
 
-	public ConcavenatorModel(ModelPart root) {
+    public ConcavenatorModel(ModelPart root) {
         super(0.5F, 24);
         this.root = root.getChild("root");
         this.swim_control = this.root.getChild("swim_control");
@@ -89,9 +93,10 @@ public class ConcavenatorModel extends UP2Model<Concavenator> {
         this.leg_right1 = this.leg_control.getChild("leg_right1");
         this.leg_right2 = this.leg_right1.getChild("leg_right2");
         this.leg_right3 = this.leg_right2.getChild("leg_right3");
-	}
+        this.cachedParts = this.root.getAllParts().toList();
+    }
 
-	public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
@@ -213,13 +218,55 @@ public class ConcavenatorModel extends UP2Model<Concavenator> {
                 .texOffs(144, 81).mirror().addBox(-1.0F, 0.0F, -9.0F, 2.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 12.0F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 256, 256);
-	}
+    }
 
-	@Override
-	public void setupAnim(@NotNull Concavenator entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.root().getAllParts().forEach(ModelPart::resetPose);
+    @Override
+    public void setupAnim(@NotNull Concavenator entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
-        if (!entity.isSwitchingToSandSwim() && !entity.isEepy() && !entity.isSitting() && !entity.isInWaterOrBubble() && entity.getPose() != UP2Poses.CHARGING.get() && entity.getPose() != UP2Poses.KICKING.get()) {
+        float partialTicks = ageInTicks - entity.tickCount;
+
+        Minecraft minecraft = Minecraft.getInstance();
+
+        double distSqr = Double.MAX_VALUE;
+
+        if (minecraft.cameraEntity != null) {
+            distSqr = entity.distanceToSqr(minecraft.cameraEntity);
+            //distSqr = 0;
+        }
+
+        boolean close = distSqr < 625;
+        boolean medium = distSqr < 1225;
+        boolean far = distSqr > 2550;
+
+        if (far && limbSwingAmount < 0.01F) {
+            return;
+        }
+
+        for (ModelPart part : this.cachedParts) {
+            part.resetPose();
+        }
+
+        // Visibility LOD
+        this.armor_body.visible = !far;
+        this.armor_tail1.visible = !far;
+        this.armor_tail2.visible = !far;
+        this.armor_fin.visible = !far;
+        this.armor_jaw.visible = !far;
+
+        this.claw_left1.visible = medium;
+        this.claw_left2.visible = medium;
+        this.claw_left3.visible = medium;
+
+        this.claw_right1.visible = medium;
+        this.claw_right2.visible = medium;
+        this.claw_right3.visible = medium;
+
+        this.eye_left.visible = close;
+        this.eye_right.visible = close;
+
+        boolean canWalkAnimate = !entity.isSwitchingToSandSwim() && !entity.isEepy() && !entity.isSitting() && !entity.isInWaterOrBubble() && entity.getPose() != UP2Poses.CHARGING.get() && entity.getPose() != UP2Poses.KICKING.get();
+
+        if (canWalkAnimate) {
             if (entity.isSandSwimming()) {
                 this.animateWalk(ConcavenatorAnimations.SAND_DIVE, limbSwing, limbSwingAmount, 1.4F, 2.8F);
             } else {
@@ -230,34 +277,52 @@ public class ConcavenatorModel extends UP2Model<Concavenator> {
                 }
             }
         }
+        //close and medium range to determine what animations will play
+        if (close) {
 
-		this.animateIdleSmooth(entity.idleAnimationState, ConcavenatorAnimations.IDLE, ageInTicks, limbSwingAmount, 2.8F);
-        this.animateIdleSmooth(entity.sandSwimIdleAnimationState, ConcavenatorAnimations.SAND_IDLE, ageInTicks, limbSwingAmount, 2.8F);
-        this.animateSmooth(entity.sandSwimStartAnimationState, ConcavenatorAnimations.DIVE_START, ageInTicks);
-        this.animateSmooth(entity.sandSwimEndAnimationState, ConcavenatorAnimations.DIVE_END, ageInTicks);
-        this.animateSmooth(entity.swimAnimationState, ConcavenatorAnimations.SWIM, ageInTicks);
-        this.animateSmooth(entity.attackAnimationState, ConcavenatorAnimations.BITE_BLEND, ageInTicks);
-        this.animateSmooth(entity.diveAttackAnimationState, ConcavenatorAnimations.DIVE_ATTACK, ageInTicks);
-        this.animateSmooth(entity.slashAttackAnimationState, ConcavenatorAnimations.SANDSLASH, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, ConcavenatorAnimations.SLEEP, ageInTicks);
-        this.animateSmooth(entity.sitAnimationState, ConcavenatorAnimations.SIT, ageInTicks);
-        this.animateSmooth(entity.sandSitAnimationState, ConcavenatorAnimations.SAND_IDLE, ageInTicks);
-        this.animateSmooth(entity.scratch1AnimationState, ConcavenatorAnimations.IDLE_SCRATCH_BLEND1, ageInTicks);
-        this.animateSmooth(entity.scratch2AnimationState, ConcavenatorAnimations.IDLE_SCRATCH_BLEND2, ageInTicks);
-        this.animateSmooth(entity.sandSnortAnimationState, ConcavenatorAnimations.SANDSNORT_BLEND, ageInTicks);
-        this.animate(entity.eatAnimationState, ConcavenatorAnimations.EAT_BLEND, ageInTicks);
+            this.animateIdleSmooth(entity.idleAnimationState, ConcavenatorAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.8F);
+            this.animateIdleSmooth(entity.sandSwimIdleAnimationState, ConcavenatorAnimations.SAND_IDLE, ageInTicks, partialTicks, limbSwingAmount);
 
-        if (this.young) this.applyStatic(ConcavenatorAnimations.BABY_TRANSFORM);
+            this.animateSmooth(entity.attackAnimationState, ConcavenatorAnimations.BITE_BLEND, ageInTicks, partialTicks);
+            this.animateSmooth(entity.diveAttackAnimationState, ConcavenatorAnimations.DIVE_ATTACK, ageInTicks, partialTicks);
+            this.animateSmooth(entity.slashAttackAnimationState, ConcavenatorAnimations.SANDSLASH, ageInTicks, partialTicks);
 
-        this.faceTarget(entity, netHeadYaw, headPitch, 2, neck);
-        float partialTicks = ageInTicks - entity.tickCount;
-        float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.15F);
-        this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.1F);
-	}
+            this.animateSmooth(entity.scratch1AnimationState, ConcavenatorAnimations.IDLE_SCRATCH_BLEND1, ageInTicks, partialTicks);
+            this.animateSmooth(entity.scratch2AnimationState, ConcavenatorAnimations.IDLE_SCRATCH_BLEND2, ageInTicks, partialTicks);
 
-	@Override
-	public @NotNull ModelPart root() {
-		return this.root;
-	}
+            this.animateSmooth(entity.sandSnortAnimationState, ConcavenatorAnimations.SANDSNORT_BLEND, ageInTicks, partialTicks);
+
+            this.animateSmooth(entity.sandSwimStartAnimationState, ConcavenatorAnimations.DIVE_START, ageInTicks, partialTicks);
+            this.animateSmooth(entity.sandSwimEndAnimationState, ConcavenatorAnimations.DIVE_END, ageInTicks, partialTicks);
+
+            this.animateSmooth(entity.swimAnimationState, ConcavenatorAnimations.SWIM, ageInTicks, partialTicks);
+
+            this.animateSmooth(entity.eepyAnimationState, ConcavenatorAnimations.SLEEP, ageInTicks, partialTicks);
+            this.animateSmooth(entity.sitAnimationState, ConcavenatorAnimations.SIT, ageInTicks, partialTicks);
+            this.animateSmooth(entity.sandSitAnimationState, ConcavenatorAnimations.SAND_IDLE, ageInTicks, partialTicks);
+
+            this.animate(entity.eatAnimationState, ConcavenatorAnimations.EAT_BLEND, ageInTicks);
+
+            this.faceTarget(entity, netHeadYaw, headPitch, 2, neck);
+
+            float tailYaw = entity.getTailYaw(partialTicks);
+
+            this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.15F);
+            this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.1F);
+        }
+
+        else if (medium) {
+            this.animateSmooth(entity.swimAnimationState, ConcavenatorAnimations.SWIM, ageInTicks, partialTicks);
+            this.animateSmooth(entity.eepyAnimationState, ConcavenatorAnimations.SLEEP, ageInTicks, partialTicks);
+
+            if (distSqr < 256) {
+                this.faceTarget(entity, netHeadYaw, headPitch, 2, neck);
+            }
+        }
+    }
+
+    @Override
+    public @NotNull ModelPart root() {
+        return this.root;
+    }
 }

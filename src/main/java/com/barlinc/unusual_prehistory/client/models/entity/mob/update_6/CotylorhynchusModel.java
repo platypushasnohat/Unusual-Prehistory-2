@@ -95,22 +95,22 @@ public class CotylorhynchusModel extends UP2Model<Cotylorhynchus> {
 	@Override
 	public void setupAnim(Cotylorhynchus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+        float partialTicks = ageInTicks - entity.tickCount;
 
 		if (!entity.isInWaterOrBubble() && !entity.isEepy()) {
             if (entity.isRunning()) this.animateWalk(CotylorhynchusAnimations.RUN, limbSwing, limbSwingAmount, 1, 2);
             else this.animateWalk(CotylorhynchusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
         }
 
-        this.animateIdleSmooth(entity.idleAnimationState, CotylorhynchusAnimations.IDLE, ageInTicks, limbSwingAmount);
-        this.animateSmooth(entity.swimAnimationState, CotylorhynchusAnimations.SWIM, ageInTicks);
-        this.animateSmooth(entity.eepyAnimationState, CotylorhynchusAnimations.SLEEP, ageInTicks);
-        this.animateSmooth(entity.burpAnimationState, CotylorhynchusAnimations.GROG_BLEND, ageInTicks);
-        this.animateSmooth(entity.grazeAnimationState, CotylorhynchusAnimations.GRAZE_BLEND, ageInTicks);
+        this.animateIdleSmooth(entity.idleAnimationState, CotylorhynchusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateSmooth(entity.swimAnimationState, CotylorhynchusAnimations.SWIM, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eepyAnimationState, CotylorhynchusAnimations.SLEEP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.burpAnimationState, CotylorhynchusAnimations.GROG_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.grazeAnimationState, CotylorhynchusAnimations.GRAZE_BLEND, ageInTicks, partialTicks);
 
 		if (this.young) this.applyStatic(CotylorhynchusAnimations.BABY_TRANSFORM);
 
         this.faceTarget(entity, netHeadYaw, headPitch, 2, head);
-        float partialTicks = ageInTicks - entity.tickCount;
         float tailYaw = entity.getTailYaw(partialTicks);
         this.tail1.yRot = Mth.lerp(0.2F, this.tail1.yRot, tailYaw * 0.25F);
         this.tail2.yRot = Mth.lerp(0.2F, this.tail2.yRot, tailYaw * 0.2F);
