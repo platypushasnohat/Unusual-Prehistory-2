@@ -1,9 +1,11 @@
-// 1.21.1	2026-05-17T21:33:22.8620175	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-05-23T19:07:40.6450721	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/fruits.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
 3315b8590d01c2b24d4f4b607ea4f1f097c9a79a data/minecraft/tags/item/boats.json
 7835d0e9aae84219c224da0e54509ed2e9460b6b data/minecraft/tags/item/chest_boats.json
+134c09519200214dc0fbf982c318865d587d987d data/minecraft/tags/item/enchantable/durability.json
+134c09519200214dc0fbf982c318865d587d987d data/minecraft/tags/item/enchantable/vanishing.json
 86c9959407fbfd28c756653bfde6fd0136484559 data/minecraft/tags/item/hanging_signs.json
 3e88b9c036ecfd1caeb735dd3710140167acbeb1 data/minecraft/tags/item/leaves.json
 1f43b4da60bdb9d413b613b7bff818b98d43fa2f data/minecraft/tags/item/lectern_books.json
@@ -88,6 +90,7 @@ eec86d820e6e0e75fab412b69cafa5d9a7aa0cc8 data/unusual_prehistory/tags/item/mob_f
 6201f8b4595bad5e3255f3b5acbee8c92ab8bb67 data/unusual_prehistory/tags/item/paleozoic_eggs.json
 eba35505c344540231bfc13f73a7ecf055e6b17b data/unusual_prehistory/tags/item/paleozoic_fossils.json
 4ceeb58a62abc316ee052dacd214451a9ee8d7aa data/unusual_prehistory/tags/item/plant_fossils.json
+2984a7bf7feb48c28dba16c232970016c161cdb7 data/unusual_prehistory/tags/item/plushies.json
 1f807825df785c13c2e8fd11a3ea8ef9d99ffdd0 data/unusual_prehistory/tags/item/praepusa_food.json
 52413a870520da3227b0d97b44e5455211b16e49 data/unusual_prehistory/tags/item/prevents_egg_hatching.json
 46917e7306850aedf22c53f9664894363b91fed9 data/unusual_prehistory/tags/item/prognathodon_food.json

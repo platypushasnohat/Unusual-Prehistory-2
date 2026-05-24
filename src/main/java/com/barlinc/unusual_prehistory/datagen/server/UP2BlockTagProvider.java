@@ -243,6 +243,20 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.SOUL_SOIL
         );
 
+        this.tag(UP2BlockTags.PLUSHIES).add(
+                BRACHIOSAURUS_PLUSHIE.get(),
+                CARNOTAURUS_PLUSHIE.get(),
+                COTYLORHYNCHUS_PLUSHIE.get(),
+                HIBBERTOPTERUS_PLUSHIE.get(),
+                KENTROSAURUS_PLUSHIE.get(),
+                MAJUNGASAURUS_PLUSHIE.get(),
+                TARTUOSTEUS_PLUSHIE.get()
+        );
+
+        this.tag(UP2BlockTags.MINEABLE_WITH_SHEARS).addTags(
+                UP2BlockTags.PLUSHIES
+        );
+
         // Minecraft
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 TRANSMOGRIFIER.get(),

@@ -12,6 +12,7 @@
     "MobMixin",
     "PoseMixin",
     "ServerLevelMixin",
+    "ShearsItemMixin",
     "SnowballMixin",
     "StructureTemplateAccessor",
     "SweetBerryBushBlockMixin"

@@ -154,6 +154,8 @@ public class UP2ItemTags {
 
     public static final TagKey<Item> CURES_SPIKE_TOOTHED_SALMON = modItemTag("cures_spike_toothed_salmon");
 
+    public static final TagKey<Item> PLUSHIES = modItemTag("plushies");
+
     private static TagKey<Item> modItemTag(String name) {
         return itemTag(UnusualPrehistory2.MOD_ID, name);
     }

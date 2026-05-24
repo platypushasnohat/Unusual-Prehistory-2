@@ -56,9 +56,4 @@ public class PlushieBlockRenderer implements BlockEntityRenderer<PlushieBlockEnt
             ModelBlockRenderer.clearCache();
         }
     }
-
-    @Override
-    public int getViewDistance() {
-        return 128;
-    }
 }

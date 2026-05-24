@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.datagen.server;
 
-import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.blocks.egg.TallEggBlock;
 import com.barlinc.unusual_prehistory.blocks.plant.ThreeTallPlantBlock;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -13,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.WritableRegistry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -42,9 +40,9 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 import static com.barlinc.unusual_prehistory.registry.UP2Blocks.*;
 
@@ -78,8 +76,16 @@ public class UP2LootTableProvider extends LootTableProvider {
         private static final float[] LEAVES_STICK_CHANCES = new float[]{0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F};
         private static final float[] GINKGO_FRUIT_CHANCES = new float[]{0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F};
 
+        private final Set<Block> knownBlocks = new HashSet<>();
+
         protected UP2BlockLootProvider(Provider provider) {
             super(Set.of(), FeatureFlags.REGISTRY.allFlags(), provider);
+        }
+
+        @Override
+        protected void add(@NotNull Block block, LootTable.@NotNull Builder builder) {
+            super.add(block, builder);
+            this.knownBlocks.add(block);
         }
 
         @Override
@@ -267,11 +273,19 @@ public class UP2LootTableProvider extends LootTableProvider {
             this.dropSelf(RHIZODUS_ROE.get());
             this.dropSelf(SPIKE_TOOTHED_SALMON_ROE.get());
             this.dropSelf(THERIZINOSAURUS_EGG.get());
+
+            this.dropSelf(BRACHIOSAURUS_PLUSHIE.get());
+            this.dropSelf(CARNOTAURUS_PLUSHIE.get());
+            this.dropSelf(COTYLORHYNCHUS_PLUSHIE.get());
+            this.dropSelf(HIBBERTOPTERUS_PLUSHIE.get());
+            this.dropSelf(KENTROSAURUS_PLUSHIE.get());
+            this.dropSelf(MAJUNGASAURUS_PLUSHIE.get());
+            this.dropSelf(TARTUOSTEUS_PLUSHIE.get());
         }
 
         @Override
         public @NotNull Iterable<Block> getKnownBlocks() {
-            return BuiltInRegistries.BLOCK.stream().filter(block -> BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(UnusualPrehistory2.MOD_ID)).collect(Collectors.toSet());
+            return knownBlocks;
         }
 
         protected void woodSetDrops(WoodSet woodSet) {
@@ -299,6 +313,7 @@ public class UP2LootTableProvider extends LootTableProvider {
             return LootTable.lootTable().withPool(LootPool.lootPool().add(builder).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER))), new BlockPos(0, 1, 0)))).withPool(LootPool.lootPool().add(builder).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER))).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))), new BlockPos(0, -1, 0))));
         }
 
+        @SuppressWarnings("SameParameterValue")
         protected LootTable.Builder createLayeredSinglePropConditionTable(Block block, IntegerProperty property, int value) {
             return LootTable.lootTable().withPool(this.applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(block).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(property, value))))));
         }
@@ -308,6 +323,7 @@ public class UP2LootTableProvider extends LootTableProvider {
             return this.createSilkTouchOrShearsDispatchTable(leaves, this.applyExplosionDecay(leaves, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))).when(BonusLevelTableCondition.bonusLevelFlatChance(enchantments.getOrThrow(Enchantments.FORTUNE), LEAVES_STICK_CHANCES)));
         }
 
+        @SuppressWarnings("SameParameterValue")
         protected LootTable.Builder createGinkgoLeavesDrops(Block leaves, Block sapling, float... chances) {
             HolderLookup.RegistryLookup<Enchantment> enchantments = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
             return this.createLeavesDrops(leaves, sapling, chances).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(this.doesNotHaveShearsOrSilkTouch()).add(this.applyExplosionCondition(leaves, LootItem.lootTableItem(UP2Items.GINKGO_FRUIT.get())).when(BonusLevelTableCondition.bonusLevelFlatChance(enchantments.getOrThrow(Enchantments.FORTUNE), GINKGO_FRUIT_CHANCES))));

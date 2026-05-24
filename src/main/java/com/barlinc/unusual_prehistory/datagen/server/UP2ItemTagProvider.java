@@ -480,6 +480,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         this.tag(UP2ItemTags.THERIZINOSAURUS_FOOD).addTags(ItemTags.LEAVES);
 
+        this.copy(UP2BlockTags.PLUSHIES, UP2ItemTags.PLUSHIES);
+
         // minecraft
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
         this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
@@ -535,6 +537,13 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         this.tag(ItemTags.LECTERN_BOOKS).add(
                 PALEOPEDIA.get()
+        );
+
+        this.tag(ItemTags.VANISHING_ENCHANTABLE).add(
+                PLUSHIE_KIT.get()
+        );
+        this.tag(ItemTags.DURABILITY_ENCHANTABLE).add(
+                PLUSHIE_KIT.get()
         );
     }
 }
