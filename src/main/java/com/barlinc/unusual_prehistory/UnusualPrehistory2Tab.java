@@ -102,16 +102,6 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.UNCOMMON_FOSSIL_BED.get());
                         output.accept(UP2Blocks.RARE_FOSSIL_BED.get());
                         output.accept(UP2Blocks.UNUSUAL_FOSSIL_BED.get());
-
-                        output.accept(UP2Blocks.PETRIFIED_BUSH.get());
-                        output.accept(UP2Blocks.PETRIFIED_LOG.get());
-                        output.accept(UP2Blocks.PETRIFIED_WOOD.get());
-                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD.get());
-                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_STAIRS.get());
-                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_SLAB.get());
-                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get());
-                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_BUTTON.get());
-
                         output.accept(UP2Blocks.FOSSILIZED_BONE_BLOCK.get());
                         output.accept(UP2Blocks.FOSSILIZED_BONE_BARK.get());
                         output.accept(UP2Blocks.FOSSILIZED_BONE_VERTEBRA.get());
@@ -125,6 +115,15 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.COBBLED_FOSSILIZED_BONE.get());
                         output.accept(UP2Blocks.COBBLED_FOSSILIZED_BONE_STAIRS.get());
                         output.accept(UP2Blocks.COBBLED_FOSSILIZED_BONE_SLAB.get());
+
+                        output.accept(UP2Blocks.PETRIFIED_BUSH.get());
+                        output.accept(UP2Blocks.PETRIFIED_LOG.get());
+                        output.accept(UP2Blocks.PETRIFIED_WOOD.get());
+                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD.get());
+                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_STAIRS.get());
+                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_SLAB.get());
+                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get());
+                        output.accept(UP2Blocks.POLISHED_PETRIFIED_WOOD_BUTTON.get());
 
                         output.accept(TAR_BUCKET.get());
                         output.accept(UP2Blocks.ASPHALT.get());
