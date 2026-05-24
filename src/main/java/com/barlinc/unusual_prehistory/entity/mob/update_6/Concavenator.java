@@ -399,7 +399,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     private void spawnEatingParticles(ItemStack itemStack) {
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 4; i++) {
             Vec3 eatPos = this.getEyePosition().add(this.getViewVector(0.0F).scale(1.8F).add(0, -0.7F, -this.getBbWidth() * 0.5F));
             Vec3 vec3 = (new Vec3((this.getRandom().nextFloat() - 0.5F) * 0.1F, this.getRandom().nextFloat() * 0.1F + 0.1F, 0.0F)).xRot(-this.getXRot() * ((float) Math.PI / 180F)).yRot(-this.getYRot() * ((float) Math.PI / 180F));
             this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemStack), eatPos.x, eatPos.y, eatPos.z, vec3.x, vec3.y + 0.05, vec3.z);
@@ -562,7 +562,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
 
     public void spawnSandDigParticles(BlockPos blockPos) {
         float radius = this.getBbWidth();
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 6; i++) {
             double motionX = this.getRandom().nextGaussian() * 0.07D;
             double motionY = this.getRandom().nextGaussian() * 0.07D;
             double motionZ = this.getRandom().nextGaussian() * 0.07D;

@@ -27,8 +27,9 @@ public class ConcavenatorGlowLayer extends RenderLayer<Concavenator, Concavenato
 
     @Override
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, Concavenator entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entity.isInvisible() || entity.getArmorType() != Concavenator.ArmorType.ARMOR_SOUL_SAND || entity.isEepy()) return;
-        VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(GLOW_TEXTURE));
-        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), ColorUtils.packColor(1.0F, 1.0F, 1.0F, 1.0F));
+        if (!entity.isInvisible() && entity.getArmorType() == Concavenator.ArmorType.ARMOR_SOUL_SAND && !entity.isEepy()) {
+            VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(GLOW_TEXTURE));
+            this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), ColorUtils.packColor(1.0F, 1.0F, 1.0F, 1.0F));
+        }
     }
 }

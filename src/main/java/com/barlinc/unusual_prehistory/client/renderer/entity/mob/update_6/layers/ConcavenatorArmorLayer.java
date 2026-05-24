@@ -27,9 +27,10 @@ public class ConcavenatorArmorLayer extends RenderLayer<Concavenator, Concavenat
 
     @Override
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, Concavenator entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entity.isInvisible() || !entity.hasArmor()) return;
-        VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(this.getDirtyTexture(entity)));
-        this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), ColorUtils.packColor(1.0F, 1.0F, 1.0F, 1.0F));
+        if (!entity.isInvisible() && entity.hasArmor()) {
+            VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(this.getDirtyTexture(entity)));
+            this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), ColorUtils.packColor(1.0F, 1.0F, 1.0F, 1.0F));
+        }
     }
 
     public ResourceLocation getDirtyTexture(Concavenator entity) {
