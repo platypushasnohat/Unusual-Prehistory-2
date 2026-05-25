@@ -31,12 +31,6 @@ public class ThrowableEgg extends ThrowableItemProjectile {
         this.mobToSpawn = mobToSpawn;
     }
 
-    public ThrowableEgg(EntityType<? extends ThrowableItemProjectile> projectileType, Level level, double x, double y, double z, Supplier<Item> eggItem, Supplier<EntityType<? extends PrehistoricMob>> mobToSpawn) {
-        super(projectileType, x, y, z, level);
-        this.eggItem = eggItem;
-        this.mobToSpawn = mobToSpawn;
-    }
-
     @Override
     protected void onHit(@NotNull HitResult result) {
         super.onHit(result);
@@ -47,8 +41,7 @@ public class ThrowableEgg extends ThrowableItemProjectile {
 
     @Override
     protected @NotNull Item getDefaultItem() {
-        if (eggItem.get() == null) return Items.AIR;
-        return eggItem.get();
+        return eggItem != null && eggItem.get() != null ? eggItem.get() : Items.EGG;
     }
 
     @OnlyIn(Dist.CLIENT)
