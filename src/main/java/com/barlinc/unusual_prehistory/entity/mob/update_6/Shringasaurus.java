@@ -10,10 +10,19 @@ import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.google.common.annotations.VisibleForTesting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -22,14 +31,21 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 public class Shringasaurus extends PrehistoricMob {
+
+    private static final EntityDataAccessor<Integer> SIZE = SynchedEntityData.defineId(Shringasaurus.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> FEEDINGS = SynchedEntityData.defineId(Shringasaurus.class, EntityDataSerializers.INT);
 
     private static final EntityDimensions EEPY_DIMENSIONS = EntityDimensions.scalable(1.5F, 2.2F).withEyeHeight(2.1F);
 
@@ -41,8 +57,11 @@ public class Shringasaurus extends PrehistoricMob {
     public final SmoothAnimationState chargeStartAnimationState = new SmoothAnimationState(0.75F);
     public final SmoothAnimationState chargeAnimationState = new SmoothAnimationState(0.75F);
     public final SmoothAnimationState chargeEndAnimationState = new SmoothAnimationState(0.75F);
+    public final SmoothAnimationState eatAnimationState = new SmoothAnimationState(1.0F);
 
     private boolean attackAlt = false;
+
+    private final byte EAT = 67;
 
     public Shringasaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
@@ -93,17 +112,66 @@ public class Shringasaurus extends PrehistoricMob {
     }
 
     @Override
-    public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
-        if (this.isEepy()) {
-            return EEPY_DIMENSIONS.scale(this.getAgeScale());
-        } else {
-            return super.getDefaultDimensions(pose);
-        }
+    public boolean refuseToMove() {
+        return super.refuseToMove() || this.getPose() == UP2Poses.START_CHARGING.get() || this.getPose() == UP2Poses.STOP_CHARGING.get() || this.eatTicks > 0;
     }
 
     @Override
-    public boolean refuseToMove() {
-        return super.refuseToMove() || this.getPose() == UP2Poses.START_CHARGING.get() || this.getPose() == UP2Poses.STOP_CHARGING.get();
+    public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        InteractionResult result = super.mobInteract(player, hand);
+        if (this.isFood(itemStack) && this.eatTicks <= 0) {
+            if (!this.level().isClientSide) {
+                this.level().broadcastEntityEvent(this, EAT);
+                this.gameEvent(GameEvent.ENTITY_INTERACT);
+                this.playSound(this.getEatingSound(), 1.0F, 0.9F + this.getRandom().nextFloat() * 0.2F);
+                if (this.getNavigation().getPath() != null) {
+                    this.getNavigation().stop();
+                }
+                this.setFeedings(this.getFeedings() + 1);
+                if (this.getFeedings() >= 5) {
+                    this.setFeedings(0);
+                    this.setShringasaurusSize(this.getShringasaurusSize() + 1);
+                }
+                if (!player.getAbilities().instabuild) {
+                    itemStack.shrink(1);
+                }
+            } else {
+                this.spawnEatingParticles(itemStack);
+            }
+            this.eatTicks = 20;
+            return InteractionResult.SUCCESS;
+        }
+        else if (this.getShringasaurusSize() > 0 && itemStack.is(Items.GOLDEN_CARROT) && this.eatTicks <= 0) {
+            if (!this.level().isClientSide) {
+                this.level().broadcastEntityEvent(this, EAT);
+                this.gameEvent(GameEvent.ENTITY_INTERACT);
+                this.playSound(this.getEatingSound(), 1.0F, 0.9F + this.getRandom().nextFloat() * 0.2F);
+                if (this.getNavigation().getPath() != null) {
+                    this.getNavigation().stop();
+                }
+                this.setFeedings(0);
+                this.setShringasaurusSize(this.getShringasaurusSize() - 1);
+                if (!player.getAbilities().instabuild) {
+                    itemStack.shrink(1);
+                }
+            } else {
+                this.spawnEatingParticles(itemStack);
+            }
+            this.eatTicks = 20;
+            return InteractionResult.SUCCESS;
+        }
+        return result;
+    }
+
+    private void spawnEatingParticles(ItemStack itemStack) {
+        for (int i = 0; i < 6; i++) {
+            Vec3 offset = new Vec3(0.0, -0.5F, this.getBbWidth() * 1.3F);
+            offset = offset.yRot((float) Math.toRadians(-this.getYRot()));
+            Vec3 eatPos = this.getEyePosition().add(this.getViewVector(1.0F)).add(offset);
+            Vec3 velocity = new Vec3((this.getRandom().nextFloat() - 0.5F) * 0.1F, this.getRandom().nextFloat() * 0.1F + 0.1F, 0.0F).xRot(-this.getXRot() * ((float) Math.PI / 180F)).yRot(-this.getYRot() * ((float) Math.PI / 180F));
+            this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemStack), eatPos.x, eatPos.y, eatPos.z, velocity.x, velocity.y + 0.05, velocity.z);
+        }
     }
 
     @Override
@@ -119,6 +187,9 @@ public class Shringasaurus extends PrehistoricMob {
 
     @Override
     public void setupAnimationStates() {
+        if (this.eatAnimationState.isStarted() && this.getPose() == UP2Poses.ATTACKING.get() || this.isCharging()) {
+            this.eatAnimationState.stop();
+        }
         this.idleAnimationState.animateWhen(!this.isEepy() && !this.isInWaterOrBubble() && !this.isCharging(), this.tickCount);
         this.swimAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isCharging(), this.tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
@@ -134,13 +205,88 @@ public class Shringasaurus extends PrehistoricMob {
         return this.getPose() == UP2Poses.START_CHARGING.get() || this.getPose() == UP2Poses.CHARGING.get() || this.getPose() == UP2Poses.STOP_CHARGING.get();
     }
 
+    public void handleEntityEvent(byte id) {
+        if (id == EAT) {
+            this.eatAnimationState.start(this.tickCount);
+        }
+        else {
+            super.handleEntityEvent(id);
+        }
+    }
+
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (SIZE.equals(accessor)) {
+            this.refreshDimensions();
+            this.setYRot(yHeadRot);
+            this.yBodyRot = yHeadRot;
+        }
         if (DATA_POSE.equals(accessor)) {
             if (this.getPose() == UP2Poses.ATTACKING.get()) {
                 this.attackAlt = this.getRandom().nextBoolean();
             }
         }
+    }
+
+    @Override
+    public void refreshDimensions() {
+        double x = this.getX();
+        double y = this.getY();
+        double z = this.getZ();
+        super.refreshDimensions();
+        this.setPos(x, y, z);
+    }
+
+    @Override
+    public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
+        EntityDimensions dimensions = super.getDefaultDimensions(pose);
+        if (this.isEepy()) {
+            dimensions = EEPY_DIMENSIONS.scale(this.getAgeScale());
+        }
+        float scale = 1.0F + (this.getShringasaurusSize() * 0.1F);
+        return dimensions.scale(scale);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(SIZE, 0);
+        builder.define(FEEDINGS, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("ShringasaurusSize", this.getShringasaurusSize());
+        compoundTag.putInt("Feedings", this.getFeedings());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setShringasaurusSize(compoundTag.getInt("ShringasaurusSize"));
+        this.setFeedings(compoundTag.getInt("Feedings"));
+    }
+
+    public int getShringasaurusSize() {
+        return this.entityData.get(SIZE);
+    }
+    @VisibleForTesting
+    public void setShringasaurusSize(int size) {
+        int maxSize = Mth.clamp(size, 0, 100);
+        this.entityData.set(SIZE, maxSize);
+        this.reapplyPosition();
+        this.refreshDimensions();
+        Objects.requireNonNull(this.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(40.0D + this.getShringasaurusSize() * 4.0D);
+        Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).setBaseValue(6.0D + this.getShringasaurusSize());
+        this.setHealth(this.getMaxHealth());
+    }
+
+    public int getFeedings() {
+        return this.entityData.get(FEEDINGS);
+    }
+    public void setFeedings(int feedings) {
+        this.entityData.set(FEEDINGS, feedings);
     }
 
     @Nullable
@@ -170,6 +316,12 @@ public class Shringasaurus extends PrehistoricMob {
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
         this.playSound(UP2SoundEvents.WOOLLY_MAMMOTH_STEP.get(), this.isBaby() ? 0.15F : 0.3F, this.isBaby() ? 1.5F : 1.0F);
+    }
+
+    @Override
+    public float getVoicePitch() {
+        float scale = 1.0F + (this.getShringasaurusSize() * 0.1F);
+        return super.getVoicePitch() * (1.0F / scale);
     }
 
     // Goals

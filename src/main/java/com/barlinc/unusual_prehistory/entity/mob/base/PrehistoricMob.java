@@ -68,7 +68,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     protected static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     protected int eepyTicks;
-    protected int eatTicks;
+    protected int eatTicks = 0;
 
     private float tailYaw;
     private float prevTailYaw;
@@ -165,8 +165,8 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         InteractionResult result = super.mobInteract(player, hand);
-        if (this.isFood(itemStack)) {
-            if (this.getHealth() < this.getMaxHealth() && this.eatTicks <= 0) {
+        if (this.isFood(itemStack) && this.eatTicks <= 0) {
+            if (this.getHealth() < this.getMaxHealth()) {
                 this.healMob(this, player, hand);
                 return InteractionResult.SUCCESS;
             }
