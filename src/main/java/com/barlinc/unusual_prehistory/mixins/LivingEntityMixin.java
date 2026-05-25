@@ -47,4 +47,18 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
             ci.cancel();
         }
     }
+
+//    @Inject(method = "onClimbable", at = @At("HEAD"), cancellable = true)
+//    private void unusualPrehistory$brachiosaurusClimbing(CallbackInfoReturnable<Boolean> cir) {
+//        LivingEntity entity = (LivingEntity) (Object) this;
+//        if (entity instanceof Player player) {
+//            AABB aabb = player.getBoundingBox().inflate(0.25D);
+//            for (Entity nearby : player.level().getEntities(player, aabb)) {
+//                if (player.horizontalCollision && (nearby instanceof Brachiosaurus || nearby instanceof BrachiosaurusPart)) {
+//                    cir.setReturnValue(true);
+//                    return;
+//                }
+//            }
+//        }
+//    }
 }

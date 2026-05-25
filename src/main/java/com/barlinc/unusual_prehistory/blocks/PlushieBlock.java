@@ -76,7 +76,7 @@ public class PlushieBlock extends BaseEntityBlock implements Equipable, SimpleWa
             }
             return InteractionResult.SUCCESS;
         } else {
-            level.playSound(null, pos, interactSound, SoundSource.BLOCKS, 0.2F, 1.6F + level.getRandom().nextFloat() * 0.15F);
+            level.playSound(null, pos, interactSound, SoundSource.BLOCKS, 0.4F, 1.75F + level.getRandom().nextFloat() * 0.25F);
             return InteractionResult.CONSUME;
         }
     }

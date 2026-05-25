@@ -113,14 +113,14 @@ public class Shringasaurus extends PrehistoricMob {
 
     @Override
     public boolean refuseToMove() {
-        return super.refuseToMove() || this.getPose() == UP2Poses.START_CHARGING.get() || this.getPose() == UP2Poses.STOP_CHARGING.get() || this.eatTicks > 0;
+        return super.refuseToMove() || this.getPose() == UP2Poses.START_CHARGING.get() || this.getPose() == UP2Poses.STOP_CHARGING.get() || this.getEatTicks() > 0;
     }
 
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         InteractionResult result = super.mobInteract(player, hand);
-        if (this.isFood(itemStack) && this.eatTicks <= 0) {
+        if (this.isFood(itemStack) && this.getEatTicks() <= 0) {
             if (!this.level().isClientSide) {
                 this.level().broadcastEntityEvent(this, EAT);
                 this.gameEvent(GameEvent.ENTITY_INTERACT);
@@ -139,10 +139,10 @@ public class Shringasaurus extends PrehistoricMob {
             } else {
                 this.spawnEatingParticles(itemStack);
             }
-            this.eatTicks = 20;
+            this.setEatTicks(20);
             return InteractionResult.SUCCESS;
         }
-        else if (this.getShringasaurusSize() > 0 && itemStack.is(Items.GOLDEN_CARROT) && this.eatTicks <= 0) {
+        else if (this.getShringasaurusSize() > 0 && itemStack.is(Items.GOLDEN_CARROT) && this.getEatTicks() <= 0) {
             if (!this.level().isClientSide) {
                 this.level().broadcastEntityEvent(this, EAT);
                 this.gameEvent(GameEvent.ENTITY_INTERACT);
@@ -158,7 +158,7 @@ public class Shringasaurus extends PrehistoricMob {
             } else {
                 this.spawnEatingParticles(itemStack);
             }
-            this.eatTicks = 20;
+            this.setEatTicks(20);
             return InteractionResult.SUCCESS;
         }
         return result;

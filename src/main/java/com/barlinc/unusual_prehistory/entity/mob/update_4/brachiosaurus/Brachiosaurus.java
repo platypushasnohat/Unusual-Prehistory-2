@@ -63,7 +63,7 @@
      private float neckYRot;
 
      private float fakeYRot = 0;
-     @SuppressWarnings("all")
+     @SuppressWarnings("FieldMayBeFinal")
      private float[] yawBuffer = new float[128];
      private int yawPointer = -1;
 
@@ -81,8 +81,8 @@
          this.headPart = new BrachiosaurusPart(this, 2.5F, 2.5F);
          this.neckPart1 = new BrachiosaurusPart(this, 2.5F, 6.0F);
          this.neckPart2 = new BrachiosaurusPart(this, 2.5F, 6.0F);
-         this.tailPart1 = new BrachiosaurusPart(this, 2.5F, 2.5F);
-         this.tailPart2 = new BrachiosaurusPart(this, 2.0F, 2.0F);
+         this.tailPart1 = new BrachiosaurusPart(this, 3.0F, 3.0F);
+         this.tailPart2 = new BrachiosaurusPart(this, 3.0F, 1.5F);
          this.allParts = new BrachiosaurusPart[]{headPart, neckPart1, neckPart2, tailPart1, tailPart2};
          this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
      }
@@ -196,11 +196,22 @@
          return new ItemStack(UP2Blocks.BRACHIOSAURUS_PLUSHIE.get());
      }
 
+     public AABB getRidingBox() {
+         return this.getBoundingBox().move(0, this.getBbHeight() / 2, 0).deflate(0, this.getBbHeight() * 0.8F, 0).move(0, -this.getBbHeight() * 0.1F, 0);
+     }
+
      @Override
      public void tick() {
-         if (this.isBaby()) {
-             this.tickMultipartBaby();
-         } else {
+
+//         AABB movementBox = this.getRidingBox();
+//         for (Entity entity : this.level().getEntities(this, movementBox, EntitySelector.NO_SPECTATORS.and((entity) -> !entity.isPassengerOfSameVehicle(this)))) {
+//             if (!(entity instanceof Brachiosaurus) && !entity.noPhysics && entity.onGround() && !entity.isPassenger()) {
+//                 float scale = 0.83F;
+//                 entity.setDeltaMovement(entity.getDeltaMovement().add(this.getDeltaMovement().multiply(scale, 1.0F, scale)));
+//             }
+//         }
+
+         if (!this.isBaby()) {
              this.tickMultipart();
          }
 
@@ -236,7 +247,6 @@
          return this.isBaby() ? 0.25F : 1.0F;
      }
 
-     @SuppressWarnings("all")
      private void tickMultipart() {
          if (yawPointer == -1) {
              this.fakeYRot = this.yBodyRot;
@@ -249,9 +259,9 @@
          }
          this.yawBuffer[this.yawPointer] = this.fakeYRot;
 
-         Vec3[] avector3d = new Vec3[this.allParts.length];
+         Vec3[] vec3s = new Vec3[this.allParts.length];
          for (int j = 0; j < this.allParts.length; ++j) {
-             avector3d[j] = new Vec3(this.allParts[j].getX(), this.allParts[j].getY(), this.allParts[j].getZ());
+             vec3s[j] = new Vec3(this.allParts[j].getX(), this.allParts[j].getY(), this.allParts[j].getZ());
          }
 
          Vec3 center = this.position().add(0, this.getBbHeight(), 0);
@@ -260,73 +270,25 @@
          float headXStep = neckXRot / 4F;
          float headYStep = neckYRot / 4F;
 
-         boolean isMoving = this.walkAnimation.speed() > 0.1F;
-
-         float headAdditionalY = isMoving ? -0.8F : 0.0F;
-         float headAdditionalZ = isMoving ? 3.0F : 0.0F;
+         float headOffset = 0.0F;
 
          if (this.isEepy()) {
-             headAdditionalZ = -2.0F;
+             headOffset = -2.5F;
          }
 
-         float neck1AdditionalY = isMoving ? 0.8F : 0.0F;
-         float neck1AdditionalZ = isMoving ? -1.0F : 0.0F;
-
-         float neck2AdditionalY = isMoving ? 0.8F : 0.0F;
-         float neck2AdditionalZ = isMoving ? -1.0F : 0.0F;
-
-         this.headPart.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 10.5F + headAdditionalY, 7.8F + headAdditionalZ).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(center));
-         this.neckPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -4.0F + neck1AdditionalY, -2.2F + neck1AdditionalZ).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(this.headPart.centeredPosition()));
-         this.neckPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -6.0F + neck2AdditionalY, -2.2F + neck2AdditionalZ).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(this.neckPart1.centeredPosition()));
-         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.5F, -4.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(2, 1.0F)).scale(this.getAgeScale()).add(center));
-         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.0F, -3.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(4, 1.0F)).scale(this.getAgeScale()).add(this.tailPart1.centeredPosition()));
+         this.headPart.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 10.5F + headOffset, 7.8F + headOffset).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(center));
+         this.neckPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -4.0F, -2.2F).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(this.headPart.centeredPosition()));
+         this.neckPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -6.0F, -2.2F).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(this.neckPart1.centeredPosition()));
+         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -4.5F, -4.5F), 0.0F, this.getYawFromBuffer(2, 1.0F)).scale(this.getAgeScale()).add(center));
+         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.5F, -3.0F), 0.0F, this.getYawFromBuffer(4, 1.0F)).scale(this.getAgeScale()).add(this.tailPart1.centeredPosition()));
 
          for (int l = 0; l < this.allParts.length; ++l) {
-             this.allParts[l].xo = avector3d[l].x;
-             this.allParts[l].yo = avector3d[l].y;
-             this.allParts[l].zo = avector3d[l].z;
-             this.allParts[l].xOld = avector3d[l].x;
-             this.allParts[l].yOld = avector3d[l].y;
-             this.allParts[l].zOld = avector3d[l].z;
-         }
-     }
-
-     @SuppressWarnings("all")
-     private void tickMultipartBaby() {
-         if (yawPointer == -1) {
-             for (int i = 0; i < yawBuffer.length; i++) {
-                 yawBuffer[i] = this.yBodyRot;
-             }
-         }
-         if (++this.yawPointer == this.yawBuffer.length) {
-             this.yawPointer = 0;
-         }
-         this.yawBuffer[this.yawPointer] = this.yBodyRot;
-
-         Vec3[] avector3d = new Vec3[this.allParts.length];
-         for (int j = 0; j < this.allParts.length; ++j) {
-             avector3d[j] = new Vec3(this.allParts[j].getX(), this.allParts[j].getY(), this.allParts[j].getZ());
-         }
-
-         Vec3 center = this.position().add(0, this.getBbHeight(), 0);
-         this.neckXRot = this.wrapNeckDegrees(Mth.approachDegrees(this.neckXRot, -30.0F, 45.0F));
-         this.neckYRot = this.wrapNeckDegrees(Mth.approachDegrees(this.neckYRot, this.getTargetNeckYRot(), 45.0F));
-         float headXStep = neckXRot / 4F;
-         float headYStep = neckYRot / 4F;
-
-         this.headPart.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 5.1F, 6.8F).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(center));
-         this.neckPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.5F, -2.0F).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(this.headPart.centeredPosition()));
-         this.neckPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.0F, -2.0F).scale(this.getAgeScale()), headXStep, (yBodyRot + headYStep)).add(this.neckPart1.centeredPosition()));
-         this.tailPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3F, -3.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(2, 1.0F)).scale(this.getAgeScale()).add(center));
-         this.tailPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, 0.0F, -2.0F), this.getXRot() * 0.33F, this.getYawFromBuffer(4, 1.0F)).scale(this.getAgeScale()).add(this.tailPart1.centeredPosition()));
-
-         for (int l = 0; l < this.allParts.length; ++l) {
-             this.allParts[l].xo = avector3d[l].x;
-             this.allParts[l].yo = avector3d[l].y;
-             this.allParts[l].zo = avector3d[l].z;
-             this.allParts[l].xOld = avector3d[l].x;
-             this.allParts[l].yOld = avector3d[l].y;
-             this.allParts[l].zOld = avector3d[l].z;
+             this.allParts[l].xo = vec3s[l].x;
+             this.allParts[l].yo = vec3s[l].y;
+             this.allParts[l].zo = vec3s[l].z;
+             this.allParts[l].xOld = vec3s[l].x;
+             this.allParts[l].yOld = vec3s[l].y;
+             this.allParts[l].zOld = vec3s[l].z;
          }
      }
 
@@ -364,12 +326,12 @@
 
      @Override
      public boolean isMultipartEntity() {
-         return true;
+         return !this.isBaby();
      }
 
      @Override
      public PartEntity<?> @NotNull [] getParts() {
-         return allParts;
+         return this.isBaby() ? super.getParts() : allParts;
      }
 
      private void tickFootsteps() {

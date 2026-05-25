@@ -53,6 +53,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     protected static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     protected static final EntityDataAccessor<Integer> EAT_COOLDOWN = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> EAT_TICKS = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.INT);
 
     protected static final EntityDataAccessor<Boolean> AGE_LOCKED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
@@ -68,6 +69,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     protected static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     protected int eepyTicks;
+    @Deprecated
     protected int eatTicks = 0;
 
     private float tailYaw;
@@ -165,7 +167,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         InteractionResult result = super.mobInteract(player, hand);
-        if (this.isFood(itemStack) && this.eatTicks <= 0) {
+        if (this.isFood(itemStack) && this.getEatTicks() <= 0) {
             if (this.getHealth() < this.getMaxHealth()) {
                 this.healMob(this, player, hand);
                 return InteractionResult.SUCCESS;
@@ -299,8 +301,8 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
             }
         }
 
-        if (eatTicks > 0) {
-            this.eatTicks--;
+        if (this.getEatTicks() > 0) {
+            this.setEatTicks(this.getEatTicks() - 1);
         }
     }
 
@@ -591,7 +593,8 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
         builder.define(SHOT_FROM_OOZE, false);
         builder.define(RUNNING, false);
         builder.define(IDLE_STATE, 0);
-        builder.define(EAT_COOLDOWN, 600 + this.getRandom().nextInt(600 * 4));
+        builder.define(EAT_COOLDOWN, 100);
+        builder.define(EAT_TICKS, 0);
         builder.define(AGE_LOCKED, false);
         builder.define(SIT_COOLDOWN, 3000 + this.getRandom().nextInt(3000));
         builder.define(EEPY_COOLDOWN, 100);
@@ -685,6 +688,13 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     }
     public void setEatCooldown(int cooldown) {
         this.entityData.set(EAT_COOLDOWN, cooldown);
+    }
+
+    public int getEatTicks() {
+        return this.entityData.get(EAT_TICKS);
+    }
+    public void setEatTicks(int eatTicks) {
+        this.entityData.set(EAT_TICKS, eatTicks);
     }
 
     // Never grows up

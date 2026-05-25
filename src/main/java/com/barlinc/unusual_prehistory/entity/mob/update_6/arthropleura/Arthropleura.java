@@ -335,13 +335,13 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         compoundTag.putInt("Variant", this.getVariant().getId());
         compoundTag.putInt("Segments", this.getSegments());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         this.setVariant(ArthropleuraVariant.byId(compoundTag.getInt("Variant")));
         this.setSegments(compoundTag.getInt("Segments"));
     }

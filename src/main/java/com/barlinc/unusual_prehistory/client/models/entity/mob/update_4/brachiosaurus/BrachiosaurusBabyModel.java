@@ -96,12 +96,14 @@ public class BrachiosaurusBabyModel extends UP2Model<Brachiosaurus> {
 	@Override
 	public void setupAnim(@NotNull Brachiosaurus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
         float partialTicks = ageInTicks - entity.tickCount;
 
-        if (entity.isRunning()) this.animateWalk(BrachiosaurusAnimations.BABY_RUN, limbSwing, limbSwingAmount, 1, 2);
-        else this.animateWalk(BrachiosaurusAnimations.BABY_WALK, limbSwing, limbSwingAmount, 1.5F, 3);
-		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusAnimations.BABY_IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        if (entity.isRunning()) {
+            this.animateWalk(BrachiosaurusAnimations.BABY_RUN, limbSwing, limbSwingAmount, 1, 2);
+        } else {
+            this.animateWalk(BrachiosaurusAnimations.BABY_WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+        }
+		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusAnimations.BABY_IDLE, ageInTicks, partialTicks, limbSwingAmount, entity.isRunning() ? 2 : 3);
 
         this.head.xRot += headPitch * ((float) Math.PI / 180F) / 6;
 		this.head.yRot += netHeadYaw * ((float) Math.PI / 180F) / 6;

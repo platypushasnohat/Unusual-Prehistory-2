@@ -151,10 +151,13 @@ public class BrachiosaurusModel extends UP2Model<Brachiosaurus> {
         float partialTicks = ageInTicks - entity.tickCount;
 
         if (!entity.isEepy() && entity.getPose() != UP2Poses.STOMPING.get()) {
-            if (entity.isRunning()) this.animateWalk(BrachiosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
-            else this.animateWalk(BrachiosaurusAnimations.WALK, limbSwing, limbSwingAmount, 3.5F, 7);
+            if (entity.isRunning()) {
+                this.animateWalk(BrachiosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
+            } else {
+                this.animateWalk(BrachiosaurusAnimations.WALK, limbSwing, limbSwingAmount, 3.5F, 7);
+            }
         }
-		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 7.1F);
+		this.animateIdleSmooth(entity.idleAnimationState, BrachiosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, entity.isRunning() ? 3.0F : 7.0F);
 		this.animateSmooth(entity.eepyAnimationState, BrachiosaurusAnimations.SIT, ageInTicks, partialTicks);
         this.animateSmooth(entity.stompAnimationState, BrachiosaurusAnimations.SLAM, ageInTicks, partialTicks);
         this.animateSmooth(entity.shakeAnimationState, BrachiosaurusAnimations.SHAKE_BLEND, ageInTicks, partialTicks);
@@ -170,8 +173,8 @@ public class BrachiosaurusModel extends UP2Model<Brachiosaurus> {
         double bodyYRot = Mth.wrapDegrees(entity.yBodyRotO + (entity.yBodyRot - entity.yBodyRotO) * partialTicks);
         double segment1Y = (entity.getTrailTransformation(8, partialTicks)) - bodyYRot;
         double segment2Y = (entity.getTrailTransformation(16, partialTicks)) - bodyYRot - segment1Y;
-        this.tail1.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment1Y) * 0.4F);
-        this.tail2.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.35F);
+        this.tail1.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment1Y) * 0.3F);
+        this.tail2.yRot += (float) Math.toRadians(Mth.wrapDegrees(segment2Y) * 0.2F);
 	}
 
 	@Override

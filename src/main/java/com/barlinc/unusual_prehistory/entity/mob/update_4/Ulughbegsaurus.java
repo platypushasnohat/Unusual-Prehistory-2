@@ -3,10 +3,7 @@ package com.barlinc.unusual_prehistory.entity.mob.update_4;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
-import com.barlinc.unusual_prehistory.entity.utils.KeybindUsingMount;
-import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
-import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
-import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
+import com.barlinc.unusual_prehistory.entity.utils.*;
 import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -37,6 +34,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -53,7 +51,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount, PlayerRideableJumping, LeapingMob, VariantHolder<Ulughbegsaurus.UlughbegsaurusVariant> {
+public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount, PlayerRideableJumping, LeapingMob, VariantHolder<Ulughbegsaurus.UlughbegsaurusVariant>, TargetsItems {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> RAINBOW = SynchedEntityData.defineId(Ulughbegsaurus.class, EntityDataSerializers.BOOLEAN);
@@ -97,10 +95,11 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
         this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 20, 1, false, 0.001F));
         this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 80, 2, false, 0.001F, this::canShake));
         this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 60, 3, false, 0.001F, this::canYawn));
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.ULUGHBEGSAURUS_TARGETS)));
-        this.targetSelector.addGoal(2, new PrehistoricOwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(3, new PrehistoricOwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(0, new TargetItemsGoal(this, true));
+        this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(4, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.ULUGHBEGSAURUS_TARGETS)));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -120,10 +119,26 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     }
 
     @Override
+    public boolean canTargetItems(ItemStack stack) {
+        return this.isFood(stack);
+    }
+
+    @Override
+    public void onGetItem(ItemEntity item) {
+        if (this.getNavigation().getPath() != null) {
+            this.getNavigation().stop();
+        }
+        this.setEatTicks(60);
+        this.setEatCooldown(this.getEatCooldown() + 60);
+        this.level().broadcastEntityEvent(this, EAT);
+        this.eatItem(this, item.getItem());
+    }
+
+    @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
-        if (!this.isTame() && itemStack.is(UP2ItemTags.TAMES_ULUGHBEGSAURUS) && eatTicks == 0) {
+        if (!this.isTame() && itemStack.is(UP2ItemTags.TAMES_ULUGHBEGSAURUS) && this.getEatTicks() <= 0) {
             if (!this.level().isClientSide) {
                 if (!player.getAbilities().instabuild) {
                     itemStack.shrink(1);
@@ -146,7 +161,7 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
             } else {
                 this.spawnEatingParticles(itemStack);
             }
-            this.eatTicks = 60;
+            this.setEatTicks(60);
             return InteractionResult.SUCCESS;
         }
         else if (!this.isRainbow() && itemStack.is(Tags.Items.DYES)) {
@@ -282,8 +297,8 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
     }
 
     @Override
-    protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
-        return super.calculateFallDamage(fallDistance, damageMultiplier) - 6;
+    public int getMaxFallDistance() {
+        return super.getMaxFallDistance() + 6;
     }
 
     @Override

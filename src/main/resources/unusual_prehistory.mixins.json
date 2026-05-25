@@ -4,7 +4,6 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "unusual_prehistory.refmap.json",
   "mixins": [
-    "BlockBehaviourMixin",
     "CarvedPumpkinBlockMixin",
     "EntityMixin",
     "EvokerMixin",

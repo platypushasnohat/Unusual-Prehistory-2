@@ -7,7 +7,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -22,23 +21,22 @@ public interface PrehistoricMobInteractions {
         return SoundEvents.GENERIC_EAT;
     }
 
-    default void applyFoodEffects(PrehistoricMob mob, ItemStack food, Level level, LivingEntity livingEntity) {
+    default void applyFoodEffects(PrehistoricMob mob, ItemStack food, Level level) {
         Item item = food.getItem();
         if (!item.components().has(DataComponents.FOOD)) return;
         FoodProperties foodproperties = food.getFoodProperties(mob);
         if (foodproperties == null) return;
         for (FoodProperties.PossibleEffect effect : foodproperties.effects()) {
             if (!level.isClientSide && effect != null && level.random.nextFloat() < effect.probability()) {
-                livingEntity.addEffect(effect.effect());
+                mob.addEffect(effect.effect());
             }
         }
-
     }
 
     default void feedItemToMob(PrehistoricMob mob, Player player, ItemStack food) {
         food.consume(1, player);
         mob.playSound(this.getEatingSound(), 1.0F, mob.getVoicePitch());
-        this.applyFoodEffects(mob, food, mob.level(), mob);
+        this.applyFoodEffects(mob, food, mob.level());
         mob.gameEvent(GameEvent.EAT);
     }
 
@@ -66,12 +64,14 @@ public interface PrehistoricMobInteractions {
 
     default void healMob(PrehistoricMob mob, Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (!itemStack.has(DataComponents.FOOD)) return;
         this.feedItemToMob(mob, player, itemStack);
-        FoodProperties foodproperties = itemStack.getFoodProperties(mob);
-        float healAmount = foodproperties != null ? (float) foodproperties.nutrition() : 2.0F;
-        mob.heal(2.0F * healAmount);
-        mob.level().broadcastEntityEvent(mob, (byte) 11);
+        float healAmount = mob.getMaxHealth() * 0.1F;
+        if (itemStack.has(DataComponents.FOOD)) {
+            FoodProperties foodproperties = itemStack.getFoodProperties(mob);
+            healAmount = foodproperties != null ? (float) foodproperties.nutrition() * 2.0F : mob.getMaxHealth() * 0.1F;
+            mob.level().broadcastEntityEvent(mob, (byte) 11);
+        }
+        mob.heal(healAmount);
     }
 
     default void increaseMobAge(PrehistoricMob mob, Player player, @NotNull InteractionHand hand) {

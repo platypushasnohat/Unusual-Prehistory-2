@@ -68,7 +68,7 @@ public class UP2Entities {
     public static final DeferredHolder<EntityType<?>, EntityType<Tartuosteus>> TARTUOSTEUS = registerEntity("tartuosteus", Tartuosteus::new, MobCategory.WATER_CREATURE, builder -> builder.sized(1.2F, 0.5F).eyeHeight(0.5F).clientTrackingRange(10));
 
     // Update 4
-    public static final DeferredHolder<EntityType<?>, EntityType<Brachiosaurus>> BRACHIOSAURUS = registerEntity("brachiosaurus", Brachiosaurus::new, MobCategory.CREATURE, builder -> builder.sized(4.1F, 9.1F).eyeHeight(9.0F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<Brachiosaurus>> BRACHIOSAURUS = registerEntity("brachiosaurus", Brachiosaurus::new, MobCategory.CREATURE, builder -> builder.sized(5.5F, 9.25F).eyeHeight(9.0F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Coelacanthus>> COELACANTHUS = registerEntity("coelacanthus", Coelacanthus::new, MobCategory.WATER_CREATURE, builder -> builder.sized(0.75F, 0.6F).eyeHeight(0.3F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Hibbertopterus>> HIBBERTOPTERUS = registerEntity("hibbertopterus", Hibbertopterus::new, MobCategory.CREATURE, builder -> builder.sized(2.75F, 1.7F).eyeHeight(1.6F).passengerAttachments(new Vec3(0.0F, 1.7F, -0.5F)).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Kaprosuchus>> KAPROSUCHUS = registerEntity("kaprosuchus", Kaprosuchus::new, MobCategory.CREATURE, builder -> builder.sized(1.25F, 1.4F).eyeHeight(1.1F).clientTrackingRange(10));

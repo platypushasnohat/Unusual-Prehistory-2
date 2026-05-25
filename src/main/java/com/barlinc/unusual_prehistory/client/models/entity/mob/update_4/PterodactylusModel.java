@@ -98,7 +98,7 @@ public class PterodactylusModel extends UP2Model<Pterodactylus> {
 
         this.animateSmooth(entity.idleAnimationState, PterodactylusAnimations.GROUD_IDLE, ageInTicks, partialTicks);
         this.animateSmooth(entity.hangIdleAnimationState, PterodactylusAnimations.HANG_IDLE, ageInTicks, partialTicks);
-        this.animateSmooth(entity.flyAnimationState, PterodactylusAnimations.FLY, ageInTicks, 1.25F, partialTicks);
+        this.animateSmooth(entity.flyAnimationState, PterodactylusAnimations.FLY, ageInTicks, partialTicks, 1.25F);
         this.animateSmooth(entity.flyFastAnimationState, PterodactylusAnimations.FLYFAST, ageInTicks, partialTicks);
         this.animateSmooth(entity.stretchAnimationState, PterodactylusAnimations.GROUND_STRETCH_BLEND, ageInTicks, partialTicks);
         this.animateSmooth(entity.hangingStretchAnimationState, PterodactylusAnimations.HANG_STRETCH_BLEND, ageInTicks, partialTicks);
