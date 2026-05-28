@@ -288,7 +288,12 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 POLISHED_PETRIFIED_WOOD_SLAB.get(),
                 POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get(),
                 POLISHED_PETRIFIED_WOOD_BUTTON.get(),
-                ASPHALT.get()
+                ASPHALT.get(),
+
+                FOSSIL_BED.get(),
+                UNCOMMON_FOSSIL_BED.get(),
+                RARE_FOSSIL_BED.get(),
+                UNUSUAL_FOSSIL_BED.get()
         ).addTag(UP2BlockTags.REINFORCED_GLASS);
 
         this.tag(BlockTags.IMPERMEABLE).addTag(UP2BlockTags.REINFORCED_GLASS);

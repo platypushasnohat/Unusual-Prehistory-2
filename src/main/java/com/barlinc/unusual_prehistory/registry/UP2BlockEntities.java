@@ -1,9 +1,7 @@
 package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.blocks.entity.ExtraDataBlockEntity;
-import com.barlinc.unusual_prehistory.blocks.entity.PlushieBlockEntity;
-import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
+import com.barlinc.unusual_prehistory.blocks.entity.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -13,14 +11,18 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
+@SuppressWarnings("DataFlowIssue")
 public class UP2BlockEntities {
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, UnusualPrehistory2.MOD_ID);
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TransmogrifierBlockEntity>> TRANSMOGRIFIER = BLOCK_ENTITIES.register("transmogrifier", () -> BlockEntityType.Builder.of(TransmogrifierBlockEntity::new, UP2Blocks.TRANSMOGRIFIER.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TransmogrifierBlockEntity>> TRANSMOGRIFIER_BLOCK_ENTITY = BLOCK_ENTITIES.register("transmogrifier_block_entity", () -> BlockEntityType.Builder.of(TransmogrifierBlockEntity::new, UP2Blocks.TRANSMOGRIFIER.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ExtraDataBlockEntity>> EXTRA_DATA_BLOCK_ENTITY = BLOCK_ENTITIES.register("extra_data_block_entity", () -> BlockEntityType.Builder.of(ExtraDataBlockEntity::new, UP2Blocks.EGG_BLOCKS.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PlushieBlockEntity>> PLUSHIE_BLOCK_ENTITY = BLOCK_ENTITIES.register("plushie_block_entity", () -> BlockEntityType.Builder.of(PlushieBlockEntity::new, UP2Blocks.PLUSHIE_BLOCKS.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MatrixBlockEntity>> MATRIX_BLOCK_ENTITY = BLOCK_ENTITIES.register("matrix_block_entity", () -> BlockEntityType.Builder.of(MatrixBlockEntity::new, UP2Blocks.DIRT_MATRIX.get(), UP2Blocks.GRAVEL_MATRIX.get(), UP2Blocks.SAND_MATRIX.get(), UP2Blocks.RED_SAND_MATRIX.get(), UP2Blocks.SNOW_MATRIX.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FossilBedBlockEntity>> FOSSIL_BED_BLOCK_ENTITY = BLOCK_ENTITIES.register("fossil_bed_block_entity", () -> BlockEntityType.Builder.of(FossilBedBlockEntity::new, UP2Blocks.FOSSIL_BED.get(), UP2Blocks.UNCOMMON_FOSSIL_BED.get(), UP2Blocks.RARE_FOSSIL_BED.get(), UP2Blocks.UNUSUAL_FOSSIL_BED.get()).build(null));
 
     public static void addBlockEntities(final BlockEntityTypeAddBlocksEvent event) {
         event.modify(BlockEntityType.SIGN,

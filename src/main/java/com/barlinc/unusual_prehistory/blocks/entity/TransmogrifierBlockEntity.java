@@ -103,7 +103,7 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
     private final RecipeManager.CachedCheck<SingleRecipeInput, ? extends TransmogrificationRecipe> quickCheck;
 
     public TransmogrifierBlockEntity(BlockPos pos, BlockState blockState) {
-        super(UP2BlockEntities.TRANSMOGRIFIER.get(), pos, blockState);
+        super(UP2BlockEntities.TRANSMOGRIFIER_BLOCK_ENTITY.get(), pos, blockState);
         this.quickCheck = RecipeManager.createCheck(UP2Recipes.TRANSMOGRIFICATION.get());
         this.recipeType = UP2Recipes.TRANSMOGRIFICATION.get();
     }
