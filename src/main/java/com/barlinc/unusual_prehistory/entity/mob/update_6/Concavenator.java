@@ -161,7 +161,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
                 .add(Attributes.MOVEMENT_SPEED, 0.24F)
                 .add(Attributes.ARMOR, 1.0D)
                 .add(Attributes.STEP_HEIGHT, 1.1D)
-                .add(Attributes.FOLLOW_RANGE, 10.0D);
+                .add(Attributes.FOLLOW_RANGE, 20.0D);
     }
 
     @Override
