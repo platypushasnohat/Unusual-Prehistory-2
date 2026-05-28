@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "unusual_prehistory:block/gravel_matrix"
+    "all": "unusual_prehistory:block/dirt_matrix_2"
   }
 }

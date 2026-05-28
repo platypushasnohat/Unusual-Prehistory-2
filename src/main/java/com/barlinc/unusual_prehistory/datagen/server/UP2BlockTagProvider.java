@@ -326,7 +326,14 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 MOSSY_DIRT.get(),
                 NEEDLE_LITTER.get(),
                 PEAT.get(),
-                LIVING_PEAT.get()
+                LIVING_PEAT.get(),
+
+                DIRT_MATRIX.get(),
+                MUD_MATRIX.get(),
+                GRAVEL_MATRIX.get(),
+                SAND_MATRIX.get(),
+                RED_SAND_MATRIX.get(),
+                SNOW_MATRIX.get()
         );
 
         this.tag(BlockTags.SWORD_EFFICIENT).add(

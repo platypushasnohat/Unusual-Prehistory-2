@@ -25,11 +25,6 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        this.block(RED_SAND_MATRIX);
-        this.block(SAND_MATRIX);
-        this.block(SNOW_MATRIX);
-        this.block(DIRT_MATRIX);
-        this.block(GRAVEL_MATRIX);
 
         this.block(FOSSIL_BED);
         this.block(UNCOMMON_FOSSIL_BED);

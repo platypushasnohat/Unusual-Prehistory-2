@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "dusted=0": {
+      "model": "unusual_prehistory:block/gravel_matrix_0"
+    },
+    "dusted=1": {
+      "model": "unusual_prehistory:block/gravel_matrix_1"
+    },
+    "dusted=2": {
+      "model": "unusual_prehistory:block/gravel_matrix_2"
+    },
+    "dusted=3": {
+      "model": "unusual_prehistory:block/gravel_matrix_3"
+    }
+  }
+}

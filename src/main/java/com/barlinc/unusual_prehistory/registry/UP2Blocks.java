@@ -9,6 +9,8 @@ import com.barlinc.unusual_prehistory.blocks.plant.update_4.*;
 import com.barlinc.unusual_prehistory.blocks.plant.update_6.LivingPeatBlock;
 import com.barlinc.unusual_prehistory.blocks.plant.update_6.NeedleLitterBlock;
 import com.barlinc.unusual_prehistory.blocks.plant.update_6.PeatBlock;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.BlockItem;
@@ -214,11 +216,12 @@ public class UP2Blocks {
 
     public static final DeferredBlock<Block> ORGANIC_OOZE_BLOCK = registerBlock("organic_ooze_block", ()-> new OrganicOozeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion().instabreak()));
 
-    public static final DeferredBlock<Block> DIRT_MATRIX = registerBlock("dirt_matrix", () -> new MatrixBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
-    public static final DeferredBlock<Block> GRAVEL_MATRIX = registerBlock("gravel_matrix", () -> new MatrixBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.GRAVEL)));
-    public static final DeferredBlock<Block> SAND_MATRIX = registerBlock("sand_matrix", () -> new MatrixBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
-    public static final DeferredBlock<Block> RED_SAND_MATRIX = registerBlock("red_sand_matrix", () -> new MatrixBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
-    public static final DeferredBlock<Block> SNOW_MATRIX = registerBlock("snow_matrix", () -> new MatrixBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).requiresCorrectToolForDrops().strength(0.2F).sound(SoundType.SNOW)));
+    public static final DeferredBlock<Block> DIRT_MATRIX = registerBlock("dirt_matrix", () -> new MatrixBlock(SoundEvents.BRUSH_GENERIC, SoundEvents.GRAVEL_BREAK, BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+    public static final DeferredBlock<Block> MUD_MATRIX = registerBlock("mud_matrix", () -> new MatrixBlock(SoundEvents.BRUSH_GENERIC, SoundEvents.MUD_BREAK, BlockBehaviour.Properties.ofLegacyCopy(Blocks.DIRT).mapColor(MapColor.TERRACOTTA_CYAN).sound(SoundType.MUD)));
+    public static final DeferredBlock<Block> GRAVEL_MATRIX = registerBlock("gravel_matrix", () -> new MatrixBlock(SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.GRAVEL)));
+    public static final DeferredBlock<Block> SAND_MATRIX = registerBlock("sand_matrix", () -> new MatrixBlock(SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED, BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
+    public static final DeferredBlock<Block> RED_SAND_MATRIX = registerBlock("red_sand_matrix", () -> new MatrixBlock(SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
+    public static final DeferredBlock<Block> SNOW_MATRIX = registerBlock("snow_matrix", () -> new MatrixBlock(SoundEvents.BRUSH_GENERIC, SoundEvents.SNOW_BREAK, BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).requiresCorrectToolForDrops().strength(0.2F).sound(SoundType.SNOW)));
 
     public static final DeferredBlock<Block> FOSSIL_BED = registerBlock("fossil_bed", () -> new FossilBedBlock(UP2BlockProperties.FOSSIL_BLOCK));
     public static final DeferredBlock<Block> UNCOMMON_FOSSIL_BED = registerBlock("uncommon_fossil_bed", () -> new FossilBedBlock(UP2BlockProperties.FOSSIL_BLOCK));

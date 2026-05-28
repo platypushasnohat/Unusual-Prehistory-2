@@ -93,6 +93,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.MESONITE_SLAB.get());
 
                         output.accept(UP2Blocks.DIRT_MATRIX.get());
+                        output.accept(UP2Blocks.MUD_MATRIX.get());
                         output.accept(UP2Blocks.GRAVEL_MATRIX.get());
                         output.accept(UP2Blocks.SAND_MATRIX.get());
                         output.accept(UP2Blocks.RED_SAND_MATRIX.get());

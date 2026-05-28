@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,22 +38,29 @@ public class MatrixBlockEntity extends BlockEntity {
         this.brushCountResetsAtTick = startTick + 40L;
         if (startTick >= coolDownEndsAtTick && level instanceof ServerLevel serverLevel) {
             this.coolDownEndsAtTick = startTick + 10L;
-            this.brushCount++;
-            if (brushCount >= 4) {
+            int completionState = this.getCompletionState();
+            if (++brushCount >= 10) {
                 this.brushingCompleted();
                 return true;
+            } else {
+                serverLevel.scheduleTick(this.getBlockPos(), this.getBlockState().getBlock(), 2);
+                int j = this.getCompletionState();
+                if (completionState != j) {
+                    BlockState state = this.getBlockState().setValue(BlockStateProperties.DUSTED, j);
+                    serverLevel.setBlock(this.getBlockPos(), state, 3);
+                }
+                return false;
             }
-            serverLevel.scheduleTick(this.getBlockPos(), this.getBlockState().getBlock(), 2);
+        } else {
             return false;
         }
-        return false;
     }
 
     private void brushingCompleted() {
         if (level instanceof ServerLevel serverLevel) {
             BlockPos pos = worldPosition;
             BlockState oldState = this.getBlockState();
-            this.level.levelEvent(3008, pos, Block.getId(oldState));
+            serverLevel.levelEvent(3008, pos, Block.getId(oldState));
             ResourceKey<LootTable> table = lootTable;
             long seed = lootTableSeed;
             serverLevel.setBlock(pos, rarity.getBlock().defaultBlockState(), 3);
@@ -144,6 +152,16 @@ public class MatrixBlockEntity extends BlockEntity {
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    private int getCompletionState() {
+        if (this.brushCount == 0) {
+            return 0;
+        } else if (this.brushCount < 3) {
+            return 1;
+        } else {
+            return this.brushCount < 6 ? 2 : 3;
+        }
     }
 
     public enum LootRarity {
