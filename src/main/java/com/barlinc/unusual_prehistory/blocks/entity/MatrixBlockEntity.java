@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class MatrixBlockEntity extends BlockEntity {
+public class MatrixBlockEntity extends BlockEntity implements Brushable {
 
     private int brushCount;
     private long brushCountResetsAtTick;
