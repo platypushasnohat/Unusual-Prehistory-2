@@ -131,7 +131,7 @@ public class Cotylorhynchus extends PrehistoricMob implements PlushableMob {
 
     @Override
     public Vec3 getEepyParticleVec() {
-        return new Vec3(0, 0, -this.getBbWidth() * 0.9F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+        return new Vec3(0.0D, 0.6D, this.getBbWidth() * 0.8F).yRot(-yBodyRot * ((float) Math.PI / 180F));
     }
 
     @Override
@@ -239,11 +239,6 @@ public class Cotylorhynchus extends PrehistoricMob implements PlushableMob {
         this.grazeAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
         this.burpAnimationState.animateWhen(this.getPose() == UP2Poses.BURPING.get(), this.tickCount);
-    }
-
-    @Override
-    public float getWalkAnimationSpeed() {
-        return this.isBaby() ? 5.0F : 10.0F;
     }
 
     private boolean canGraze(Entity entity) {

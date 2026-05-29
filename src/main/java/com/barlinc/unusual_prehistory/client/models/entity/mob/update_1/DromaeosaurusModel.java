@@ -137,9 +137,9 @@ public class DromaeosaurusModel extends UP2Model<Dromaeosaurus> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
 
-        this.animateWalk(DromaeosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.1F, 2.2F);
+        this.animateWalk(DromaeosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.25F, 2.5F);
 
-		this.animateIdleSmooth(entity.idleAnimationState, DromaeosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+		this.animateIdleSmooth(entity.idleAnimationState, DromaeosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
 		this.animateSmooth(entity.attackAnimationState, DromaeosaurusAnimations.BITE_BLEND, ageInTicks, partialTicks);
 		this.animateSmooth(entity.fallAnimationState, DromaeosaurusAnimations.JUMP, ageInTicks, partialTicks);
 		this.animateSmooth(entity.eepyAnimationState, DromaeosaurusAnimations.SLEEP, ageInTicks, partialTicks);

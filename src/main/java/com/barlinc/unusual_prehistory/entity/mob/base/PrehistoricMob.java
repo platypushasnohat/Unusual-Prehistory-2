@@ -409,10 +409,9 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
 
     public void doEepyParticles() {
         Vec3 lookVec = this.getEepyParticleVec();
-        Vec3 eyeVec = this.getEyePosition().add(lookVec);
         if (eepyTicks == 0) {
-            this.eepyTicks = 40 + this.getRandom().nextInt(20);
-            this.level().addParticle(UP2Particles.EEPY.get(), eyeVec.x, eyeVec.y + (1.0F - this.getRandom().nextFloat()) * 0.3F, eyeVec.z, 1, 0, 0);
+            this.eepyTicks = 60 + this.getRandom().nextInt(20);
+            this.level().addParticle(UP2Particles.EEPY.get(), this.getX() + lookVec.x, this.getEyeY() + lookVec.y, this.getZ() + lookVec.z, 0, 0, 0);
         }
         if (eepyTicks > 0) {
             this.eepyTicks--;
@@ -420,7 +419,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     }
 
     public Vec3 getEepyParticleVec() {
-        return new Vec3(0, 0, -this.getBbWidth() * 1.7F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+        return new Vec3(0.0D, 0.25D, this.getBbWidth()).yRot(-yBodyRot * ((float) Math.PI / 180F));
     }
 
     public boolean shouldDoEepyParticles() {

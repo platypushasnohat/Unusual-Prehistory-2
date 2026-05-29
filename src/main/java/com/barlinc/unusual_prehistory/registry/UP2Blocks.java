@@ -9,7 +9,6 @@ import com.barlinc.unusual_prehistory.blocks.plant.update_4.*;
 import com.barlinc.unusual_prehistory.blocks.plant.update_6.LivingPeatBlock;
 import com.barlinc.unusual_prehistory.blocks.plant.update_6.NeedleLitterBlock;
 import com.barlinc.unusual_prehistory.blocks.plant.update_6.PeatBlock;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;

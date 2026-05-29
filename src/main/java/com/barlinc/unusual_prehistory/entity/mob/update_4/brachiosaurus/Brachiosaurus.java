@@ -178,17 +178,18 @@
      @Override
      public void doEepyParticles() {
          Vec3 lookVec = this.getEepyParticleVec();
-         Vec3 eyeVec = this.headPart.getEyePosition().add(lookVec);
-         if (this.eepyTicks == 0) {
-             this.eepyTicks = 40 + random.nextInt(20);
-             this.level().addParticle(UP2Particles.EEPY.get(), eyeVec.x, eyeVec.y + (1.0F - random.nextFloat()) * 0.3F, eyeVec.z, 1, 0, 0);
+         if (eepyTicks == 0) {
+             this.eepyTicks = 60 + this.getRandom().nextInt(20);
+             this.level().addParticle(UP2Particles.EEPY.get(), headPart.getX() + lookVec.x, headPart.getEyeY() + lookVec.y, headPart.getZ() + lookVec.z, 0, 0, 0);
          }
-         if (this.eepyTicks > 0) this.eepyTicks--;
+         if (eepyTicks > 0) {
+             this.eepyTicks--;
+         }
      }
 
      @Override
      public Vec3 getEepyParticleVec() {
-         return new Vec3(0, -0.7F, -this.getBbWidth() * 0.4F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+         return new Vec3(0.0D, 1.5D, headPart.getBbWidth() * 0.25F).yRot(-yBodyRot * ((float) Math.PI / 180F));
      }
 
      @Override

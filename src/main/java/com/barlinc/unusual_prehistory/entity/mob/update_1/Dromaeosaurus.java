@@ -129,6 +129,11 @@ public class Dromaeosaurus extends PrehistoricMob {
     }
 
     @Override
+    public Vec3 getEepyParticleVec() {
+        return new Vec3(0.0D, -this.getBbHeight() * 0.35F, this.getBbWidth() * 1.3F).yRot(-yBodyRot * ((float) Math.PI / 180F));
+    }
+
+    @Override
     public void travel(@NotNull Vec3 vec3) {
         if (this.refuseToMove() && this.onGround()) {
             this.setDeltaMovement(this.getDeltaMovement().multiply(0.0, 1.0, 0.0));

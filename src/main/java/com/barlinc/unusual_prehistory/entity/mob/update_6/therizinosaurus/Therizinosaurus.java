@@ -139,7 +139,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     @Override
     public Vec3 getEepyParticleVec() {
-        return new Vec3(0, 0.5F, -this.getBbWidth() * 1.05F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+        return new Vec3(0.0D, 1.25D, this.getBbWidth() * 0.8F).yRot(-yBodyRot * ((float) Math.PI / 180F));
     }
 
     @Override
@@ -152,12 +152,16 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         if (!this.isPacified() && !this.isBaby() && entity instanceof LivingEntity livingEntity && this.canAttack(livingEntity) && !(livingEntity instanceof Therizinosaurus)) {
             this.setTarget(livingEntity);
         }
-        super.doPush(entity);
+        if (!(entity instanceof TherizinosaurusPart)) {
+            super.doPush(entity);
+        }
     }
 
     @Override
     public void tick() {
-        this.tickMultipart();
+        if (!this.isBaby()) {
+            this.tickMultipart();
+        }
         super.tick();
         if (wasPreviouslyBaby != this.isBaby()) {
             this.wasPreviouslyBaby = this.isBaby();
@@ -260,12 +264,12 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     @Override
     public boolean isMultipartEntity() {
-        return true;
+        return !this.isBaby();
     }
 
     @Override
     public PartEntity<?> @NotNull [] getParts() {
-        return allParts;
+        return this.isBaby() ? super.getParts() : allParts;
     }
 
     @Nullable

@@ -418,7 +418,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
 
     @Override
     public Vec3 getEepyParticleVec() {
-        return new Vec3(0, 0, -this.getBbWidth() * 1.2F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+        return new Vec3(0.0D, 0.2D, this.getBbWidth()).yRot(-yBodyRot * ((float) Math.PI / 180F));
     }
 
     @Override

@@ -186,6 +186,11 @@
      }
 
      @Override
+     public Vec3 getEepyParticleVec() {
+         return new Vec3(0.0D, 0.1D, this.getBbWidth() * 0.98F).yRot(-yBodyRot * ((float) Math.PI / 180F));
+     }
+
+     @Override
      public void tick() {
          super.tick();
          final boolean ground = !this.isInWaterOrBubble();

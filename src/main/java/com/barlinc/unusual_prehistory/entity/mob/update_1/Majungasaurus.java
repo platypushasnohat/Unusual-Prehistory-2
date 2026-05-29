@@ -172,6 +172,11 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
     }
 
     @Override
+    public Vec3 getEepyParticleVec() {
+        return new Vec3(-0.2D, -this.getBbHeight() * 0.2F, this.getBbWidth() * 1.6F).yRot(-yBodyRot * ((float) Math.PI / 180F));
+    }
+
+    @Override
     public void tick () {
         super.tick();
 

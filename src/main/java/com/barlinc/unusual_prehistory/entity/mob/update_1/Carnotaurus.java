@@ -157,6 +157,12 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
         return super.refuseToLook() || this.getPose() == UP2Poses.STOP_CHARGING.get();
     }
 
+    @Override
+    public Vec3 getEepyParticleVec() {
+        return new Vec3(0.0D, -this.getBbHeight() * 0.4F, this.getBbWidth()).yRot(-yBodyRot * ((float) Math.PI / 180F));
+    }
+
+    @Override
     public void setupAnimationStates() {
         this.angryAnimationState.animateWhen(this.canPlayAngryAnimation(), this.tickCount);
         this.idleAnimationState.animateWhen(this.getPose() != UP2Poses.ROARING.get() && this.getPose() != UP2Poses.START_CHARGING.get() && this.getPose() != UP2Poses.START_CHARGING.get() && !this.isInWaterOrBubble() && !this.isEepy(), this.tickCount);

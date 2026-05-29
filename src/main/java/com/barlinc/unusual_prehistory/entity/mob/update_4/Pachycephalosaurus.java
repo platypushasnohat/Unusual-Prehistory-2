@@ -115,7 +115,7 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
 
     @Override
     public Vec3 getEepyParticleVec() {
-        return new Vec3(0, 0.15F, -this.getBbWidth() * 0.8F).yRot((float) Math.toRadians(180F - this.getYHeadRot()));
+        return new Vec3(0.0D, 0.6D, this.getBbWidth() * 1.05F).yRot(-yBodyRot * ((float) Math.PI / 180F));
     }
 
     public boolean canChargeAtOtherPachycephalosaurus(LivingEntity entity) {
@@ -257,6 +257,7 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
         this.entityData.set(FIGHT_PARTNER, partner);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isFightPartner() {
         return this.entityData.get(FIGHT_PARTNER);
     }
@@ -265,6 +266,7 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
         this.entityData.set(WANTS_TO_KILL, wantsToKill);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean wantsToKill() {
         return this.entityData.get(WANTS_TO_KILL);
     }

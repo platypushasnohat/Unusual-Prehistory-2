@@ -37,7 +37,9 @@ public class TherizinosaurusPart extends PartEntity<Therizinosaurus> {
 
     @Override
     public @NotNull InteractionResult interact(@NotNull Player player, @NotNull InteractionHand interactionHand) {
-        if (parent == null) return InteractionResult.PASS;
+        if (parent == null) {
+            return InteractionResult.PASS;
+        }
         else return parent.interact(player, interactionHand);
     }
 

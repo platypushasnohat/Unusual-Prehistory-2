@@ -214,6 +214,11 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
         super.travel(travelVec);
     }
 
+    @Override
+    public Vec3 getEepyParticleVec() {
+        return new Vec3(0.0D, -this.getBbHeight() * 0.4F, this.getBbWidth() * 1.55F).yRot(-yBodyRot * ((float) Math.PI / 180F));
+    }
+
     // Riding
     @Override
     protected float getRiddenSpeed(@NotNull Player rider) {
