@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.integration.jade;
 
+import com.barlinc.unusual_prehistory.blocks.MatrixBlock;
 import com.barlinc.unusual_prehistory.blocks.TransmogrifierBlock;
 import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
@@ -31,6 +32,16 @@ public class JadePlugin implements IWailaPlugin {
                     if (headEntity instanceof Arthropleura arthropleura) {
                         return registration.entityAccessor().from(entityAccessor).entity(arthropleura).build();
                     }
+                }
+            }
+            return accessor;
+        });
+
+        // Overrides jade's sus block hiding plugin because we extend brushable block for the matrices
+        registration.addRayTraceCallback((hitResult, accessor, originalAccessor) -> {
+            if (accessor instanceof BlockAccessor blockAccessor) {
+                if (blockAccessor.getBlock() instanceof MatrixBlock matrixBlock) {
+                    return registration.blockAccessor().from(blockAccessor).blockState(matrixBlock.defaultBlockState()).build();
                 }
             }
             return accessor;

@@ -10,6 +10,7 @@ import com.barlinc.unusual_prehistory.blocks.plant.update_6.LivingPeatBlock;
 import com.barlinc.unusual_prehistory.blocks.plant.update_6.NeedleLitterBlock;
 import com.barlinc.unusual_prehistory.blocks.plant.update_6.PeatBlock;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.BlockItem;
@@ -222,10 +223,10 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> RED_SAND_MATRIX = registerBlock("red_sand_matrix", () -> new MatrixBlock(SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
     public static final DeferredBlock<Block> SNOW_MATRIX = registerBlock("snow_matrix", () -> new MatrixBlock(SoundEvents.BRUSH_GENERIC, SoundEvents.SNOW_BREAK, BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).requiresCorrectToolForDrops().strength(0.2F).sound(SoundType.SNOW)));
 
-    public static final DeferredBlock<Block> FOSSIL_BED = registerBlock("fossil_bed", () -> new FossilBedBlock(UP2BlockProperties.FOSSIL_BLOCK));
-    public static final DeferredBlock<Block> UNCOMMON_FOSSIL_BED = registerBlock("uncommon_fossil_bed", () -> new FossilBedBlock(UP2BlockProperties.FOSSIL_BLOCK));
-    public static final DeferredBlock<Block> RARE_FOSSIL_BED = registerBlock("rare_fossil_bed", () -> new FossilBedBlock(UP2BlockProperties.FOSSIL_BLOCK));
-    public static final DeferredBlock<Block> UNUSUAL_FOSSIL_BED = registerBlock("unusual_fossil_bed", () -> new FossilBedBlock(UP2BlockProperties.FOSSIL_BLOCK));
+    public static final DeferredBlock<Block> FOSSIL_BED = registerBlock("fossil_bed", () -> new FossilBedBlock(UniformInt.of(0, 1), UP2BlockProperties.FOSSIL_BLOCK));
+    public static final DeferredBlock<Block> UNCOMMON_FOSSIL_BED = registerBlock("uncommon_fossil_bed", () -> new FossilBedBlock(UniformInt.of(1, 3), UP2BlockProperties.FOSSIL_BLOCK));
+    public static final DeferredBlock<Block> RARE_FOSSIL_BED = registerBlock("rare_fossil_bed", () -> new FossilBedBlock(UniformInt.of(2, 5), UP2BlockProperties.FOSSIL_BLOCK));
+    public static final DeferredBlock<Block> UNUSUAL_FOSSIL_BED = registerBlock("unusual_fossil_bed", () -> new FossilBedBlock(UniformInt.of(3, 7), UP2BlockProperties.FOSSIL_BLOCK));
 
     public static final DeferredBlock<Block> BRACHIOSAURUS_PLUSHIE = registerPlushieBlock("brachiosaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 12, 16, UP2SoundEvents.BRACHIOSAURUS_IDLE.get()));
     public static final DeferredBlock<Block> CARNOTAURUS_PLUSHIE = registerPlushieBlock("carnotaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 10, 16, UP2SoundEvents.CARNOTAURUS_IDLE.get()));

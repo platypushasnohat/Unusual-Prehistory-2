@@ -116,7 +116,7 @@ public class MatrixBlockEntity extends BlockEntity {
             this.lootTableSeed = compoundTag.getLong("LootTableSeed");
         }
         if (compoundTag.contains("Rarity")) {
-            this.rarity = LootRarity.valueOf(compoundTag.getString("Rarity"));
+            this.rarity = LootRarity.byId(compoundTag.getString("Rarity"));
         }
     }
 
@@ -127,7 +127,7 @@ public class MatrixBlockEntity extends BlockEntity {
         if (lootTableSeed != 0L) {
             compoundTag.putLong("LootTableSeed", lootTableSeed);
         }
-        compoundTag.putString("Rarity", rarity.name());
+        compoundTag.putString("Rarity", rarity.getId());
     }
 
     @Override
@@ -165,19 +165,34 @@ public class MatrixBlockEntity extends BlockEntity {
     }
 
     public enum LootRarity {
-        COMMON(UP2Blocks.FOSSIL_BED.get()),
-        UNCOMMON(UP2Blocks.UNCOMMON_FOSSIL_BED.get()),
-        RARE(UP2Blocks.RARE_FOSSIL_BED.get()),
-        UNUSUAL(UP2Blocks.UNUSUAL_FOSSIL_BED.get());
+        COMMON(UP2Blocks.FOSSIL_BED.get(), "common"),
+        UNCOMMON(UP2Blocks.UNCOMMON_FOSSIL_BED.get(), "uncommon"),
+        RARE(UP2Blocks.RARE_FOSSIL_BED.get(), "rare"),
+        UNUSUAL(UP2Blocks.UNUSUAL_FOSSIL_BED.get(), "unusual");
 
         private final Block block;
+        private final String id;
 
-        LootRarity(Block block) {
+        LootRarity(Block block, String id) {
             this.block = block;
+            this.id = id;
         }
 
         public Block getBlock() {
             return block;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public static LootRarity byId(String id) {
+            for (LootRarity rarity : LootRarity.values()) {
+                if (rarity.getId().equals(id)) {
+                    return rarity;
+                }
+            }
+            return COMMON;
         }
     }
 }
