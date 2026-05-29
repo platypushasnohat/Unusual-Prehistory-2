@@ -183,6 +183,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.SHRINGASAURUS.get(), ShringasaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.SPIKE_TOOTHED_SALMON.get(), SpikeToothedSalmonRenderer::new);
         event.registerEntityRenderer(UP2Entities.THERIZINOSAURUS.get(), TherizinosaurusRenderer::new);
+        event.registerEntityRenderer(UP2Entities.TUSOTEUTHIS.get(), TusoteuthisRenderer::new);
     }
 
     @SubscribeEvent
@@ -275,6 +276,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.SPIKE_TOOTHED_SALMON, SpikeToothedSalmonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.THERIZINOSAURUS, TherizinosaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.THERIZINOSAURUS_BABY, TherizinosaurusBabyModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.TUSOTEUTHIS, TusoteuthisModel::createBodyLayer);
     }
 
     @SubscribeEvent

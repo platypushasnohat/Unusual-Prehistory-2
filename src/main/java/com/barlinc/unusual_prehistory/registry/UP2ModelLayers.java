@@ -93,6 +93,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation SPIKE_TOOTHED_SALMON = mainLayer("spike_toothed_salmon");
     public static final ModelLayerLocation THERIZINOSAURUS = mainLayer("therizinosaurus");
     public static final ModelLayerLocation THERIZINOSAURUS_BABY = mainLayer("therizinosaurus_baby");
+    public static final ModelLayerLocation TUSOTEUTHIS = mainLayer("tusoteuthis");
 
     private static ModelLayerLocation registerLayer(String id, String name) {
         return new ModelLayerLocation(UnusualPrehistory2.modPrefix(id), name);
