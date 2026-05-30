@@ -41,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class Cryptoclidus extends AmphibiousMob {
 
-    public int attackCooldown = 0;
+    private int attackCooldown = 0;
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();

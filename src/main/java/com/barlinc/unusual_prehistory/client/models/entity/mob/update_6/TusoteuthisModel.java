@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.TusoteuthisAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Tusoteuthis;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -67,13 +68,13 @@ public class TusoteuthisModel extends UP2Model<Tusoteuthis> {
 
         PartDefinition tentacle_control = head.addOrReplaceChild("tentacle_control", CubeListBuilder.create(), PartPose.offset(0.0F, 7.0F, 0.0F));
 
-        PartDefinition tentacles_front = tentacle_control.addOrReplaceChild("tentacles_front", CubeListBuilder.create().texOffs(0, 130).addBox(-10.0F, 0.0F, 0.0F, 20.0F, 8.0F, 0.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, -10.0F));
+        PartDefinition tentacles_front = tentacle_control.addOrReplaceChild("tentacles_front", CubeListBuilder.create().texOffs(0, 130).addBox(-10.0F, 0.0F, 0.0F, 20.0F, 8.0F, 0.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, 0.0F, -10.0F));
 
-        PartDefinition tentacles_left = tentacle_control.addOrReplaceChild("tentacles_left", CubeListBuilder.create().texOffs(88, 122).addBox(0.0F, 0.0F, -10.0F, 0.0F, 8.0F, 20.0F, new CubeDeformation(0.0025F)), PartPose.offset(10.0F, 0.0F, 0.0F));
+        PartDefinition tentacles_left = tentacle_control.addOrReplaceChild("tentacles_left", CubeListBuilder.create().texOffs(88, 122).addBox(0.0F, 0.0F, -10.0F, 0.0F, 8.0F, 20.0F, new CubeDeformation(0.02F)), PartPose.offset(10.0F, 0.0F, 0.0F));
 
-        PartDefinition tentacles_right = tentacle_control.addOrReplaceChild("tentacles_right", CubeListBuilder.create().texOffs(88, 122).mirror().addBox(0.0F, 0.0F, -10.0F, 0.0F, 8.0F, 20.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-10.0F, 0.0F, 0.0F));
+        PartDefinition tentacles_right = tentacle_control.addOrReplaceChild("tentacles_right", CubeListBuilder.create().texOffs(88, 122).mirror().addBox(0.0F, 0.0F, -10.0F, 0.0F, 8.0F, 20.0F, new CubeDeformation(0.02F)).mirror(false), PartPose.offset(-10.0F, 0.0F, 0.0F));
 
-        PartDefinition tentacles_back = tentacle_control.addOrReplaceChild("tentacles_back", CubeListBuilder.create().texOffs(0, 138).addBox(-10.0F, 0.0F, 0.0F, 20.0F, 8.0F, 0.0F, new CubeDeformation(0.0025F)), PartPose.offset(0.0F, 0.0F, 10.0F));
+        PartDefinition tentacles_back = tentacle_control.addOrReplaceChild("tentacles_back", CubeListBuilder.create().texOffs(0, 138).addBox(-10.0F, 0.0F, 0.0F, 20.0F, 8.0F, 0.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, 0.0F, 10.0F));
 
         PartDefinition mantle = body.addOrReplaceChild("mantle", CubeListBuilder.create().texOffs(0, 0).addBox(-22.0F, -55.0F, -16.0F, 44.0F, 55.0F, 32.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.0F, 0.0F));
 
@@ -89,15 +90,15 @@ public class TusoteuthisModel extends UP2Model<Tusoteuthis> {
 	@Override
 	public void setupAnim(@NotNull Tusoteuthis entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        float deg = ((float) Math.PI / 180F);
         float partialTicks = ageInTicks - entity.tickCount;
 
-        if (entity.isInWaterOrBubble()) {
+        if (entity.isInWaterOrBubble() && entity.getPose() != UP2Poses.ATTACKING.get()) {
             this.animateWalk(TusoteuthisAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
         }
 
         this.animateIdleSmooth(entity.swimIdleAnimationState, TusoteuthisAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount);
         this.animateSmooth(entity.flopAnimationState, TusoteuthisAnimations.FLOP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attackAnimationState, TusoteuthisAnimations.SUCK, ageInTicks, partialTicks);
     }
 
     @Override
