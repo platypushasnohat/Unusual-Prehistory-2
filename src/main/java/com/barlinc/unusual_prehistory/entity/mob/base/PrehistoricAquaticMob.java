@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterBoundNavigation;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import net.minecraft.core.BlockPos;
@@ -34,6 +35,17 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
         return new SmoothWaterBoundNavigation(this, level);
     }
 
+    protected void switchNavigator(boolean inShallows) {
+        this.navigation.stop();
+        if (inShallows) {
+            this.navigation = new SmoothAmphibiousNavigation(this, this.level());
+            this.shallowWater = true;
+        } else {
+            this.navigation = this.createNavigation(this.level());
+            this.shallowWater = false;
+        }
+    }
+
     @Override
     public boolean canDrownInFluidType(@NotNull FluidType fluidType) {
         return fluidType != NeoForgeMod.WATER_TYPE.value();
@@ -65,6 +77,22 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
     public void tick() {
         super.tick();
         this.tickFlopping();
+        if (this.shouldUseShallowNavigation()) {
+            this.fixShallowNavigation();
+        }
+    }
+
+    protected boolean shouldUseShallowNavigation() {
+        return false;
+    }
+
+    protected void fixShallowNavigation() {
+        final boolean shallowWater = this.isInShallowWater();
+        if (shallowWater && !this.shallowWater) {
+            this.switchNavigator(true);
+        } else if (!shallowWater && this.shallowWater) {
+            this.switchNavigator(false);
+        }
     }
 
     @Override

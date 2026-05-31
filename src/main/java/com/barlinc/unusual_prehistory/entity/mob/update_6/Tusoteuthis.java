@@ -5,6 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveC
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -45,6 +46,7 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
 
     public Tusoteuthis(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
+        this.switchNavigator(false);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
     }
@@ -83,6 +85,11 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
     @Override
     public boolean shouldFlop() {
         return false;
+    }
+
+    @Override
+    protected boolean shouldUseShallowNavigation() {
+        return true;
     }
 
     private boolean canTargetEntitiesUnderneath(LivingEntity target) {
@@ -178,7 +185,9 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
         if (id == 67) {
             Vec3 vec3 = new Vec3(this.getX(), this.getBoundingBox().minY - 0.5F, this.getZ());
             double depth = this.getRandom().nextDouble() * 6.0D;
-            this.level().addAlwaysVisibleParticle(ParticleTypes.BUBBLE, vec3.x + (this.getRandom().nextDouble() - 0.5D), vec3.y - depth, vec3.z + (this.getRandom().nextDouble() - 0.5D), 0.0D, 0.15D, 0.0D);
+            for (int i = 0; i < 3; i++) {
+                this.level().addAlwaysVisibleParticle(ParticleTypes.BUBBLE, vec3.x + (this.getRandom().nextDouble() - 0.5D), vec3.y - depth, vec3.z + (this.getRandom().nextDouble() - 0.5D), 0.0D, 0.15D, 0.0D);
+            }
         }
         super.handleEntityEvent(id);
     }
