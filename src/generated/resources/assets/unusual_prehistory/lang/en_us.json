@@ -843,7 +843,7 @@
   "death.attack.unusual_prehistory.execute": "%s was executed by %s",
   "death.attack.unusual_prehistory.grug": "%s got Grugged",
   "effect.unusual_prehistory.dazzled": "Dazzled",
-  "effect.unusual_prehistory.dazzled.description": "Blinding light",
+  "effect.unusual_prehistory.dazzled.description": "Prevents sprinting and reduces movement speed, prevents mobs from targeting things, and impairs vision",
   "effect.unusual_prehistory.paralysis": "Paralysis",
   "effect.unusual_prehistory.paralysis.description": "Inflicts non-lethal damage over time; Higher levels do more damage per second. Prevents jumping, sprinting, and decreases walking speed.",
   "entity.unusual_prehistory.aegirocassis": "Aegirocassis",

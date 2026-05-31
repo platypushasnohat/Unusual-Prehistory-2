@@ -3,7 +3,6 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.TusoteuthisAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Tusoteuthis;
-import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -92,11 +91,11 @@ public class TusoteuthisModel extends UP2Model<Tusoteuthis> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
 
-        if (entity.isInWaterOrBubble() && entity.getPose() != UP2Poses.ATTACKING.get()) {
+        if (entity.isInWaterOrBubble() && !entity.isAttackingOrFlashing()) {
             this.animateWalk(TusoteuthisAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
         }
 
-        this.animateIdleSmooth(entity.swimIdleAnimationState, TusoteuthisAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, TusoteuthisAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
         this.animateSmooth(entity.flopAnimationState, TusoteuthisAnimations.FLOP, ageInTicks, partialTicks);
         this.animateSmooth(entity.attackAnimationState, TusoteuthisAnimations.SUCK, ageInTicks, partialTicks);
         this.animateSmooth(entity.flashAnimationState, TusoteuthisAnimations.FLASHBANG, ageInTicks, partialTicks);

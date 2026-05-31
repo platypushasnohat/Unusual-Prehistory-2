@@ -21,8 +21,13 @@ public class Dazzled extends MobEffect {
 
     @Override
     public boolean applyEffectTick(LivingEntity entity, int level) {
-        if (!entity.level().isClientSide && entity instanceof Mob mob && mob.getTarget() != null && entity.tickCount % 10 == 0) {
-            mob.setTarget(null);
+        if (!entity.level().isClientSide && entity instanceof Mob mob && entity.tickCount % 10 == 0) {
+            if (mob.getTarget() != null) {
+                mob.setTarget(null);
+            }
+            if (mob.getLastHurtByMob() != null) {
+                mob.setLastHurtByMob(null);
+            }
         }
         AttributeInstance instance = entity.getAttribute(Attributes.MOVEMENT_SPEED);
         if (instance != null) {

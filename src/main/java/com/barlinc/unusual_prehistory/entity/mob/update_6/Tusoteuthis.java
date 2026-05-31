@@ -4,8 +4,8 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.UnderwaterPanicGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -110,13 +110,16 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
     }
 
     private boolean canTargetEntitiesUnderneath(LivingEntity target) {
+        if (!this.canAttack(target)) {
+            return false;
+        }
         if (target instanceof Tusoteuthis) {
             return false;
         }
         if (!this.isInWaterOrBubble()) {
             return false;
         }
-        return (target.getBbWidth() < this.getBbWidth() * 0.25F && target.getBbHeight() < this.getBbHeight() * 0.25F) && target.getY() < this.getY();
+        return (target.getBbWidth() < this.getBbWidth() * 0.33F && target.getBbHeight() < this.getBbHeight() * 0.33F) && target.getY() < this.getY();
     }
 
     public float getSpinProgress(float partialTicks) {
@@ -137,9 +140,6 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
         boolean hurt = super.hurt(source, amount);
         if (hurt) {
             this.setTarget(null);
-            if (this.getNavigation().getPath() != null) {
-                this.getNavigation().stop();
-            }
         }
         return hurt;
     }
@@ -219,10 +219,15 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
 
     @Override
     public void setupAnimationStates() {
-        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
+        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isAttackingOrFlashing(), this.tickCount);
         this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
         this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
         this.flashAnimationState.animateWhen(this.getPose() == UP2Poses.WARNING.get(), this.tickCount);
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public boolean isAttackingOrFlashing() {
+        return this.getPose() == UP2Poses.ATTACKING.get() || this.getPose() == UP2Poses.WARNING.get();
     }
 
     @Override
@@ -301,7 +306,7 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
         return UP2SoundEvents.TUSOTEUTHIS_DEATH.get();
     }
 
-    private static class TusoteuthisPanicGoal extends LargePanicGoal {
+    private static class TusoteuthisPanicGoal extends UnderwaterPanicGoal {
 
         private final Tusoteuthis tusoteuthis;
 
@@ -403,7 +408,7 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
         private final Tusoteuthis tusoteuthis;
 
         public TusoteuthisTargetUnderneathGoal(Tusoteuthis tusoteuthis, Class<T> targetClass, Predicate<LivingEntity> targetPredicate) {
-            super(tusoteuthis, targetClass, 100, true, true, targetPredicate);
+            super(tusoteuthis, targetClass, 50, false, false, targetPredicate);
             this.tusoteuthis = tusoteuthis;
         }
 

@@ -14,10 +14,12 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements LivingEntityAccessor {
 
+    @SuppressWarnings("WrongEntityDataParameterClass")
     @Unique
     private static final EntityDataAccessor<Boolean> DATA_GRABBED = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -42,10 +44,18 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
 
     // todo: change to sinew tag
     @Inject(method = "setSprinting", at = @At("HEAD"), cancellable = true)
-    private void unusualPrehistory$paralysisBlockSprint(boolean sprinting, CallbackInfo ci) {
+    private void unusualPrehistory$blockSprinting(boolean sprinting, CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
         if (entity.hasEffect(UP2MobEffects.PARALYSIS) || entity.hasEffect(UP2MobEffects.DAZZLED)) {
             ci.cancel();
+        }
+    }
+
+    @Inject(method = "canAttack(Lnet/minecraft/world/entity/LivingEntity;)Z", at = @At(value = "HEAD"), cancellable = true)
+    protected void unusualPrehistory$canAttack(LivingEntity target, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+        if (entity.hasEffect(UP2MobEffects.DAZZLED)) {
+            cir.setReturnValue(false);
         }
     }
 
