@@ -4,25 +4,29 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
+import com.barlinc.unusual_prehistory.registry.UP2MobEffects;
+import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -38,11 +42,20 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
     private int attackCooldown = 0;
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState flashAnimationState = new SmoothAnimationState();
 
-    public float spin;
-    public float prevSpin;
+    private int warnTicks = 0;
+
+    public float spinProgress;
+    public float prevSpinProgress;
     public float spinSpeed;
     public float prevSpinSpeed;
+
+    public float prevFlashProgress;
+    public float flashProgress;
+
+    private final byte BUBBLES = 67;
+    private final byte FLASH = 68;
 
     public Tusoteuthis(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
@@ -61,15 +74,19 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D, 16, 8));
+        this.goalSelector.addGoal(1, new TusoteuthisPanicGoal(this));
         this.goalSelector.addGoal(2, new TusoteuthisAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.LORRAINOSAURUS_FOOD), false));
         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 100, 7, 15));
         this.targetSelector.addGoal(1, new TusoteuthisTargetUnderneathGoal<>(this, LivingEntity.class, this::canTargetEntitiesUnderneath));
+        this.targetSelector.addGoal(2, new TusoteuthisTargetUnderneathGoal<>(this, Player.class, this::canTargetEntitiesUnderneath));
     }
 
     @Override
     public void travel(@NotNull Vec3 travelVector) {
+        if (this.refuseToMove() && this.isInWaterOrBubble()) {
+            travelVector = travelVector.multiply(0.0D, 0.0D, 0.0D);
+        }
         if (this.isEffectiveAi() && this.isInWater()) {
             MobUtils.travelInWater(this, travelVector);
         } else {
@@ -103,15 +120,38 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
     }
 
     public float getSpinProgress(float partialTicks) {
-        return prevSpin + (spin - prevSpin) * partialTicks;
+        return prevSpinProgress + (spinProgress - prevSpinProgress) * partialTicks;
+    }
+
+    public float getFlashProgress(float partialTicks) {
+        return (prevFlashProgress + (flashProgress - prevFlashProgress) * partialTicks) * 0.2F;
+    }
+
+    @Override
+    public boolean refuseToMove() {
+        return super.refuseToMove() || this.getPose() == UP2Poses.WARNING.get();
+    }
+
+    @Override
+    public boolean hurt(@NotNull DamageSource source, float amount) {
+        boolean hurt = super.hurt(source, amount);
+        if (hurt) {
+            this.setTarget(null);
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+        }
+        return hurt;
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        this.prevSpin = spin;
+        this.prevSpinProgress = spinProgress;
         this.prevSpinSpeed = spinSpeed;
+
+        this.prevFlashProgress = flashProgress;
 
         if (this.getPose() == UP2Poses.ATTACKING.get()) {
             this.spinSpeed += 2.0F;
@@ -125,19 +165,19 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
             }
         }
 
-        this.spin += spinSpeed;
+        this.spinProgress += spinSpeed;
 
         if (spinSpeed == 0.0F) {
-            float spinDegrees = spin % 360.0F;
+            float spinDegrees = spinProgress % 360.0F;
             if (spinDegrees > 180.0F) {
                 spinDegrees -= 360.0F;
             } else if (spinDegrees < -180.0F) {
                 spinDegrees += 360.0F;
             }
-            this.spin -= spinDegrees * 0.15F;
+            this.spinProgress -= spinDegrees * 0.15F;
             if (Math.abs(spinDegrees) < 0.25F) {
-                this.spin = 0.0F;
-                this.prevSpin = 0.0F;
+                this.spinProgress = 0.0F;
+                this.prevSpinProgress = 0.0F;
                 this.spinSpeed = 0.0F;
                 this.prevSpinSpeed = 0.0F;
             }
@@ -150,6 +190,31 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
         if (attackCooldown > 0) {
             this.attackCooldown--;
         }
+        if (warnTicks > 0) {
+            this.warnTicks--;
+        }
+
+        if (this.level().isClientSide) {
+            if (this.getPose() == UP2Poses.WARNING.get() && warnTicks <= 6) {
+                this.flashProgress += (5.0F - flashProgress);
+            } else {
+                this.flashProgress += (0.0F - flashProgress) * 0.33F;
+            }
+        } else {
+            if (warnTicks == 5) {
+                for (LivingEntity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(5.5F))) {
+                    if (!(entity instanceof Tusoteuthis)) {
+                        entity.addEffect(new MobEffectInstance(UP2MobEffects.DAZZLED, 200));
+                    }
+                }
+                this.playSound(UP2SoundEvents.TUSOTEUTHIS_FLASH.get(), 1.5F, this.getVoicePitch());
+                this.level().broadcastEntityEvent(this, FLASH);
+            }
+        }
+
+        if (warnTicks == 0 && this.getPose() == UP2Poses.WARNING.get()) {
+            this.setPose(Pose.STANDING);
+        }
     }
 
     @Override
@@ -157,6 +222,7 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
         this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
         this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
+        this.flashAnimationState.animateWhen(this.getPose() == UP2Poses.WARNING.get(), this.tickCount);
     }
 
     @Override
@@ -176,25 +242,34 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
         return entity.isInWaterOrBubble();
     }
 
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.WARNING.get()) {
+                this.warnTicks = 25;
+            }
+        }
+    }
+
     private Vec3 getMouthVec(LivingEntity target) {
         return new Vec3(this.getX(), this.getBoundingBox().minY - target.getBbHeight(), this.getZ());
     }
 
     @Override
     public void handleEntityEvent(byte id) {
-        if (id == 67) {
+        if (id == BUBBLES) {
             Vec3 vec3 = new Vec3(this.getX(), this.getBoundingBox().minY - 0.5F, this.getZ());
             double depth = this.getRandom().nextDouble() * 6.0D;
             for (int i = 0; i < 3; i++) {
                 this.level().addAlwaysVisibleParticle(ParticleTypes.BUBBLE, vec3.x + (this.getRandom().nextDouble() - 0.5D), vec3.y - depth, vec3.z + (this.getRandom().nextDouble() - 0.5D), 0.0D, 0.15D, 0.0D);
             }
         }
+        if (id == FLASH) {
+            Vec3 look = this.getLookAngle();
+            double distance = this.getBbWidth() * 0.75D;
+            this.level().addAlwaysVisibleParticle(UP2Particles.TUSOTEUTHIS_FLASH.get(), this.getX() + look.x * distance, this.getEyeY() + 0.25F, this.getZ() + look.z * distance, 0.0D, 0.0D, 0.0D);
+        }
         super.handleEntityEvent(id);
-    }
-
-    @Override
-    public @NotNull AABB getBoundingBoxForCulling() {
-        return this.getBoundingBox().inflate(2);
     }
 
     @Override
@@ -211,19 +286,48 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
     @Override
     @Nullable
     protected SoundEvent getAmbientSound() {
-        return UP2SoundEvents.LORRAINOSAURUS_IDLE.get();
+        return UP2SoundEvents.TUSOTEUTHIS_IDLE.get();
     }
 
     @Override
     @Nullable
     protected SoundEvent getHurtSound(@NotNull DamageSource source) {
-        return UP2SoundEvents.LORRAINOSAURUS_HURT.get();
+        return UP2SoundEvents.TUSOTEUTHIS_HURT.get();
     }
 
     @Override
     @Nullable
     protected SoundEvent getDeathSound() {
-        return UP2SoundEvents.LORRAINOSAURUS_DEATH.get();
+        return UP2SoundEvents.TUSOTEUTHIS_DEATH.get();
+    }
+
+    private static class TusoteuthisPanicGoal extends LargePanicGoal {
+
+        private final Tusoteuthis tusoteuthis;
+
+        public TusoteuthisPanicGoal(Tusoteuthis tusoteuthis) {
+            super(tusoteuthis, 1.75D, 16, 10);
+            this.tusoteuthis = tusoteuthis;
+        }
+
+        @Override
+        public void start() {
+            if (tusoteuthis.isInWaterOrBubble()) {
+                this.tusoteuthis.setPose(UP2Poses.WARNING.get());
+            }
+            super.start();
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity hurtByMob = tusoteuthis.getLastHurtByMob();
+            if (hurtByMob != null) {
+                if (tusoteuthis.isInWaterOrBubble() && tusoteuthis.getPose() == UP2Poses.WARNING.get()) {
+                    this.tusoteuthis.lookAt(hurtByMob, 30.0F, 30.0F);
+                    this.tusoteuthis.getLookControl().setLookAt(hurtByMob, 30.0F, 30.0F);
+                }
+            }
+        }
     }
 
     private static class TusoteuthisAttackGoal extends AttackGoal {
@@ -251,7 +355,7 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
                     this.tusoteuthis.getNavigation().stop();
                 }
                 else {
-                    this.tusoteuthis.getNavigation().moveTo(target.getX(), target.getY() + 5.0D, target.getZ(), 1.5D);
+                    this.tusoteuthis.getNavigation().moveTo(target.getX(), target.getY() + 5.0D, target.getZ(), 1.75D);
                     if (horizontalDistance < 4.0D && verticalDistance > 4.0D && verticalDistance < 8.0D && tusoteuthis.attackCooldown == 0) {
                         this.tusoteuthis.setAttackState(1);
                     }
@@ -279,7 +383,7 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
                     this.tusoteuthis.doHurtTarget(target);
                 }
                 if (timer % 2 == 0) {
-                    this.tusoteuthis.level().broadcastEntityEvent(tusoteuthis, (byte) 67);
+                    this.tusoteuthis.level().broadcastEntityEvent(tusoteuthis, tusoteuthis.BUBBLES);
                 }
                 if (timer % 60 == 0) {
                     this.tusoteuthis.playSound(SoundEvents.BUBBLE_COLUMN_UPWARDS_AMBIENT, 1.0F, 0.9F + tusoteuthis.getRandom().nextFloat() * 0.2F);
@@ -294,7 +398,7 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
         }
     }
 
-    private static class TusoteuthisTargetUnderneathGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
+    private static class TusoteuthisTargetUnderneathGoal<T extends LivingEntity> extends PrehistoricNearestAttackableTargetGoal<T> {
 
         private final Tusoteuthis tusoteuthis;
 

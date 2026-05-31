@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.TusoteuthisModel;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.layers.TusoteuthisFlashLayer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.layers.TusoteuthisGlowLayer;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Tusoteuthis;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
@@ -22,6 +23,7 @@ public class TusoteuthisRenderer extends MobRenderer<Tusoteuthis, TusoteuthisMod
     public TusoteuthisRenderer(EntityRendererProvider.Context context) {
         super(context, new TusoteuthisModel(context.bakeLayer(UP2ModelLayers.TUSOTEUTHIS)), 1.0F);
         this.addLayer(new TusoteuthisGlowLayer(this));
+        this.addLayer(new TusoteuthisFlashLayer(this));
     }
 
     @Override

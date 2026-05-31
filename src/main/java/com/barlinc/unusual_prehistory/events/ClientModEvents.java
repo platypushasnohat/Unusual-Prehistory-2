@@ -102,6 +102,7 @@ public class ClientModEvents {
         event.registerSpriteSet(UP2Particles.SWEET_GROG_BUBBLE.get(), OutOfWaterBubbleParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.FOUL_GROG_BUBBLE.get(), OutOfWaterBubbleParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.SAND_SNORT.get(), SandSnortParticle.Provider::new);
+        event.registerSpriteSet(UP2Particles.TUSOTEUTHIS_FLASH.get(), FlashParticle.TusoteuthisProvider::new);
     }
 
     @SubscribeEvent

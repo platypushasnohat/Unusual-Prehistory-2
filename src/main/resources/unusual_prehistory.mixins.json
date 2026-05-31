@@ -21,6 +21,7 @@
     "client.CameraAccessor",
     "client.CameraMixin",
     "client.EntityRenderDispatcherMixin",
+    "client.GameRendererAccessor",
     "client.HumanoidModelMixin",
     "client.LivingEntityRendererMixin",
     "client.LocalPlayerMixin",

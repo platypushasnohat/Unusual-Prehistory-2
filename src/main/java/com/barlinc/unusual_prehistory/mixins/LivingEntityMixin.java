@@ -40,10 +40,11 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
         this.entityData.set(DATA_GRABBED, grabbed);
     }
 
+    // todo: change to sinew tag
     @Inject(method = "setSprinting", at = @At("HEAD"), cancellable = true)
     private void unusualPrehistory$paralysisBlockSprint(boolean sprinting, CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
-        if (entity.hasEffect(UP2MobEffects.PARALYSIS)) {
+        if (entity.hasEffect(UP2MobEffects.PARALYSIS) || entity.hasEffect(UP2MobEffects.DAZZLED)) {
             ci.cancel();
         }
     }

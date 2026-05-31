@@ -485,6 +485,12 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.THERIZINOSAURUS_ROAR, "Therizinosaurus shrieks");
         this.sound(UP2SoundEvents.THERIZINOSAURUS_STEP, "Therizinosaurus steps");
 
+        this.sound(UP2SoundEvents.TUSOTEUTHIS_HURT, "Tusoteuthis hurts");
+        this.sound(UP2SoundEvents.TUSOTEUTHIS_DEATH, "Tusoteuthis dies");
+        this.sound(UP2SoundEvents.TUSOTEUTHIS_IDLE, "Tusoteuthis whirls");
+        this.sound(UP2SoundEvents.TUSOTEUTHIS_FLASH, "Tusoteuthis flashes");
+        this.sound(UP2SoundEvents.TUSOTEUTHIS_ABDUCT, "Tusoteuthis abducts");
+
         this.translateBannerPattern("prognathodon");
 
         this.addItem(UP2Items.HYNERPETON_BUCKET, "Bucket of Hynerpeton");
@@ -574,6 +580,9 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_therizinosaurus", "Tickle Chicken", "Revive a Therizinosaurus");
         this.translateAdvancement("revive_ulughbegsaurus", "How Do You Pronounce That?", "Revive an Ulughbegsaurus");
         this.translateAdvancement("revive_woolly_mammoth", "Ice Age", "Revive a Woolly Mammoth");
+
+        this.add(UP2MobEffects.DAZZLED.get(), "Dazzled");
+        this.add(UP2MobEffects.DAZZLED.get().getDescriptionId() + ".description", "Blinding light");
 
         this.add(UP2MobEffects.PARALYSIS.get(), "Paralysis");
         this.add(UP2MobEffects.PARALYSIS.get().getDescriptionId() + ".description", "Inflicts non-lethal damage over time; Higher levels do more damage per second. Prevents jumping, sprinting, and decreases walking speed.");

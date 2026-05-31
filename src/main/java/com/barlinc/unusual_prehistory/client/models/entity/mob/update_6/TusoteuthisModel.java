@@ -99,6 +99,7 @@ public class TusoteuthisModel extends UP2Model<Tusoteuthis> {
         this.animateIdleSmooth(entity.swimIdleAnimationState, TusoteuthisAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount);
         this.animateSmooth(entity.flopAnimationState, TusoteuthisAnimations.FLOP, ageInTicks, partialTicks);
         this.animateSmooth(entity.attackAnimationState, TusoteuthisAnimations.SUCK, ageInTicks, partialTicks);
+        this.animateSmooth(entity.flashAnimationState, TusoteuthisAnimations.FLASHBANG, ageInTicks, partialTicks);
     }
 
     @Override

@@ -275,6 +275,12 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_ATTACK = registerSoundEvent("therizinosaurus_attack");
     public static final DeferredHolder<SoundEvent, SoundEvent> THERIZINOSAURUS_ROAR = registerSoundEvent("therizinosaurus_roar");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> TUSOTEUTHIS_HURT = registerSoundEvent("tusoteuthis_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> TUSOTEUTHIS_DEATH = registerSoundEvent("tusoteuthis_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> TUSOTEUTHIS_IDLE = registerSoundEvent("tusoteuthis_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> TUSOTEUTHIS_FLASH = registerSoundEvent("tusoteuthis_flash");
+    public static final DeferredHolder<SoundEvent, SoundEvent> TUSOTEUTHIS_ABDUCT = registerSoundEvent("tusoteuthis_abduct");
+
     public static final DeferredHolder<SoundEvent, SoundEvent> WOOLLY_MAMMOTH_HURT = registerSoundEvent("woolly_mammoth_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> WOOLLY_MAMMOTH_DEATH = registerSoundEvent("woolly_mammoth_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> WOOLLY_MAMMOTH_IDLE = registerSoundEvent("woolly_mammoth_idle");

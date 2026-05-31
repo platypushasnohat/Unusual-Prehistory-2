@@ -3,18 +3,24 @@ package com.barlinc.unusual_prehistory.events;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.renderer.entity.layers.CustomPlayerRidePose;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Ichthyosaurus;
+import com.barlinc.unusual_prehistory.mixins.client.GameRendererAccessor;
 import com.barlinc.unusual_prehistory.registry.UP2EnumProxy;
 import com.barlinc.unusual_prehistory.registry.UP2MobEffects;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.FogRenderer;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.client.event.RenderLivingEvent;
 import net.neoforged.neoforge.client.event.ViewportEvent;
 import net.neoforged.neoforge.common.NeoForge;
@@ -26,7 +32,9 @@ import java.util.Iterator;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-public class ClientForgeEvents {
+public class ClientNeoEvents {
+
+    private static final ResourceLocation DAZZLED_SHADER = UnusualPrehistory2.modPrefix("shaders/post/dazzled.json");
 
     private static float shakeAmount;
     private static float prevShakeAmount;
@@ -125,6 +133,80 @@ public class ClientForgeEvents {
         Player player = event.getEntity();
         if (player.hasEffect(UP2MobEffects.PARALYSIS)) {
             event.setType(UP2EnumProxy.PARALYSIS_HEART_TYPE.getValue());
+        }
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @SubscribeEvent
+    public void postRenderStage(RenderLevelStageEvent event) {
+        Entity player = Minecraft.getInstance().getCameraEntity();
+        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SKY) {
+            GameRenderer renderer = Minecraft.getInstance().gameRenderer;
+            if (player instanceof LivingEntity afflicted && afflicted.hasEffect(UP2MobEffects.DAZZLED)) {
+                if (renderer.currentEffect() == null || !DAZZLED_SHADER.toString().equals(renderer.currentEffect().getName())) {
+                    attemptLoadShader(DAZZLED_SHADER);
+                }
+            } else if (renderer.currentEffect() != null && DAZZLED_SHADER.toString().equals(renderer.currentEffect().getName())) {
+                renderer.checkEntityPostEffect(null);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onClientTick(ClientTickEvent.Post event) {
+        if (ClientProxy.shaderLoadAttemptCooldown > 0) {
+            ClientProxy.shaderLoadAttemptCooldown--;
+        }
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onRenderFog(ViewportEvent.RenderFog event) {
+        if (event.isCanceled()) {
+            return;
+        }
+
+        Player player = Minecraft.getInstance().player;
+        if (player != null && player.hasEffect(UP2MobEffects.DAZZLED)) {
+            float farPlane = event.getFarPlaneDistance();
+            float distance = 12.0F;
+            float f = player.getEffect(UP2MobEffects.DAZZLED).isInfiniteDuration() ? distance : Mth.lerp(Math.min(1.0F, player.getEffect(UP2MobEffects.DAZZLED).getDuration() / 20.0F), farPlane, distance);
+            if (event.getMode() == FogRenderer.FogMode.FOG_SKY) {
+                event.setNearPlaneDistance(0.0F);
+                event.setFarPlaneDistance(f * 0.75F);
+            } else {
+                event.setNearPlaneDistance(f * 0.25F);
+                event.setFarPlaneDistance(f);
+            }
+            event.setCanceled(true);
+        }
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onFogColor(ViewportEvent.ComputeFogColor event) {
+        Player player = Minecraft.getInstance().player;
+        if (player != null && player.hasEffect(UP2MobEffects.DAZZLED)) {
+            float factor = 1.0F;
+            if (!player.getEffect(UP2MobEffects.DAZZLED).isInfiniteDuration()) {
+                factor = Math.min(1.0F, player.getEffect(UP2MobEffects.DAZZLED).getDuration() / 20.0F);
+            }
+            float brightness = Mth.lerp(factor, 1.0F, 6.0F);
+            event.setRed(Math.min(1.0F, event.getRed() * brightness));
+            event.setGreen(Math.min(1.0F, event.getGreen() * brightness));
+            event.setBlue(Math.min(1.0F, event.getBlue() * brightness));
+        }
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private static void attemptLoadShader(ResourceLocation resourceLocation) {
+        GameRenderer renderer = Minecraft.getInstance().gameRenderer;
+        if (ClientProxy.shaderLoadAttemptCooldown <= 0) {
+            renderer.loadEffect(resourceLocation);
+            if (!((GameRendererAccessor) renderer).isEffectActive()) {
+                ClientProxy.shaderLoadAttemptCooldown = 12000;
+                UnusualPrehistory2.LOGGER.warn("Unusual Prehistory could not load the shader {}, will attempt to load shader in 30 seconds", resourceLocation);
+            }
         }
     }
 }

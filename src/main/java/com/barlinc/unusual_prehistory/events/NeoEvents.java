@@ -41,7 +41,7 @@ import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
 @EventBusSubscriber()
-public class ForgeEvents {
+public class NeoEvents {
 
     @SubscribeEvent
     @SuppressWarnings("DataFlowIssue")

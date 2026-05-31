@@ -6,7 +6,7 @@ import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Kimmeridgebrachypteraeschnidium;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.Grug;
 import com.barlinc.unusual_prehistory.entity.mob.update_5.aegirocassis.Aegirocassis;
-import com.barlinc.unusual_prehistory.events.ClientForgeEvents;
+import com.barlinc.unusual_prehistory.events.ClientNeoEvents;
 import com.barlinc.unusual_prehistory.events.ScreenShakeEvent;
 import com.barlinc.unusual_prehistory.mixins.client.SoundEngineAccessor;
 import com.barlinc.unusual_prehistory.mixins.client.SoundManagerAccessor;
@@ -34,9 +34,11 @@ public class ClientProxy extends CommonProxy {
 
     public static List<UUID> blockedEntityRenders = new ArrayList<>();
 
+    public static int shaderLoadAttemptCooldown = 0;
+
     @Override
     public void clientInit() {
-        NeoForge.EVENT_BUS.register(new ClientForgeEvents());
+        NeoForge.EVENT_BUS.register(new ClientNeoEvents());
     }
 
     @Override
@@ -78,7 +80,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void screenShake(ScreenShakeEvent event) {
-//        ClientForgeEvents.SCREEN_SHAKE_EVENTS.add(event);
+        ClientNeoEvents.SCREEN_SHAKE_EVENTS.add(event);
     }
 
     @Override
@@ -165,6 +167,7 @@ public class ClientProxy extends CommonProxy {
         }
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean isSoundPlaying(AbstractTickableSoundInstance sound) {
         SoundManager soundManager = Minecraft.getInstance().getSoundManager();
         SoundEngine soundEngine = ((SoundManagerAccessor) soundManager).unusualPrehistory$getSoundEngine();

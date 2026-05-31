@@ -1052,6 +1052,28 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/step2")).volume(0.7F).pitch(0.9F)
         );
 
+        this.sound(UP2SoundEvents.TUSOTEUTHIS_DEATH,
+                sound("entity/squid/death3").pitch(0.5F)
+        );
+        this.sound(UP2SoundEvents.TUSOTEUTHIS_HURT,
+                sound("entity/squid/hurt1").pitch(0.5F),
+                sound("entity/squid/hurt2").pitch(0.5F),
+                sound("entity/squid/hurt3").pitch(0.5F),
+                sound("entity/squid/hurt4").pitch(0.5F)
+        );
+        this.sound(UP2SoundEvents.TUSOTEUTHIS_IDLE,
+                sound("entity/squid/ambient1").pitch(0.7F),
+                sound("entity/squid/ambient2").pitch(0.7F),
+                sound("entity/squid/ambient3").pitch(0.7F),
+                sound("entity/squid/ambient4").pitch(0.7F),
+                sound("entity/squid/ambient5").pitch(0.7F)
+        );
+        this.sound(UP2SoundEvents.TUSOTEUTHIS_FLASH,
+                sound("entity/glow_squid/squirt1").pitch(0.7F),
+                sound("entity/glow_squid/squirt2").pitch(0.7F),
+                sound("entity/glow_squid/squirt3").pitch(0.7F)
+        );
+
         this.sound(UP2SoundEvents.WOOLLY_MAMMOTH_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/death1"))
         );
