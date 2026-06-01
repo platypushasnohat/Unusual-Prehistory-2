@@ -41,6 +41,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.therizin
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.therizinosaurus.TherizinosaurusModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
 import com.barlinc.unusual_prehistory.client.renderer.block.PlushieBlockRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.layers.UP2PotionEffectLayer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_1.*;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_2.OnchopristisRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_3.LivingOozeRenderer;
@@ -59,8 +60,17 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.ambien
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.arthropleura.ArthropleuraPartRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.arthropleura.ArthropleuraRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.resources.PlayerSkin;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -74,7 +84,11 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings({"unchecked", "rawtypes"})
 @EventBusSubscriber(modid = UnusualPrehistory2.MOD_ID, value = Dist.CLIENT)
 public class ClientModEvents {
 
@@ -103,6 +117,7 @@ public class ClientModEvents {
         event.registerSpriteSet(UP2Particles.FOUL_GROG_BUBBLE.get(), OutOfWaterBubbleParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.SAND_SNORT.get(), SandSnortParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.TUSOTEUTHIS_FLASH.get(), FlashParticle.TusoteuthisProvider::new);
+        event.registerSpriteSet(UP2Particles.STUN.get(), StunParticle.Provider::new);
     }
 
     @SubscribeEvent
@@ -301,5 +316,33 @@ public class ClientModEvents {
                 },
                 UP2Blocks.CLADOPHLEBIS.get()
         );
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SubscribeEvent
+    public static void addLayers(EntityRenderersEvent.AddLayers event) {
+        List<EntityType<? extends LivingEntity>> entityTypes = ImmutableList.copyOf(BuiltInRegistries.ENTITY_TYPE.stream().filter(DefaultAttributes::hasSupplier).map(entityType -> (EntityType<? extends LivingEntity>) entityType).collect(Collectors.toList()));
+        entityTypes.forEach(entityType -> addLayerIfApplicable(entityType, event));
+        for (PlayerSkin.Model modelType : event.getSkins()) {
+            EntityRenderer<? extends Player> renderer = event.getSkin(modelType);
+            if (renderer instanceof LivingEntityRenderer livingRenderer) {
+                livingRenderer.addLayer(new UP2PotionEffectLayer(livingRenderer));
+            }
+        }
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private static void addLayerIfApplicable(EntityType<? extends LivingEntity> entityType, EntityRenderersEvent.AddLayers event) {
+        if (entityType == EntityType.ENDER_DRAGON) {
+            return;
+        }
+        try {
+            EntityRenderer<?> renderer = event.getRenderer(entityType);
+            if (renderer instanceof LivingEntityRenderer livingRenderer) {
+                livingRenderer.addLayer(new UP2PotionEffectLayer(livingRenderer));
+            }
+        } catch (Exception e) {
+            UnusualPrehistory2.LOGGER.warn("Could not apply render layer to {}", BuiltInRegistries.ENTITY_TYPE.getKey(entityType));
+        }
     }
 }

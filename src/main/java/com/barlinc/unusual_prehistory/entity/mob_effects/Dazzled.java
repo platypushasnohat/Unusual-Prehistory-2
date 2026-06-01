@@ -1,7 +1,10 @@
 package com.barlinc.unusual_prehistory.entity.mob_effects;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.network.ParticlePacket;
+import com.barlinc.unusual_prehistory.registry.UP2Particles;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -10,6 +13,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.level.ChunkPos;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class Dazzled extends MobEffect {
 
@@ -21,12 +26,23 @@ public class Dazzled extends MobEffect {
 
     @Override
     public boolean applyEffectTick(LivingEntity entity, int level) {
-        if (!entity.level().isClientSide && entity instanceof Mob mob && entity.tickCount % 10 == 0) {
-            if (mob.getTarget() != null) {
-                mob.setTarget(null);
+        if (!entity.level().isClientSide) {
+            if (entity instanceof Mob mob && mob.tickCount % 10 == 0) {
+                if (mob.getTarget() != null) {
+                    mob.setTarget(null);
+                }
+                if (mob.getLastHurtByMob() != null) {
+                    mob.setLastHurtByMob(null);
+                }
             }
-            if (mob.getLastHurtByMob() != null) {
-                mob.setLastHurtByMob(null);
+            if (entity.tickCount % 8 == 0) {
+                ParticlePacket particlePacket = new ParticlePacket();
+                int index = (entity.tickCount / 8) % 5;
+                float offset = index * (360.0F / 5);
+                particlePacket.queueParticle(UP2Particles.STUN.get(), entity.getX(), entity.getEyeY(), entity.getZ(), entity.getId(), offset, 0.0D);
+                if (entity.level() instanceof ServerLevel serverLevel) {
+                    PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(entity.blockPosition()), particlePacket);
+                }
             }
         }
         AttributeInstance instance = entity.getAttribute(Attributes.MOVEMENT_SPEED);
