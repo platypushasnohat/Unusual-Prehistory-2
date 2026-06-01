@@ -22,7 +22,7 @@ public class StunParticle extends TextureSheetParticle {
         super(level, x, y, z);
         this.spriteSet = spriteSet;
         this.hasPhysics = false;
-        this.lifetime = 60;
+        this.lifetime = 42;
         this.quadSize = 0.15F;
         this.offset = offset;
         this.entityId = entityId;
@@ -59,7 +59,7 @@ public class StunParticle extends TextureSheetParticle {
         if (entity != null) {
             float angle = entity.tickCount * 10.0F + offset;
             Vec3 center = entity.position().add(0.0D, entity.getBbHeight() + 0.75F, 0.0D);
-            Vec3 orbitOffset = new Vec3(0.0D, Mth.sin(entity.tickCount * 0.6F + (offset * 13.37F) * Mth.DEG_TO_RAD) * 0.05F, entity.getBbWidth() * 0.5F + 0.3F).yRot(angle * Mth.DEG_TO_RAD);
+            Vec3 orbitOffset = new Vec3(0.0D, Mth.sin(entity.tickCount * 0.6F + (offset * 12.0F) * Mth.DEG_TO_RAD) * 0.05F, entity.getBbWidth() * 0.5F + 0.3F).yRot(angle * Mth.DEG_TO_RAD);
             return center.add(orbitOffset);
         }
         return Vec3.ZERO;
