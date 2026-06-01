@@ -118,6 +118,7 @@ public class ClientModEvents {
         event.registerSpriteSet(UP2Particles.SAND_SNORT.get(), SandSnortParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.TUSOTEUTHIS_FLASH.get(), FlashParticle.TusoteuthisProvider::new);
         event.registerSpriteSet(UP2Particles.STUN.get(), StunParticle.Provider::new);
+        event.registerSpriteSet(UP2Particles.DAZZLE.get(), LitSpellParticle.Provider::new);
     }
 
     @SubscribeEvent
