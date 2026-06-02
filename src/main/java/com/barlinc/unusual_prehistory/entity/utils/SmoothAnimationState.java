@@ -70,12 +70,12 @@ public class SmoothAnimationState extends AnimationState {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void animateIdle(HierarchicalModel<?> model, AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor, SmoothAnimationState... states) {
-        this.animateIdle(model, definition, ageInTicks, partialTicks, limbSwingAmount, animationScaleFactor, 0.01F, states);
+    public void animateIdle(HierarchicalModel<?> model, AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor, float speed, SmoothAnimationState... states) {
+        this.animateIdle(model, definition, ageInTicks, partialTicks, limbSwingAmount, animationScaleFactor, 0.01F, speed, states);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void animateIdle(HierarchicalModel<?> model, AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor, float threshold, SmoothAnimationState... states) {
+    public void animateIdle(HierarchicalModel<?> model, AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor, float threshold, float speed, SmoothAnimationState... states) {
 
         float totalFactor = 1.0F;
         float extraFactor = 0.0F;
@@ -94,7 +94,7 @@ public class SmoothAnimationState extends AnimationState {
             return;
         }
 
-        this.updateTime(ageInTicks, 1.0F);
+        this.updateTime(ageInTicks, speed);
         KeyframeAnimations.animate(model, definition, this.getAccumulatedTime(), factor, ANIMATION_VECTOR_CACHE);
     }
 }

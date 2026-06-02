@@ -303,7 +303,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 THERMAL_FOSSIL.get(),
                 AGED_FEATHER.get(),
                 MOLAR_FOSSIL.get(),
-                ROT_FOSSIL.get()
+                ROT_FOSSIL.get(),
+                PILLAR_FOSSIL.get()
         );
         this.tag(UP2ItemTags.PLANT_FOSSILS).add(
                 QUILLWORT_FOSSIL.get(),
@@ -373,7 +374,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 TALPANAS_EGG.get(),
                 TELECREX_EGG.get(),
                 WOOLLY_MAMMOTH_EMBRYO.get(),
-                UP2Blocks.SPIKE_TOOTHED_SALMON_ROE.asItem()
+                UP2Blocks.SPIKE_TOOTHED_SALMON_ROE.asItem(),
+                UP2Blocks.GIANT_CAMPANILE_EGGS.asItem()
         );
         this.tag(UP2ItemTags.EGGS)
                 .addTag(UP2ItemTags.PALEOZOIC_EGGS)

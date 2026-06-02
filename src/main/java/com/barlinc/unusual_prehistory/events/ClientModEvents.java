@@ -190,6 +190,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.CONCAVENATOR.get(), ConcavenatorRenderer::new);
         event.registerEntityRenderer(UP2Entities.COTYLORHYNCHUS.get(), CotylorhynchusRenderer::new);
         event.registerEntityRenderer(UP2Entities.CRYPTOCLIDUS.get(), CryptoclidusRenderer::new);
+        event.registerEntityRenderer(UP2Entities.GIANT_CAMPANILE.get(), GiantCampanileRenderer::new);
         event.registerEntityRenderer(UP2Entities.HYNERPETON.get(), HynerpetonRenderer::new);
         event.registerEntityRenderer(UP2Entities.ICHTHYOSAURUS.get(), IchthyosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.LORRAINOSAURUS.get(), LorrainosaurusRenderer::new);
@@ -282,6 +283,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.CONCAVENATOR, ConcavenatorModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.COTYLORHYNCHUS, CotylorhynchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.CRYPTOCLIDUS, CryptoclidusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.GIANT_CAMPANILE, GiantCampanileModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.HYNERPETON, HynerpetonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ICHTHYOSAURUS, IchthyosaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.LORRAINOSAURUS, LorrainosaurusModel::createBodyLayer);

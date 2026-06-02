@@ -18,6 +18,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_6.*;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Ampyx;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Setapedites;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.Arthropleura;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.giant_campanile.GiantCampanile;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.rhizodus.Rhizodus;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.therizinosaurus.Therizinosaurus;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -85,6 +86,7 @@ public class ModEvents {
         event.put(UP2Entities.COTYLORHYNCHUS.get(), Cotylorhynchus.createAttributes().build());
         event.put(UP2Entities.CRYPTOCLIDUS.get(), Cryptoclidus.createAttributes().build());
         event.put(UP2Entities.HYNERPETON.get(), Hynerpeton.createAttributes().build());
+        event.put(UP2Entities.GIANT_CAMPANILE.get(), GiantCampanile.createAttributes().build());
         event.put(UP2Entities.ICHTHYOSAURUS.get(), Ichthyosaurus.createAttributes().build());
         event.put(UP2Entities.LORRAINOSAURUS.get(), Lorrainosaurus.createAttributes().build());
         event.put(UP2Entities.WOOLLY_MAMMOTH.get(), WoollyMammoth.createAttributes().build());

@@ -205,6 +205,7 @@ public class UP2Blocks {
     // Update 6
     public static final DeferredBlock<Block> AMMONITE_EGGS = registerEggBlock("ammonite_eggs", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.AMMONITE::get, 4));
     public static final DeferredBlock<Block> CONCAVENATOR_EGG = registerEggBlock("concavenator_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.CONCAVENATOR::get, 11, 15));
+    public static final DeferredBlock<Block> GIANT_CAMPANILE_EGGS = registerEggBlock("giant_campanile_eggs", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.GIANT_CAMPANILE::get, 2));
     public static final DeferredBlock<Block> HYNERPETON_EGGS = registerWaterEggBlock("hynerpeton_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.HYNERPETON::get, 1));
     public static final DeferredBlock<Block> RHIZODUS_ROE = registerEggBlock("rhizodus_roe", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.RHIZODUS::get, 1));
     public static final DeferredBlock<Block> SPIKE_TOOTHED_SALMON_ROE = registerEggBlockNoLang("spike_toothed_salmon_roe", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.SPIKE_TOOTHED_SALMON::get, 2));

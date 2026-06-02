@@ -92,14 +92,21 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
         if (!animationState.isActive(partialTicks)) {
             return;
         }
-        animationState.animateIdle(this, definition, ageInTicks, partialTicks, limbSwingAmount, 1.5F);
+        animationState.animateIdle(this, definition, ageInTicks, partialTicks, limbSwingAmount, 1.5F, 1.0F);
     }
 
     protected void animateIdleSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor) {
         if (!animationState.isActive(partialTicks)) {
             return;
         }
-        animationState.animateIdle(this, definition, ageInTicks, partialTicks, limbSwingAmount, animationScaleFactor);
+        animationState.animateIdle(this, definition, ageInTicks, partialTicks, limbSwingAmount, animationScaleFactor, 1.0F);
+    }
+
+    protected void animateIdleSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor, float speed) {
+        if (!animationState.isActive(partialTicks)) {
+            return;
+        }
+        animationState.animateIdle(this, definition, ageInTicks, partialTicks, limbSwingAmount, animationScaleFactor, speed);
     }
 
     protected void animateSmooth(SmoothAnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float partialTicks) {

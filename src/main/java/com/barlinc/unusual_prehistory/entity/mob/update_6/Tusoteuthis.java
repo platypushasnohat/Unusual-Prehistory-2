@@ -2,10 +2,10 @@ package com.barlinc.unusual_prehistory.entity.mob.update_6;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.goals.AmphibiousPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.UnderwaterPanicGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -306,7 +306,7 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
         return UP2SoundEvents.TUSOTEUTHIS_DEATH.get();
     }
 
-    private static class TusoteuthisPanicGoal extends UnderwaterPanicGoal {
+    private static class TusoteuthisPanicGoal extends AmphibiousPanicGoal {
 
         private final Tusoteuthis tusoteuthis;
 

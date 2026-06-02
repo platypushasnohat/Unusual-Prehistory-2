@@ -949,6 +949,90 @@
     ],
     "subtitle": "subtitles.dunkleosteus_hurt"
   },
+  "giant_campanile_block": {
+    "sounds": [
+      {
+        "name": "item/shield/block1",
+        "pitch": 0.85
+      },
+      {
+        "name": "item/shield/block2",
+        "pitch": 0.85
+      },
+      {
+        "name": "item/shield/block3",
+        "pitch": 0.85
+      },
+      {
+        "name": "item/shield/block4",
+        "pitch": 0.85
+      },
+      {
+        "name": "item/shield/block5",
+        "pitch": 0.85
+      }
+    ],
+    "subtitle": "subtitles.giant_campanile_block"
+  },
+  "giant_campanile_death": {
+    "sounds": [
+      {
+        "name": "mob/slime/big1",
+        "pitch": 0.6
+      },
+      {
+        "name": "mob/slime/big2",
+        "pitch": 0.6
+      },
+      {
+        "name": "mob/slime/big3",
+        "pitch": 0.6
+      },
+      {
+        "name": "mob/slime/big4",
+        "pitch": 0.6
+      }
+    ],
+    "subtitle": "subtitles.giant_campanile_death"
+  },
+  "giant_campanile_hurt": {
+    "sounds": [
+      {
+        "name": "mob/slime/big1",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/slime/big2",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/slime/big3",
+        "pitch": 0.8
+      },
+      {
+        "name": "mob/slime/big4",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.giant_campanile_hurt"
+  },
+  "giant_campanile_step": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/giant_campanile/step1",
+        "volume": 0.5
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/giant_campanile/step2",
+        "volume": 0.5
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/giant_campanile/step3",
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.giant_campanile_step"
+  },
   "grug_chase": {
     "sounds": [
       "unusual_prehistory:music/pummel_and_snatch_disc"

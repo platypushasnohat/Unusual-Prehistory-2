@@ -889,6 +889,31 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/frog/step4").pitch(0.8F)
         );
 
+        this.sound(UP2SoundEvents.GIANT_CAMPANILE_HURT,
+                sound("mob/slime/big1").pitch(0.8F),
+                sound("mob/slime/big2").pitch(0.8F),
+                sound("mob/slime/big3").pitch(0.8F),
+                sound("mob/slime/big4").pitch(0.8F)
+        );
+        this.sound(UP2SoundEvents.GIANT_CAMPANILE_DEATH,
+                sound("mob/slime/big1").pitch(0.6F),
+                sound("mob/slime/big2").pitch(0.6F),
+                sound("mob/slime/big3").pitch(0.6F),
+                sound("mob/slime/big4").pitch(0.6F)
+        );
+        this.sound(UP2SoundEvents.GIANT_CAMPANILE_STEP,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/giant_campanile/step1")).volume(0.5F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/giant_campanile/step2")).volume(0.5F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/giant_campanile/step3")).volume(0.5F)
+        );
+        this.sound(UP2SoundEvents.GIANT_CAMPANILE_BLOCK,
+                sound("item/shield/block1").pitch(0.85F),
+                sound("item/shield/block2").pitch(0.85F),
+                sound("item/shield/block3").pitch(0.85F),
+                sound("item/shield/block4").pitch(0.85F),
+                sound("item/shield/block5").pitch(0.85F)
+        );
+
         this.sound(UP2SoundEvents.HYNERPETON_HURT,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/hurt1")).volume(0.5F),
                 sound(UnusualPrehistory2.modPrefix("entity/mob/diplocaulus/hurt2")).volume(0.5F)

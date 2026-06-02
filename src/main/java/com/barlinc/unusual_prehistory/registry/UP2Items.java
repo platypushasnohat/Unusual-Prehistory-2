@@ -226,6 +226,7 @@ public class UP2Items {
     public static final DeferredItem<Item> CONCAVENATOR_SPAWN_EGG = registerSpawnEggItem("concavenator", UP2Entities.CONCAVENATOR, 0x6e3f34, 0xcdbc91);
     public static final DeferredItem<Item> COTYLORHYNCHUS_SPAWN_EGG = registerSpawnEggItem("cotylorhynchus", UP2Entities.COTYLORHYNCHUS, 0x944e32, 0xebe0c5);
     public static final DeferredItem<Item> CRYPTOCLIDUS_SPAWN_EGG = registerSpawnEggItem("cryptoclidus", UP2Entities.CRYPTOCLIDUS, 0x786389, 0xb4d6d6);
+    public static final DeferredItem<Item> GIANT_CAMPANILE_SPAWN_EGG = registerSpawnEggItem("giant_campanile", UP2Entities.GIANT_CAMPANILE, 0x854048, 0x5e1717);
     public static final DeferredItem<Item> HYNERPETON_SPAWN_EGG = registerSpawnEggItem("hynerpeton", UP2Entities.HYNERPETON, 0x292623, 0xefa32b);
     public static final DeferredItem<Item> ICHTHYOSAURUS_SPAWN_EGG = registerSpawnEggItem("ichthyosaurus", UP2Entities.ICHTHYOSAURUS, 0x4e5761, 0xd2c629);
     public static final DeferredItem<Item> LORRAINOSAURUS_SPAWN_EGG = registerSpawnEggItem("lorrainosaurus", UP2Entities.LORRAINOSAURUS, 0x4b3188, 0xcbdedd);
@@ -245,6 +246,7 @@ public class UP2Items {
     public static final DeferredItem<Item> CONCAVE_FOSSIL = registerFossilItem("concave"); // concavenator
     public static final DeferredItem<Item> ROTUND_FOSSIL = registerFossilItem("rotund"); // cotylorhynchus
     public static final DeferredItem<Item> CRYPTIC_FOSSIL = registerFossilItem("cryptic"); // cryptoclidus
+    public static final DeferredItem<Item> PILLAR_FOSSIL = registerFossilItem("pillar"); // giant campanile
     public static final DeferredItem<Item> COMBUSTIBLE_FOSSIL = registerFossilItem("combustible"); // hynerpeton
     public static final DeferredItem<Item> FISH_REPTILE_FOSSIL = registerFossilItem("fish_reptile"); // ichthyosaurus
     public static final DeferredItem<Item> CLAMP_JAW_FOSSIL = registerFossilItem("clamp_jaw"); // lorrainosaurus

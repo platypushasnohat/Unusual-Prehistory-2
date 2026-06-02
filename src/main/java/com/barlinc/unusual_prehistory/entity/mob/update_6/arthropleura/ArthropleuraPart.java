@@ -242,7 +242,7 @@ public class ArthropleuraPart extends Entity {
         } else {
             double currentY = this.getY();
             double targetY = this.calculateSurfaceY(target, head, front, back);
-            if (Math.abs(targetY - this.getY()) > 0.05D) {
+            if (Math.abs(targetY - this.getY()) > 0.01D) {
                 currentY = targetY;
             }
             this.setPos(target.x, currentY, target.z);

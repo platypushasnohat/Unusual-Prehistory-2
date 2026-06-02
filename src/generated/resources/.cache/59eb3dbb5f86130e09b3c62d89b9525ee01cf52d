@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-23T18:31:23.5474885	Loot Tables
+// 1.21.1	2026-06-01T22:13:55.3541726	Loot Tables
 a8b8087aaf83961dd5b1aa40214588f3427fd9da data/unusual_prehistory/loot_table/blocks/aegirocassis_eggs.json
 0faf1bb4e2d155e8c124ced8904e28d4a35a8032 data/unusual_prehistory/loot_table/blocks/aethophyllum.json
 0333dfd698d0c6f42428b2d13c80d21b0e51fb41 data/unusual_prehistory/loot_table/blocks/ammonite_eggs.json
@@ -59,6 +59,7 @@ cd09d4dfcbf21f5a516f0b42d5a8c7d3d062afab data/unusual_prehistory/loot_table/bloc
 6786a8815a9f505f6231a96f4e5fed8c551fdee4 data/unusual_prehistory/loot_table/blocks/fossilized_skull.json
 bf3a563094fddab322cf3b2143d9929d2af056d7 data/unusual_prehistory/loot_table/blocks/fossilized_skull_lantern.json
 e55298b7cb16201cfc7bfddbabc545aa5496e6e9 data/unusual_prehistory/loot_table/blocks/fossilized_skull_soul_lantern.json
+ebbfd7569659df8be719926a22ec48a25740516f data/unusual_prehistory/loot_table/blocks/giant_campanile_eggs.json
 ba3ba42b2bc55ee2c9c135e0322be6e41a64ef4f data/unusual_prehistory/loot_table/blocks/ginkgo_button.json
 ecaffb40867d89e9b9acce572a0440094b7df6b3 data/unusual_prehistory/loot_table/blocks/ginkgo_door.json
 8a1496218c77fe355ce86527ddfc0d0d9b7011e4 data/unusual_prehistory/loot_table/blocks/ginkgo_fence.json

@@ -36,6 +36,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(DIPLOCAULUS_SPAWN_EGG.get());
                         output.accept(DROMAEOSAURUS_SPAWN_EGG.get());
                         output.accept(DUNKLEOSTEUS_SPAWN_EGG.get());
+                        output.accept(GIANT_CAMPANILE_SPAWN_EGG.get());
                         output.accept(HIBBERTOPTERUS_SPAWN_EGG.get());
                         output.accept(HYNERPETON_SPAWN_EGG.get());
                         output.accept(ICHTHYOSAURUS_SPAWN_EGG.get());
@@ -202,6 +203,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(BOOMERANG_FOSSIL.get()); // diplocaulus
                         output.accept(RUNNER_FOSSIL.get()); // dromaeosaurus
                         output.accept(GUILLOTINE_FOSSIL.get()); // dunkleosteus
+                        output.accept(PILLAR_FOSSIL.get()); // giant campanile
                         output.accept(PLOW_FOSSIL.get()); // hibbertopterus
                         output.accept(COMBUSTIBLE_FOSSIL.get()); // hynerpeton
                         output.accept(FISH_REPTILE_FOSSIL.get()); // ichthyosaurus
@@ -244,6 +246,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
                         output.accept(DROMAEOSAURUS_EGG.get());
                         output.accept(UP2Blocks.DUNKLEOSTEUS_SAC.get());
+                        output.accept(UP2Blocks.GIANT_CAMPANILE_EGGS.get());
                         output.accept(UP2Blocks.HIBBERTOPTERUS_EGGS.get());
                         output.accept(UP2Blocks.HYNERPETON_EGGS.get());
                         output.accept(ICHTHYOSAURUS_EMBRYO.get());

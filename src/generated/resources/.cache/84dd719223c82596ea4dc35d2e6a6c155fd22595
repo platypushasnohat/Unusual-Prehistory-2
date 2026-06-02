@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-29T17:30:45.0822943	Item Models: unusual_prehistory
+// 1.21.1	2026-06-01T22:13:55.3507744	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -65,6 +65,8 @@ a9aabc8e6df8e37a04c42f6871a41d70535df496 assets/unusual_prehistory/models/item/f
 19c1310b347ca5886167be9334f73725dc298361 assets/unusual_prehistory/models/item/forcipule_fossil.json
 f9034a2dc18e2237d32f2939703af38e15d3db7f assets/unusual_prehistory/models/item/foul_grog_bottle.json
 158b2a9b3ab18df3ff848d0cbdd054aa062df9ea assets/unusual_prehistory/models/item/fury_fossil.json
+1360f22e136bd8af86446c00202c306a4853de79 assets/unusual_prehistory/models/item/giant_campanile_eggs.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/giant_campanile_spawn_egg.json
 015c1fe436e9be4bad96c9ef9114f8be8f04db11 assets/unusual_prehistory/models/item/ginkgo_boat.json
 42d9da5f0e2b2ee5fedd313fcc80198381b5c713 assets/unusual_prehistory/models/item/ginkgo_chest_boat.json
 c21c1ba5c0083c9e702d74bfe63d94aed3c4559c assets/unusual_prehistory/models/item/ginkgo_fossil.json
@@ -154,6 +156,7 @@ b4f9954198c840102c5b14dfbdb638adb93017a1 assets/unusual_prehistory/models/item/p
 c2892a78bba90c38cda619742ba25fcbae523387 assets/unusual_prehistory/models/item/period_silurian.json
 b9f0bfbcbef6dc0f5186c3002528288597a2ef35 assets/unusual_prehistory/models/item/period_triassic.json
 1ad3314b14e47b06eb5011a9185282bc107ab749 assets/unusual_prehistory/models/item/petrified_luca.json
+953714459c2f3584ba50b695e4f236b6e78e1c02 assets/unusual_prehistory/models/item/pillar_fossil.json
 a7ac1f6d8dd1be8a153c663f5d18e96973f68a83 assets/unusual_prehistory/models/item/plant_fossil.json
 eb121524bfd9fb77df2ed44fb1251ecd811667ca assets/unusual_prehistory/models/item/plow_fossil.json
 e106ab14f340b5b5603688de55195384124ec0f1 assets/unusual_prehistory/models/item/plumage_fossil.json

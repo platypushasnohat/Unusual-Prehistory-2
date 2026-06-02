@@ -68,6 +68,7 @@ public class UP2RecipeProvider extends RecipeProvider {
         transmogrification(output, UP2Items.THUNDEROUS_FOSSIL, UP2Items.BRONTOSCORPIO_EMBRYO, 1200, 1.0F);
         transmogrification(output, UP2Items.CONCAVE_FOSSIL, CONCAVENATOR_EGG, 1200, 1.0F);
         transmogrification(output, UP2Items.CRYPTIC_FOSSIL, UP2Items.CRYPTOCLIDUS_EMBRYO, 1200, 1.0F);
+        transmogrification(output, UP2Items.PILLAR_FOSSIL, GIANT_CAMPANILE_EGGS, 1200, 1.0F);
         transmogrification(output, UP2Items.COMBUSTIBLE_FOSSIL, HYNERPETON_EGGS, 1200, 1.0F);
         transmogrification(output, UP2Items.FISH_REPTILE_FOSSIL, UP2Items.ICHTHYOSAURUS_EMBRYO, 1200, 1.0F);
         transmogrification(output, UP2Items.CLAMP_JAW_FOSSIL, UP2Items.LORRAINOSAURUS_EMBRYO, 2400, 1.5F);
