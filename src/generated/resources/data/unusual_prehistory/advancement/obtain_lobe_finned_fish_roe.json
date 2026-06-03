@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_lobe_finned_fish_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:lobe_finned_fish_roe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_lobe_finned_fish_roe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

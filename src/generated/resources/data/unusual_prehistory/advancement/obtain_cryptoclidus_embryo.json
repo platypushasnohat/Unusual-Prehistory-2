@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_cryptoclidus_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:cryptoclidus_embryo"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_cryptoclidus_embryo"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

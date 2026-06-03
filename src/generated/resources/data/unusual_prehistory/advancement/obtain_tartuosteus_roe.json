@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_tartuosteus_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:tartuosteus_roe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_tartuosteus_roe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

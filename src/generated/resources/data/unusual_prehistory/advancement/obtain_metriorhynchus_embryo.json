@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_metriorhynchus_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:metriorhynchus_embryo"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_metriorhynchus_embryo"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

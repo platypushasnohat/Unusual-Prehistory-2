@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_ichthyosaurus_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:ichthyosaurus_embryo"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_ichthyosaurus_embryo"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_prognathodon_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:prognathodon_embryo"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_prognathodon_embryo"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

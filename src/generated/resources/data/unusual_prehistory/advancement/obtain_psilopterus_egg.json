@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_psilopterus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:psilopterus_egg"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_psilopterus_egg"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

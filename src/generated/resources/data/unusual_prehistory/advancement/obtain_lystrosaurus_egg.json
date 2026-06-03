@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_lystrosaurus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:lystrosaurus_egg"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_lystrosaurus_egg"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

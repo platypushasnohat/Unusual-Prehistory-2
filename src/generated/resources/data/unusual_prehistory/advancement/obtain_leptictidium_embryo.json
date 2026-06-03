@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_leptictidium_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:leptictidium_embryo"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_leptictidium_embryo"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

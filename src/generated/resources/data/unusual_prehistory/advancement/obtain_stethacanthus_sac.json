@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_stethacanthus_sac": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:stethacanthus_sac"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_stethacanthus_sac"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

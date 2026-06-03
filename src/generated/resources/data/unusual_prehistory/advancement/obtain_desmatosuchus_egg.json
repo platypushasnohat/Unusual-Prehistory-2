@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_desmatosuchus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:desmatosuchus_egg"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_desmatosuchus_egg"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

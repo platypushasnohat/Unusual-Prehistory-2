@@ -8,7 +8,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:jawless_fish"
+              "type": "unusual_prehistory:hynerpeton"
             }
           }
         ]

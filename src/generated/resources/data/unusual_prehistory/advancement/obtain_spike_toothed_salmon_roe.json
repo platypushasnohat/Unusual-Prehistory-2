@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_spike_toothed_salmon_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:spike_toothed_salmon_roe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_spike_toothed_salmon_roe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

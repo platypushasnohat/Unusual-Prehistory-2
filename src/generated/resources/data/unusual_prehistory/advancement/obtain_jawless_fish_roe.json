@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_jawless_fish_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:jawless_fish_roe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_jawless_fish_roe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

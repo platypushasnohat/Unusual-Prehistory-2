@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_pterodactylus_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:pterodactylus_egg"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_pterodactylus_egg"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

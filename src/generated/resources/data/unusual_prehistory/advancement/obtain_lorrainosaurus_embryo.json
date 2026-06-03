@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_lorrainosaurus_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:lorrainosaurus_embryo"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_lorrainosaurus_embryo"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

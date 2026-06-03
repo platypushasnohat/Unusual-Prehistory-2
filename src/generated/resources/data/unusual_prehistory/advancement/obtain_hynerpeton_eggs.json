@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_hynerpeton_eggs": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:hynerpeton_eggs"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_hynerpeton_eggs"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

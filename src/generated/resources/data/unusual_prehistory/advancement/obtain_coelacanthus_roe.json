@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_coelacanthus_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:coelacanthus_roe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_coelacanthus_roe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_woolly_mammoth_embryo": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:woolly_mammoth_embryo"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_woolly_mammoth_embryo"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
