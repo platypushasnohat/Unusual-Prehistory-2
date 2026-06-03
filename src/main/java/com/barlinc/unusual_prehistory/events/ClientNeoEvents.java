@@ -151,7 +151,7 @@ public class ClientNeoEvents {
                 renderer.checkEntityPostEffect(null);
             }
 
-            if (player instanceof LivingEntity afflicted && afflicted.hasEffect(UP2MobEffects.TRANQUILITY)) {
+            else if (player instanceof LivingEntity afflicted && afflicted.hasEffect(UP2MobEffects.TRANQUILITY)) {
                 if (renderer.currentEffect() == null || !TRANQUILITY_SHADER.toString().equals(renderer.currentEffect().getName())) {
                     attemptLoadShader(TRANQUILITY_SHADER);
                 }
