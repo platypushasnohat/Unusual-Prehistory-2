@@ -35,6 +35,7 @@ import java.util.List;
 public class ClientNeoEvents {
 
     private static final ResourceLocation DAZZLED_SHADER = UnusualPrehistory2.modPrefix("shaders/post/dazzled.json");
+    private static final ResourceLocation TRANQUILITY_SHADER = UnusualPrehistory2.modPrefix("shaders/post/tranquility.json");
 
     private static float shakeAmount;
     private static float prevShakeAmount;
@@ -147,6 +148,14 @@ public class ClientNeoEvents {
                     attemptLoadShader(DAZZLED_SHADER);
                 }
             } else if (renderer.currentEffect() != null && DAZZLED_SHADER.toString().equals(renderer.currentEffect().getName())) {
+                renderer.checkEntityPostEffect(null);
+            }
+
+            if (player instanceof LivingEntity afflicted && afflicted.hasEffect(UP2MobEffects.TRANQUILITY)) {
+                if (renderer.currentEffect() == null || !TRANQUILITY_SHADER.toString().equals(renderer.currentEffect().getName())) {
+                    attemptLoadShader(TRANQUILITY_SHADER);
+                }
+            } else if (renderer.currentEffect() != null && TRANQUILITY_SHADER.toString().equals(renderer.currentEffect().getName())) {
                 renderer.checkEntityPostEffect(null);
             }
         }

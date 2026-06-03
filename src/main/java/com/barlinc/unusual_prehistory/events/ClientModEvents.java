@@ -61,6 +61,7 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.arthro
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.arthropleura.ArthropleuraRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.client.particle.SpellParticle;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -113,8 +114,8 @@ public class ClientModEvents {
         event.registerSpriteSet(UP2Particles.SNOWFLAKE.get(), SnowflakeParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.IMPACT_STUN.get(), ImpactStunParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.OUT_OF_WATER_BUBBLE.get(), OutOfWaterBubbleParticle.Provider::new);
-        event.registerSpriteSet(UP2Particles.SWEET_GROG_BUBBLE.get(), OutOfWaterBubbleParticle.Provider::new);
-        event.registerSpriteSet(UP2Particles.FOUL_GROG_BUBBLE.get(), OutOfWaterBubbleParticle.Provider::new);
+        event.registerSpriteSet(UP2Particles.SWEET_GROG.get(), SpellParticle.Provider::new);
+        event.registerSpriteSet(UP2Particles.FOUL_GROG.get(), SpellParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.SAND_SNORT.get(), SandSnortParticle.Provider::new);
         event.registerSpriteSet(UP2Particles.TUSOTEUTHIS_FLASH.get(), FlashParticle.TusoteuthisProvider::new);
         event.registerSpriteSet(UP2Particles.STUN.get(), StunParticle.Provider::new);

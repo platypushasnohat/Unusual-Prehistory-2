@@ -49,6 +49,7 @@ public class Cotylorhynchus extends PrehistoricMob implements PlushableMob {
 
     public final SmoothAnimationState grazeAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState burpAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState grogAnimationState = new SmoothAnimationState();
 
     private int burpTicks;
 
@@ -125,7 +126,9 @@ public class Cotylorhynchus extends PrehistoricMob implements PlushableMob {
 
     @Override
     public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
-        if (this.isEepy()) return EEPY_DIMENSIONS.scale(this.getAgeScale());
+        if (this.isEepy()) {
+            return EEPY_DIMENSIONS.scale(this.getAgeScale());
+        }
         return super.getDefaultDimensions(pose);
     }
 
@@ -239,6 +242,7 @@ public class Cotylorhynchus extends PrehistoricMob implements PlushableMob {
         this.grazeAnimationState.animateWhen(this.getIdleState() == 1, this.tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), this.tickCount);
         this.burpAnimationState.animateWhen(this.getPose() == UP2Poses.BURPING.get(), this.tickCount);
+        this.grogAnimationState.animateWhen(this.getGrogTicks() > 0, this.tickCount);
     }
 
     private boolean canGraze(Entity entity) {
@@ -345,15 +349,10 @@ public class Cotylorhynchus extends PrehistoricMob implements PlushableMob {
         this.playSound(UP2SoundEvents.COTYLORHYNCHUS_STEP.get(), 0.2F, 1.0F);
     }
 
-    @Override
-    public int getAmbientSoundInterval() {
-        return 180;
-    }
-
     public enum GrogType {
         EMPTY(0, null, null, null),
-        SWEET(1, UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD, UP2Items.SWEET_GROG_BOTTLE.get(), UP2Particles.SWEET_GROG_BUBBLE.get()),
-        FOUL(2, UP2ItemTags.FOUL_COTYLORHYNCHUS_FOOD, UP2Items.FOUL_GROG_BOTTLE.get(), UP2Particles.FOUL_GROG_BUBBLE.get());
+        SWEET(1, UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD, UP2Items.SWEET_GROG_BOTTLE.get(), UP2Particles.SWEET_GROG.get()),
+        FOUL(2, UP2ItemTags.FOUL_COTYLORHYNCHUS_FOOD, UP2Items.FOUL_GROG_BOTTLE.get(), UP2Particles.FOUL_GROG.get());
 
         private final int id;
         private final TagKey<Item> input;

@@ -51,10 +51,11 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityAc
         }
     }
 
+    // todo: change to sinew tag?
     @Inject(method = "canAttack(Lnet/minecraft/world/entity/LivingEntity;)Z", at = @At(value = "HEAD"), cancellable = true)
     protected void unusualPrehistory$canAttack(LivingEntity target, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity entity = (LivingEntity) (Object) this;
-        if (entity.hasEffect(UP2MobEffects.DAZZLED)) {
+        if (entity.hasEffect(UP2MobEffects.DAZZLED) || entity.hasEffect(UP2MobEffects.TRANQUILITY)) {
             cir.setReturnValue(false);
         }
     }

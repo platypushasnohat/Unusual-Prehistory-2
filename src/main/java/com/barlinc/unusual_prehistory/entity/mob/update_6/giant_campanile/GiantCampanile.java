@@ -3,26 +3,34 @@
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.EnterWaterGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.RandomUnderwaterSitGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
+ import com.barlinc.unusual_prehistory.registry.UP2Blocks;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
+ import com.barlinc.unusual_prehistory.registry.UP2MobEffects;
  import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
  import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
  import net.minecraft.core.BlockPos;
+ import net.minecraft.nbt.CompoundTag;
+ import net.minecraft.network.syncher.EntityDataAccessor;
+ import net.minecraft.network.syncher.EntityDataSerializers;
+ import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.tags.FluidTags;
  import net.minecraft.util.Mth;
  import net.minecraft.world.damagesource.DamageSource;
- import net.minecraft.world.entity.AgeableMob;
- import net.minecraft.world.entity.EntityType;
- import net.minecraft.world.entity.Mob;
- import net.minecraft.world.entity.MoverType;
+ import net.minecraft.world.effect.MobEffectInstance;
+ import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
  import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
  import net.minecraft.world.entity.ai.goal.TemptGoal;
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
+ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+ import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.item.ItemStack;
  import net.minecraft.world.item.crafting.Ingredient;
  import net.minecraft.world.level.Level;
@@ -34,7 +42,9 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- public class GiantCampanile extends AmphibiousMob {
+ public class GiantCampanile extends AmphibiousMob implements PlushableMob {
+
+     private static final EntityDataAccessor<Integer> MOISTNESS = SynchedEntityData.defineId(GiantCampanile.class, EntityDataSerializers.INT);
 
      private final GiantCampanilePart[] allParts;
      private final GiantCampanilePart shellPart1;
@@ -75,6 +85,7 @@
          this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.BRONTOSCORPIO_FOOD), false));
          this.goalSelector.addGoal(2, new PrehistoricRandomStrollGoal(this, 1.0D, false));
          this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(4, new RandomUnderwaterSitGoal(this));
      }
 
      @Override
@@ -119,8 +130,40 @@
      }
 
      @Override
+     public @NotNull ItemStack getPlushieItemStack() {
+         return new ItemStack(UP2Blocks.GIANT_CAMPANILE_PLUSHIE.get());
+     }
+
+     @Override
      public boolean isFood(ItemStack stack) {
          return stack.is(UP2ItemTags.BRONTOSCORPIO_FOOD);
+     }
+
+     @Override
+     public boolean isPushable() {
+         return false;
+     }
+
+     @Override
+     public boolean canBeCollidedWith() {
+         return this.isSitting();
+     }
+
+     @Override
+     public boolean canSleepCooldown() {
+         return this.isInWaterOrBubble();
+     }
+
+     @Override
+     public void aiStep() {
+         if (this.isInWaterOrBubble() && this.level().getGameTime() % 20 == 0) {
+             for (LivingEntity living : this.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forNonCombat().selector(entity -> entity instanceof Player || entity instanceof Mob).ignoreLineOfSight().ignoreInvisibilityTesting(), this, this.getBoundingBox().inflate(20.0D))) {
+                 if (!this.level().isClientSide) {
+                     living.addEffect(new MobEffectInstance(UP2MobEffects.TRANQUILITY, 100, 0, true, false, true));
+                 }
+             }
+         }
+         super.aiStep();
      }
 
      @Override
@@ -134,11 +177,25 @@
                  giantCampanilePart.refreshDimensions();
              }
          }
+
+         if (!this.isNoAi()) {
+             if (this.isInWaterRainOrBubble()) {
+                 this.setMoistness(2400);
+             } else {
+                 if (this.getMoistness() > 0) {
+                     this.setMoistness(this.getMoistness() - 1);
+                 }
+                 if (this.getMoistness() <= 0) {
+                     this.hurt(this.damageSources().dryOut(), 2.0F);
+                 }
+             }
+         }
      }
 
      @Override
      public void setupAnimationStates() {
-         this.idleAnimationState.animateWhen(this.isAlive(), this.tickCount);
+         this.idleAnimationState.animateWhen(!this.isSitting(), this.tickCount);
+         this.sitAnimationState.animateWhen(this.isSitting(), this.tickCount);
      }
 
      @Override
@@ -166,9 +223,9 @@
 
          Vec3 center = this.position().add(0, this.getBbHeight(), 0);
          this.shellPart1.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.75F, 0.0F).scale(this.getAgeScale()), yBodyRot).add(center));
-         this.shellPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.5F, -1.25F).scale(this.getAgeScale()), yBodyRot).add(center));
-         this.shellPart3.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.25F, -1.75F).scale(this.getAgeScale()), yBodyRot).add(center));
-         this.shellPart4.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -0.5F, -2.75F).scale(this.getAgeScale()), yBodyRot).add(center));
+         this.shellPart2.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -3.5F, this.isSitting() ? 0.0F : -1.25F).scale(this.getAgeScale()), yBodyRot).add(center));
+         this.shellPart3.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -1.25F, this.isSitting() ? 0.0F : -1.75F).scale(this.getAgeScale()), yBodyRot).add(center));
+         this.shellPart4.setPosCenteredY(this.rotateOffsetVec(new Vec3(0, -0.5F, this.isSitting() ? 0.0F : -2.75F).scale(this.getAgeScale()), yBodyRot).add(center));
 
          for (int l = 0; l < this.allParts.length; l++) {
              this.allParts[l].xo = vec3[l].x;
@@ -192,6 +249,31 @@
      @Override
      public PartEntity<?> @NotNull [] getParts() {
          return allParts;
+     }
+
+     @Override
+     protected void defineSynchedData(SynchedEntityData.Builder builder) {
+         super.defineSynchedData(builder);
+         builder.define(MOISTNESS, 2400);
+     }
+
+     @Override
+     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+         super.addAdditionalSaveData(compoundTag);
+         compoundTag.putInt("Moistness", this.getMoistness());
+     }
+
+     @Override
+     public void readAdditionalSaveData(CompoundTag compoundTag) {
+         this.setMoistness(compoundTag.getInt("Moistness"));
+     }
+
+     public int getMoistness() {
+         return this.entityData.get(MOISTNESS);
+     }
+
+     public void setMoistness(int moistness) {
+         this.entityData.set(MOISTNESS, moistness);
      }
 
      @Nullable

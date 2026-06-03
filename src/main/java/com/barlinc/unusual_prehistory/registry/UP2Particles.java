@@ -22,8 +22,8 @@ public class UP2Particles {
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SNOWFLAKE = registerParticle("snowflake", ()-> new SimpleParticleType(false));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> IMPACT_STUN = registerParticle("impact_stun", () -> new SimpleParticleType(false));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> OUT_OF_WATER_BUBBLE = registerParticle("out_of_water_bubble", ()-> new SimpleParticleType(false));
-    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SWEET_GROG_BUBBLE = registerParticle("sweet_grog_bubble", ()-> new SimpleParticleType(false));
-    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> FOUL_GROG_BUBBLE = registerParticle("foul_grog_bubble", ()-> new SimpleParticleType(false));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SWEET_GROG = registerParticle("sweet_grog", ()-> new SimpleParticleType(false));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> FOUL_GROG = registerParticle("foul_grog", ()-> new SimpleParticleType(false));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SAND_SNORT = registerParticle("sand_snort", ()-> new SimpleParticleType(false));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> TUSOTEUTHIS_FLASH = registerParticle("tusoteuthis_flash", ()-> new SimpleParticleType(false));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> STUN = registerParticle("stun", ()-> new SimpleParticleType(false));

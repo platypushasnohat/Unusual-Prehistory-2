@@ -247,6 +247,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 BRACHIOSAURUS_PLUSHIE.get(),
                 CARNOTAURUS_PLUSHIE.get(),
                 COTYLORHYNCHUS_PLUSHIE.get(),
+                GIANT_CAMPANILE_PLUSHIE.get(),
                 HIBBERTOPTERUS_PLUSHIE.get(),
                 KENTROSAURUS_PLUSHIE.get(),
                 MAJUNGASAURUS_PLUSHIE.get(),

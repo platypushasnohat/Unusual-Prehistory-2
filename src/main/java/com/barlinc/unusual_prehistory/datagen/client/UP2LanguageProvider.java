@@ -588,10 +588,13 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_woolly_mammoth", "Ice Age", "Revive a Woolly Mammoth");
 
         this.add(UP2MobEffects.DAZZLED.get(), "Dazzled");
-        this.add(UP2MobEffects.DAZZLED.get().getDescriptionId() + ".description", "Prevents sprinting and reduces movement speed, prevents mobs from targeting things, and impairs vision");
+        this.add(UP2MobEffects.DAZZLED.get().getDescriptionId() + ".description", "Prevents sprinting and reduces movement speed, prevents mobs from targeting entities, and impairs vision");
 
         this.add(UP2MobEffects.PARALYSIS.get(), "Paralysis");
         this.add(UP2MobEffects.PARALYSIS.get().getDescriptionId() + ".description", "Inflicts non-lethal damage over time; Higher levels do more damage per second. Prevents jumping, sprinting, and decreases walking speed.");
+
+        this.add(UP2MobEffects.TRANQUILITY.get(), "Tranquility");
+        this.add(UP2MobEffects.TRANQUILITY.get().getDescriptionId() + ".description", "Heals over time and prevents mobs from targeting entities");
 
         // Book
         this.add("item.unusual_prehistory.paleopedia.landing", "This book acts as a guide to the revival process of various ancient plants and animals, along with any notable traits or uses that they may have.");

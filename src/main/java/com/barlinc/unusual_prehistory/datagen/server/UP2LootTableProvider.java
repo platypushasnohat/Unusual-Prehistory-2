@@ -278,6 +278,7 @@ public class UP2LootTableProvider extends LootTableProvider {
             this.dropSelf(BRACHIOSAURUS_PLUSHIE.get());
             this.dropSelf(CARNOTAURUS_PLUSHIE.get());
             this.dropSelf(COTYLORHYNCHUS_PLUSHIE.get());
+            this.dropSelf(GIANT_CAMPANILE_PLUSHIE.get());
             this.dropSelf(HIBBERTOPTERUS_PLUSHIE.get());
             this.dropSelf(KENTROSAURUS_PLUSHIE.get());
             this.dropSelf(MAJUNGASAURUS_PLUSHIE.get());

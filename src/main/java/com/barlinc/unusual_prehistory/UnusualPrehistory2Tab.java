@@ -178,6 +178,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.BRACHIOSAURUS_PLUSHIE.get());
                         output.accept(UP2Blocks.CARNOTAURUS_PLUSHIE.get());
                         output.accept(UP2Blocks.COTYLORHYNCHUS_PLUSHIE.get());
+                        output.accept(UP2Blocks.GIANT_CAMPANILE_PLUSHIE.get());
                         output.accept(UP2Blocks.HIBBERTOPTERUS_PLUSHIE.get());
                         output.accept(UP2Blocks.KENTROSAURUS_PLUSHIE.get());
                         output.accept(UP2Blocks.MAJUNGASAURUS_PLUSHIE.get());

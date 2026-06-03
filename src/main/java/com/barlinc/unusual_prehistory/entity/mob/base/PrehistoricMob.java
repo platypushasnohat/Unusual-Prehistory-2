@@ -291,10 +291,16 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
                 this.setEatCooldown(this.getEatCooldown() - 1);
             }
             if (this.getLastHurtByMob() == null && this.getTarget() == null && this.canSleepCooldown() && !this.isBaby()) {
-                if (this.getEepyCooldown() > 0) this.setEepyCooldown(this.getEepyCooldown() - 1);
-                if (!this.isEepy() && this.getSitCooldown() > 0 && !this.isSitting()) this.setSitCooldown(this.getSitCooldown() - 1);
+                if (this.getEepyCooldown() > 0) {
+                    this.setEepyCooldown(this.getEepyCooldown() - 1);
+                }
+                if (!this.isEepy() && this.getSitCooldown() > 0 && !this.isSitting()) {
+                    this.setSitCooldown(this.getSitCooldown() - 1);
+                }
             }
-            if (this.getSittingTicks() > 0) this.setSittingTicks(this.getSittingTicks() - 1);
+            if (this.getSittingTicks() > 0) {
+                this.setSittingTicks(this.getSittingTicks() - 1);
+            }
 
             if (idleAnimationCooldown > 0 && !this.isEepy()) {
                 this.idleAnimationCooldown--;

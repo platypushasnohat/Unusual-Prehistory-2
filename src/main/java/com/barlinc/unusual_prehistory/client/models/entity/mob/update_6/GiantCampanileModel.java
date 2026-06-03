@@ -83,8 +83,11 @@ public class GiantCampanileModel extends UP2Model<GiantCampanile> {
 	public void setupAnim(@NotNull GiantCampanile entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
-        this.animateWalk(GiantCampanileAnimations.SLIDE, limbSwing, limbSwingAmount, 1, 2);
+        if (!entity.isSitting()) {
+            this.animateWalk(GiantCampanileAnimations.SLIDE, limbSwing, limbSwingAmount, 1, 2);
+        }
         this.animateIdleSmooth(entity.idleAnimationState, GiantCampanileAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2);
+        this.animateSmooth(entity.sitAnimationState, GiantCampanileAnimations.MONOLITH, ageInTicks, partialTicks);
     }
 
 	@Override

@@ -14,8 +14,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class CotylorhynchusRenderer extends MobRenderer<Cotylorhynchus, CotylorhynchusModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/cotylorhynchus/cotylorhynchus.png");
-    private static final ResourceLocation TEXTURE_EEPY = UnusualPrehistory2.modPrefix("textures/entity/mob/cotylorhynchus/cotylorhynchus_eepy.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/cotylorhynchus.png");
 
     public CotylorhynchusRenderer(EntityRendererProvider.Context context) {
         super(context, new CotylorhynchusModel(context.bakeLayer(UP2ModelLayers.COTYLORHYNCHUS)), 0.5F);
@@ -23,6 +22,6 @@ public class CotylorhynchusRenderer extends MobRenderer<Cotylorhynchus, Cotylorh
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Cotylorhynchus entity) {
-        return entity.isEepy() ? TEXTURE_EEPY : TEXTURE;
+        return TEXTURE;
     }
 }

@@ -232,6 +232,7 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> BRACHIOSAURUS_PLUSHIE = registerPlushieBlock("brachiosaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 12, 16, UP2SoundEvents.BRACHIOSAURUS_IDLE.get()));
     public static final DeferredBlock<Block> CARNOTAURUS_PLUSHIE = registerPlushieBlock("carnotaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 10, 16, UP2SoundEvents.CARNOTAURUS_IDLE.get()));
     public static final DeferredBlock<Block> COTYLORHYNCHUS_PLUSHIE = registerPlushieBlock("cotylorhynchus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 8, UP2SoundEvents.COTYLORHYNCHUS_IDLE.get()));
+    public static final DeferredBlock<Block> GIANT_CAMPANILE_PLUSHIE = registerPlushieBlock("giant_campanile_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 10, 16, UP2SoundEvents.GIANT_CAMPANILE_STEP.get()));
     public static final DeferredBlock<Block> HIBBERTOPTERUS_PLUSHIE = registerPlushieBlock("hibbertopterus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 8, UP2SoundEvents.HIBBERTOPTERUS_IDLE.get()));
     public static final DeferredBlock<Block> KENTROSAURUS_PLUSHIE = registerPlushieBlock("kentrosaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 8, UP2SoundEvents.KENTROSAURUS_IDLE.get()));
     public static final DeferredBlock<Block> MAJUNGASAURUS_PLUSHIE = registerPlushieBlock("majungasaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 10, 16, UP2SoundEvents.MAJUNGASAURUS_IDLE.get()));

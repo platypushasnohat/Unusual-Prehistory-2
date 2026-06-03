@@ -74,6 +74,7 @@ public class UP2Compat {
         registerFlammable(UP2Blocks.BRACHIOSAURUS_PLUSHIE.get(), 30, 60);
         registerFlammable(UP2Blocks.CARNOTAURUS_PLUSHIE.get(), 30, 60);
         registerFlammable(UP2Blocks.COTYLORHYNCHUS_PLUSHIE.get(), 30, 60);
+        registerFlammable(UP2Blocks.GIANT_CAMPANILE_PLUSHIE.get(), 30, 60);
         registerFlammable(UP2Blocks.HIBBERTOPTERUS_PLUSHIE.get(), 30, 60);
         registerFlammable(UP2Blocks.KENTROSAURUS_PLUSHIE.get(), 30, 60);
         registerFlammable(UP2Blocks.MAJUNGASAURUS_PLUSHIE.get(), 30, 60);
