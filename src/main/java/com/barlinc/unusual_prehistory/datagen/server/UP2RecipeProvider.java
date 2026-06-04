@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.datagen.server;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.data.TransmogrificationRecipeBuilder;
+import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
@@ -71,6 +72,7 @@ public class UP2RecipeProvider extends RecipeProvider {
         transmogrification(output, UP2Items.PILLAR_FOSSIL, GIANT_CAMPANILE_EGGS, 1200, 1.0F);
         transmogrification(output, UP2Items.COMBUSTIBLE_FOSSIL, HYNERPETON_EGGS, 1200, 1.0F);
         transmogrification(output, UP2Items.FISH_REPTILE_FOSSIL, UP2Items.ICHTHYOSAURUS_EMBRYO, 1200, 1.0F);
+        transmogrification(output, UP2Items.GARGANTUAN_FOSSIL, LEEDSICHTHYS_ROE, 3600, 2.0F);
         transmogrification(output, UP2Items.CLAMP_JAW_FOSSIL, UP2Items.LORRAINOSAURUS_EMBRYO, 2400, 1.5F);
         transmogrification(output, UP2Items.MOLAR_FOSSIL, UP2Items.WOOLLY_MAMMOTH_EMBRYO, 2400, 1.5F);
         transmogrification(output, UP2Items.SURGE_FOSSIL, UP2Items.PROGNATHODON_EMBRYO, 2400, 1.5F);

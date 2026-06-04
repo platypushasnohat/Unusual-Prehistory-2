@@ -1,0 +1,41 @@
+{
+  "parent": "unusual_prehistory:revive_ichthyosaurus",
+  "criteria": {
+    "revive_leedsichthys": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "unusual_prehistory:leedsichthys"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.unusual_prehistory.revive_leedsichthys.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "unusual_prehistory:leedsichthys_roe"
+    },
+    "title": {
+      "translate": "advancements.unusual_prehistory.revive_leedsichthys.title"
+    }
+  },
+  "requirements": [
+    [
+      "revive_leedsichthys"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

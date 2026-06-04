@@ -65,6 +65,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
     private boolean wasPreviouslyBaby;
 
     private float fakeYRot = 0;
+    @SuppressWarnings("all")
     private float[] yawBuffer = new float[128];
     private int yawPointer = -1;
 

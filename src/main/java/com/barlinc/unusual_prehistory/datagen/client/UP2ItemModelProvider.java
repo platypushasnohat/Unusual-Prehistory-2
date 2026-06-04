@@ -187,6 +187,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 PILLAR_FOSSIL,
                 COMBUSTIBLE_FOSSIL,
                 FISH_REPTILE_FOSSIL,
+                GARGANTUAN_FOSSIL,
                 CLAMP_JAW_FOSSIL,
                 MOLAR_FOSSIL,
                 SURGE_FOSSIL,
@@ -199,6 +200,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 UP2Blocks.CONCAVENATOR_EGG,
                 UP2Blocks.GIANT_CAMPANILE_EGGS,
                 UP2Blocks.HYNERPETON_EGGS,
+                UP2Blocks.LEEDSICHTHYS_ROE,
                 UP2Blocks.RHIZODUS_ROE,
                 CRYPTOCLIDUS_EMBRYO,
                 ICHTHYOSAURUS_EMBRYO,
@@ -210,6 +212,8 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
                 SWEET_GROG_BOTTLE,
                 FOUL_GROG_BOTTLE,
+
+                LEEDSICHTHYS_SLICE,
 
                 PLUSHIE_KIT
         );

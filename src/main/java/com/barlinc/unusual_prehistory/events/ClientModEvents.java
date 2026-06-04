@@ -37,6 +37,8 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.ammonite
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraBodyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraHeadModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraTailModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.leedsichthys.LeedsichthysBabyModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.leedsichthys.LeedsichthysModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.therizinosaurus.TherizinosaurusBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.therizinosaurus.TherizinosaurusModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
@@ -194,6 +196,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.GIANT_CAMPANILE.get(), GiantCampanileRenderer::new);
         event.registerEntityRenderer(UP2Entities.HYNERPETON.get(), HynerpetonRenderer::new);
         event.registerEntityRenderer(UP2Entities.ICHTHYOSAURUS.get(), IchthyosaurusRenderer::new);
+        event.registerEntityRenderer(UP2Entities.LEEDSICHTHYS.get(), LeedsichthysRenderer::new);
         event.registerEntityRenderer(UP2Entities.LORRAINOSAURUS.get(), LorrainosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.WOOLLY_MAMMOTH.get(), WoollyMammothRenderer::new);
         event.registerEntityRenderer(UP2Entities.PROGNATHODON.get(), PrognathodonRenderer::new);
@@ -287,6 +290,8 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.GIANT_CAMPANILE, GiantCampanileModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.HYNERPETON, HynerpetonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ICHTHYOSAURUS, IchthyosaurusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.LEEDSICHTHYS, LeedsichthysModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.LEEDSICHTHYS_BABY, LeedsichthysBabyModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.LORRAINOSAURUS, LorrainosaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.MAMMOTH, WoollyMammothModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.PROGNATHODON, PrognathodonModel::createBodyLayer);

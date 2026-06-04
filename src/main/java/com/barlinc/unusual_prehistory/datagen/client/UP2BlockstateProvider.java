@@ -97,6 +97,9 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.pressurePlateBlock(POLISHED_PETRIFIED_WOOD.get(), POLISHED_PETRIFIED_WOOD_PRESSURE_PLATE.get());
 
         this.crossBlock(PROTOTAXITES_CLUSTER);
+
+        // Update 6
+        this.block(LEEDSICHTHYS_SLICE_BLOCK);
     }
 
     public static String name(Block block) {

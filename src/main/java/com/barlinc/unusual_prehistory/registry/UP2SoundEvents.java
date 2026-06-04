@@ -252,6 +252,11 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> ICHTHYOSAURUS_DASH = registerSoundEvent("ichthyosaurus_dash");
     public static final DeferredHolder<SoundEvent, SoundEvent> ICHTHYOSAURUS_DASH_READY = registerSoundEvent("ichthyosaurus_dash_ready");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> LEEDSICHTHYS_HURT = registerSoundEvent("leedsichthys_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> LEEDSICHTHYS_DEATH = registerSoundEvent("leedsichthys_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> LEEDSICHTHYS_IDLE = registerSoundEvent("leedsichthys_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> LEEDSICHTHYS_SWIM = registerSoundEvent("leedsichthys_swim");
+
     public static final DeferredHolder<SoundEvent, SoundEvent> LORRAINOSAURUS_HURT = registerSoundEvent("lorrainosaurus_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> LORRAINOSAURUS_DEATH = registerSoundEvent("lorrainosaurus_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> LORRAINOSAURUS_IDLE = registerSoundEvent("lorrainosaurus_idle");

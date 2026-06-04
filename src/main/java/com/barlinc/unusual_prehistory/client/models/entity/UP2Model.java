@@ -60,7 +60,7 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
         if (!animationState.isStarted()) {
             return;
         }
-        float scale = Math.max(0, Math.min(1 - Math.abs(limbSwingAmount), 1));
+        float scale = Math.clamp(1 - Math.abs(limbSwingAmount), 0, 1);
         animationState.updateTime(ageInTicks, speed);
         KeyframeAnimations.animate(this, definition, animationState.getAccumulatedTime(), scale, UP2Model.ANIMATION_VECTOR_CACHE);
     }

@@ -965,6 +965,24 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/ichthyosaurus/dash_ready3")).volume(0.7F)
         );
 
+        this.sound(UP2SoundEvents.LEEDSICHTHYS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leedsichthys/death1")).volume(0.75F)
+        );
+        this.sound(UP2SoundEvents.LEEDSICHTHYS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leedsichthys/hurt1")).volume(0.5F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leedsichthys/hurt2")).volume(0.5F)
+        );
+        this.sound(UP2SoundEvents.LEEDSICHTHYS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leedsichthys/idle1")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leedsichthys/idle2")).volume(0.8F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leedsichthys/idle3")).volume(0.8F)
+        );
+        this.sound(UP2SoundEvents.LEEDSICHTHYS_SWIM,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leedsichthys/swim1")).volume(0.5F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leedsichthys/swim2")).volume(0.5F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/leedsichthys/swim3")).volume(0.5F)
+        );
+
         this.sound(UP2SoundEvents.LORRAINOSAURUS_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/lorrainosaurus/death1"))
         );

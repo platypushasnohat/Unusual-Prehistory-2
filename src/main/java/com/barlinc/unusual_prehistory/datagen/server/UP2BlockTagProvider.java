@@ -309,7 +309,9 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 CYCAD_STEM.get(),
                 CYCAD_CROWN.get(),
 
-                MOSSY_LEPIDODENDRON_LOG.get(), MOSSY_LEPIDODENDRON_WOOD.get()
+                MOSSY_LEPIDODENDRON_LOG.get(), MOSSY_LEPIDODENDRON_WOOD.get(),
+
+                LEEDSICHTHYS_SLICE_BLOCK.get()
         );
 
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(
@@ -320,7 +322,9 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 LEPIDODENDRON_LEAVES.get(),
                 METASEQUOIA_LEAVES.get(),
                 DAWN_METASEQUOIA_LEAVES.get(),
-                DUSK_METASEQUOIA_LEAVES.get()
+                DUSK_METASEQUOIA_LEAVES.get(),
+
+                LEEDSICHTHYS_SLICE_BLOCK.get()
         );
 
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(

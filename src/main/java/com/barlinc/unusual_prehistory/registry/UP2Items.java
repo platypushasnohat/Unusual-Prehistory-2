@@ -229,6 +229,7 @@ public class UP2Items {
     public static final DeferredItem<Item> GIANT_CAMPANILE_SPAWN_EGG = registerSpawnEggItem("giant_campanile", UP2Entities.GIANT_CAMPANILE, 0x854048, 0x5e1717);
     public static final DeferredItem<Item> HYNERPETON_SPAWN_EGG = registerSpawnEggItem("hynerpeton", UP2Entities.HYNERPETON, 0x292623, 0xefa32b);
     public static final DeferredItem<Item> ICHTHYOSAURUS_SPAWN_EGG = registerSpawnEggItem("ichthyosaurus", UP2Entities.ICHTHYOSAURUS, 0x4e5761, 0xd2c629);
+    public static final DeferredItem<Item> LEEDSICHTHYS_SPAWN_EGG = registerSpawnEggItem("leedsichthys", UP2Entities.LEEDSICHTHYS, 0x415778, 0x0f0f16);
     public static final DeferredItem<Item> LORRAINOSAURUS_SPAWN_EGG = registerSpawnEggItem("lorrainosaurus", UP2Entities.LORRAINOSAURUS, 0x4b3188, 0xcbdedd);
     public static final DeferredItem<Item> PROGNATHODON_SPAWN_EGG = registerSpawnEggItem("prognathodon", UP2Entities.PROGNATHODON, 0x181c2a, 0x5b9ba6);
     public static final DeferredItem<Item> RHIZODUS_SPAWN_EGG = registerSpawnEggItem("rhizodus", UP2Entities.RHIZODUS, 0x2b4426, 0x54adaa);
@@ -249,6 +250,7 @@ public class UP2Items {
     public static final DeferredItem<Item> PILLAR_FOSSIL = registerFossilItem("pillar"); // giant campanile
     public static final DeferredItem<Item> COMBUSTIBLE_FOSSIL = registerFossilItem("combustible"); // hynerpeton
     public static final DeferredItem<Item> FISH_REPTILE_FOSSIL = registerFossilItem("fish_reptile"); // ichthyosaurus
+    public static final DeferredItem<Item> GARGANTUAN_FOSSIL = registerFossilItem("gargantuan"); // leedsichthys
     public static final DeferredItem<Item> CLAMP_JAW_FOSSIL = registerFossilItem("clamp_jaw"); // lorrainosaurus
     public static final DeferredItem<Item> SURGE_FOSSIL = registerFossilItem("surge"); // prognathodon
     public static final DeferredItem<Item> WHISKERED_FOSSIL = registerFossilItem("whiskered"); // rhizodus
@@ -270,6 +272,8 @@ public class UP2Items {
     public static final DeferredItem<Item> FOUL_GROG_BOTTLE = registerItem("foul_grog_bottle", () -> new Item(new Item.Properties()));
 
     public static final DeferredItem<Item> BROWN_MUSHROOM_ON_A_STICK = registerItemNoLang("brown_mushroom_on_a_stick", () -> new BrownMushroomOnAStickItem((new Item.Properties()).durability(100), 1));
+
+    public static final DeferredItem<Item> LEEDSICHTHYS_SLICE = registerItem("leedsichthys_slice", () -> new Item(registerFoodValue(UP2FoodValues.LEEDSICHTHYS_SLICE)));
 
     public static final DeferredItem<Item> PLUSHIE_KIT = registerItem("plushie_kit", () -> new PlushieKitItem(new Item.Properties()));
 

@@ -207,6 +207,7 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> CONCAVENATOR_EGG = registerEggBlock("concavenator_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.CONCAVENATOR::get, 11, 15));
     public static final DeferredBlock<Block> GIANT_CAMPANILE_EGGS = registerEggBlock("giant_campanile_eggs", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.GIANT_CAMPANILE::get, 2));
     public static final DeferredBlock<Block> HYNERPETON_EGGS = registerWaterEggBlock("hynerpeton_eggs", () -> new WaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.HYNERPETON::get, 1));
+    public static final DeferredBlock<Block> LEEDSICHTHYS_ROE = registerEggBlock("leedsichthys_roe", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.LEEDSICHTHYS::get, 1));
     public static final DeferredBlock<Block> RHIZODUS_ROE = registerEggBlock("rhizodus_roe", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.RHIZODUS::get, 1));
     public static final DeferredBlock<Block> SPIKE_TOOTHED_SALMON_ROE = registerEggBlockNoLang("spike_toothed_salmon_roe", () -> new UnderwaterEggBlock(UP2BlockProperties.WATER_EGG, UP2Entities.SPIKE_TOOTHED_SALMON::get, 2));
     public static final DeferredBlock<Block> THERIZINOSAURUS_EGG = registerEggBlock("therizinosaurus_egg", () -> new EggBlock(UP2BlockProperties.EGG, UP2Entities.THERIZINOSAURUS::get, 16, 16));
@@ -237,6 +238,8 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> KENTROSAURUS_PLUSHIE = registerPlushieBlock("kentrosaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 8, UP2SoundEvents.KENTROSAURUS_IDLE.get()));
     public static final DeferredBlock<Block> MAJUNGASAURUS_PLUSHIE = registerPlushieBlock("majungasaurus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 10, 16, UP2SoundEvents.MAJUNGASAURUS_IDLE.get()));
     public static final DeferredBlock<Block> TARTUOSTEUS_PLUSHIE = registerPlushieBlock("tartuosteus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 4, UP2SoundEvents.JAWLESS_FISH_FLOP.get()));
+
+    public static final DeferredBlock<Block> LEEDSICHTHYS_SLICE_BLOCK = registerBlock("leedsichthys_slice_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).strength(0.6F).sound(SoundType.CORAL_BLOCK)));
 
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);

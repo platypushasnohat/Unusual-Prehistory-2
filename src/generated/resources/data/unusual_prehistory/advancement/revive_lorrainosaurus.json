@@ -1,5 +1,5 @@
 {
-  "parent": "unusual_prehistory:revive_ichthyosaurus",
+  "parent": "unusual_prehistory:revive_leedsichthys",
   "criteria": {
     "revive_lorrainosaurus": {
       "conditions": {

@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-02T22:25:06.9013573	Loot Tables
+// 1.21.1	2026-06-03T22:18:30.6976728	Loot Tables
 a8b8087aaf83961dd5b1aa40214588f3427fd9da data/unusual_prehistory/loot_table/blocks/aegirocassis_eggs.json
 0faf1bb4e2d155e8c124ced8904e28d4a35a8032 data/unusual_prehistory/loot_table/blocks/aethophyllum.json
 0333dfd698d0c6f42428b2d13c80d21b0e51fb41 data/unusual_prehistory/loot_table/blocks/ammonite_eggs.json
@@ -93,6 +93,7 @@ f5a0312b73960f46a08234b9584b24756c0e0cec data/unusual_prehistory/loot_table/bloc
 17fa12c3746097d9ffe1c296efacea9a3ac00f46 data/unusual_prehistory/loot_table/blocks/kimmeridgebrachypteraeschnidium_eggs.json
 4d64f0430dd05e60df25f0ef1d9aa95f904957cf data/unusual_prehistory/loot_table/blocks/large_horsetail.json
 4df67d9f7f0992ca9a2d49f337c85afec30e0b89 data/unusual_prehistory/loot_table/blocks/large_prototaxites_nub.json
+84392346eb5e51b55b1bfe19d3b746842cb14606 data/unusual_prehistory/loot_table/blocks/leedsichthys_roe.json
 013e6cd554eb4123877daff06edab969a86d64ec data/unusual_prehistory/loot_table/blocks/leefructus.json
 b42131ebbebfd2eebf6e46620f7ff3f6bb0f1807 data/unusual_prehistory/loot_table/blocks/lepidodendron_button.json
 a7d3fee0133f26f73ab80bbccc2175f7fd43975a data/unusual_prehistory/loot_table/blocks/lepidodendron_cone.json

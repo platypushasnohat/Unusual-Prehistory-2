@@ -457,6 +457,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.ICHTHYOSAURUS_DASH, "Ichthyosaurus dashes");
         this.sound(UP2SoundEvents.ICHTHYOSAURUS_DASH_READY, "Ichthyosaurus recovers");
 
+        this.sound(UP2SoundEvents.LEEDSICHTHYS_HURT, "Leedsichthys hurts");
+        this.sound(UP2SoundEvents.LEEDSICHTHYS_DEATH, "Leedsichthys dies");
+        this.sound(UP2SoundEvents.LEEDSICHTHYS_IDLE, "Leedsichthys rumbles");
+        this.sound(UP2SoundEvents.LEEDSICHTHYS_SWIM, "Leedsichthys swims");
+
         this.sound(UP2SoundEvents.LORRAINOSAURUS_HURT, "Lorrainosaurus hurts");
         this.sound(UP2SoundEvents.LORRAINOSAURUS_DEATH, "Lorrainosaurus dies");
         this.sound(UP2SoundEvents.LORRAINOSAURUS_IDLE, "Lorrainosaurus rumbles");
@@ -565,6 +570,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_kaprosuchus", "Boar Croc", "Revive a Kaprosuchus");
         this.translateAdvancement("revive_kentrosaurus", "Extra Pointy!", "Revive a Kentrosaurus");
         this.translateAdvancement("revive_kimmeridgebrachypteraeschnidium", "The man on the street will not be able to remember this.", "Revive a Kimmeridgebrachypteraeschnidium");
+        this.translateAdvancement("revive_leedsichthys", "Mouth Breather", "Revive a Leedsichthys");
         this.translateAdvancement("revive_leptictidium", "Plague Carriers", "Revive a Leptictidium");
         this.translateAdvancement("revive_lobe_finned_fish", "Shark Bait, Hoo Ha Ha!", "Revive a Lobe Finned Fish");
         this.translateAdvancement("revive_lorrainosaurus", "Cruel Sea", "Revive a Lorrainosaurus");

@@ -166,7 +166,8 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
         AdvancementHolder reviveKentrosaurus = reviveMobAdvancement(reviveCryptoclidus, UP2Blocks.KENTROSAURUS_EGG.get(), UP2Entities.KENTROSAURUS.get(), consumer, helper);
         AdvancementHolder reviveKimmeridgebrachypteraeschnidium = reviveMobAdvancement(reviveKentrosaurus, UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get(), UP2Entities.KIMMERIDGEBRACHYPTERAESCHNIDIUM.get(), consumer, helper);
         AdvancementHolder reviveIchthyosaurus = reviveMobAdvancement(reviveKimmeridgebrachypteraeschnidium, UP2Items.ICHTHYOSAURUS_EMBRYO.get(), UP2Entities.ICHTHYOSAURUS.get(), consumer, helper);
-        AdvancementHolder reviveLorrainosaurus = reviveMobAdvancement(reviveIchthyosaurus, UP2Items.LORRAINOSAURUS_EMBRYO.get(), UP2Entities.LORRAINOSAURUS.get(), consumer, helper);
+        AdvancementHolder reviveLeedsichthys = reviveMobAdvancement(reviveIchthyosaurus, UP2Blocks.LEEDSICHTHYS_ROE.get(), UP2Entities.LEEDSICHTHYS.get(), consumer, helper);
+        AdvancementHolder reviveLorrainosaurus = reviveMobAdvancement(reviveLeedsichthys, UP2Items.LORRAINOSAURUS_EMBRYO.get(), UP2Entities.LORRAINOSAURUS.get(), consumer, helper);
         AdvancementHolder reviveMetriorhynchus = reviveMobAdvancement(reviveLorrainosaurus, UP2Items.METRIORHYNCHUS_EMBRYO.get(), UP2Entities.METRIORHYNCHUS.get(), consumer, helper);
         AdvancementHolder revivePterodactylus = reviveMobAdvancement(reviveMetriorhynchus, UP2Items.PTERODACTYLUS_EGG.get(), UP2Entities.PTERODACTYLUS.get(), consumer, helper);
 

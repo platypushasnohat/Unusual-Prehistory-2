@@ -85,6 +85,8 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation GIANT_CAMPANILE = mainLayer("giant_campanile");
     public static final ModelLayerLocation HYNERPETON = mainLayer("hynerpeton");
     public static final ModelLayerLocation ICHTHYOSAURUS = mainLayer("ichthyosaurus");
+    public static final ModelLayerLocation LEEDSICHTHYS = mainLayer("leedsichthys");
+    public static final ModelLayerLocation LEEDSICHTHYS_BABY = mainLayer("leedsichthys_baby");
     public static final ModelLayerLocation LORRAINOSAURUS = mainLayer("lorrainosaurus");
     public static final ModelLayerLocation MAMMOTH = mainLayer("mammoth");
     public static final ModelLayerLocation PROGNATHODON = mainLayer("prognathodon");
@@ -96,6 +98,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation THERIZINOSAURUS_BABY = mainLayer("therizinosaurus_baby");
     public static final ModelLayerLocation TUSOTEUTHIS = mainLayer("tusoteuthis");
 
+    @SuppressWarnings("SameParameterValue")
     private static ModelLayerLocation registerLayer(String id, String name) {
         return new ModelLayerLocation(UnusualPrehistory2.modPrefix(id), name);
     }

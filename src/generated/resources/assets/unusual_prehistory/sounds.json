@@ -1404,6 +1404,62 @@
     ],
     "subtitle": "subtitles.large_dunkleosteus_bite"
   },
+  "leedsichthys_death": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/leedsichthys/death1",
+        "volume": 0.75
+      }
+    ],
+    "subtitle": "subtitles.leedsichthys_death"
+  },
+  "leedsichthys_hurt": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/leedsichthys/hurt1",
+        "volume": 0.5
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/leedsichthys/hurt2",
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.leedsichthys_hurt"
+  },
+  "leedsichthys_idle": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/leedsichthys/idle1",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/leedsichthys/idle2",
+        "volume": 0.8
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/leedsichthys/idle3",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.leedsichthys_idle"
+  },
+  "leedsichthys_swim": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/leedsichthys/swim1",
+        "volume": 0.5
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/leedsichthys/swim2",
+        "volume": 0.5
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/leedsichthys/swim3",
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.leedsichthys_swim"
+  },
   "leptictidium_death": {
     "sounds": [
       "unusual_prehistory:entity/mob/leptictidium/death1",

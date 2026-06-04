@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_leedsichthys_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:leedsichthys_roe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_leedsichthys_roe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

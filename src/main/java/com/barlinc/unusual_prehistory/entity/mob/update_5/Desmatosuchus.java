@@ -52,6 +52,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Desmatosuchus extends PrehistoricMob {
 
@@ -182,7 +183,7 @@ public class Desmatosuchus extends PrehistoricMob {
                 this.level().playSound(null, this, SoundEvents.SHOVEL_FLATTEN, SoundSource.PLAYERS, 1.0F, 1.0F);
                 this.gameEvent(GameEvent.BLOCK_DESTROY, player);
                 if (!this.level().isClientSide) {
-                    LootTable loottable = this.level().getServer().reloadableRegistries().getLootTable(this.getDirtType().getLootTable());
+                    LootTable loottable = Objects.requireNonNull(this.level().getServer()).reloadableRegistries().getLootTable(this.getDirtType().getLootTable());
                     List<ItemStack> items = loottable.getRandomItems((new LootParams.Builder((ServerLevel) this.level())).withParameter(LootContextParams.THIS_ENTITY, this).create(LootContextParamSets.PIGLIN_BARTER));
                     items.forEach(this::spawnItemOnBack);
                 }
@@ -193,7 +194,7 @@ public class Desmatosuchus extends PrehistoricMob {
                 this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
                 this.gameEvent(GameEvent.SHEAR, player);
                 if (!this.level().isClientSide) {
-                    LootTable loottable = this.level().getServer().reloadableRegistries().getLootTable(this.getDirtType().getLootTable());
+                    LootTable loottable = Objects.requireNonNull(this.level().getServer()).reloadableRegistries().getLootTable(this.getDirtType().getLootTable());
                     List<ItemStack> items = loottable.getRandomItems((new LootParams.Builder((ServerLevel) this.level())).withParameter(LootContextParams.THIS_ENTITY, this).create(LootContextParamSets.PIGLIN_BARTER));
                     items.forEach(this::spawnItemOnBack);
                 }

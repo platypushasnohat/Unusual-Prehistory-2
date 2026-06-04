@@ -44,6 +44,7 @@ public class GiantCampanilePart extends PartEntity<GiantCampanile> {
 	public void push(double x, double y, double z) {
 		this.getParent().push(x, y, z);
 	}
+
 	public boolean interactable() {
 		return true;
 	}
