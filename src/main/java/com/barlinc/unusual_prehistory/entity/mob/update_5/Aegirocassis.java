@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_5.aegirocassis;
+package com.barlinc.unusual_prehistory.entity.mob.update_5;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
@@ -11,6 +11,7 @@ import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavig
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterBoundNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmbientMob;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -57,17 +58,17 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Aegirocassis.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> SPAWN_CHILDREN_COOLDOWN = SynchedEntityData.defineId(Aegirocassis.class, EntityDataSerializers.INT);
 
-    public final AegirocassisPart headPart;
-    public final AegirocassisPart tailPart1;
-    public final AegirocassisPart tailPart2;
+    private final AegirocassisPart headPart;
+    private final AegirocassisPart tailPart1;
+    private final AegirocassisPart tailPart2;
     private final AegirocassisPart[] allParts;
 
     private boolean wasPreviouslyBaby;
 
-    private float fakeYRot = 0;
     @SuppressWarnings("all")
     private float[] yawBuffer = new float[128];
     private int yawPointer = -1;
+    private float fakeYRot = 0;
 
     public float prevGlowProgress;
     public float glowProgress;
@@ -91,7 +92,6 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
         this.tailPart1 = new AegirocassisPart(this, 3.5F, 3.9F);
         this.tailPart2 = new AegirocassisPart(this, 3.5F, 3.9F);
         this.allParts = new AegirocassisPart[]{headPart, tailPart1, tailPart2};
-        this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
         this.fakeYRot = this.getYRot();
     }
 
@@ -122,14 +122,6 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
     @Override
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
         return this.level().isNight() ? MobUtils.getSurfacePathfindingFavor(pos, level) : MobUtils.getDepthPathfindingFavor(pos, level);
-    }
-
-    @Override
-    public void setId(int id) {
-        super.setId(id);
-        for (int i = 0; i < this.allParts.length; i++) {
-            this.allParts[i].setId(id + i + 1);
-        }
     }
 
     @Override
@@ -192,8 +184,8 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
         UnusualPrehistory2.PROXY.clearSoundCacheFor(this);
         super.remove(removalReason);
         if (allParts != null) {
-            for (AegirocassisPart aegirocassisPart : allParts) {
-                aegirocassisPart.remove(RemovalReason.KILLED);
+            for (AegirocassisPart part : allParts) {
+                part.remove(RemovalReason.KILLED);
             }
         }
     }
@@ -480,7 +472,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
 
     @Override
     public int getAmbientSoundInterval() {
-        return 350;
+        return 200;
     }
 
     @Nullable
@@ -491,7 +483,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
 
     @Override
     public float getSoundVolume() {
-        return this.isBaby() ? 1.0F : 4.0F;
+        return this.isBaby() ? 1.0F : 3.0F;
     }
 
     // Goals
@@ -541,6 +533,13 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
             Vec3 glide = new Vec3(movement.x, vec3.y, movement.z);
             this.aegirocassis.setDeltaMovement(glide);
             this.aegirocassis.setYRot(((float) Mth.atan2(aegirocassis.getMotionDirection().getStepZ(), aegirocassis.getMotionDirection().getStepX())) * Mth.RAD_TO_DEG - 90F);
+        }
+    }
+
+    private static class AegirocassisPart extends PrehistoricPartEntity<Aegirocassis> {
+
+        public AegirocassisPart(Aegirocassis parent, float width, float height) {
+            super(parent, width, height);
         }
     }
 }

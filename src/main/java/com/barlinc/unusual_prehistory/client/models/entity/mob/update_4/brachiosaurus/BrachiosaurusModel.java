@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_4.brachio
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_4.BrachiosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.update_4.brachiosaurus.Brachiosaurus;
+import com.barlinc.unusual_prehistory.entity.mob.update_4.Brachiosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

@@ -1,9 +1,10 @@
- package com.barlinc.unusual_prehistory.entity.mob.update_4.brachiosaurus;
+ package com.barlinc.unusual_prehistory.entity.mob.update_4;
 
  import com.barlinc.unusual_prehistory.UnusualPrehistory2;
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
  import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
  import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -49,11 +50,11 @@
      private static final EntityDataAccessor<Integer> STOMP_COOLDOWN = SynchedEntityData.defineId(Brachiosaurus.class, EntityDataSerializers.INT);
 
      private final BrachiosaurusPart[] allParts;
-     public final BrachiosaurusPart headPart;
-     public final BrachiosaurusPart neckPart1;
-     public final BrachiosaurusPart neckPart2;
-     public final BrachiosaurusPart tailPart1;
-     public final BrachiosaurusPart tailPart2;
+     private final BrachiosaurusPart headPart;
+     private final BrachiosaurusPart neckPart1;
+     private final BrachiosaurusPart neckPart2;
+     private final BrachiosaurusPart tailPart1;
+     private final BrachiosaurusPart tailPart2;
 
      private double lastStompX = 0;
      private double lastStompZ = 0;
@@ -84,7 +85,6 @@
          this.tailPart1 = new BrachiosaurusPart(this, 3.0F, 3.0F);
          this.tailPart2 = new BrachiosaurusPart(this, 3.0F, 1.5F);
          this.allParts = new BrachiosaurusPart[]{headPart, neckPart1, neckPart2, tailPart1, tailPart2};
-         this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -114,14 +114,6 @@
          });
          this.goalSelector.addGoal(7, new IdleAnimationGoal(this, 100, 2, false, 0.001F));
          this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
-     }
-
-     @Override
-     public void setId(int i1) {
-         super.setId(i1);
-         for (int i = 0; i < this.allParts.length; i++) {
-             this.allParts[i].setId(i1 + i + 1);
-         }
      }
 
      @Override
@@ -235,8 +227,8 @@
          if (wasPreviouslyBaby != this.isBaby()) {
              this.wasPreviouslyBaby = this.isBaby();
              this.refreshDimensions();
-             for (BrachiosaurusPart brachiosaurusPart : this.allParts) {
-                 brachiosaurusPart.refreshDimensions();
+             for (BrachiosaurusPart part : this.allParts) {
+                 part.refreshDimensions();
              }
          }
 
@@ -450,7 +442,9 @@
 
      @Override
      protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
-         if (this.isBaby()) super.playStepSound(pos, state);
+         if (this.isBaby()) {
+             super.playStepSound(pos, state);
+         }
      }
 
      @Override
@@ -460,7 +454,7 @@
 
      @Override
      public int getAmbientSoundInterval() {
-         return 360;
+         return 200;
      }
 
      @Override
@@ -534,6 +528,13 @@
                  this.brachiosaurus.setAttackState(0);
                  this.brachiosaurus.setStompCooldown(24 + brachiosaurus.getRandom().nextInt(20));
              }
+         }
+     }
+
+     private static class BrachiosaurusPart extends PrehistoricPartEntity<Brachiosaurus> {
+
+         public BrachiosaurusPart(Brachiosaurus parent, float width, float height) {
+             super(parent, width, height);
          }
      }
  }

@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.items;
 
 import com.barlinc.unusual_prehistory.entity.mob.update_1.Kimmeridgebrachypteraeschnidium;
-import com.barlinc.unusual_prehistory.entity.mob.update_5.aegirocassis.Aegirocassis;
+import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;

@@ -1,10 +1,12 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_6.leedsichthys;
+package com.barlinc.unusual_prehistory.entity.mob.update_6;
 
-import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -19,7 +21,10 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
@@ -39,9 +44,9 @@ import javax.annotation.Nullable;
 
 public class Leedsichthys extends PrehistoricAquaticMob {
 
-    public final LeedsichthysPart headPart;
-    public final LeedsichthysPart tailPart1;
-    public final LeedsichthysPart tailPart2;
+    private final LeedsichthysPart headPart;
+    private final LeedsichthysPart tailPart1;
+    private final LeedsichthysPart tailPart2;
     private final LeedsichthysPart[] allParts;
 
     private boolean wasPreviouslyBaby;
@@ -49,21 +54,20 @@ public class Leedsichthys extends PrehistoricAquaticMob {
     public final SmoothAnimationState gulpAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState();
 
-    private float fakeYRot = 0;
     @SuppressWarnings("all")
     private float[] yawBuffer = new float[128];
     private int yawPointer = -1;
+    private float fakeYRot;
 
     public Leedsichthys(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
         this.switchNavigator(false);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 45, 4, 0.02F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 6);
-        this.headPart = new LeedsichthysPart(this, 4.5F, 4.5F);
-        this.tailPart1 = new LeedsichthysPart(this, 4.5F, 4.5F);
-        this.tailPart2 = new LeedsichthysPart(this, 4.5F, 4.5F);
+        this.headPart = new LeedsichthysPart(this);
+        this.tailPart1 = new LeedsichthysPart(this);
+        this.tailPart2 = new LeedsichthysPart(this);
         this.allParts = new LeedsichthysPart[]{headPart, tailPart1, tailPart2};
-        this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
         this.fakeYRot = this.getYRot();
     }
 
@@ -92,14 +96,6 @@ public class Leedsichthys extends PrehistoricAquaticMob {
     @Override
     public int getHeadRotSpeed() {
         return 4;
-    }
-
-    @Override
-    public void setId(int id) {
-        super.setId(id);
-        for (int i = 0; i < this.allParts.length; i++) {
-            this.allParts[i].setId(id + i + 1);
-        }
     }
 
     private boolean canPlayIdles(Entity entity) {
@@ -166,8 +162,8 @@ public class Leedsichthys extends PrehistoricAquaticMob {
         if (wasPreviouslyBaby != this.isBaby()) {
             this.wasPreviouslyBaby = this.isBaby();
             this.refreshDimensions();
-            for (LeedsichthysPart leedsichthysPart : this.allParts) {
-                leedsichthysPart.refreshDimensions();
+            for (LeedsichthysPart part : this.allParts) {
+                part.refreshDimensions();
             }
         }
     }
@@ -215,11 +211,10 @@ public class Leedsichthys extends PrehistoricAquaticMob {
 
     @Override
     public void remove(@NotNull RemovalReason removalReason) {
-        UnusualPrehistory2.PROXY.clearSoundCacheFor(this);
         super.remove(removalReason);
         if (allParts != null) {
-            for (LeedsichthysPart leedsichthysPart : allParts) {
-                leedsichthysPart.remove(RemovalReason.KILLED);
+            for (LeedsichthysPart part : allParts) {
+                part.remove(RemovalReason.KILLED);
             }
         }
     }
@@ -307,5 +302,12 @@ public class Leedsichthys extends PrehistoricAquaticMob {
     @Override
     public float getSoundVolume() {
         return this.isBaby() ? 0.5F : 2.0F;
+    }
+
+    private static class LeedsichthysPart extends PrehistoricPartEntity<Leedsichthys> {
+
+        public LeedsichthysPart(Leedsichthys parent) {
+            super(parent, 4.5F, 4.5F);
+        }
     }
 }

@@ -5,7 +5,7 @@ import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.aegirocassis.AegirocassisBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_5.aegirocassis.AegirocassisModel;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_5.layers.AegirocassisGlowLayer;
-import com.barlinc.unusual_prehistory.entity.mob.update_5.aegirocassis.Aegirocassis;
+import com.barlinc.unusual_prehistory.entity.mob.update_5.Aegirocassis;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;

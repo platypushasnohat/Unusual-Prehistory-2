@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.leedsic
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.LeedsichthysAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.leedsichthys.Leedsichthys;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.Leedsichthys;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;

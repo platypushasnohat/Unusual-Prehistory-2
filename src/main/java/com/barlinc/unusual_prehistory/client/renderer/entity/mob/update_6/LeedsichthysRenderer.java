@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.leedsichthys.LeedsichthysBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.leedsichthys.LeedsichthysModel;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.leedsichthys.Leedsichthys;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.Leedsichthys;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;

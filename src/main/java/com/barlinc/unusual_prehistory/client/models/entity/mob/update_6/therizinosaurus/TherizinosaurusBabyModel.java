@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.therizi
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.TherizinosaurusAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.therizinosaurus.Therizinosaurus;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.Therizinosaurus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;

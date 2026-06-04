@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.RhizodusModel;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.rhizodus.Rhizodus;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.Rhizodus;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

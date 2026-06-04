@@ -1,4 +1,4 @@
- package com.barlinc.unusual_prehistory.entity.mob.update_6.giant_campanile;
+ package com.barlinc.unusual_prehistory.entity.mob.update_6;
 
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.EnterWaterGoal;
@@ -6,6 +6,7 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.RandomUnderwaterSitGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
  import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
  import com.barlinc.unusual_prehistory.registry.UP2Blocks;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -19,6 +20,7 @@
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
+ import net.minecraft.sounds.SoundSource;
  import net.minecraft.tags.FluidTags;
  import net.minecraft.util.Mth;
  import net.minecraft.world.damagesource.DamageSource;
@@ -67,7 +69,6 @@
          this.shellPart3 = new GiantCampanilePart(this, 1.25F, 2.25F);
          this.shellPart4 = new GiantCampanilePart(this, 1.0F, 2.0F);
          this.allParts = new GiantCampanilePart[]{shellPart1, shellPart2, shellPart3, shellPart4};
-         this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -86,14 +87,6 @@
          this.goalSelector.addGoal(2, new PrehistoricRandomStrollGoal(this, 1.0D, false));
          this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(4, new RandomUnderwaterSitGoal(this));
-     }
-
-     @Override
-     public void setId(int id) {
-         super.setId(id);
-         for (int i = 0; i < this.allParts.length; i++) {
-             this.allParts[i].setId(id + i + 1);
-         }
      }
 
      @Override
@@ -173,8 +166,8 @@
          if (wasPreviouslyBaby != this.isBaby()) {
              this.wasPreviouslyBaby = this.isBaby();
              this.refreshDimensions();
-             for (GiantCampanilePart giantCampanilePart : this.allParts) {
-                 giantCampanilePart.refreshDimensions();
+             for (GiantCampanilePart part : this.allParts) {
+                 part.refreshDimensions();
              }
          }
 
@@ -242,6 +235,16 @@
      }
 
      @Override
+     public void remove(@NotNull RemovalReason removalReason) {
+         super.remove(removalReason);
+         if (allParts != null) {
+             for (GiantCampanilePart part : allParts) {
+                 part.remove(RemovalReason.KILLED);
+             }
+         }
+     }
+
+     @Override
      public boolean isMultipartEntity() {
          return true;
      }
@@ -297,5 +300,21 @@
      @Override
      protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
          this.playSound(UP2SoundEvents.GIANT_CAMPANILE_STEP.get(), 0.12F, 1.0F);
+     }
+
+     private static class GiantCampanilePart extends PrehistoricPartEntity<GiantCampanile> {
+
+         public GiantCampanilePart(GiantCampanile parent, float width, float height) {
+             super(parent, width, height);
+         }
+
+         @Override
+         public boolean hurt(@NotNull DamageSource source, float amount) {
+             GiantCampanile parent = this.getParent();
+             if (!this.level().isClientSide) {
+                 this.level().playSound(null, parent.blockPosition(), UP2SoundEvents.GIANT_CAMPANILE_BLOCK.get(), SoundSource.NEUTRAL, 1.0F, parent.getVoicePitch());
+             }
+             return false;
+         }
      }
  }

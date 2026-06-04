@@ -1,7 +1,8 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_6.therizinosaurus;
+package com.barlinc.unusual_prehistory.entity.mob.update_6;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -73,7 +74,6 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         this.vibrationUser = new VibrationUser(this);
         this.vibrationData = new VibrationSystem.Data();
         this.movementListener = new DynamicGameEventListener<>(new MovementListener(this, vibrationUser.getPositionSource()));
-        this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
     }
 
     @Override
@@ -97,14 +97,6 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.2F)
                 .add(Attributes.STEP_HEIGHT, 1.5D);
-    }
-
-    @Override
-    public void setId(int id) {
-        super.setId(id);
-        for (int i = 0; i < this.allParts.length; i++) {
-            this.allParts[i].setId(id + i + 1);
-        }
     }
 
     @Override
@@ -166,8 +158,8 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         if (wasPreviouslyBaby != this.isBaby()) {
             this.wasPreviouslyBaby = this.isBaby();
             this.refreshDimensions();
-            for (TherizinosaurusPart therizinosaurusPart : this.allParts) {
-                therizinosaurusPart.refreshDimensions();
+            for (TherizinosaurusPart part : this.allParts) {
+                part.refreshDimensions();
             }
         }
 
@@ -255,6 +247,16 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
             this.allParts[l].xOld = vec3[l].x;
             this.allParts[l].yOld = vec3[l].y;
             this.allParts[l].zOld = vec3[l].z;
+        }
+    }
+
+    @Override
+    public void remove(@NotNull RemovalReason removalReason) {
+        super.remove(removalReason);
+        if (allParts != null) {
+            for (TherizinosaurusPart part : allParts) {
+                part.remove(RemovalReason.KILLED);
+            }
         }
     }
 
@@ -466,6 +468,13 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
             } else {
                 return false;
             }
+        }
+    }
+
+    private static class TherizinosaurusPart extends PrehistoricPartEntity<Therizinosaurus> {
+
+        public TherizinosaurusPart(Therizinosaurus parent, float width, float height) {
+            super(parent, width, height);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_6.rhizodus;
+package com.barlinc.unusual_prehistory.entity.mob.update_6;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
@@ -7,6 +7,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveC
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -89,7 +90,6 @@ public class Rhizodus extends AmphibiousMob {
         this.tailPart1 = new RhizodusPart(this);
         this.tailPart2 = new RhizodusPart(this);
         this.allParts = new RhizodusPart[]{headPart, tailPart1, tailPart2};
-        this.setId(ENTITY_COUNTER.getAndAdd(allParts.length + 1) + 1);
         this.fixupDimensions();
     }
 
@@ -150,14 +150,6 @@ public class Rhizodus extends AmphibiousMob {
             MobUtils.travelInWater(this, travelVector);
         } else {
             super.travel(travelVector);
-        }
-    }
-
-    @Override
-    public void setId(int id) {
-        super.setId(id);
-        for (int i = 0; i < this.allParts.length; i++) {
-            this.allParts[i].setId(id + i + 1);
         }
     }
 
@@ -292,6 +284,16 @@ public class Rhizodus extends AmphibiousMob {
         }
     }
 
+    @Override
+    public void remove(@NotNull RemovalReason removalReason) {
+        super.remove(removalReason);
+        if (allParts != null) {
+            for (RhizodusPart part : allParts) {
+                part.remove(RemovalReason.KILLED);
+            }
+        }
+    }
+
     private Vec3 rotateOffsetVec(Vec3 offset, float xRot, float yRot) {
         return offset.xRot(-xRot * ((float) Math.PI / 180F)).yRot(-yRot * ((float) Math.PI / 180F));
     }
@@ -315,8 +317,8 @@ public class Rhizodus extends AmphibiousMob {
         double y = this.getY();
         double z = this.getZ();
         super.refreshDimensions();
-        for (RhizodusPart rhizodusPart : this.allParts) {
-            rhizodusPart.refreshDimensions();
+        for (RhizodusPart part : this.allParts) {
+            part.refreshDimensions();
         }
         this.setPos(x, y, z);
     }
@@ -562,6 +564,13 @@ public class Rhizodus extends AmphibiousMob {
         @Override
         public boolean canContinueToUse() {
             return !rhizodus.isInWaterOrBubble() && super.canUse();
+        }
+    }
+
+    private static class RhizodusPart extends PrehistoricPartEntity<Rhizodus> {
+
+        public RhizodusPart(Rhizodus parent) {
+            super(parent, 1.7F, 1.8F);
         }
     }
 }
