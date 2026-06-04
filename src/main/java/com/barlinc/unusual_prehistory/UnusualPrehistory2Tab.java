@@ -66,6 +66,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(TARTUOSTEUS_SPAWN_EGG.get());
                         output.accept(TELECREX_SPAWN_EGG.get());
                         output.accept(THERIZINOSAURUS_SPAWN_EGG.get());
+                        output.accept(THYLACINE_SPAWN_EGG.get());
                         output.accept(TUSOTEUTHIS_SPAWN_EGG.get());
                         output.accept(ULUGHBEGSAURUS_SPAWN_EGG.get());
                         output.accept(WOOLLY_MAMMOTH_SPAWN_EGG.get());

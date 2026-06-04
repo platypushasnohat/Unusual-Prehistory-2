@@ -17,7 +17,7 @@ public class WoollyMammothRenderer extends MobRenderer<WoollyMammoth, WoollyMamm
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/woolly_mammoth.png");
 
     public WoollyMammothRenderer(EntityRendererProvider.Context context) {
-        super(context, new WoollyMammothModel(context.bakeLayer(UP2ModelLayers.MAMMOTH)), 1.5F);
+        super(context, new WoollyMammothModel(context.bakeLayer(UP2ModelLayers.WOOLLY_MAMMOTH)), 1.5F);
     }
 
     @Override
