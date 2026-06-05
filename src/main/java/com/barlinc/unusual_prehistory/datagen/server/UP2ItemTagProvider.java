@@ -305,7 +305,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 AGED_FEATHER.get(),
                 MOLAR_FOSSIL.get(),
                 ROT_FOSSIL.get(),
-                PILLAR_FOSSIL.get()
+                PILLAR_FOSSIL.get(),
+                STRIPED_PELT.get()
         );
         this.tag(UP2ItemTags.PLANT_FOSSILS).add(
                 QUILLWORT_FOSSIL.get(),
@@ -377,7 +378,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 TELECREX_EGG.get(),
                 WOOLLY_MAMMOTH_EMBRYO.get(),
                 UP2Blocks.SPIKE_TOOTHED_SALMON_ROE.asItem(),
-                UP2Blocks.GIANT_CAMPANILE_EGGS.asItem()
+                UP2Blocks.GIANT_CAMPANILE_EGGS.asItem(),
+                THYLACINE_EMBRYO.get()
         );
         this.tag(UP2ItemTags.EGGS)
                 .addTag(UP2ItemTags.PALEOZOIC_EGGS)
@@ -437,6 +439,13 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 UP2ItemTags.CONCAVENATOR_RED_SAND_ARMOR_ITEMS,
                 UP2ItemTags.CONCAVENATOR_SOUL_SAND_ARMOR_ITEMS
         );
+
+        this.tag(UP2ItemTags.TAMES_THYLACINE).add(
+                Items.COOKED_CHICKEN,
+                Items.CHICKEN
+        );
+
+        this.tag(UP2ItemTags.TEMPTS_THYLACINE).addTags(UP2ItemTags.TAMES_THYLACINE);
 
         this.tag(UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD).add(
                 Items.SWEET_BERRIES

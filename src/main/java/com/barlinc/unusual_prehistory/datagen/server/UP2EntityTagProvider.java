@@ -237,6 +237,11 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 CARNOTAURUS.get()
         );
 
+        this.tag(UP2EntityTags.THYLACINE_AVOIDS).add(
+                EntityType.WOLF,
+                EntityType.FOX
+        );
+
         this.tag(UP2EntityTags.CRYPTOCLIDUS_TARGETS).add(
                 EntityType.SQUID, EntityType.GLOW_SQUID, EntityType.COD, EntityType.TROPICAL_FISH
         );
@@ -258,6 +263,11 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
         );
         this.tag(UP2EntityTags.PROGNATHODON_FIGHT_TARGETS).add(
                 PROGNATHODON.get()
+        );
+
+        this.tag(UP2EntityTags.THYLACINE_TARGETS).add(
+                EntityType.CHICKEN,
+                EntityType.PARROT
         );
 
         // Minecraft

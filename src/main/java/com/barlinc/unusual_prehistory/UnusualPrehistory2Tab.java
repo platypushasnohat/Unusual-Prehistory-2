@@ -238,6 +238,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(MOSSY_FOSSIL.get()); // tartuosteus
                         output.accept(PLUMAGE_FOSSIL.get()); // telecrex
                         output.accept(SCYTHE_FOSSIL.get()); // therizinosaurus
+                        output.accept(STRIPED_PELT.get()); // thylacine
                         output.accept(DUBIOUS_FOSSIL.get()); // ulughbegsaurus
                         output.accept(MOLAR_FOSSIL.get()); // woolly mammoth
 
@@ -282,6 +283,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.TARTUOSTEUS_ROE.get());
                         output.accept(TELECREX_EGG.get());
                         output.accept(UP2Blocks.THERIZINOSAURUS_EGG.get());
+                        output.accept(THYLACINE_EMBRYO.get());
                         output.accept(UP2Blocks.ULUGHBEGSAURUS_EGG.get());
                         output.accept(WOOLLY_MAMMOTH_EMBRYO.get());
 

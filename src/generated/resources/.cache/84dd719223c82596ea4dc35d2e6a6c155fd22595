@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-04T17:14:36.4968244	Item Models: unusual_prehistory
+// 1.21.1	2026-06-04T18:34:24.8612685	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -195,6 +195,7 @@ de753ddb1d9c48b2e8eb2a0a8c2e1f807d1445ab assets/unusual_prehistory/models/item/s
 bafe33da0c1da6341b75d3d71aa5a31f9d78204b assets/unusual_prehistory/models/item/stethacanthus_bucket.json
 d9b567c2535f9ad71fec716a9eb356c0649688f1 assets/unusual_prehistory/models/item/stethacanthus_sac.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/stethacanthus_spawn_egg.json
+3f0011c003d6804c6f4aa7a65efc8b5d912f9578 assets/unusual_prehistory/models/item/striped_pelt.json
 01ed97914fe3a448fd6f89fdf20d39f6a7ec4544 assets/unusual_prehistory/models/item/surge_fossil.json
 0e443da1696d7dd760ba7b27a395c4541cc0c557 assets/unusual_prehistory/models/item/sweet_grog_bottle.json
 98c3fcbb4daa1049985090b78782071bd00fc5fe assets/unusual_prehistory/models/item/talpanas_egg.json
@@ -210,6 +211,7 @@ a510bd0560ebfd74a42542df95091591660e9cca assets/unusual_prehistory/models/item/t
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/therizinosaurus_spawn_egg.json
 df5da19eb503e954d2e8aad48d373678b74527ff assets/unusual_prehistory/models/item/thermal_fossil.json
 c111c9d0a56413212a7951f94d70ab2158dd9d44 assets/unusual_prehistory/models/item/thunderous_fossil.json
+ce48789acc5750b414aeb23d0a569790dbfee3ae assets/unusual_prehistory/models/item/thylacine_embryo.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/thylacine_spawn_egg.json
 f084cdf7338944471f771076e5dea4864e33b507 assets/unusual_prehistory/models/item/trunk_mouse_fossil.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/tusoteuthis_spawn_egg.json

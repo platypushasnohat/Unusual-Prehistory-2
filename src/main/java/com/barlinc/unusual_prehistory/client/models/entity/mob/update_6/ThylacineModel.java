@@ -6,7 +6,6 @@ import com.barlinc.unusual_prehistory.entity.mob.update_6.Thylacine;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -101,16 +100,39 @@ public class ThylacineModel extends UP2Model<Thylacine> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
 
-        this.animateWalk(ThylacineAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
-		this.animateIdleSmooth(entity.idleAnimationState, ThylacineAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
+        if (!entity.isInWaterOrBubble() && !entity.isEepy() && !entity.isSitting() && !entity.isLeaping()) {
+            if (entity.isBipedal()) {
+                if (entity.isRunning()) {
+                    this.animateWalk(ThylacineAnimations.RUN_BIPEDAL, limbSwing, limbSwingAmount, 1.5F, 3);
+                } else {
+                    this.animateWalk(ThylacineAnimations.WALK_BIPEDAL, limbSwing, limbSwingAmount, 2, 4);
+                }
+            } else {
+                if (entity.isRunning()) {
+                    this.animateWalk(ThylacineAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
+                } else {
+                    this.animateWalk(ThylacineAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+                }
+            }
+        }
+
+        this.animateIdleSmooth(entity.idleAnimationState, ThylacineAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, entity.isRunning() ? 3 : 4);
+        this.animateIdleSmooth(entity.idleBipedalAnimationState, ThylacineAnimations.IDLE_BIPEDAL, ageInTicks, partialTicks, limbSwingAmount, entity.isRunning() ? 3 : 4);
+        this.animateSmooth(entity.swimAnimationState, ThylacineAnimations.SWIM, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eepyAnimationState, ThylacineAnimations.SLEEP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.sitAnimationState, ThylacineAnimations.SIT, ageInTicks, partialTicks);
+        this.animateSmooth(entity.sniffAnimationState, ThylacineAnimations.IDLE_SNIFF_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.yawnAnimationState, ThylacineAnimations.YAWN, ageInTicks, partialTicks);
+        this.animateSmooth(entity.fallAnimationState, ThylacineAnimations.JUMP_DOWN, ageInTicks, partialTicks);
+        this.animateSmooth(entity.jumpAnimationState, ThylacineAnimations.JUMP_UP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.chewAnimationState, ThylacineAnimations.CHEW_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attackAnimationState, ThylacineAnimations.BITE_BLEND, ageInTicks, partialTicks);
 
         if (this.young) {
             this.applyStatic(ThylacineAnimations.BABY_TRANSFORM);
         }
 
         this.faceTarget(entity, netHeadYaw, headPitch, 2, head);
-        float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail.yRot = Mth.lerp(0.2F, this.tail.yRot, tailYaw * 0.15F);
 	}
 
 	@Override

@@ -41,7 +41,6 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.leedsich
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.leedsichthys.LeedsichthysModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.therizinosaurus.TherizinosaurusBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.therizinosaurus.TherizinosaurusModel;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.ThylacineModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
 import com.barlinc.unusual_prehistory.client.renderer.block.PlushieBlockRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.layers.UP2PotionEffectLayer;

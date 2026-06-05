@@ -257,6 +257,7 @@ public class UP2Items {
     public static final DeferredItem<Item> WHISKERED_FOSSIL = registerFossilItem("whiskered"); // rhizodus
     public static final DeferredItem<Item> ROT_FOSSIL = registerFossilItem("rot"); // spike-toothed salmon
     public static final DeferredItem<Item> SCYTHE_FOSSIL = registerFossilItem("scythe"); // therizinosaurus
+    public static final DeferredItem<Item> STRIPED_PELT = registerItem("striped_pelt", () -> new Item(new Item.Properties().rarity(UP2EnumProxy.FOSSIL.getValue()))); // thylacine
     public static final DeferredItem<Item> MOLAR_FOSSIL = registerFossilItem("molar"); // woolly mammoth
 
     public static final DeferredItem<Item> BRONTOSCORPIO_EMBRYO = registerEmbryoItem("brontoscorpio", UP2Entities.BRONTOSCORPIO);
@@ -264,6 +265,7 @@ public class UP2Items {
     public static final DeferredItem<Item> ICHTHYOSAURUS_EMBRYO = registerEmbryoItem("ichthyosaurus", UP2Entities.ICHTHYOSAURUS);
     public static final DeferredItem<Item> LORRAINOSAURUS_EMBRYO = registerEmbryoItem("lorrainosaurus", UP2Entities.LORRAINOSAURUS);
     public static final DeferredItem<Item> PROGNATHODON_EMBRYO = registerEmbryoItem("prognathodon", UP2Entities.PROGNATHODON);
+    public static final DeferredItem<Item> THYLACINE_EMBRYO = registerEmbryoItem("thylacine", UP2Entities.THYLACINE);
     public static final DeferredItem<Item> WOOLLY_MAMMOTH_EMBRYO = registerEmbryoItem("woolly_mammoth", UP2Entities.WOOLLY_MAMMOTH);
 
     public static final DeferredItem<Item> HYNERPETON_BUCKET = registerItemNoLang("hynerpeton_bucket", () -> new UP2MobBucketItem(UP2Entities.HYNERPETON.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)));

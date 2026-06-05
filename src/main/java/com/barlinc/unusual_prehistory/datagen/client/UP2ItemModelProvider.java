@@ -194,6 +194,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 WHISKERED_FOSSIL,
                 ROT_FOSSIL,
                 SCYTHE_FOSSIL,
+                STRIPED_PELT,
 
                 UP2Blocks.AMMONITE_EGGS,
                 BRONTOSCORPIO_EMBRYO,
@@ -207,6 +208,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 LORRAINOSAURUS_EMBRYO,
                 WOOLLY_MAMMOTH_EMBRYO,
                 PROGNATHODON_EMBRYO,
+                THYLACINE_EMBRYO,
                 UP2Blocks.SPIKE_TOOTHED_SALMON_ROE,
                 UP2Blocks.THERIZINOSAURUS_EGG,
 

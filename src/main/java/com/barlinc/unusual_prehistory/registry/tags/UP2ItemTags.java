@@ -149,6 +149,9 @@ public class UP2ItemTags {
     public static final TagKey<Item> CONCAVENATOR_RED_SAND_ARMOR_ITEMS = modItemTag("concavenator_red_sand_armor_items");
     public static final TagKey<Item> CONCAVENATOR_SOUL_SAND_ARMOR_ITEMS = modItemTag("concavenator_soul_sand_armor_items");
 
+    public static final TagKey<Item> TAMES_THYLACINE = modItemTag("tames_thylacine");
+    public static final TagKey<Item> TEMPTS_THYLACINE = modItemTag("tempts_thylacine");
+
     public static final TagKey<Item> SWEET_COTYLORHYNCHUS_FOOD = modItemTag("sweet_cotylorhynchus_food");
     public static final TagKey<Item> FOUL_COTYLORHYNCHUS_FOOD = modItemTag("foul_cotylorhynchus_food");
 

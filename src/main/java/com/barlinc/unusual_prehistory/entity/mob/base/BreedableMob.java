@@ -36,7 +36,7 @@ public abstract class BreedableMob extends PrehistoricMob {
 
     @Override
     public boolean canFallInLove() {
-        return true;
+        return this.getInLoveTime() <= 0;
     }
 
     @Override
