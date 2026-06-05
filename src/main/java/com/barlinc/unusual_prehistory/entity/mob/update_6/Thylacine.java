@@ -423,7 +423,7 @@ public class Thylacine extends BreedableMob implements LeapingMob {
                     target.discard();
                     this.thylacine.gameEvent(GameEvent.EAT);
                     this.thylacine.playSound(thylacine.getEatingSound(), thylacine.getSoundVolume(), thylacine.getVoicePitch());
-                    int chewTime = 2400;
+                    int chewTime = 1800;
                     if (thylacine.hasEffect(MobEffects.MOVEMENT_SPEED)) {
                         chewTime /= (2 + Objects.requireNonNull(thylacine.getEffect(MobEffects.MOVEMENT_SPEED)).getAmplifier());
                     }
