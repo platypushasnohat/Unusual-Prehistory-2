@@ -196,6 +196,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.GIANT_CAMPANILE.get(), GiantCampanileRenderer::new);
         event.registerEntityRenderer(UP2Entities.HYNERPETON.get(), HynerpetonRenderer::new);
         event.registerEntityRenderer(UP2Entities.ICHTHYOSAURUS.get(), IchthyosaurusRenderer::new);
+        event.registerEntityRenderer(UP2Entities.KING_LINGCOD.get(), KingLingcodRenderer::new);
         event.registerEntityRenderer(UP2Entities.LEEDSICHTHYS.get(), LeedsichthysRenderer::new);
         event.registerEntityRenderer(UP2Entities.LORRAINOSAURUS.get(), LorrainosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.PROGNATHODON.get(), PrognathodonRenderer::new);
@@ -291,6 +292,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.GIANT_CAMPANILE, GiantCampanileModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.HYNERPETON, HynerpetonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ICHTHYOSAURUS, IchthyosaurusModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.KING_LINGCOD, KingLingcodModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.LEEDSICHTHYS, LeedsichthysModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.LEEDSICHTHYS_BABY, LeedsichthysBabyModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.LORRAINOSAURUS, LorrainosaurusModel::createBodyLayer);

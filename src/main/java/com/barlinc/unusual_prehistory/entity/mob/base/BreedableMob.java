@@ -47,7 +47,7 @@ public abstract class BreedableMob extends PrehistoricMob {
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if (this.isFood(itemstack)) {
+        if (this.getEatTicks() <= 0 && this.isFood(itemstack) ) {
             int i = this.getAge();
             if (!this.level().isClientSide && i == 0 && this.canFallInLove()) {
                 this.usePlayerItem(player, hand, itemstack);

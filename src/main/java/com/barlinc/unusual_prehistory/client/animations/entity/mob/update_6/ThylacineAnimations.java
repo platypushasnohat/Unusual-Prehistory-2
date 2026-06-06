@@ -16,6 +16,12 @@ public class ThylacineAnimations {
                 ))
                 .build();
 
+        public static final AnimationDefinition HIDE_JOEY = AnimationDefinition.Builder.withLength(0.0F).looping()
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.SCALE,
+                        new Keyframe(0.0F, KeyframeAnimations.scaleVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .build();
+
         public static final AnimationDefinition IDLE_SNIFF_BLEND = AnimationDefinition.Builder.withLength(2.0F)
                 .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                         new Keyframe(0.25F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -137,7 +143,7 @@ public class ThylacineAnimations {
                         new Keyframe(4.0F, KeyframeAnimations.posVec(0.0F, 0.0F, -0.25F), AnimationChannel.Interpolations.CATMULLROM)
                 ))
                 .addAnimation("arm_right", new AnimationChannel(AnimationChannel.Targets.ROTATION,
-                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(2.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(0.5F, KeyframeAnimations.degreeVec(2.5F, 0.0F, -5.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(0.8333F, KeyframeAnimations.degreeVec(-5.0F, 45.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(1.0F, KeyframeAnimations.degreeVec(-25.0F, 45.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -145,18 +151,18 @@ public class ThylacineAnimations {
                         new Keyframe(3.0F, KeyframeAnimations.degreeVec(-45.0F, 45.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(3.3333F, KeyframeAnimations.degreeVec(5.0F, 0.0F, -7.5F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(3.5F, KeyframeAnimations.degreeVec(2.5F, 0.0F, -5.0F), AnimationChannel.Interpolations.CATMULLROM),
-                        new Keyframe(4.0F, KeyframeAnimations.degreeVec(2.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+                        new Keyframe(4.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
                 ))
                 .addAnimation("arm_right", new AnimationChannel(AnimationChannel.Targets.POSITION,
-                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.0F, -0.25F), AnimationChannel.Interpolations.CATMULLROM),
-                        new Keyframe(0.5F, KeyframeAnimations.posVec(-0.5F, 0.0F, -0.25F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.5F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.5F, KeyframeAnimations.posVec(-0.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(0.8333F, KeyframeAnimations.posVec(-1.0F, 1.0F, -1.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(1.0F, KeyframeAnimations.posVec(-1.0F, -1.0F, -0.25F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(2.5F, KeyframeAnimations.posVec(-1.0F, -2.0F, -1.25F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(3.0F, KeyframeAnimations.posVec(-1.0F, -2.0F, -1.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(3.3333F, KeyframeAnimations.posVec(-1.0F, 1.0F, -0.5F), AnimationChannel.Interpolations.CATMULLROM),
-                        new Keyframe(3.5F, KeyframeAnimations.posVec(-0.5F, 0.0F, -0.25F), AnimationChannel.Interpolations.CATMULLROM),
-                        new Keyframe(4.0F, KeyframeAnimations.posVec(0.0F, 0.0F, -0.25F), AnimationChannel.Interpolations.CATMULLROM)
+                        new Keyframe(3.5F, KeyframeAnimations.posVec(-0.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(4.0F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.5F), AnimationChannel.Interpolations.CATMULLROM)
                 ))
                 .addAnimation("jaw", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                         new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -197,6 +203,42 @@ public class ThylacineAnimations {
                         new Keyframe(1.5417F, KeyframeAnimations.scaleVec(0.9F, 0.9F, 0.9F), AnimationChannel.Interpolations.LINEAR),
                         new Keyframe(3.5F, KeyframeAnimations.scaleVec(0.9F, 0.9F, 0.9F), AnimationChannel.Interpolations.LINEAR),
                         new Keyframe(4.0F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.5F, KeyframeAnimations.degreeVec(20.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(1.0F, KeyframeAnimations.degreeVec(-10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(2.5F, KeyframeAnimations.degreeVec(-30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(2.9583F, KeyframeAnimations.degreeVec(5.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(3.0833F, KeyframeAnimations.degreeVec(10.0F, 0.0F, -10.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(3.2083F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 10.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(3.3333F, KeyframeAnimations.degreeVec(10.0F, 0.0F, -10.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(3.4167F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 10.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(3.5F, KeyframeAnimations.degreeVec(10.0F, 0.0F, -10.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(3.5833F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 10.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(3.6667F, KeyframeAnimations.degreeVec(10.0F, 0.0F, -10.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(3.75F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 10.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(3.8333F, KeyframeAnimations.degreeVec(10.0F, 0.0F, -10.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(4.0F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(1.0F, KeyframeAnimations.posVec(0.0F, -0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(2.5F, KeyframeAnimations.posVec(0.0F, -0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(4.0F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+                ))
+                .addAnimation("joey_jaw", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(1.0F, KeyframeAnimations.degreeVec(30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(2.5F, KeyframeAnimations.degreeVec(50.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(3.0F, KeyframeAnimations.degreeVec(2.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(4.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+                ))
+                .addAnimation("joey_eyes", new AnimationChannel(AnimationChannel.Targets.SCALE,
+                        new Keyframe(0.5F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(0.5417F, KeyframeAnimations.scaleVec(0.9F, 0.9F, 0.9F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.5F, KeyframeAnimations.scaleVec(0.9F, 0.9F, 0.9F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(3.0F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.LINEAR)
                 ))
                 .build();
 
@@ -260,6 +302,12 @@ public class ThylacineAnimations {
                 ))
                 .addAnimation("leg_left", new AnimationChannel(AnimationChannel.Targets.POSITION,
                         new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.5F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.5F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(1.5F, KeyframeAnimations.degreeVec(20.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(2.0F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
                 ))
                 .build();
 
@@ -336,7 +384,7 @@ public class ThylacineAnimations {
                         new Keyframe(0.0F, KeyframeAnimations.degreeVec(-35.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
                 ))
                 .addAnimation("body_upper", new AnimationChannel(AnimationChannel.Targets.POSITION,
-                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -1.0F, -1.0F), AnimationChannel.Interpolations.LINEAR)
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -1.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
                 ))
                 .addAnimation("arm_control", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                         new Keyframe(0.0F, KeyframeAnimations.degreeVec(7.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -347,6 +395,12 @@ public class ThylacineAnimations {
                         new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.25F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(1.0F, KeyframeAnimations.posVec(0.0F, -0.25F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(2.0F, KeyframeAnimations.posVec(0.0F, 0.25F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(-20.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.5F, KeyframeAnimations.degreeVec(-30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(1.5F, KeyframeAnimations.degreeVec(-10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(2.0F, KeyframeAnimations.degreeVec(-20.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
                 ))
                 .build();
 
@@ -403,6 +457,12 @@ public class ThylacineAnimations {
                 ))
                 .addAnimation("leg_left", new AnimationChannel(AnimationChannel.Targets.POSITION,
                         new Keyframe(0.0F, KeyframeAnimations.posVec(-1.0F, 0.0F, -2.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(-30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.25F, -4.25F), AnimationChannel.Interpolations.LINEAR)
                 ))
                 .build();
 
@@ -471,6 +531,12 @@ public class ThylacineAnimations {
                 ))
                 .addAnimation("eye_right", new AnimationChannel(AnimationChannel.Targets.SCALE,
                         new Keyframe(0.0F, KeyframeAnimations.scaleVec(0.9F, 0.9F, 0.9F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(-30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.25F, -4.25F), AnimationChannel.Interpolations.LINEAR)
                 ))
                 .build();
 
@@ -584,6 +650,12 @@ public class ThylacineAnimations {
                         new Keyframe(0.5F, KeyframeAnimations.posVec(0.25F, 0.0F, -0.75F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(0.75F, KeyframeAnimations.posVec(0.25F, -0.5F, 1.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(1.0F, KeyframeAnimations.posVec(0.5F, 1.0F, 0.5F), AnimationChannel.Interpolations.CATMULLROM)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(-30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.25F, -4.25F), AnimationChannel.Interpolations.LINEAR)
                 ))
                 .build();
 
@@ -701,6 +773,12 @@ public class ThylacineAnimations {
                         new Keyframe(0.625F, KeyframeAnimations.posVec(0.0F, -1.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(0.875F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(1.0F, KeyframeAnimations.posVec(0.0F, -0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(-30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.25F, -4.25F), AnimationChannel.Interpolations.LINEAR)
                 ))
                 .build();
 
@@ -827,6 +905,12 @@ public class ThylacineAnimations {
                         new Keyframe(0.4375F, KeyframeAnimations.posVec(0.5F, 0.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(0.5F, KeyframeAnimations.posVec(0.75F, 2.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
                 ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(-30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.25F, -4.25F), AnimationChannel.Interpolations.LINEAR)
+                ))
                 .build();
 
         public static final AnimationDefinition RUN_BIPEDAL = AnimationDefinition.Builder.withLength(0.5F).looping()
@@ -843,7 +927,7 @@ public class ThylacineAnimations {
                         new Keyframe(0.125F, KeyframeAnimations.posVec(0.0F, -0.375F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(0.25F, KeyframeAnimations.posVec(0.0F, -0.375F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(0.375F, KeyframeAnimations.posVec(0.0F, 0.375F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-                        new Keyframe(0.5F, KeyframeAnimations.posVec(0.0F, 0.375F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+                        new Keyframe(0.5F, KeyframeAnimations.posVec(0.0F, 0.38F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
                 ))
                 .addAnimation("tail", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                         new Keyframe(0.0F, KeyframeAnimations.degreeVec(5.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -928,6 +1012,12 @@ public class ThylacineAnimations {
                         new Keyframe(0.375F, KeyframeAnimations.posVec(0.0F, -0.75F, -1.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(0.5F, KeyframeAnimations.posVec(0.0F, 0.75F, -1.0F), AnimationChannel.Interpolations.CATMULLROM)
                 ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(-30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.25F, -4.25F), AnimationChannel.Interpolations.LINEAR)
+                ))
                 .build();
 
         public static final AnimationDefinition JUMP_UP = AnimationDefinition.Builder.withLength(0.25F).looping()
@@ -987,6 +1077,12 @@ public class ThylacineAnimations {
                         new Keyframe(0.125F, KeyframeAnimations.degreeVec(70.0F, 5.0F, -5.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(0.1875F, KeyframeAnimations.degreeVec(75.0F, 0.0F, -5.0F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(0.25F, KeyframeAnimations.degreeVec(80.0F, 5.0F, -5.0F), AnimationChannel.Interpolations.CATMULLROM)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(-30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.25F, -4.25F), AnimationChannel.Interpolations.LINEAR)
                 ))
                 .build();
 
@@ -1050,6 +1146,12 @@ public class ThylacineAnimations {
                 ))
                 .addAnimation("leg_left", new AnimationChannel(AnimationChannel.Targets.POSITION,
                         new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 1.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(-30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.25F, -4.25F), AnimationChannel.Interpolations.LINEAR)
                 ))
                 .build();
 
@@ -1192,6 +1294,58 @@ public class ThylacineAnimations {
                         new Keyframe(1.25F, KeyframeAnimations.posVec(0.0F, 1.0F, 1.2F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(1.75F, KeyframeAnimations.posVec(0.0F, 1.0F, -1.5F), AnimationChannel.Interpolations.CATMULLROM),
                         new Keyframe(2.0F, KeyframeAnimations.posVec(0.0F, 0.0F, -2.0F), AnimationChannel.Interpolations.CATMULLROM)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(-30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("joey", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.25F, -4.25F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .build();
+
+        public static final AnimationDefinition EAT_BLEND = AnimationDefinition.Builder.withLength(1.25F)
+                .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.4583F, KeyframeAnimations.degreeVec(-5.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.5417F, KeyframeAnimations.degreeVec(2.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.75F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+                ))
+                .addAnimation("head", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.5F, KeyframeAnimations.degreeVec(-20.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.5833F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.75F, KeyframeAnimations.degreeVec(-10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.8333F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(1.0F, KeyframeAnimations.degreeVec(-10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(1.0833F, KeyframeAnimations.degreeVec(10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(1.25F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+                ))
+                .addAnimation("head", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.3333F, KeyframeAnimations.posVec(0.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.5F, KeyframeAnimations.posVec(0.0F, 1.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.6667F, KeyframeAnimations.posVec(0.0F, -1.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.75F, KeyframeAnimations.posVec(0.0F, 0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.9167F, KeyframeAnimations.posVec(0.0F, -0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(1.0F, KeyframeAnimations.posVec(0.0F, 0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(1.1667F, KeyframeAnimations.posVec(0.0F, -0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(1.25F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+                ))
+                .addAnimation("tail", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.0833F, KeyframeAnimations.degreeVec(2.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.4167F, KeyframeAnimations.degreeVec(5.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.5F, KeyframeAnimations.degreeVec(-2.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.75F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+                ))
+                .addAnimation("jaw", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.5F, KeyframeAnimations.degreeVec(40.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.5625F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.75F, KeyframeAnimations.degreeVec(20.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(0.8125F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(1.0F, KeyframeAnimations.degreeVec(20.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                        new Keyframe(1.0625F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
                 ))
                 .build();
 

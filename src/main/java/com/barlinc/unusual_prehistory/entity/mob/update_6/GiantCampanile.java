@@ -267,7 +267,7 @@
      }
 
      @Override
-     public void readAdditionalSaveData(CompoundTag compoundTag) {
+     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
          this.setMoistness(compoundTag.getInt("Moistness"));
      }
 

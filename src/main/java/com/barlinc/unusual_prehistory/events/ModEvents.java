@@ -84,6 +84,7 @@ public class ModEvents {
         event.put(UP2Entities.HYNERPETON.get(), Hynerpeton.createAttributes().build());
         event.put(UP2Entities.GIANT_CAMPANILE.get(), GiantCampanile.createAttributes().build());
         event.put(UP2Entities.ICHTHYOSAURUS.get(), Ichthyosaurus.createAttributes().build());
+        event.put(UP2Entities.KING_LINGCOD.get(), KingLingcod.createAttributes().build());
         event.put(UP2Entities.LEEDSICHTHYS.get(), Leedsichthys.createAttributes().build());
         event.put(UP2Entities.LORRAINOSAURUS.get(), Lorrainosaurus.createAttributes().build());
         event.put(UP2Entities.PROGNATHODON.get(), Prognathodon.createAttributes().build());

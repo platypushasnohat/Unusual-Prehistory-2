@@ -29,9 +29,12 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -39,6 +42,8 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.EnumSet;
+import java.util.List;
 import java.util.Objects;
 
 public class Thylacine extends BreedableMob implements LeapingMob {
@@ -47,6 +52,8 @@ public class Thylacine extends BreedableMob implements LeapingMob {
     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(Thylacine.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> BIPEDAL = SynchedEntityData.defineId(Thylacine.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> CHEW_TIME = SynchedEntityData.defineId(Thylacine.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> HAS_JOEY = SynchedEntityData.defineId(Thylacine.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> JOEY_TIME = SynchedEntityData.defineId(Thylacine.class, EntityDataSerializers.INT);
 
     private int bipedalCooldown = 1500 + this.getRandom().nextInt(1500);
     public int leapCooldown = 100 + this.getRandom().nextInt(100);
@@ -60,6 +67,8 @@ public class Thylacine extends BreedableMob implements LeapingMob {
     public final SmoothAnimationState chewAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
 
+    private final byte EAT = 67;
+
     public Thylacine(EntityType<? extends BreedableMob> entityType, Level level) {
         super(entityType, level);
     }
@@ -69,6 +78,7 @@ public class Thylacine extends BreedableMob implements LeapingMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PrehistoricSitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 10.0F,1.5D, entity -> entity.getType().is(UP2EntityTags.THYLACINE_AVOIDS)));
+        this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, Player.class, 10.0F, 1.5D, this::avoidsPlayers));
         this.goalSelector.addGoal(3, new ThylacineAttackGoal(this));
         this.goalSelector.addGoal(4, new LargePanicGoal(this, 1.5D, 10, 4) {
             @Override
@@ -77,14 +87,15 @@ public class Thylacine extends BreedableMob implements LeapingMob {
             }
         });
         this.goalSelector.addGoal(5, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.5D, 5.0F, 2.5F));
-        this.goalSelector.addGoal(6, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TEMPTS_THYLACINE), false));
-        this.goalSelector.addGoal(7, new PrehistoricRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new FollowParentGoal(this, 1.0D));
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 10.0F));
-        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(10, new SleepingGoal(this));
-        this.goalSelector.addGoal(11, new IdleAnimationGoal(this, 40, 1, false, 0.001F, this::canPlayIdles));
-        this.goalSelector.addGoal(11, new IdleAnimationGoal(this, 80, 2, true, 0.001F, this::canPlayIdles));
+        this.goalSelector.addGoal(6, new ThylacineBreedGoal(this, 0.8D));
+        this.goalSelector.addGoal(7, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TEMPTS_THYLACINE), false));
+        this.goalSelector.addGoal(8, new PrehistoricRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(9, new FollowParentGoal(this, 1.0D));
+        this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 10.0F));
+        this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(11, new SleepingGoal(this));
+        this.goalSelector.addGoal(12, new IdleAnimationGoal(this, 40, 1, false, 0.001F, this::canPlayIdles));
+        this.goalSelector.addGoal(12, new IdleAnimationGoal(this, 80, 2, true, 0.001F, this::canPlayIdles));
         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
@@ -141,6 +152,20 @@ public class Thylacine extends BreedableMob implements LeapingMob {
         }
     }
 
+    private boolean avoidsPlayers(LivingEntity living) {
+        if (this.isTame()) {
+            return false;
+        }
+        if (living instanceof Player player) {
+            return !player.isSpectator() && !(player.isShiftKeyDown() && this.playerHasFood(player));
+        }
+        return false;
+    }
+
+    private boolean playerHasFood(Player player) {
+        return player.getItemInHand(InteractionHand.MAIN_HAND).is(UP2ItemTags.TEMPTS_THYLACINE) || player.getItemInHand(InteractionHand.OFF_HAND).is(UP2ItemTags.TEMPTS_THYLACINE);
+    }
+
     @Override
     public boolean canAttack(@NotNull LivingEntity target) {
         return this.getChewTime() <= 0 && super.canAttack(target);
@@ -162,12 +187,14 @@ public class Thylacine extends BreedableMob implements LeapingMob {
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (!this.isTame() && itemStack.is(UP2ItemTags.TAMES_THYLACINE) && this.getEatTicks() <= 0) {
+        if (!this.isTame() && this.getEatTicks() <= 0 && itemStack.is(UP2ItemTags.TAMES_THYLACINE) ) {
+            this.setEatTicks(25);
             if (!this.level().isClientSide) {
                 if (!player.getAbilities().instabuild) {
                     itemStack.shrink(1);
                 }
                 this.gameEvent(GameEvent.ENTITY_INTERACT);
+                this.level().broadcastEntityEvent(this, EAT);
                 this.playSound(this.getEatingSound(), 1.0F, this.getVoicePitch());
                 if (this.getNavigation().getPath() != null) {
                     this.getNavigation().stop();
@@ -184,8 +211,10 @@ public class Thylacine extends BreedableMob implements LeapingMob {
             } else {
                 this.spawnEatingParticles(itemStack);
             }
-            this.setEatTicks(1);
             return InteractionResult.SUCCESS;
+        }
+        if (this.getEatTicks() > 0 && this.isFood(itemStack)) {
+            return InteractionResult.PASS;
         }
         return super.mobInteract(player, hand);
     }
@@ -210,6 +239,29 @@ public class Thylacine extends BreedableMob implements LeapingMob {
     }
 
     @Override
+    public void spawnChildFromBreeding(@NotNull ServerLevel level, @Nullable Animal partner) {
+        AgeableMob ageablemob = this.getBreedOffspring(level, null);
+        if (ageablemob != null) {
+            ageablemob.setBaby(true);
+            ageablemob.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
+            level.addFreshEntityWithPassengers(ageablemob);
+        }
+        this.setHasJoey(false);
+    }
+
+    @Override
+    public void finalizeSpawnChildFromBreeding(ServerLevel level, Animal partner, @Nullable AgeableMob baby) {
+        this.setAge(6000);
+        partner.setAge(6000);
+        this.resetLove();
+        partner.resetLove();
+        level.broadcastEntityEvent(this, (byte) 18);
+        if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+            level.addFreshEntity(new ExperienceOrb(level, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
+        }
+    }
+
+    @Override
     public void tickCooldowns() {
         super.tickCooldowns();
         if (bipedalCooldown > 0) {
@@ -217,7 +269,7 @@ public class Thylacine extends BreedableMob implements LeapingMob {
         }
         if (bipedalCooldown <= 0) {
             this.bipedalCooldown = 1500 + this.getRandom().nextInt(1500);
-            if (this.getRandom().nextFloat() < 0.5F && !this.isBipedal()) {
+            if (this.getRandom().nextBoolean() && !this.isBipedal()) {
                 this.setBipedal(true);
             }
             else if (this.isBipedal()) {
@@ -232,6 +284,12 @@ public class Thylacine extends BreedableMob implements LeapingMob {
         }
         if (this.getChewTime() > 0) {
             this.setChewTime(this.getChewTime() - 1);
+        }
+        if (this.getJoeyTime() > 0) {
+            this.setJoeyTime(this.getJoeyTime() - 1);
+        }
+        if (this.getJoeyTime() <= 0 && this.hasJoey() && !this.level().isClientSide && this.level() instanceof ServerLevel serverLevel) {
+            this.spawnChildFromBreeding(serverLevel, null);
         }
     }
 
@@ -251,12 +309,24 @@ public class Thylacine extends BreedableMob implements LeapingMob {
     }
 
     @Override
+    public void handleEntityEvent(byte id) {
+        if (id == EAT) {
+            this.eatAnimationState.start(this.tickCount);
+        }
+        else {
+            super.handleEntityEvent(id);
+        }
+    }
+
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(TAME_ATTEMPTS, 0);
         builder.define(LEAPING, false);
         builder.define(BIPEDAL, false);
         builder.define(CHEW_TIME, 0);
+        builder.define(HAS_JOEY, false);
+        builder.define(JOEY_TIME, 0);
     }
 
     @Override
@@ -265,6 +335,8 @@ public class Thylacine extends BreedableMob implements LeapingMob {
         compoundTag.putInt("TameAttempts", this.getTameAttempts());
         compoundTag.putBoolean("Bipedal", this.isBipedal());
         compoundTag.putInt("ChewTime", this.getChewTime());
+        compoundTag.putBoolean("HasJoey", this.hasJoey());
+        compoundTag.putInt("JoeyTime", this.getJoeyTime());
     }
 
     @Override
@@ -273,6 +345,8 @@ public class Thylacine extends BreedableMob implements LeapingMob {
         this.setTameAttempts(compoundTag.getInt("TameAttempts"));
         this.setBipedal(compoundTag.getBoolean("Bipedal"));
         this.setChewTime(compoundTag.getInt("ChewTime"));
+        this.setHasJoey(compoundTag.getBoolean("HasJoey"));
+        this.setJoeyTime(compoundTag.getInt("JoeyTime"));
     }
 
     @Override
@@ -305,9 +379,22 @@ public class Thylacine extends BreedableMob implements LeapingMob {
         return this.entityData.get(CHEW_TIME);
     }
 
+    public boolean hasJoey() {
+        return this.entityData.get(HAS_JOEY);
+    }
+    public void setHasJoey(boolean hasJoey) {
+        this.entityData.set(HAS_JOEY, hasJoey);
+    }
+    public int getJoeyTime() {
+        return this.entityData.get(JOEY_TIME);
+    }
+    public void setJoeyTime(int joeyTime) {
+        this.entityData.set(JOEY_TIME, joeyTime);
+    }
+
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @Nullable AgeableMob mob) {
         return UP2Entities.THYLACINE.get().create(level);
     }
 
@@ -423,7 +510,7 @@ public class Thylacine extends BreedableMob implements LeapingMob {
                     target.discard();
                     this.thylacine.gameEvent(GameEvent.EAT);
                     this.thylacine.playSound(thylacine.getEatingSound(), thylacine.getSoundVolume(), thylacine.getVoicePitch());
-                    int chewTime = 1800;
+                    int chewTime = 1200;
                     if (thylacine.hasEffect(MobEffects.MOVEMENT_SPEED)) {
                         chewTime /= (2 + Objects.requireNonNull(thylacine.getEffect(MobEffects.MOVEMENT_SPEED)).getAmplifier());
                     }
@@ -491,6 +578,83 @@ public class Thylacine extends BreedableMob implements LeapingMob {
                 }
             }
             return true;
+        }
+    }
+
+    private static class ThylacineBreedGoal extends Goal {
+
+        protected final Thylacine thylacine;
+        protected final Level level;
+        @Nullable
+        protected Thylacine partner;
+        private int loveTime;
+        private final double speedModifier;
+
+        public ThylacineBreedGoal(Thylacine thylacine, double speedModifier) {
+            this.thylacine = thylacine;
+            this.level = thylacine.level();
+            this.speedModifier = speedModifier;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (!thylacine.isInLove()) {
+                return false;
+            } else {
+                this.partner = this.getFreePartner();
+                return partner != null;
+            }
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return partner != null && partner.isAlive() && partner.isInLove() && loveTime < 60 && !partner.isPanicking();
+        }
+
+        @Override
+        public void stop() {
+            this.partner = null;
+            this.loveTime = 0;
+        }
+
+        @Override
+        public void tick() {
+            if (partner != null) {
+                this.thylacine.getLookControl().setLookAt(partner, 10.0F, (float) thylacine.getMaxHeadXRot());
+                this.thylacine.getNavigation().moveTo(partner, speedModifier);
+                this.loveTime++;
+                if (loveTime >= this.adjustedTickDelay(60) && thylacine.distanceToSqr(partner) < 9.0) {
+                    this.breed();
+                }
+            }
+        }
+
+        @Nullable
+        private Thylacine getFreePartner() {
+            List<? extends Thylacine> list = level.getNearbyEntities(Thylacine.class, TargetingConditions.forNonCombat().range(8.0).ignoreLineOfSight(), thylacine, thylacine.getBoundingBox().inflate(8.0));
+            double maxValue = Double.MAX_VALUE;
+            Thylacine partner = null;
+            for (Thylacine partner1 : list) {
+                if (thylacine.canMate(partner1) && !partner1.isPanicking() && thylacine.distanceToSqr(partner1) < maxValue) {
+                    partner = partner1;
+                    maxValue = thylacine.distanceToSqr(partner1);
+                }
+            }
+            return partner;
+        }
+
+        protected void breed() {
+            if (level instanceof ServerLevel serverLevel && partner != null) {
+                this.thylacine.finalizeSpawnChildFromBreeding(serverLevel, partner, null);
+            }
+            if (level.getRandom().nextBoolean() && partner != null) {
+                this.partner.setHasJoey(true);
+                this.partner.setJoeyTime(1200);
+            } else {
+                this.thylacine.setHasJoey(true);
+                this.thylacine.setJoeyTime(1200);
+            }
         }
     }
 }

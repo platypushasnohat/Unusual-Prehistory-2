@@ -1,10 +1,17 @@
 package com.barlinc.unusual_prehistory;
 
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
+import com.barlinc.unusual_prehistory.registry.UP2PaintingVariants;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -44,6 +51,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(KAPROSUCHUS_SPAWN_EGG.get());
                         output.accept(KENTROSAURUS_SPAWN_EGG.get());
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_SPAWN_EGG.get());
+                        output.accept(KING_LINGCOD_SPAWN_EGG.get());
                         output.accept(LEEDSICHTHYS_SPAWN_EGG.get());
                         output.accept(LEPTICTIDIUM_SPAWN_EGG.get());
                         output.accept(LOBE_FINNED_FISH_SPAWN_EGG.get());
@@ -193,6 +201,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(PALEOZOIC_BANNER_PATTERN.get());
                         output.accept(MESOZOIC_BANNER_PATTERN.get());
                         output.accept(CENOZOIC_BANNER_PATTERN.get());
+                        output.accept(getPainting(UP2PaintingVariants.UNUSUAL_ENCOUNTER));
 
                         output.accept(BRISTLE_FOSSIL.get()); // aegirocassis
                         output.accept(SPIRAL_FOSSIL.get()); // ammonite
@@ -420,4 +429,14 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.NEEDLE_LITTER.get());
 
                     }).build());
+
+    @SuppressWarnings("SameParameterValue")
+    public static ItemStack getPainting(ResourceKey<PaintingVariant> painting) {
+        ItemStack itemStack = new ItemStack(Items.PAINTING);
+        CompoundTag compoundTag = new CompoundTag();
+        compoundTag.putString("id", "minecraft:painting");
+        compoundTag.putString("variant", painting.location().toString());
+        itemStack.set(DataComponents.ENTITY_DATA, CustomData.of(compoundTag));
+        return itemStack;
+    }
 }

@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_1;
+package com.barlinc.unusual_prehistory.entity.mob.update_6;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
@@ -12,6 +12,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -22,23 +23,24 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class Stethacanthus extends SchoolingAquaticMob implements Bucketable {
+public class KingLingcod extends SchoolingAquaticMob implements Bucketable {
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
 
-    public Stethacanthus(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
+    public KingLingcod(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
@@ -46,26 +48,24 @@ public class Stethacanthus extends SchoolingAquaticMob implements Bucketable {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 8.0D)
-                .add(Attributes.ATTACK_DAMAGE, 3.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.85F);
+                .add(Attributes.MAX_HEALTH, 16.0D)
+                .add(Attributes.ATTACK_DAMAGE, 6.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.8F);
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D, 10, 7));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.STETHACANTHUS_FOOD), false));
-        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, Player.class, 10.0F, 1.5D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 10.0F,1.5D, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_AVOIDS)));
-        this.goalSelector.addGoal(4, new StethacanthusAttackGoal(this));
-        this.goalSelector.addGoal(5, new RandomSwimmingGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(4, new KingLingcodAttackGoal(this));
+        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 150));
         this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this));
-        this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_TARGETS)));
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.STETHACANTHUS_TARGETS)));
     }
 
     @Override
     public int getMaxSchoolSize() {
-        return 3;
+        return 2;
     }
 
     @Override
@@ -80,6 +80,11 @@ public class Stethacanthus extends SchoolingAquaticMob implements Bucketable {
         } else {
             super.travel(travelVector);
         }
+    }
+
+    @Override
+    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+        return MobUtils.getDepthPathfindingFavor(pos, level);
     }
 
     @Override
@@ -144,57 +149,56 @@ public class Stethacanthus extends SchoolingAquaticMob implements Bucketable {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-        return UP2Entities.STETHACANTHUS.get().create(serverLevel);
+        return UP2Entities.KING_LINGCOD.get().create(serverLevel);
     }
 
-    private static class StethacanthusAttackGoal extends AttackGoal {
+    private static class KingLingcodAttackGoal extends AttackGoal {
 
-        private final Stethacanthus stethacanthus;
+        private final KingLingcod kingLingcod;
 
-        public StethacanthusAttackGoal(Stethacanthus stethacanthus) {
-            super(stethacanthus);
-            this.stethacanthus = stethacanthus;
-        }
-
-        @Override
-        public boolean canUse() {
-            LivingEntity target = stethacanthus.getTarget();
-            return super.canUse() && target != null && target.isAlive() && target.isInWater() && !target.getType().is(UP2EntityTags.STETHACANTHUS_AVOIDS) && !(target instanceof Player);
+        public KingLingcodAttackGoal(KingLingcod kingLingcod) {
+            super(kingLingcod);
+            this.kingLingcod = kingLingcod;
         }
 
         @Override
         public void tick() {
-            LivingEntity target = stethacanthus.getTarget();
+            LivingEntity target = kingLingcod.getTarget();
             if (target != null && target.isInWater()) {
-                stethacanthus.lookAt(target, 30F, 30F);
-                stethacanthus.getLookControl().setLookAt(target, 30F, 30F);
-                double distance = stethacanthus.distanceToSqr(target.getX(), target.getY(), target.getZ());
+                this.kingLingcod.lookAt(target, 30.0F, 30.0F);
+                this.kingLingcod.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                double distance = kingLingcod.distanceToSqr(target.getX(), target.getY(), target.getZ());
 
-                if (stethacanthus.getAttackState() == 1) {
+                if (kingLingcod.getAttackState() == 1) {
+                    this.kingLingcod.getNavigation().stop();
                     this.tickAttack(target);
                 } else {
                     if (distance <= 4) {
-                        this.stethacanthus.setAttackState(1);
+                        this.kingLingcod.setAttackState(1);
                     }
-                    this.stethacanthus.getNavigation().moveTo(target, 1.5D);
+                    this.kingLingcod.getNavigation().moveTo(target, 1.5D);
                 }
             }
         }
 
         protected void tickAttack(LivingEntity target) {
             this.timer++;
-            if (timer == 1) stethacanthus.setPose(UP2Poses.ATTACKING.get());
-            if (timer == 5) stethacanthus.playSound(UP2SoundEvents.STETHACANTHUS_BITE.get(), 0.7F, stethacanthus.getVoicePitch());
+            if (timer == 1) {
+                this.kingLingcod.setPose(UP2Poses.ATTACKING.get());
+            }
+            if (timer == 5) {
+                this.kingLingcod.playSound(UP2SoundEvents.STETHACANTHUS_BITE.get(), 0.7F, kingLingcod.getVoicePitch());
+            }
             if (timer == 6) {
                 if (this.isInAttackRange(target, 1.5D)) {
-                    this.stethacanthus.doHurtTarget(target);
-                    this.stethacanthus.swing(InteractionHand.MAIN_HAND);
+                    this.kingLingcod.doHurtTarget(target);
+                    this.kingLingcod.swing(InteractionHand.MAIN_HAND);
                 }
             }
             if (timer > 20) {
                 this.timer = 0;
-                this.stethacanthus.setPose(Pose.STANDING);
-                this.stethacanthus.setAttackState(0);
+                this.kingLingcod.setPose(Pose.STANDING);
+                this.kingLingcod.setAttackState(0);
             }
         }
     }

@@ -34,7 +34,7 @@ public class UP2LanguageProvider extends LanguageProvider {
     protected void addTranslations() {
 
         // creative tab
-        creativeTab(UnusualPrehistory2Tab.UNUSUAL_PREHISTORY_2_TAB.get(), "Unusual Prehistory");
+        this.creativeTab(UnusualPrehistory2Tab.UNUSUAL_PREHISTORY_2_TAB.get(), "Unusual Prehistory");
 
         // blocks
         UP2Blocks.BLOCK_TRANSLATIONS.forEach(this::forBlock);
@@ -703,6 +703,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("config.jade.plugin_unusual_prehistory.prehistoric_mob", "Prehistoric Mob Info");
         this.add("config.jade.plugin_unusual_prehistory.transmogrifier", "Transmogrifier Contents");
         this.add("config.jade.plugin_unusual_prehistory.living_ooze", "Living Ooze Info");
+
+        // Paintings
+        this.add("painting.unusual_prehistory.unusual_encounter.title", "Unusual Encounter");
+        this.add("painting.unusual_prehistory.unusual_encounter.author", "Slime");
+
     }
 
     private void forBlock(Supplier<? extends Block> block) {

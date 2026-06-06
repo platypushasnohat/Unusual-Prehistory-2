@@ -24,6 +24,9 @@ public class ThylacineModel extends UP2Model<Thylacine> {
     private final ModelPart jaw;
     private final ModelPart cheeks;
     private final ModelPart tail;
+    private final ModelPart joey;
+    private final ModelPart joey_eyes;
+    private final ModelPart joey_jaw;
     private final ModelPart arm_control;
     private final ModelPart arm_left;
     private final ModelPart arm_right;
@@ -43,6 +46,9 @@ public class ThylacineModel extends UP2Model<Thylacine> {
         this.jaw = this.head.getChild("jaw");
         this.cheeks = this.jaw.getChild("cheeks");
         this.tail = this.body.getChild("tail");
+        this.joey = this.body.getChild("joey");
+        this.joey_eyes = this.joey.getChild("joey_eyes");
+        this.joey_jaw = this.joey.getChild("joey_jaw");
         this.arm_control = this.body_upper.getChild("arm_control");
         this.arm_left = this.arm_control.getChild("arm_left");
         this.arm_right = this.arm_control.getChild("arm_right");
@@ -79,6 +85,14 @@ public class ThylacineModel extends UP2Model<Thylacine> {
         PartDefinition cheeks = jaw.addOrReplaceChild("cheeks", CubeListBuilder.create().texOffs(0, 40).addBox(-3.5F, 0.0F, -4.0F, 7.0F, 1.0F, 4.0F, new CubeDeformation(0.01F)), PartPose.offset(0.0F, 0.0F, 0.25F));
 
         PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 16).addBox(-1.0F, -1.0F, 0.0F, 2.0F, 2.0F, 13.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.5F, 5.5F));
+
+        PartDefinition joey = body.addOrReplaceChild("joey", CubeListBuilder.create().texOffs(22, 0).addBox(-0.5F, -2.0F, -3.0F, 2.0F, 2.0F, 3.0F, new CubeDeformation(0.0F))
+                .texOffs(23, 7).addBox(-0.5F, -1.0F, -5.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.0F))
+                .texOffs(31, 0).addBox(-1.5F, -3.0F, -2.0F, 4.0F, 2.0F, 0.0F, new CubeDeformation(0.02F)), PartPose.offsetAndRotation(0.5F, 2.5F, 4.5F, -2.618F, 0.0F, 3.1416F));
+
+        PartDefinition joey_eyes = joey.addOrReplaceChild("joey_eyes", CubeListBuilder.create().texOffs(33, 3).addBox(-1.0F, -0.5F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.01F)), PartPose.offset(0.5F, -0.5F, -2.5F));
+
+        PartDefinition joey_jaw = joey.addOrReplaceChild("joey_jaw", CubeListBuilder.create().texOffs(34, 0).addBox(-0.5F, 0.0F, -5.0F, 2.0F, 0.0F, 5.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition arm_control = body_upper.addOrReplaceChild("arm_control", CubeListBuilder.create(), PartPose.offset(0.0F, -4.0F, -8.0F));
 
@@ -127,9 +141,14 @@ public class ThylacineModel extends UP2Model<Thylacine> {
         this.animateSmooth(entity.jumpAnimationState, ThylacineAnimations.JUMP_UP, ageInTicks, partialTicks);
         this.animateSmooth(entity.chewAnimationState, ThylacineAnimations.CHEW_BLEND, ageInTicks, partialTicks);
         this.animateSmooth(entity.attackAnimationState, ThylacineAnimations.BITE_BLEND, ageInTicks, partialTicks);
+        this.animate(entity.eatAnimationState, ThylacineAnimations.EAT_BLEND, ageInTicks);
 
         if (this.young) {
+            this.applyStatic(ThylacineAnimations.HIDE_JOEY);
             this.applyStatic(ThylacineAnimations.BABY_TRANSFORM);
+        }
+        if (!entity.hasJoey()) {
+            this.applyStatic(ThylacineAnimations.HIDE_JOEY);
         }
 
         this.faceTarget(entity, netHeadYaw, headPitch, 2, head);

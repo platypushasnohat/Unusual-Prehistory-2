@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class ThylacineRenderer extends MobRenderer<Thylacine, ThylacineModel> {
 
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/thylacine/thylacine.png");
+    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/thylacine.png");
 
     public ThylacineRenderer(EntityRendererProvider.Context context) {
         super(context, new ThylacineModel(context.bakeLayer(UP2ModelLayers.THYLACINE)), 0.3F);

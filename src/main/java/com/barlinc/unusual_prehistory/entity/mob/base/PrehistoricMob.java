@@ -79,6 +79,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState eepyAnimationState = new SmoothAnimationState(0.25F);
     public final SmoothAnimationState sitAnimationState = new SmoothAnimationState(0.25F);
+    public final SmoothAnimationState eatAnimationState = new SmoothAnimationState(1.0F);
 
     protected int idleAnimationCooldown;
 
