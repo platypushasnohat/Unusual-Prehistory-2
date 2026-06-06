@@ -231,6 +231,7 @@ public class UP2Items {
     public static final DeferredItem<Item> ICHTHYOSAURUS_SPAWN_EGG = registerSpawnEggItem("ichthyosaurus", UP2Entities.ICHTHYOSAURUS, 0x4e5761, 0xd2c629);
     public static final DeferredItem<Item> KING_LINGCOD_SPAWN_EGG = registerSpawnEggItem("king_lingcod", UP2Entities.KING_LINGCOD, 0x4d7278, 0x2a2f4a);
     public static final DeferredItem<Item> LEEDSICHTHYS_SPAWN_EGG = registerSpawnEggItem("leedsichthys", UP2Entities.LEEDSICHTHYS, 0x415778, 0x0f0f16);
+    public static final DeferredItem<Item> LINGCOD_SPAWN_EGG = registerSpawnEggItem("lingcod", UP2Entities.LINGCOD, 0x6a584c, 0x362a31);
     public static final DeferredItem<Item> LORRAINOSAURUS_SPAWN_EGG = registerSpawnEggItem("lorrainosaurus", UP2Entities.LORRAINOSAURUS, 0x4b3188, 0xcbdedd);
     public static final DeferredItem<Item> PROGNATHODON_SPAWN_EGG = registerSpawnEggItem("prognathodon", UP2Entities.PROGNATHODON, 0x181c2a, 0x5b9ba6);
     public static final DeferredItem<Item> RHIZODUS_SPAWN_EGG = registerSpawnEggItem("rhizodus", UP2Entities.RHIZODUS, 0x2b4426, 0x54adaa);

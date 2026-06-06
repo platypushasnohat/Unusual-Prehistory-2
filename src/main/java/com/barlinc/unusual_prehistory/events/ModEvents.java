@@ -17,6 +17,8 @@ import com.barlinc.unusual_prehistory.entity.mob.update_6.*;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Ampyx;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Setapedites;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.Arthropleura;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.lingcod.Lingcod;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.lingcod.KingLingcod;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -86,6 +88,7 @@ public class ModEvents {
         event.put(UP2Entities.ICHTHYOSAURUS.get(), Ichthyosaurus.createAttributes().build());
         event.put(UP2Entities.KING_LINGCOD.get(), KingLingcod.createAttributes().build());
         event.put(UP2Entities.LEEDSICHTHYS.get(), Leedsichthys.createAttributes().build());
+        event.put(UP2Entities.LINGCOD.get(), Lingcod.createAttributes().build());
         event.put(UP2Entities.LORRAINOSAURUS.get(), Lorrainosaurus.createAttributes().build());
         event.put(UP2Entities.PROGNATHODON.get(), Prognathodon.createAttributes().build());
         event.put(UP2Entities.RHIZODUS.get(), Rhizodus.createAttributes().build());

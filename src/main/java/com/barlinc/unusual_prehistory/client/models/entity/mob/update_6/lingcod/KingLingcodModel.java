@@ -1,8 +1,8 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.lingcod;
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.KingLingcodAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.KingLingcod;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.lingcod.KingLingcod;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -113,6 +113,7 @@ public class KingLingcodModel extends UP2Model<KingLingcod> {
         this.animateIdleSmooth(entity.swimIdleAnimationState, KingLingcodAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
 		this.animateSmooth(entity.flopAnimationState, KingLingcodAnimations.FLOP, ageInTicks, partialTicks);
 		this.animateSmooth(entity.attackAnimationState, KingLingcodAnimations.ATTACK, ageInTicks, partialTicks);
+        this.animate(entity.eatAnimationState, KingLingcodAnimations.EAT_BLEND, ageInTicks);
 
         if (entity.isInWaterOrBubble()) {
             this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);

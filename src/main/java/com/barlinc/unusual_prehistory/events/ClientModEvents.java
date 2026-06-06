@@ -39,6 +39,8 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropl
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraTailModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.leedsichthys.LeedsichthysBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.leedsichthys.LeedsichthysModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.lingcod.KingLingcodModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.lingcod.LingcodModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.therizinosaurus.TherizinosaurusBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.therizinosaurus.TherizinosaurusModel;
 import com.barlinc.unusual_prehistory.client.particles.*;
@@ -61,6 +63,8 @@ import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.ambien
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.ambient.SetapeditesRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.arthropleura.ArthropleuraPartRenderer;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.arthropleura.ArthropleuraRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.lingcod.KingLingcodRenderer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6.lingcod.LingcodRenderer;
 import com.barlinc.unusual_prehistory.registry.*;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.particle.SpellParticle;
@@ -198,6 +202,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.ICHTHYOSAURUS.get(), IchthyosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.KING_LINGCOD.get(), KingLingcodRenderer::new);
         event.registerEntityRenderer(UP2Entities.LEEDSICHTHYS.get(), LeedsichthysRenderer::new);
+        event.registerEntityRenderer(UP2Entities.LINGCOD.get(), LingcodRenderer::new);
         event.registerEntityRenderer(UP2Entities.LORRAINOSAURUS.get(), LorrainosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.PROGNATHODON.get(), PrognathodonRenderer::new);
         event.registerEntityRenderer(UP2Entities.RHIZODUS.get(), RhizodusRenderer::new);
@@ -295,6 +300,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.KING_LINGCOD, KingLingcodModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.LEEDSICHTHYS, LeedsichthysModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.LEEDSICHTHYS_BABY, LeedsichthysBabyModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.LINGCOD, LingcodModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.LORRAINOSAURUS, LorrainosaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.WOOLLY_MAMMOTH, WoollyMammothModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.PROGNATHODON, PrognathodonModel::createBodyLayer);

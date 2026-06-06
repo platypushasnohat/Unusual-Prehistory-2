@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-05T22:11:06.4805895	Item Models: unusual_prehistory
+// 1.21.1	2026-06-06T14:02:56.8143159	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -111,6 +111,7 @@ ec1ffb2c7da88eae13fc1ec89b257deb40fa9f12 assets/unusual_prehistory/models/item/l
 99dac5615b391ce1d5c4b9be299eba731a31a5c4 assets/unusual_prehistory/models/item/lepidodendron_sign.json
 2a19c2df19e9b8ba9eeb5e9150d3da62e239edfb assets/unusual_prehistory/models/item/leptictidium_embryo.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/leptictidium_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/lingcod_spawn_egg.json
 0be9b3126827535cb12a8ad5d788601b1acfd3e7 assets/unusual_prehistory/models/item/living_ooze_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/living_ooze_spawn_egg.json
 93ab99a8dcc880180bdfa4b5ac5e2d7f4b7bd512 assets/unusual_prehistory/models/item/lobe_finned_fish_roe.json

@@ -86,6 +86,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(ZHANGSOLVA_SPAWN_EGG.get());
 
                         // Misc
+                        output.accept(LINGCOD_SPAWN_EGG.get());
                         output.accept(LIVING_OOZE_SPAWN_EGG.get());
 
                         output.accept(PALEOPEDIA.get());

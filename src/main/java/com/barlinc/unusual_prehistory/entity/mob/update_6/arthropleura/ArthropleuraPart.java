@@ -242,7 +242,7 @@ public class ArthropleuraPart extends Entity {
         } else {
             double currentY = this.getY();
             double targetY = this.calculateSurfaceY(target, head, front, back);
-            if (Math.abs(targetY - this.getY()) > 0.01D) {
+            if (Math.abs(targetY - this.getY()) >= 0.03D) {
                 currentY = targetY;
             }
             this.setPos(target.x, currentY, target.z);
@@ -317,7 +317,7 @@ public class ArthropleuraPart extends Entity {
                     if (!aabb.intersects(aabb1)) {
                         continue;
                     }
-                    pushY += 0.05D;
+                    pushY += 0.03D;
                 }
             }
         }
@@ -326,17 +326,17 @@ public class ArthropleuraPart extends Entity {
 
     public double getLowPartHeight(double x, double y, double z) {
         double check = 0.0D;
-        while (check > -3.0D && !this.isOpaqueBlockAt(x,y + check, z)) {
-            check -= 0.2D;
+        while (check > -2.0D && !this.isOpaqueBlockAt(x,y + check, z)) {
+            check -= 0.03D;
         }
         return check;
     }
 
     public double getHighPartHeight(double x, double y, double z) {
         double check = 0.0D;
-        while (check <= 3.0D) {
+        while (check <= 2.0D) {
             if (this.isOpaqueBlockAt(x, y + check, z)) {
-                check += 0.2D;
+                check += 0.03D;
             } else {
                 break;
             }

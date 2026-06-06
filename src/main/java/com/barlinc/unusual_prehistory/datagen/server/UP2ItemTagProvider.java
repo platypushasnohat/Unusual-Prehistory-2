@@ -452,7 +452,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Items.COOKED_COD
         );
 
-        this.tag(UP2ItemTags.TEMPTS_KING_LINGCOD).addTags(UP2ItemTags.TAMES_KING_LINGCOD);
+        this.tag(UP2ItemTags.TEMPTS_LINGCOD).addTags(UP2ItemTags.TAMES_KING_LINGCOD);
 
         this.tag(UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD).add(
                 Items.SWEET_BERRIES

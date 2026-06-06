@@ -68,7 +68,7 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
                 .add(Attributes.MAX_HEALTH, 10.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.225F)
                 .add(Attributes.ARMOR, 12.0D)
-                .add(Attributes.STEP_HEIGHT, 1.1D);
+                .add(Attributes.STEP_HEIGHT, 1.15D);
     }
 
     @Override

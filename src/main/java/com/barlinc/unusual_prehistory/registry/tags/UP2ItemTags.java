@@ -150,7 +150,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> CONCAVENATOR_SOUL_SAND_ARMOR_ITEMS = modItemTag("concavenator_soul_sand_armor_items");
 
     public static final TagKey<Item> TAMES_KING_LINGCOD = modItemTag("tames_king_lingcod");
-    public static final TagKey<Item> TEMPTS_KING_LINGCOD = modItemTag("tempts_king_lingcod");
+    public static final TagKey<Item> TEMPTS_LINGCOD = modItemTag("tempts_lingcod");
 
     public static final TagKey<Item> TAMES_THYLACINE = modItemTag("tames_thylacine");
     public static final TagKey<Item> TEMPTS_THYLACINE = modItemTag("tempts_thylacine");

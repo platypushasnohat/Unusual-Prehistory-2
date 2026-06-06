@@ -18,6 +18,8 @@ import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Ampyx;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.ambient.Setapedites;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.Arthropleura;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.ArthropleuraPart;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.lingcod.Lingcod;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.lingcod.KingLingcod;
 import com.barlinc.unusual_prehistory.entity.projectile.ThrowableEgg;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.Entity;
@@ -105,6 +107,7 @@ public class UP2Entities {
     public static final DeferredHolder<EntityType<?>, EntityType<Ichthyosaurus>> ICHTHYOSAURUS = registerEntity("ichthyosaurus", Ichthyosaurus::new, MobCategory.WATER_CREATURE, builder -> builder.sized(1.5F, 1.5F).eyeHeight(0.8F).clientTrackingRange(10).passengerAttachments(new Vec3(0.0F, 1.8F, -0.5F)));
     public static final DeferredHolder<EntityType<?>, EntityType<KingLingcod>> KING_LINGCOD = registerEntity("king_lingcod", KingLingcod::new, MobCategory.WATER_CREATURE, builder -> builder.sized(1.25F, 1.1F).eyeHeight(0.55F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Leedsichthys>> LEEDSICHTHYS = registerEntity("leedsichthys", Leedsichthys::new, MobCategory.WATER_CREATURE, builder -> builder.sized(6.0F, 4.5F).eyeHeight(2.25F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<Lingcod>> LINGCOD = registerEntity("lingcod", Lingcod::new, MobCategory.WATER_CREATURE, builder -> builder.sized(0.9375F, 0.825F).eyeHeight(0.5F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Lorrainosaurus>> LORRAINOSAURUS = registerEntity("lorrainosaurus", Lorrainosaurus::new, MobCategory.WATER_CREATURE, builder -> builder.sized(2.6F, 2.2F).eyeHeight(1.1F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Prognathodon>> PROGNATHODON = registerEntity("prognathodon", Prognathodon::new, MobCategory.WATER_CREATURE, builder -> builder.sized(2.8F, 2.3F).eyeHeight(1.1F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Rhizodus>> RHIZODUS = registerEntity("rhizodus", Rhizodus::new, MobCategory.WATER_CREATURE, builder -> builder.sized(1.7F, 1.8F).eyeHeight(0.9F).clientTrackingRange(10));

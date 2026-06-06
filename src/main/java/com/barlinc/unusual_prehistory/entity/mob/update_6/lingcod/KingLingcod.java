@@ -1,17 +1,12 @@
-package com.barlinc.unusual_prehistory.entity.mob.update_6;
+package com.barlinc.unusual_prehistory.entity.mob.update_6.lingcod;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
-import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
-import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
-import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +15,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -35,9 +29,9 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -46,23 +40,15 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Stream;
 
-public class KingLingcod extends SchoolingAquaticMob implements Bucketable {
+public class KingLingcod extends AbstractLingcod {
 
     protected static final EntityDataAccessor<Optional<UUID>> BONDED_WITH_UUID = SynchedEntityData.defineId(KingLingcod.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Integer> BONDED_WITH_ID = SynchedEntityData.defineId(KingLingcod.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(KingLingcod.class, EntityDataSerializers.INT);
 
-    public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
-
-    private final byte EAT = 67;
-
-    public KingLingcod(EntityType<? extends SchoolingAquaticMob> entityType, Level level) {
+    public KingLingcod(EntityType<? extends AbstractLingcod> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F);
-        this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
-        this.switchNavigator(false);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -77,17 +63,11 @@ public class KingLingcod extends SchoolingAquaticMob implements Bucketable {
         this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this, false));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(2, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.5D, 6.0F, 3.0F));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TEMPTS_KING_LINGCOD), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TEMPTS_LINGCOD), false));
         this.goalSelector.addGoal(4, new KingLingcodAttackGoal(this));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 150));
-        this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this) {
-            @Override
-            public boolean canUse() {
-                return KingLingcod.this.getBondedEntity() != null && super.canUse();
-            }
-        });
+        this.goalSelector.addGoal(6, new PrehistoricFollowMobGoal(this, 10, 1.0F, 3.0F, 10.0F, this::canFollowBonded));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, LivingEntity.class, 8.0F));
         this.targetSelector.addGoal(0, new BondedWithHurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new BondedWithHurtTargetGoal(this));
         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtByTargetGoal(this));
@@ -98,43 +78,8 @@ public class KingLingcod extends SchoolingAquaticMob implements Bucketable {
         this.targetSelector.addGoal(7, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 300, true, true, this::canAttack));
     }
 
-    @Override
-    public int getMaxSchoolSize() {
-        return 2;
-    }
-
-    @Override
-    public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.TEMPTS_KING_LINGCOD);
-    }
-
-    @Override
-    public void travel(@NotNull Vec3 travelVec) {
-        if (this.refuseToMove()) {
-            if (this.getNavigation().getPath() != null) {
-                this.getNavigation().stop();
-            }
-            if (this.onGround()) {
-                travelVec = travelVec.multiply(0.0, 1.0, 0.0);
-            } else if (this.isInWaterOrBubble()) {
-                travelVec = travelVec.multiply(0.0, 0.0, 0.0);
-            }
-        }
-        if (this.isEffectiveAi() && this.isInWater()) {
-            MobUtils.travelInWater(this, travelVec);
-        } else {
-            super.travel(travelVec);
-        }
-    }
-
-    @Override
-    protected boolean shouldUseShallowNavigation() {
-        return true;
-    }
-
-    @Override
-    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
-        return MobUtils.getDepthPathfindingFavor(pos, level);
+    private boolean canFollowBonded(LivingEntity living) {
+        return this.getBondedEntity() != null && living instanceof KingLingcod kingLingcod && this.getBondedEntity() == kingLingcod;
     }
 
     private boolean canAttackOthers(LivingEntity target) {
@@ -144,26 +89,13 @@ public class KingLingcod extends SchoolingAquaticMob implements Bucketable {
         return target instanceof KingLingcod kingLingcod && this.getBondedEntity() != kingLingcod;
     }
 
-    private boolean canHunt(LivingEntity target) {
-        if (!this.canAttack(target)) {
-            return false;
-        }
-        return target.getBbWidth() < this.getBbWidth() * 1.1F && target.getBbHeight() < this.getBbHeight() * 1.1F;
-    }
-
-    @Override
-    public void addFollowers(Stream<? extends SchoolingAquaticMob> entity) {
-        entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> {
-            if (!this.isBaby() && this.getBondedEntity() == entity2 && !this.isSitting() && !entity2.isSitting()) {
-                entity2.startFollowing(this);
-            }
-        });
-    }
-
     @Override
     public boolean isAlliedTo(@NotNull Entity entity) {
         Entity bondedEntity = this.getBondedEntity();
         if (entity == bondedEntity) {
+            return true;
+        }
+        if (entity instanceof Lingcod) {
             return true;
         }
         return super.isAlliedTo(entity);
@@ -178,7 +110,7 @@ public class KingLingcod extends SchoolingAquaticMob implements Bucketable {
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (!this.isTame() && this.getEatTicks() <= 0 && itemStack.is(UP2ItemTags.TAMES_KING_LINGCOD) ) {
-            this.setEatTicks(25);
+            this.setEatTicks(10);
             if (!this.level().isClientSide) {
                 if (!player.getAbilities().instabuild) {
                     itemStack.shrink(1);
@@ -225,13 +157,6 @@ public class KingLingcod extends SchoolingAquaticMob implements Bucketable {
         if (!this.level().isClientSide) {
             this.entityData.set(BONDED_WITH_ID, bondedWith != null ? bondedWith.getId() : -1);
         }
-    }
-
-    @Override
-    public void setupAnimationStates() {
-        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
-        this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
     }
 
     @Override
@@ -296,32 +221,29 @@ public class KingLingcod extends SchoolingAquaticMob implements Bucketable {
     }
 
     @Override
-    public boolean fromBucket() {
-        return false;
-    }
-
-    @Override
-    public void setFromBucket(boolean fromBucket) {
-    }
-
-    @Override
     public @NotNull ItemStack getBucketItemStack() {
         return new ItemStack(UP2Items.STETHACANTHUS_BUCKET.get());
     }
 
     @Override
-    public @NotNull SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_EMPTY_FISH;
-    }
-
-    @Override
     public void saveToBucketTag(@NotNull ItemStack bucket) {
-        MobUtils.savePrehistoricDataToBucket(this, bucket);
+        super.saveToBucketTag(bucket);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) ->  {
+            if (this.getBondedWithUUID() != null) {
+                compoundTag.putUUID("BondedWithUUID", this.getBondedWithUUID());
+            }
+            compoundTag.putInt("TameAttempts", this.getTameAttempts());
+        });
+
     }
 
     @Override
     public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
-        MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+        super.loadFromBucketTag(compoundTag);
+        if (compoundTag.hasUUID("BondedWithUUID")) {
+            this.setBondedWithUUID(compoundTag.getUUID("BondedWithUUID"));
+        }
+        this.setTameAttempts(compoundTag.getInt("TameAttempts"));
     }
 
     @Override

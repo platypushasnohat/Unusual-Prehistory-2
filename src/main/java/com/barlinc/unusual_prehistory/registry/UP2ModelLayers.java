@@ -88,6 +88,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation KING_LINGCOD = mainLayer("king_lingcod");
     public static final ModelLayerLocation LEEDSICHTHYS = mainLayer("leedsichthys");
     public static final ModelLayerLocation LEEDSICHTHYS_BABY = mainLayer("leedsichthys_baby");
+    public static final ModelLayerLocation LINGCOD = mainLayer("lingcod");
     public static final ModelLayerLocation LORRAINOSAURUS = mainLayer("lorrainosaurus");
     public static final ModelLayerLocation PROGNATHODON = mainLayer("prognathodon");
     public static final ModelLayerLocation RHIZODUS = mainLayer("rhizodus");
