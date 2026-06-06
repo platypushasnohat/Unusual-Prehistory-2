@@ -24,7 +24,9 @@ public class FollowVariantLeaderGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (mob.hasFollowers()) {
+        if (mob.isSitting()) {
+            return false;
+        } else if (mob.hasFollowers()) {
             return false;
         } else if (mob.isFollower()) {
             return true;

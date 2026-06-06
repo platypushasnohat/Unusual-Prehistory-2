@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals;
 
-import net.minecraft.world.entity.PathfinderMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.phys.Vec3;
@@ -9,26 +9,28 @@ import javax.annotation.Nullable;
 
 public class CustomizableRandomSwimGoal extends RandomStrollGoal {
 
+    protected final PrehistoricMob prehistoricMob;
     private final int radius;
     private final int height;
     private final int proximity;
     private final boolean hasProximity;
     protected Vec3 wantedPos;
 
-    public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height) {
-        this(entity, speedMultiplier, interval, radius, height, 0, false);
+    public CustomizableRandomSwimGoal(PrehistoricMob prehistoricMob, double speedMultiplier, int interval, int radius, int height) {
+        this(prehistoricMob, speedMultiplier, interval, radius, height, 0, false);
     }
 
-    public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval) {
-        this(entity, speedMultiplier, interval, 10, 7, 0, false);
+    public CustomizableRandomSwimGoal(PrehistoricMob prehistoricMob, double speedMultiplier, int interval) {
+        this(prehistoricMob, speedMultiplier, interval, 10, 7, 0, false);
     }
 
-    public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval, int proximity) {
-        this(entity, speedMultiplier, interval, 10, 7, proximity, true);
+    public CustomizableRandomSwimGoal(PrehistoricMob prehistoricMob, double speedMultiplier, int interval, int proximity) {
+        this(prehistoricMob, speedMultiplier, interval, 10, 7, proximity, true);
     }
 
-    public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height, int proximity, boolean hasProximity) {
-        super(entity, speedMultiplier, interval);
+    public CustomizableRandomSwimGoal(PrehistoricMob prehistoricMob, double speedMultiplier, int interval, int radius, int height, int proximity, boolean hasProximity) {
+        super(prehistoricMob, speedMultiplier, interval);
+        this.prehistoricMob = prehistoricMob;
         this.radius = radius;
         this.height = height;
         this.proximity = proximity;
@@ -36,16 +38,25 @@ public class CustomizableRandomSwimGoal extends RandomStrollGoal {
     }
 
     @Override
+    public boolean canUse() {
+        if (prehistoricMob.isSitting() || prehistoricMob.isEepy()) {
+            return false;
+        } else {
+            return super.canUse();
+        }
+    }
+
+    @Override
     public boolean canContinueToUse() {
-        this.wantedPos = new Vec3(this.wantedX, this.wantedY, this.wantedZ);
-        if (this.hasProximity) {
-            return super.canContinueToUse() && !(this.wantedPos.distanceTo(mob.position()) <= mob.getBbWidth() * proximity);
+        this.wantedPos = new Vec3(wantedX, wantedY, wantedZ);
+        if (hasProximity) {
+            return super.canContinueToUse() && !(wantedPos.distanceTo(prehistoricMob.position()) <= prehistoricMob.getBbWidth() * proximity);
         }
         return super.canContinueToUse();
     }
 
     @Nullable
     protected Vec3 getPosition() {
-        return BehaviorUtils.getRandomSwimmablePos(this.mob, radius, height);
+        return BehaviorUtils.getRandomSwimmablePos(prehistoricMob, radius, height);
     }
 }

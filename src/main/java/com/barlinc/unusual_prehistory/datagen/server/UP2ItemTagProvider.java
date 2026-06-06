@@ -447,6 +447,13 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
 
         this.tag(UP2ItemTags.TEMPTS_THYLACINE).addTags(UP2ItemTags.TAMES_THYLACINE);
 
+        this.tag(UP2ItemTags.TAMES_KING_LINGCOD).add(
+                Items.COD,
+                Items.COOKED_COD
+        );
+
+        this.tag(UP2ItemTags.TEMPTS_KING_LINGCOD).addTags(UP2ItemTags.TAMES_KING_LINGCOD);
+
         this.tag(UP2ItemTags.SWEET_COTYLORHYNCHUS_FOOD).add(
                 Items.SWEET_BERRIES
         );

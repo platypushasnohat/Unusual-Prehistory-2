@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-04T20:04:31.560644	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-06-06T09:42:46.0829506	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/fruits.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -108,6 +108,7 @@ ff07c521dd33e35f38a8521b108c24c6a1140cfa data/unusual_prehistory/tags/item/rose_
 776ef702a86c6d116e363487660ff6b719fc7c08 data/unusual_prehistory/tags/item/talpanas_food.json
 4d850c9e536882dc6651e44454c6551d739210bd data/unusual_prehistory/tags/item/tames_concavenator.json
 243f2dab6ef46a493d12775f6f28baf7b72922cf data/unusual_prehistory/tags/item/tames_kaprosuchus.json
+36f6f9ee2db6fb21a405b24d3ab1e8118b294286 data/unusual_prehistory/tags/item/tames_king_lingcod.json
 ed812d11a070d92ca88d1d889a167aa4dcda4159 data/unusual_prehistory/tags/item/tames_megalania.json
 b197c522c5d1bf863432ab04a9c9b18fa9e8ced7 data/unusual_prehistory/tags/item/tames_metriorhynchus.json
 e785b68d82f8996358d21845959dd46b1c5cd8ff data/unusual_prehistory/tags/item/tames_thylacine.json
@@ -119,6 +120,7 @@ efe6d58e86177a50d0cd62cbaa1b811e7f7c0715 data/unusual_prehistory/tags/item/tartu
 02dfdb41688ccea8169a8d046943461f0aa3c361 data/unusual_prehistory/tags/item/telecrex_food.json
 27991ebdfa7062661af135697af9dc845c3b1dd7 data/unusual_prehistory/tags/item/tempts_arthropleura.json
 88963a4bc77c2a6bc037001e10166fde02efb9a0 data/unusual_prehistory/tags/item/tempts_concavenator.json
+cf9b59992493fab934fd8e20a4e65fdd0d643ce0 data/unusual_prehistory/tags/item/tempts_king_lingcod.json
 cf5ef140792ab63d4f45502238af9c05ac6462be data/unusual_prehistory/tags/item/tempts_thylacine.json
 a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data/unusual_prehistory/tags/item/therizinosaurus_food.json
 30f1477f8902716e21f1b4679f260a7373960bab data/unusual_prehistory/tags/item/transmogrifier_fuel.json
