@@ -71,7 +71,7 @@ public class Ammonite extends SchoolingAquaticMob implements Bucketable, Variant
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 10, 7));
         this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, Player.class, 6.0F,2.0D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.AMMONITE_FOOD), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 80, 10, 7));
         this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
@@ -100,7 +100,7 @@ public class Ammonite extends SchoolingAquaticMob implements Bucketable, Variant
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.AMMONITE_FOOD);
+        return stack.is(UP2ItemTags.DIET_PISCIVORE);
     }
 
     @Override

@@ -1,0 +1,32 @@
+{
+  "values": [
+    "minecraft:short_grass",
+    "minecraft:fern",
+    "minecraft:bamboo",
+    "minecraft:sugar_cane",
+    "minecraft:tall_grass",
+    "minecraft:large_fern",
+    "minecraft:moss_block",
+    "minecraft:moss_carpet",
+    "minecraft:cactus",
+    "minecraft:vine",
+    "minecraft:hanging_roots",
+    "minecraft:glow_lichen",
+    "unusual_prehistory:horsetail",
+    "unusual_prehistory:large_horsetail",
+    "unusual_prehistory:delitzschala_stalk",
+    "unusual_prehistory:archaeosigillaria",
+    "unusual_prehistory:bennettitales",
+    "unusual_prehistory:brachyphyllum",
+    "unusual_prehistory:calamophyton",
+    "unusual_prehistory:cladophlebis",
+    "unusual_prehistory:neomariopteris",
+    "unusual_prehistory:rhynia",
+    "unusual_prehistory:cooksonia",
+    "unusual_prehistory:tempskya",
+    "unusual_prehistory:cycad_seedling",
+    "unusual_prehistory:guangdedendron",
+    "unusual_prehistory:hanging_lepidodendron_leaves",
+    "unusual_prehistory:moss_layer"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "values": [
+    "minecraft:pumpkin",
+    "minecraft:melon",
+    "#c:foods/fruit",
+    "#c:foods/berry"
+  ]
+}

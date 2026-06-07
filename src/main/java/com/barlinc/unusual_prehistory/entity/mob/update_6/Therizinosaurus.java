@@ -81,7 +81,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(2, new TherizinosaurusAttackGoal(this));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.THERIZINOSAURUS_FOOD), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
         this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(6, new SleepingGoal(this));
@@ -112,7 +112,7 @@ public class Therizinosaurus extends PrehistoricMob implements VibrationSystem {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.THERIZINOSAURUS_FOOD);
+        return stack.is(UP2ItemTags.DIET_HERBIVORE);
     }
 
     @Override

@@ -119,26 +119,30 @@ public class UP2ItemTags {
     public static final TagKey<Item> PALEOZOIC_EGGS = modItemTag("paleozoic_eggs");
     public static final TagKey<Item> MESOZOIC_EGGS = modItemTag("mesozoic_eggs");
     public static final TagKey<Item> CENOZOIC_EGGS = modItemTag("cenozoic_eggs");
-    public static final TagKey<Item> EGGS = modItemTag("eggs");
+    public static final TagKey<Item> PREHISTORIC_EGGS = modItemTag("prehistoric_eggs");
 
     public static final TagKey<Item> ACCELERATES_EGG_HATCHING = modItemTag("accelerates_egg_hatching");
     public static final TagKey<Item> PREVENTS_EGG_HATCHING = modItemTag("prevents_egg_hatching");
 
     // Update 6
-    public static final TagKey<Item> AMMONITE_FOOD = modItemTag("ammonite_food");
-    public static final TagKey<Item> ANTARCTOPELTA_FOOD = modItemTag("antarctopelta_food");
-    public static final TagKey<Item> ARTHROPLEURA_FOOD = modItemTag("arthropleura_food");
-    public static final TagKey<Item> BRONTOSCORPIO_FOOD = modItemTag("brontoscorpio_food");
-    public static final TagKey<Item> CONCAVENATOR_FOOD = modItemTag("concavenator_food");
-    public static final TagKey<Item> COTYLORHYNCHUS_FOOD = modItemTag("cotylorhynchus_food");
-    public static final TagKey<Item> CRYPTOCLIDUS_FOOD = modItemTag("cryptoclidus_food");
-    public static final TagKey<Item> ICHTHYOSAURUS_FOOD = modItemTag("ichthyosaurus_food");
-    public static final TagKey<Item> LORRAINOSAURUS_FOOD = modItemTag("lorrainosaurus_food");
-    public static final TagKey<Item> MAMMOTH_FOOD = modItemTag("mammoth_food");
-    public static final TagKey<Item> PROGNATHODON_FOOD = modItemTag("prognathodon_food");
-    public static final TagKey<Item> RHIZODUS_FOOD = modItemTag("rhizodus_food");
-    public static final TagKey<Item> SPIKE_TOOTHED_SALMON_FOOD = modItemTag("spike_toothed_salmon_food");
-    public static final TagKey<Item> THERIZINOSAURUS_FOOD = modItemTag("therizinosaurus_food");
+    public static final TagKey<Item> DIET_CARNIVORE = modItemTag("diet/carnivore");
+    public static final TagKey<Item> DIET_HERBIVORE = modItemTag("diet/herbivore");
+    public static final TagKey<Item> DIET_OMNIVORE = modItemTag("diet/omnivore");
+    public static final TagKey<Item> DIET_PISCIVORE = modItemTag("diet/piscivore");
+    public static final TagKey<Item> DIET_INSECTIVORE = modItemTag("diet/insectivore");
+    public static final TagKey<Item> DIET_SCAVENGER = modItemTag("diet/scavenger");
+    public static final TagKey<Item> DIET_NECTARIVORE = modItemTag("diet/nectarivore");
+    public static final TagKey<Item> DIET_DETRITIVORE = modItemTag("diet/detritivore");
+    public static final TagKey<Item> DIET_FRUGIVORE = modItemTag("diet/frugivore");
+    public static final TagKey<Item> DIET_GRANIVORE = modItemTag("diet/granivore");
+    public static final TagKey<Item> DIET_CORALLIVORE = modItemTag("diet/corallivore");
+    public static final TagKey<Item> DIET_OVIVORE = modItemTag("diet/ovivore");
+
+    public static final TagKey<Item> PLANTS = modItemTag("plants");
+    public static final TagKey<Item> AQUATIC_PLANTS = modItemTag("aquatic_plants");
+    public static final TagKey<Item> CORALS = modItemTag("coral_blocks");
+    public static final TagKey<Item> BOTTLED_MOBS = modItemTag("bottled_mobs");
+    public static final TagKey<Item> POTTED_MOBS = modItemTag("potted_mobs");
 
     public static final TagKey<Item> TEMPTS_ARTHROPLEURA = modItemTag("tempts_arthropleura");
 
@@ -170,7 +174,7 @@ public class UP2ItemTags {
         return itemTag("c", name);
     }
 
-    public static TagKey<Item> itemTag(String modid, String name) {
-        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(modid, name));
+    public static TagKey<Item> itemTag(String modId, String name) {
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(modId, name));
     }
 }

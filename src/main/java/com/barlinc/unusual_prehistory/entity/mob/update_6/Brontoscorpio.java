@@ -77,7 +77,7 @@
      protected void registerGoals() {
          this.goalSelector.addGoal(1, new AmphibiousPanicGoal(this, 1.7D));
          this.goalSelector.addGoal(2, new BrontoscorpioAttackGoal(this));
-         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.BRONTOSCORPIO_FOOD), false));
+         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
          this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D, false));
          this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
@@ -122,7 +122,7 @@
 
      @Override
      public boolean isFood(ItemStack stack) {
-         return stack.is(UP2ItemTags.BRONTOSCORPIO_FOOD);
+         return stack.is(UP2ItemTags.DIET_PISCIVORE);
      }
 
      @Override

@@ -25,6 +25,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
     @Override
     protected void addTags(@NotNull Provider provider) {
         // Unusual Prehistory
+
         this.tag(UP2BlockTags.DRYOPHYLLUM_LOGS).add(
                 DRYOPHYLLUM.log().get(),
                 DRYOPHYLLUM.wood().get(),

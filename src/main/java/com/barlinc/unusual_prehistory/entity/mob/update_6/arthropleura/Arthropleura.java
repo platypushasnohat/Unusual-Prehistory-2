@@ -102,7 +102,7 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
 
     @Override
     public boolean isFood(@NotNull ItemStack itemStack) {
-        return itemStack.is(UP2ItemTags.ARTHROPLEURA_FOOD);
+        return itemStack.is(UP2ItemTags.DIET_DETRITIVORE);
     }
 
     @Override

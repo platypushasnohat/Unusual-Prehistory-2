@@ -72,7 +72,7 @@ public class Shringasaurus extends PrehistoricMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(2, new ShringasaurusAttackGoal(this));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.MAMMOTH_FOOD), false));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_FRUGIVORE), false));
         this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 12.0F));
@@ -103,7 +103,7 @@ public class Shringasaurus extends PrehistoricMob {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.MAMMOTH_FOOD);
+        return stack.is(UP2ItemTags.DIET_FRUGIVORE);
     }
 
     @Override

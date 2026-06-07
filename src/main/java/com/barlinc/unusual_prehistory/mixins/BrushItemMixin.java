@@ -1,7 +1,6 @@
 package com.barlinc.unusual_prehistory.mixins;
 
 import com.barlinc.unusual_prehistory.blocks.entity.Brushable;
-import com.barlinc.unusual_prehistory.blocks.entity.MatrixBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;

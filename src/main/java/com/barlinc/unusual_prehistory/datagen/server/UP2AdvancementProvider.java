@@ -34,7 +34,7 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
 
         AdvancementHolder root = Advancement.Builder.advancement().display(UP2Items.UNUSUAL_PREHISTORY.get(), Component.translatable("advancements.unusual_prehistory.root.title"), Component.translatable("advancements.unusual_prehistory.root.description"), UnusualPrehistory2.modPrefix("textures/block/cobbled_fossilized_bone.png"), AdvancementType.TASK, false, false, false)
                 .addCriterion("fossils", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.FOSSILS).build()))
-                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.EGGS).build()))
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.PREHISTORIC_EGGS).build()))
                 .addCriterion("machine_parts", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.MACHINE_PARTS.get()))
                 .addCriterion("paleopedia", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Items.PALEOPEDIA.get()))
                 .addCriterion("transmogrifier", InventoryChangeTrigger.TriggerInstance.hasItems(UP2Blocks.TRANSMOGRIFIER.get()))
@@ -74,7 +74,7 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_organic_ooze"), helper);
 
         AdvancementHolder eggs = Advancement.Builder.advancement().parent(organicOoze).display(UP2Items.UNKNOWN_EGG.get(), Component.translatable("advancements.unusual_prehistory.obtain_egg.title"), Component.translatable("advancements.unusual_prehistory.obtain_egg.description"), null, AdvancementType.GOAL, true, true, false)
-                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.EGGS).build()))
+                .addCriterion("eggs", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(UP2ItemTags.PREHISTORIC_EGGS).build()))
                 .requirements(AdvancementRequirements.Strategy.OR)
                 .save(consumer, UnusualPrehistory2.modPrefix("obtain_egg"), helper);
 

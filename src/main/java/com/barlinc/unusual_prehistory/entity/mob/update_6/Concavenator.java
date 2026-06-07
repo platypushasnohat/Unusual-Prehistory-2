@@ -206,7 +206,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.CONCAVENATOR_FOOD);
+        return stack.is(UP2ItemTags.DIET_CARNIVORE);
     }
 
     @Override

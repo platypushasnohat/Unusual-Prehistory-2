@@ -98,7 +98,7 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
                 return !SpikeToothedSalmon.this.isZombie() && super.canUse();
             }
         });
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.SPIKE_TOOTHED_SALMON_FOOD), false));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 10, 16, 8, 3, true));
         this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
@@ -113,7 +113,7 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.SPIKE_TOOTHED_SALMON_FOOD);
+        return stack.is(UP2ItemTags.DIET_PISCIVORE);
     }
 
     @Override

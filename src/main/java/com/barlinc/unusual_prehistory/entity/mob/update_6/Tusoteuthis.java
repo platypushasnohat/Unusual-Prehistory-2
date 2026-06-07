@@ -76,7 +76,7 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new TusoteuthisPanicGoal(this));
         this.goalSelector.addGoal(2, new TusoteuthisAttackGoal(this));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.LORRAINOSAURUS_FOOD), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 100, 7, 15));
         this.targetSelector.addGoal(1, new TusoteuthisTargetUnderneathGoal<>(this, LivingEntity.class, this::canTargetEntitiesUnderneath));
         this.targetSelector.addGoal(2, new TusoteuthisTargetUnderneathGoal<>(this, Player.class, this::canTargetEntitiesUnderneath));
@@ -279,7 +279,7 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.LORRAINOSAURUS_FOOD);
+        return stack.is(UP2ItemTags.DIET_PISCIVORE);
     }
 
     @Nullable

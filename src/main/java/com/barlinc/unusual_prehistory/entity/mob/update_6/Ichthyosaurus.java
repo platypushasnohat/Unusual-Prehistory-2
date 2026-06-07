@@ -35,6 +35,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -80,7 +81,7 @@ public class Ichthyosaurus extends SchoolingAquaticMob implements LeapingMob, Pl
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 16, 8));
         this.goalSelector.addGoal(2, new AquaticLeapGoal(this, 10, 0.8D, 0.9D));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.ICHTHYOSAURUS_FOOD), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(4, new SwimWithPlayerGoal(this));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 10, 30, 15, 3, true));
         this.goalSelector.addGoal(6, new PrehistoricFollowParentGoal(this, 1.0D));
@@ -214,32 +215,12 @@ public class Ichthyosaurus extends SchoolingAquaticMob implements LeapingMob, Pl
 
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        InteractionResult type = super.mobInteract(player, hand);
-
-        if (!this.isTame() && itemstack.is(UP2ItemTags.TAMES_KAPROSUCHUS)) {
-            this.gameEvent(GameEvent.ENTITY_INTERACT);
-            if(!this.level().isClientSide) {
-                if (!player.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
-                if (this.getTameAttempts() > 2 && this.getRandom().nextBoolean()) {
-                    this.level().broadcastEntityEvent(this, (byte) 7);
-                    this.tame(player);
-                    this.heal(this.getMaxHealth());
-                } else {
-                    this.level().broadcastEntityEvent(this, (byte) 6);
-                    this.setTameAttempts(this.getTameAttempts() + 1);
-                }
-            }
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (!this.isVehicle() && !this.isFood(itemStack) && !this.isBaby() && !itemStack.is(Items.LEAD)) {
+            player.startRiding(this);
+            return InteractionResult.SUCCESS;
         }
-        return type;
-    }
-
-    @Override
-    public boolean canOwnerMount(Player player, @NotNull InteractionHand hand) {
-        return !this.isBaby() && this.isInWater();
+        return super.mobInteract(player, hand);
     }
 
     @Override
@@ -313,7 +294,7 @@ public class Ichthyosaurus extends SchoolingAquaticMob implements LeapingMob, Pl
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.ICHTHYOSAURUS_FOOD);
+        return stack.is(UP2ItemTags.DIET_PISCIVORE);
     }
 
     @Override

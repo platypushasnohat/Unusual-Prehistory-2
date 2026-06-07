@@ -81,7 +81,7 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D, 16, 8));
         this.goalSelector.addGoal(2, new AquaticLeapGoal(this, 10, 1.0D, 0.98D));
         this.goalSelector.addGoal(3, new PrognathodonAttackGoal(this));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PROGNATHODON_FOOD), false));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 20, 30, 15, 3, true));
         this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 40, 1, false, 0.001F, this::canPlayIdles));
         this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 60, 2, false, 0.001F, this::canPlayIdles));
@@ -199,7 +199,7 @@ public class Prognathodon extends AmphibiousMob implements LeapingMob {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.PROGNATHODON_FOOD);
+        return stack.is(UP2ItemTags.DIET_PISCIVORE);
     }
 
     @Nullable
