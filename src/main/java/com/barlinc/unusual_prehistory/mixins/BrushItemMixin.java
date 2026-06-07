@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.mixins;
 
+import com.barlinc.unusual_prehistory.blocks.entity.Brushable;
 import com.barlinc.unusual_prehistory.blocks.entity.MatrixBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -25,8 +26,8 @@ public class BrushItemMixin {
             if (player.pick(player.blockInteractionRange(), 0.0F, false) instanceof BlockHitResult hitResult) {
                 BlockPos pos = hitResult.getBlockPos();
                 BlockEntity blockEntity = level.getBlockEntity(pos);
-                if (blockEntity instanceof MatrixBlockEntity matrix) {
-                    boolean brush = matrix.brush(level.getGameTime());
+                if (blockEntity instanceof Brushable brushable) {
+                    boolean brush = brushable.brush(level.getGameTime());
                     if (brush) {
                         EquipmentSlot slot = stack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
                         stack.hurtAndBreak(1, livingEntity, slot);
