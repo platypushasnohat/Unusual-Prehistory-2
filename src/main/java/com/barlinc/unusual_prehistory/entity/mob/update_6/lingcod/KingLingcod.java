@@ -1,11 +1,13 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_6.lingcod;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -15,6 +17,8 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -47,13 +51,17 @@ public class KingLingcod extends AbstractLingcod {
     private static final EntityDataAccessor<Integer> BONDED_WITH_ID = SynchedEntityData.defineId(KingLingcod.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(KingLingcod.class, EntityDataSerializers.INT);
 
+    private int summonCooldown = 100;
+
+    public final SmoothAnimationState summonAnimationState = new SmoothAnimationState();
+
     public KingLingcod(EntityType<? extends AbstractLingcod> entityType, Level level) {
         super(entityType, level);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 16.0D)
+                .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.75F);
     }
@@ -153,20 +161,41 @@ public class KingLingcod extends AbstractLingcod {
     public void tick() {
         super.tick();
 
+        if (this.isInWaterOrBubble() && this.isSitting()) {
+            this.setXRot(Mth.rotLerp(0.25F, this.getXRot(), 0.0F));
+        }
+
         Entity bondedWith = this.getBondedEntity();
         if (!this.level().isClientSide) {
             this.entityData.set(BONDED_WITH_ID, bondedWith != null ? bondedWith.getId() : -1);
+
+            LivingEntity target = this.getTarget();
+            if (tickCount % 10 == 0) {
+                if (target != null && target.isAlive() && !(target instanceof KingLingcod)) {
+                    for (Lingcod lingcod : this.level().getEntitiesOfClass(Lingcod.class, this.getBoundingBox().inflate(20.0D))) {
+                        if (lingcod.getTarget() != target) {
+                            lingcod.setTarget(target);
+                        }
+                    }
+                }
+            }
         }
     }
 
     @Override
-    public void handleEntityEvent(byte id) {
-        if (id == EAT) {
-            this.eatAnimationState.start(this.tickCount);
+    public void tickCooldowns() {
+        super.tickCooldowns();
+        if (summonCooldown > 0) {
+            this.summonCooldown--;
         }
-        else {
-            super.handleEntityEvent(id);
-        }
+    }
+
+    @Override
+    public void setupAnimationStates() {
+        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && this.getPose() != UP2Poses.ATTACKING.get() && this.getPose() != UP2Poses.MITOSIS.get(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+        this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), this.tickCount);
+        this.summonAnimationState.animateWhen(this.getPose() == UP2Poses.MITOSIS.get(), this.tickCount);
     }
 
     @Override
@@ -278,6 +307,8 @@ public class KingLingcod extends AbstractLingcod {
     private static class KingLingcodAttackGoal extends AttackGoal {
 
         private final KingLingcod kingLingcod;
+        private int summonIndex;
+        private float summonOffset;
 
         public KingLingcodAttackGoal(KingLingcod kingLingcod) {
             super(kingLingcod);
@@ -285,23 +316,42 @@ public class KingLingcod extends AbstractLingcod {
         }
 
         @Override
+        public void stop() {
+            this.kingLingcod.summonCooldown = 1200 + kingLingcod.getRandom().nextInt(400);
+            super.stop();
+        }
+
+        @Override
         public void tick() {
             LivingEntity target = kingLingcod.getTarget();
-            if (target != null && target.isInWater()) {
-                this.kingLingcod.lookAt(target, 30.0F, 30.0F);
-                this.kingLingcod.getLookControl().setLookAt(target, 30.0F, 30.0F);
+            if (target != null) {
                 double distance = kingLingcod.distanceToSqr(target.getX(), target.getY(), target.getZ());
 
                 if (kingLingcod.getAttackState() == 1) {
                     this.kingLingcod.getNavigation().stop();
+                    this.lookAtTarget(target);
                     this.tickAttack(target);
-                } else {
-                    if (distance <= 4) {
+                }
+                else if (kingLingcod.getAttackState() == 2) {
+                    this.kingLingcod.getNavigation().stop();
+                    this.tickSummon();
+                }
+                else {
+                    if (distance <= this.getAttackReachSqr(target, 1.5D) && kingLingcod.attackCooldown == 0) {
                         this.kingLingcod.setAttackState(1);
                     }
+                    if (distance > 12.0D && kingLingcod.summonCooldown == 0) {
+                        this.kingLingcod.setAttackState(2);
+                    }
                     this.kingLingcod.getNavigation().moveTo(target, 1.5D);
+                    this.lookAtTarget(target);
                 }
             }
+        }
+
+        private void lookAtTarget(LivingEntity target) {
+            this.kingLingcod.lookAt(target, 30.0F, 30.0F);
+            this.kingLingcod.getLookControl().setLookAt(target, 30.0F, 30.0F);
         }
 
         protected void tickAttack(LivingEntity target) {
@@ -315,13 +365,61 @@ public class KingLingcod extends AbstractLingcod {
             if (timer == 6) {
                 if (this.isInAttackRange(target, 1.5D)) {
                     this.kingLingcod.doHurtTarget(target);
-                    this.kingLingcod.swing(InteractionHand.MAIN_HAND);
                 }
             }
             if (timer > 20) {
                 this.timer = 0;
+                this.kingLingcod.attackCooldown = 4;
                 this.kingLingcod.setPose(Pose.STANDING);
                 this.kingLingcod.setAttackState(0);
+            }
+        }
+
+        protected void tickSummon() {
+            this.timer++;
+            if (timer == 1) {
+                this.kingLingcod.setPose(UP2Poses.MITOSIS.get());
+                this.summonIndex = 0;
+                this.summonOffset = kingLingcod.getRandom().nextFloat() * ((float) Math.PI * 2.0F);
+            }
+            if (timer % 7 == 0 && summonIndex < 8 && timer <= 60) {
+                this.summonLingcod(summonIndex++);
+            }
+            if (timer > 80) {
+                this.timer = 0;
+                this.kingLingcod.summonCooldown = 1200 + kingLingcod.getRandom().nextInt(400);
+                this.kingLingcod.setPose(Pose.STANDING);
+                this.kingLingcod.setAttackState(0);
+            }
+        }
+
+        private void summonLingcod(int index) {
+            ServerLevel serverLevel = (ServerLevel) kingLingcod.level();
+            int count = 8;
+            double radius = 3.0D;
+            double angle = summonOffset + ((Math.PI * 2.0D) / count) * index;
+            double x = kingLingcod.getX() + Math.cos(angle) * radius;
+            double z = kingLingcod.getZ() + Math.sin(angle) * radius;
+            BlockPos pos = BlockPos.containing(x, kingLingcod.getY(), z);
+            if (!serverLevel.getFluidState(pos).is(FluidTags.WATER)) {
+                return;
+            }
+
+            Lingcod lingcod = UP2Entities.LINGCOD.get().create(serverLevel);
+            if (lingcod != null) {
+                float yaw = kingLingcod.getRandom().nextFloat() * 360.0F;
+                lingcod.moveTo(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, yaw, 0.0F);
+                lingcod.yBodyRot = yaw;
+                lingcod.setYHeadRot(yaw);
+                lingcod.setSummoned(true);
+                lingcod.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(pos), MobSpawnType.TRIGGERED, null);
+
+                if (lingcod.checkSpawnObstruction(serverLevel)) {
+                    serverLevel.addFreshEntity(lingcod);
+                    if (kingLingcod.getTarget() != null) {
+                        lingcod.setTarget(kingLingcod.getTarget());
+                    }
+                }
             }
         }
     }

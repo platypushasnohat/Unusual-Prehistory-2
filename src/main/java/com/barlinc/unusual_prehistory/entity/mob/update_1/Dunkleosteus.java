@@ -53,7 +53,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob implements Bucketable, V
 
     public int attackCooldown = 0;
 
-    public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState quirkAnimationState = new SmoothAnimationState();
 
     public Dunkleosteus(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
@@ -367,34 +367,36 @@ public class Dunkleosteus extends PrehistoricAquaticMob implements Bucketable, V
                 this.dunkleosteus.getLookControl().setLookAt(target, 30F, 30F);
                 double distance = this.dunkleosteus.distanceToSqr(target.getX(), target.getY(), target.getZ());
                 int attackState = this.dunkleosteus.getAttackState();
-                this.dunkleosteus.getNavigation().moveTo(target, 1.5D);
 
                 if (attackState == 1) {
-                    this.tickBite();
-                } else if (distance < this.getAttackReachSqr(target) && dunkleosteus.attackCooldown == 0) {
-                    this.dunkleosteus.setAttackState(1);
+                    this.tickBite(target);
+                    this.dunkleosteus.getNavigation().stop();
+                }
+                else {
+                    if (distance < this.getAttackReachSqr(target) && dunkleosteus.attackCooldown == 0) {
+                        this.dunkleosteus.setAttackState(1);
+                    }
+                    this.dunkleosteus.getNavigation().moveTo(target, 1.5D);
                 }
             }
         }
 
-        protected void tickBite() {
+        protected void tickBite(LivingEntity target) {
             this.timer++;
-            LivingEntity target = dunkleosteus.getTarget();
             if (timer == 1) {
                 this.dunkleosteus.setPose(UP2Poses.ATTACKING.get());
-                this.dunkleosteus.playSound(dunkleosteus.getVariant().biteSound, 1.0F, dunkleosteus.getRandom().nextFloat() * 0.1F + 0.9F);
+                this.dunkleosteus.playSound(dunkleosteus.getVariant().biteSound, 1.0F, dunkleosteus.getVoicePitch());
             }
             if (timer == 5) {
                 if (this.isInAttackRange(target, 1.5D)) {
                     DamageSource source = UP2DamageTypes.execute(dunkleosteus.level(), dunkleosteus, dunkleosteus);
                     target.hurt(source, (float) dunkleosteus.getAttributeValue(Attributes.ATTACK_DAMAGE));
-                    this.strongKnockback(target, 0.2D, 0.01D);
                 }
             }
             if (timer > 10) {
                 this.timer = 0;
                 this.dunkleosteus.setPose(Pose.STANDING);
-                this.dunkleosteus.attackCooldown = 5 + dunkleosteus.getRandom().nextInt(3);
+                this.dunkleosteus.attackCooldown = 10;
                 this.dunkleosteus.setAttackState(0);
             }
         }

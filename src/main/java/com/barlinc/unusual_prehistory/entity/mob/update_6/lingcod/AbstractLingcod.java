@@ -7,8 +7,6 @@ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
-import com.barlinc.unusual_prehistory.registry.UP2Items;
-import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -16,7 +14,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
@@ -26,11 +23,11 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
-
 public abstract class AbstractLingcod extends PrehistoricAquaticMob implements Bucketable {
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState();
+
+    protected int attackCooldown = 0;
 
     protected final byte EAT = 67;
 
@@ -88,6 +85,14 @@ public abstract class AbstractLingcod extends PrehistoricAquaticMob implements B
     }
 
     @Override
+    public void tickCooldowns() {
+        super.tickCooldowns();
+        if (attackCooldown > 0) {
+            this.attackCooldown--;
+        }
+    }
+
+    @Override
     public void setupAnimationStates() {
         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && this.getPose() != UP2Poses.ATTACKING.get(), this.tickCount);
         this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
@@ -114,11 +119,6 @@ public abstract class AbstractLingcod extends PrehistoricAquaticMob implements B
     }
 
     @Override
-    public @NotNull ItemStack getBucketItemStack() {
-        return new ItemStack(UP2Items.STETHACANTHUS_BUCKET.get());
-    }
-
-    @Override
     public @NotNull SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_EMPTY_FISH;
     }
@@ -131,23 +131,5 @@ public abstract class AbstractLingcod extends PrehistoricAquaticMob implements B
     @Override
     public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
         MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
-    }
-
-    @Override
-    @Nullable
-    protected SoundEvent getDeathSound() {
-        return UP2SoundEvents.STETHACANTHUS_DEATH.get();
-    }
-
-    @Override
-    @Nullable
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-        return UP2SoundEvents.STETHACANTHUS_HURT.get();
-    }
-
-    @Override
-    @Nullable
-    protected SoundEvent getFlopSound() {
-        return UP2SoundEvents.STETHACANTHUS_FLOP.get();
     }
 }

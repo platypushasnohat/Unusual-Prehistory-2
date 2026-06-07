@@ -7,6 +7,7 @@ import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -107,16 +108,18 @@ public class KingLingcodModel extends UP2Model<KingLingcod> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
 
-        if (entity.isInWaterOrBubble() && entity.getPose() != UP2Poses.ATTACKING.get()) {
+        if (entity.isInWaterOrBubble() && entity.getPose() != UP2Poses.ATTACKING.get() && entity.getPose() != UP2Poses.MITOSIS.get()) {
             this.animateWalk(KingLingcodAnimations.SWIM, limbSwing, limbSwingAmount, 1.25F, 2.5F);
         }
         this.animateIdleSmooth(entity.swimIdleAnimationState, KingLingcodAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
 		this.animateSmooth(entity.flopAnimationState, KingLingcodAnimations.FLOP, ageInTicks, partialTicks);
 		this.animateSmooth(entity.attackAnimationState, KingLingcodAnimations.ATTACK, ageInTicks, partialTicks);
+        this.animateSmooth(entity.summonAnimationState, KingLingcodAnimations.PATROL, ageInTicks, partialTicks);
+        this.animate(entity.summonAnimationState, KingLingcodAnimations.PATROL_ROTATION_OVERLAY, ageInTicks);
         this.animate(entity.eatAnimationState, KingLingcodAnimations.EAT_BLEND, ageInTicks);
 
         if (entity.isInWaterOrBubble()) {
-            this.swim_control.xRot = headPitch * ((float) Math.PI / 180F);
+            this.swim_control.xRot = headPitch * ((float) Math.PI / 180.0F);
         }
 	}
 
