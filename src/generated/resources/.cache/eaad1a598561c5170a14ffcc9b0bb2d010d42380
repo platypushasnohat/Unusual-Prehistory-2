@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-07T17:07:11.8789087	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-06-07T17:25:48.8095973	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/fruits.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -24,8 +24,8 @@ f578bb8192865ea987d775ac336e9d5077f07357 data/unusual_prehistory/tags/item/aquat
 b88c5603f992b7ea7b583abad932d4a83c93fa16 data/unusual_prehistory/tags/item/beige_dyes.json
 44b38d2b2e0f722e9d2be9dbd8698e086c227fc5 data/unusual_prehistory/tags/item/brachiosaurus_food.json
 c7993cd1586cd2e56b0739d5aba54043ca0d8167 data/unusual_prehistory/tags/item/carnotaurus_food.json
-3713c730924f6c325563c3a09a56813cfa4760d0 data/unusual_prehistory/tags/item/cenozoic_eggs.json
-a30a10de0d59726b4d5f224976e39b0819351804 data/unusual_prehistory/tags/item/cenozoic_fossils.json
+a7317e78d79055a054085199de704d2c77302d05 data/unusual_prehistory/tags/item/cenozoic_eggs.json
+a16329a24f7f5e1ab6ae245ec3342a26e7a96639 data/unusual_prehistory/tags/item/cenozoic_fossils.json
 eb1d0ec034e2c5bad4bf308701147794a62a6806 data/unusual_prehistory/tags/item/coelacanthus_food.json
 f1d842746156cfa7a5d46fad3732f64054d37607 data/unusual_prehistory/tags/item/concavenator_red_sand_armor_items.json
 cc4eec1bc62b821028f5ff4ed567f0962d99d8bf data/unusual_prehistory/tags/item/concavenator_sand_armor_items.json
@@ -49,7 +49,7 @@ f29587b232e7153784a4777c9b39ade220ef7f75 data/unusual_prehistory/tags/item/diet/
 16f975c4773e5243e1639b20d47a5f6a4cf91789 data/unusual_prehistory/tags/item/diet/insectivore.json
 968c133268899dd8d07eefd5341c80eb70c13ae4 data/unusual_prehistory/tags/item/diet/nectarivore.json
 ab36086155f3c18458e1bb793dc4bc74f10e6e5a data/unusual_prehistory/tags/item/diet/omnivore.json
-e66d56ad31601ab68e94a3f3628e1fcfb62c5a19 data/unusual_prehistory/tags/item/diet/ovivore.json
+14b9594e38df9c6b2bbe4eef3fce29b88e15a7ec data/unusual_prehistory/tags/item/diet/ovivore.json
 e9adaafb0aa708a906ef8cb18494bf27fb74fa38 data/unusual_prehistory/tags/item/diet/piscivore.json
 b6651556dc95310c1e6533555c99e2263c549632 data/unusual_prehistory/tags/item/diet/scavenger.json
 b1ec8eb71e51dd2382f705b80b7c0231936f2537 data/unusual_prehistory/tags/item/diplocaulus_burrowing_blocks.json

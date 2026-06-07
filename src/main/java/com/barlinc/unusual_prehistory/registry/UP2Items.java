@@ -253,6 +253,7 @@ public class UP2Items {
     public static final DeferredItem<Item> PILLAR_FOSSIL = registerFossilItem("pillar"); // giant campanile
     public static final DeferredItem<Item> COMBUSTIBLE_FOSSIL = registerFossilItem("combustible"); // hynerpeton
     public static final DeferredItem<Item> FISH_REPTILE_FOSSIL = registerFossilItem("fish_reptile"); // ichthyosaurus
+    public static final DeferredItem<Item> CROWN_FOSSIL = registerFossilItem("crown"); // king lingcod
     public static final DeferredItem<Item> GARGANTUAN_FOSSIL = registerFossilItem("gargantuan"); // leedsichthys
     public static final DeferredItem<Item> CLAMP_JAW_FOSSIL = registerFossilItem("clamp_jaw"); // lorrainosaurus
     public static final DeferredItem<Item> SURGE_FOSSIL = registerFossilItem("surge"); // prognathodon

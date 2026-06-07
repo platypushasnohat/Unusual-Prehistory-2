@@ -227,6 +227,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(BOAR_TOOTH_FOSSIL.get()); // kaprosuchus
                         output.accept(PRICKLY_FOSSIL.get()); // kentrosaurus
                         output.accept(IMPERATIVE_FOSSIL.get()); // kimmeridgebrachypteraeschnidium
+                        output.accept(CROWN_FOSSIL.get()); // king lingcod
                         output.accept(GARGANTUAN_FOSSIL.get()); // leedsichthys
                         output.accept(TRUNK_MOUSE_FOSSIL.get()); // leptictidium
                         output.accept(FISH_FOSSIL.get()); // lobe finned fish
@@ -272,6 +273,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.KAPROSUCHUS_EGG.get());
                         output.accept(UP2Blocks.KENTROSAURUS_EGG.get());
                         output.accept(UP2Blocks.KIMMERIDGEBRACHYPTERAESCHNIDIUM_EGGS.get());
+                        output.accept(UP2Blocks.KING_LINGCOD_ROE.get());
                         output.accept(UP2Blocks.LEEDSICHTHYS_ROE.get());
                         output.accept(LEPTICTIDIUM_EMBRYO.get());
                         output.accept(UP2Blocks.LOBE_FINNED_FISH_ROE.get());

@@ -2,7 +2,6 @@ package com.barlinc.unusual_prehistory.entity.mob.update_6.lingcod;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -14,7 +13,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;

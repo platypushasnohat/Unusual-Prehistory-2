@@ -306,7 +306,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 MOLAR_FOSSIL.get(),
                 ROT_FOSSIL.get(),
                 PILLAR_FOSSIL.get(),
-                STRIPED_PELT.get()
+                STRIPED_PELT.get(),
+                CROWN_FOSSIL.get()
         );
         this.tag(UP2ItemTags.PLANT_FOSSILS).add(
                 QUILLWORT_FOSSIL.get(),
@@ -379,7 +380,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 WOOLLY_MAMMOTH_EMBRYO.get(),
                 UP2Blocks.SPIKE_TOOTHED_SALMON_ROE.asItem(),
                 UP2Blocks.GIANT_CAMPANILE_EGGS.asItem(),
-                THYLACINE_EMBRYO.get()
+                THYLACINE_EMBRYO.get(),
+                UP2Blocks.KING_LINGCOD_ROE.asItem()
         );
         this.tag(UP2ItemTags.PREHISTORIC_EGGS)
                 .addTag(UP2ItemTags.PALEOZOIC_EGGS)
@@ -505,7 +507,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 UP2ItemTags.CORALS
         );
         this.tag(UP2ItemTags.DIET_OVIVORE).addTags(
-                UP2ItemTags.PREHISTORIC_EGGS,
                 Tags.Items.EGGS
         ).add(
                 Blocks.DRAGON_EGG.asItem(),

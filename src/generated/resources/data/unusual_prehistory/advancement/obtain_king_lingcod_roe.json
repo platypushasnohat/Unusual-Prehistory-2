@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_king_lingcod_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:king_lingcod_roe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_king_lingcod_roe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

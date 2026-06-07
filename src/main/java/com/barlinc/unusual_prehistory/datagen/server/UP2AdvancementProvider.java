@@ -189,7 +189,8 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
 
         // Neogene
         AdvancementHolder revivePraepusa = reviveMobAdvancement(neogeneRoot, UP2Items.PRAEPUSA_EMBRYO.get(), UP2Entities.PRAEPUSA.get(), consumer, helper);
-        AdvancementHolder reviveSpikeToothedSalmon = reviveMobAdvancement(revivePraepusa, UP2Blocks.SPIKE_TOOTHED_SALMON_ROE.get(), UP2Entities.SPIKE_TOOTHED_SALMON.get(), consumer, helper);
+        AdvancementHolder reviveKingLingcod = reviveMobAdvancement(revivePraepusa, UP2Blocks.KING_LINGCOD_ROE.get(), UP2Entities.KING_LINGCOD.get(), consumer, helper);
+        AdvancementHolder reviveSpikeToothedSalmon = reviveMobAdvancement(reviveKingLingcod, UP2Blocks.SPIKE_TOOTHED_SALMON_ROE.get(), UP2Entities.SPIKE_TOOTHED_SALMON.get(), consumer, helper);
 
         // Quaternary
         AdvancementHolder reviveMegalania = reviveMobAdvancement(quaternaryRoot, UP2Blocks.MEGALANIA_EGG.get(), UP2Entities.MEGALANIA.get(), consumer, helper);

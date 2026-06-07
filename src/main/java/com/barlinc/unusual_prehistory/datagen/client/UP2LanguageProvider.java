@@ -570,6 +570,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_kaprosuchus", "Boar Croc", "Revive a Kaprosuchus");
         this.translateAdvancement("revive_kentrosaurus", "Extra Pointy!", "Revive a Kentrosaurus");
         this.translateAdvancement("revive_kimmeridgebrachypteraeschnidium", "The man on the street will not be able to remember this.", "Revive a Kimmeridgebrachypteraeschnidium");
+        this.translateAdvancement("revive_king_lingcod", "Return of the King", "Revive a King Lingcod");
         this.translateAdvancement("revive_leedsichthys", "Mouth Breather", "Revive a Leedsichthys");
         this.translateAdvancement("revive_leptictidium", "Plague Carriers", "Revive a Leptictidium");
         this.translateAdvancement("revive_lobe_finned_fish", "Shark Bait, Hoo Ha Ha!", "Revive a Lobe Finned Fish");
