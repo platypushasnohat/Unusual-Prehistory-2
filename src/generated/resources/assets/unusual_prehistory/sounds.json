@@ -222,6 +222,46 @@
     ],
     "subtitle": "subtitles.antarctopelta_step"
   },
+  "anurognathus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/anurognathus/death1"
+    ],
+    "subtitle": "subtitles.anurognathus_death"
+  },
+  "anurognathus_hiss": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/anurognathus/hiss1",
+        "volume": 0.5
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/anurognathus/hiss2",
+        "volume": 0.5
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/anurognathus/hiss3",
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.anurognathus_hiss"
+  },
+  "anurognathus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/anurognathus/hurt1",
+      "unusual_prehistory:entity/mob/anurognathus/hurt2"
+    ],
+    "subtitle": "subtitles.anurognathus_hurt"
+  },
+  "anurognathus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/anurognathus/idle1",
+      "unusual_prehistory:entity/mob/anurognathus/idle2",
+      "unusual_prehistory:entity/mob/anurognathus/idle3",
+      "unusual_prehistory:entity/mob/anurognathus/idle4",
+      "unusual_prehistory:entity/mob/anurognathus/idle5"
+    ],
+    "subtitle": "subtitles.anurognathus_idle"
+  },
   "arthropleura_death": {
     "sounds": [
       "unusual_prehistory:entity/mob/arthropleura/death1"

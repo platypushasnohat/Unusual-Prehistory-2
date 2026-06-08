@@ -75,6 +75,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation AMMONITE_TROPITES = mainLayer("ammonite_tropites");
     public static final ModelLayerLocation AMPYX = mainLayer("ampyx");
     public static final ModelLayerLocation ANTARCTOPELTA = mainLayer("antarctopelta");
+    public static final ModelLayerLocation ANUROGNATHUS = mainLayer("anurognathus");
     public static final ModelLayerLocation ARTHROPLEURA_HEAD = mainLayer("arthropleura_head");
     public static final ModelLayerLocation ARTHROPLEURA_BODY = mainLayer("arthropleura_body");
     public static final ModelLayerLocation ARTHROPLEURA_TAIL = mainLayer("arthropleura_tail");

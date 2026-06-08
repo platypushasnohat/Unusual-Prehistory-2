@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:revive_anurognathus",
+  "parent": "unusual_prehistory:jurassic_root",
   "criteria": {
-    "revive_brachiosaurus": {
+    "revive_anurognathus": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:brachiosaurus"
+              "type": "unusual_prehistory:anurognathus"
             }
           }
         ]
@@ -18,20 +18,20 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.unusual_prehistory.revive_brachiosaurus.description"
+      "translate": "advancements.unusual_prehistory.revive_anurognathus.description"
     },
     "hidden": true,
     "icon": {
       "count": 1,
-      "id": "unusual_prehistory:brachiosaurus_egg"
+      "id": "unusual_prehistory:anurognathus_egg"
     },
     "title": {
-      "translate": "advancements.unusual_prehistory.revive_brachiosaurus.title"
+      "translate": "advancements.unusual_prehistory.revive_anurognathus.title"
     }
   },
   "requirements": [
     [
-      "revive_brachiosaurus"
+      "revive_anurognathus"
     ]
   ],
   "rewards": {

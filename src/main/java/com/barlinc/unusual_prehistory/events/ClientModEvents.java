@@ -191,6 +191,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.AMMONITE.get(), AmmoniteRenderer::new);
         event.registerEntityRenderer(UP2Entities.AMPYX.get(), AmpyxRenderer::new);
         event.registerEntityRenderer(UP2Entities.ANTARCTOPELTA.get(), AntarctopeltaRenderer::new);
+        event.registerEntityRenderer(UP2Entities.ANUROGNATHUS.get(), AnurognathusRenderer::new);
         event.registerEntityRenderer(UP2Entities.ARTHROPLEURA.get(), ArthropleuraRenderer::new);
         event.registerEntityRenderer(UP2Entities.ARTHROPLEURA_PART.get(), ArthropleuraPartRenderer::new);
         event.registerEntityRenderer(UP2Entities.BRONTOSCORPIO.get(), BrontoscorpioRenderer::new);
@@ -213,6 +214,8 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.THYLACINE.get(), ThylacineRenderer::new);
         event.registerEntityRenderer(UP2Entities.TUSOTEUTHIS.get(), TusoteuthisRenderer::new);
         event.registerEntityRenderer(UP2Entities.WOOLLY_MAMMOTH.get(), WoollyMammothRenderer::new);
+
+        event.registerEntityRenderer(UP2Entities.ANUROGNATHUS_EGG.get(), ThrownItemRenderer::new);
     }
 
     @SubscribeEvent
@@ -287,6 +290,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.AMMONITE_TROPITES, TropitesModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.AMPYX, AmpyxModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ANTARCTOPELTA, AntarctopeltaModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.ANUROGNATHUS, AnurognathusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ARTHROPLEURA_HEAD, ArthropleuraHeadModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ARTHROPLEURA_BODY, ArthropleuraBodyModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ARTHROPLEURA_TAIL, ArthropleuraTailModel::createBodyLayer);

@@ -274,6 +274,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
         this.tag(UP2ItemTags.MESOZOIC_FOSSILS).add(
                 SNOW_SHOVEL_FOSSIL.get(),
+                SHORT_WING_FOSSIL.get(),
                 IMPERVIOUS_FOSSIL.get(),
                 FLAT_BACK_FOSSIL.get(),
                 ARM_FOSSIL.get(),
@@ -347,6 +348,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 UP2Blocks.AMMONITE_EGGS.asItem()
         );
         this.tag(UP2ItemTags.MESOZOIC_EGGS).add(
+                ANUROGNATHUS_EGG.get(),
                 UP2Blocks.BRACHIOSAURUS_EGG.asItem(),
                 UP2Blocks.CARNOTAURUS_EGG.asItem(),
                 UP2Blocks.DESMATOSUCHUS_EGG.asItem(),

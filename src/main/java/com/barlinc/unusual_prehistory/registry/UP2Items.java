@@ -221,6 +221,7 @@ public class UP2Items {
     public static final DeferredItem<Item> AMMONITE_SPAWN_EGG = registerSpawnEggItem("ammonite", UP2Entities.AMMONITE, 0x715439, 0xe77eb8);
     public static final DeferredItem<Item> AMPYX_SPAWN_EGG = registerSpawnEggItem("ampyx", UP2Entities.AMPYX, 0x5c33d7, 0xf479f9);
     public static final DeferredItem<Item> ANTARCTOPELTA_SPAWN_EGG = registerSpawnEggItem("antarctopelta", UP2Entities.ANTARCTOPELTA, 0x201a17, 0xf3e2db);
+    public static final DeferredItem<Item> ANUROGNATHUS_SPAWN_EGG = registerSpawnEggItem("anurognathus", UP2Entities.ANUROGNATHUS, 0x3f5e30, 0xf2ba31);
     public static final DeferredItem<Item> ARTHROPLEURA_SPAWN_EGG = registerSpawnEggItem("arthropleura", UP2Entities.ARTHROPLEURA, 0x854885, 0xf8dc3d);
     public static final DeferredItem<Item> BRONTOSCORPIO_SPAWN_EGG = registerSpawnEggItem("brontoscorpio", UP2Entities.BRONTOSCORPIO, 0x2f3a4a, 0x5bb548);
     public static final DeferredItem<Item> CONCAVENATOR_SPAWN_EGG = registerSpawnEggItem("concavenator", UP2Entities.CONCAVENATOR, 0x6e3f34, 0xcdbc91);
@@ -245,6 +246,7 @@ public class UP2Items {
 
     public static final DeferredItem<Item> SPIRAL_FOSSIL = registerFossilItem("spiral"); // ammonite
     public static final DeferredItem<Item> SNOW_SHOVEL_FOSSIL = registerFossilItem("snow_shovel"); // antarctopelta
+    public static final DeferredItem<Item> SHORT_WING_FOSSIL = registerFossilItem("short_wing"); // anurognathus
     public static final DeferredItem<Item> FORCIPULE_FOSSIL = registerFossilItem("forcipule"); // arthropleura
     public static final DeferredItem<Item> THUNDEROUS_FOSSIL = registerFossilItem("thunderous"); // brontoscorpio
     public static final DeferredItem<Item> CONCAVE_FOSSIL = registerFossilItem("concave"); // concavenator
@@ -262,6 +264,8 @@ public class UP2Items {
     public static final DeferredItem<Item> SCYTHE_FOSSIL = registerFossilItem("scythe"); // therizinosaurus
     public static final DeferredItem<Item> STRIPED_PELT = registerItem("striped_pelt", () -> new Item(new Item.Properties().rarity(UP2EnumProxy.FOSSIL.getValue()))); // thylacine
     public static final DeferredItem<Item> MOLAR_FOSSIL = registerFossilItem("molar"); // woolly mammoth
+
+    public static final DeferredItem<Item> ANUROGNATHUS_EGG = registerEggItem("anurognathus", UP2Entities.ANUROGNATHUS_EGG);
 
     public static final DeferredItem<Item> BRONTOSCORPIO_EMBRYO = registerEmbryoItem("brontoscorpio", UP2Entities.BRONTOSCORPIO);
     public static final DeferredItem<Item> CRYPTOCLIDUS_EMBRYO = registerEmbryoItem("cryptoclidus", UP2Entities.CRYPTOCLIDUS);

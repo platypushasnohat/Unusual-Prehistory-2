@@ -776,6 +776,26 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/pig/step5").pitch(0.86F)
         );
 
+        this.sound(UP2SoundEvents.ANUROGNATHUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/anurognathus/death1"))
+        );
+        this.sound(UP2SoundEvents.ANUROGNATHUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/anurognathus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/anurognathus/hurt2"))
+        );
+        this.sound(UP2SoundEvents.ANUROGNATHUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/anurognathus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/anurognathus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/anurognathus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/anurognathus/idle4")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/anurognathus/idle5"))
+        );
+        this.sound(UP2SoundEvents.ANUROGNATHUS_HISS,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/anurognathus/hiss1")).volume(0.5F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/anurognathus/hiss2")).volume(0.5F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/anurognathus/hiss3")).volume(0.5F)
+        );
+
         this.sound(UP2SoundEvents.ARTHROPLEURA_DEATH,
                 sound(UnusualPrehistory2.modPrefix("entity/mob/arthropleura/death1"))
         );

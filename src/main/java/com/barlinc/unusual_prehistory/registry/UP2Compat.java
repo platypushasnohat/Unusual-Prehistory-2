@@ -92,6 +92,9 @@ public class UP2Compat {
 
         // Update 5
         registerEggDispenserBehaviour(UP2Items.PSILOPTERUS_EGG, UP2Entities.PSILOPTERUS_EGG::get);
+
+        // Update 6
+        registerEggDispenserBehaviour(UP2Items.ANUROGNATHUS_EGG, UP2Entities.ANUROGNATHUS_EGG::get);
     }
 
     public static void registerEggDispenserBehaviour(Supplier<Item> itemSupplier, Supplier<EntityType<? extends ThrowableEgg>> entityTypeSupplier) {

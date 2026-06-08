@@ -412,6 +412,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.ANTARCTOPELTA_IDLE, "Antarctopelta groans");
         this.sound(UP2SoundEvents.ANTARCTOPELTA_STEP, "Antarctopelta steps");
 
+        this.sound(UP2SoundEvents.ANUROGNATHUS_HURT, "Anurognathus hurts");
+        this.sound(UP2SoundEvents.ANUROGNATHUS_DEATH, "Anurognathus dies");
+        this.sound(UP2SoundEvents.ANUROGNATHUS_IDLE, "Anurognathus chatters");
+        this.sound(UP2SoundEvents.ANUROGNATHUS_HISS, "Anurognathus hisses");
+
         this.sound(UP2SoundEvents.ARTHROPLEURA_HURT, "Arthropleura hurts");
         this.sound(UP2SoundEvents.ARTHROPLEURA_DEATH, "Arthropleura dies");
         this.sound(UP2SoundEvents.ARTHROPLEURA_IDLE, "Arthropleura whistles");
@@ -554,6 +559,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("holocene_root", "Holocene Epoch", "Holocene epoch creatures");
 
         this.translateAdvancement("revive_aegirocassis", "Vessel of God", "Revive an Aegirocassis");
+        this.translateAdvancement("revive_anurognathus", "Bane of Bees", "Revive an Anurognathus");
         this.translateAdvancement("revive_brachiosaurus", "Time of the Titans", "Revive a Brachiosaurus");
         this.translateAdvancement("revive_brontoscorpio", "Thunder Claw", "Revive a Brontoscorpio");
         this.translateAdvancement("revive_carnotaurus", "Endless Fury", "Revive a Carnotaurus");

@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-07T17:15:42.6659119	Item Models: unusual_prehistory
+// 1.21.1	2026-06-07T20:54:58.8846325	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -7,6 +7,8 @@ d6ff950d269fe57d5dce4de8317e9b4a6b93aee9 assets/unusual_prehistory/models/item/a
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/ammonite_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/ampyx_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/antarctopelta_spawn_egg.json
+a554ecccd08b3e7d48ccbaf8fc06341dbb72528d assets/unusual_prehistory/models/item/anurognathus_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/anurognathus_spawn_egg.json
 88992f359ffc7430c921c4022cf72bb73ab925df assets/unusual_prehistory/models/item/anvil_fossil.json
 199293b31f64ff2f65a4ed395c34fca3c0e6e6ea assets/unusual_prehistory/models/item/arm_fossil.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/arthropleura_spawn_egg.json
@@ -191,6 +193,7 @@ b16911e9855039cde84b2489d3b9679f7ced9912 assets/unusual_prehistory/models/item/r
 5e7ba0df0826af08d2c8115e0ba1b6063820d049 assets/unusual_prehistory/models/item/saw_fossil.json
 3decafb95e8c83cbb1a25c73b1168f577cc426a1 assets/unusual_prehistory/models/item/scythe_fossil.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/setapedites_spawn_egg.json
+f990aa5ad5bca0ec10d01e68122bacdbb8381eb1 assets/unusual_prehistory/models/item/short_wing_fossil.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/shringasaurus_spawn_egg.json
 de753ddb1d9c48b2e8eb2a0a8c2e1f807d1445ab assets/unusual_prehistory/models/item/snow_shovel_fossil.json
 2d009c589052cb075957cca3109b3839d7680f08 assets/unusual_prehistory/models/item/spike_toothed_salmon_roe.json

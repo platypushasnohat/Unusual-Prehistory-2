@@ -96,6 +96,7 @@ public class UP2Entities {
     public static final DeferredHolder<EntityType<?>, EntityType<Ammonite>> AMMONITE = registerEntity("ammonite", Ammonite::new, MobCategory.WATER_CREATURE, builder -> builder.sized(0.8F, 0.8F).eyeHeight(0.4F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Ampyx>> AMPYX = registerEntity("ampyx", Ampyx::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.4F, 0.2F).eyeHeight(0.1F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Antarctopelta>> ANTARCTOPELTA = registerEntity("antarctopelta", Antarctopelta::new, MobCategory.CREATURE, builder -> builder.sized(1.4F, 1.4F).eyeHeight(1.1F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<Anurognathus>> ANUROGNATHUS = registerEntity("anurognathus", Anurognathus::new, MobCategory.CREATURE, builder -> builder.sized(0.9F, 0.575F).eyeHeight(0.475F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Arthropleura>> ARTHROPLEURA = registerEntity("arthropleura", Arthropleura::new, MobCategory.CREATURE, builder -> builder.sized(1.5F, 0.75F).eyeHeight(0.375F).clientTrackingRange(10).setShouldReceiveVelocityUpdates(true));
     public static final DeferredHolder<EntityType<?>, EntityType<ArthropleuraPart>> ARTHROPLEURA_PART = registerEntity("arthropleura_part", ArthropleuraPart::new, MobCategory.MISC, builder -> builder.sized(1.5F, 0.75F).clientTrackingRange(10).noSummon().setShouldReceiveVelocityUpdates(true));
     public static final DeferredHolder<EntityType<?>, EntityType<Brontoscorpio>> BRONTOSCORPIO = registerEntity("brontoscorpio", Brontoscorpio::new, MobCategory.CREATURE, builder -> builder.sized(1.15F, 0.9F).eyeHeight(0.45F).clientTrackingRange(10));
@@ -118,6 +119,8 @@ public class UP2Entities {
     public static final DeferredHolder<EntityType<?>, EntityType<Thylacine>> THYLACINE = registerEntity("thylacine", Thylacine::new, MobCategory.CREATURE, builder -> builder.sized(0.7F, 0.8F).eyeHeight(0.7F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Tusoteuthis>> TUSOTEUTHIS = registerEntity("tusoteuthis", Tusoteuthis::new, MobCategory.WATER_CREATURE, builder -> builder.sized(2.75F, 4.75F).eyeHeight(2.375F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<WoollyMammoth>> WOOLLY_MAMMOTH = registerEntity("woolly_mammoth", WoollyMammoth::new, MobCategory.CREATURE, builder -> builder.sized(3.6F, 4.9F).eyeHeight(4.7F).clientTrackingRange(10));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<ThrowableEgg>> ANUROGNATHUS_EGG = registerEntity("anurognathus_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.ANUROGNATHUS_EGG, UP2Entities.ANUROGNATHUS::get), MobCategory.MISC, builder -> builder.sized(0.25F, 0.25F));
 
     public static <E extends Entity> DeferredHolder<EntityType<?>, EntityType<E>> registerEntity(String name, EntityType.EntityFactory<E> factory, MobCategory entityClassification, Consumer<EntityType.Builder<E>> builderConsumer) {
         DeferredHolder<EntityType<?>, EntityType<E>> entity = registerEntityNoLang(name, factory, entityClassification, builderConsumer);
