@@ -1,0 +1,7 @@
+{
+  "type": "unusual_prehistory:desert_fossil_site",
+  "biomes": "#minecraft:has_structure/desert_pyramid",
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_box"
+}

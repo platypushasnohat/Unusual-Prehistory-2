@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:plumage_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:trunk_mouse_fossil",
+          "weight": 1
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 4.0,
+        "min": 2.0
+      }
+    }
+  ],
+  "random_sequence": "unusual_prehistory:archaeology/fossils/desert/common"
+}
