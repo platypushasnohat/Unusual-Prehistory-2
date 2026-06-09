@@ -27,13 +27,8 @@
       "era_tooltip_period": "Early Paleogene Period",
 
       "temperament.temperament_type": "passive",
-
       "clone.clone_type": "embryo",
-      "clone.clone_tooltip_heading": "Embryo",
-      "clone.clone_tooltip": "Embryo must be placed in §aLiving Ooze§r §7to gestate",
-
-      "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep",
+      "activity.activity_type": "sleepless",
 
       "feature_1.item": "minecraft:spider_eye",
       "feature_1.tooltip": "Leptictidium preys on all arthropods",

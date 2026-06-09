@@ -27,13 +27,8 @@
       "era_tooltip_period": "Holocene Epoch",
 
       "temperament.temperament_type": "passive",
-
       "clone.clone_type": "projectile_egg",
-      "clone.clone_tooltip_heading": "Projectile Egg",
-      "clone.clone_tooltip": "Egg must be thrown to hatch",
-
-      "activity.activity_type": "cathemeral",
-      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors",
+      "activity.activity_type": "nocturnal",
 
       "feature_3.item": "minecraft:lava_bucket",
       "feature_3.tooltip": "§7Talpanas' blindness makes them susceptible to walking into hazards, ensure enclosures are safe!",

@@ -27,13 +27,8 @@
       "era_tooltip_period": "Late Jurassic Period",
 
       "temperament.temperament_type": "neutral",
-
       "clone.clone_type": "embryo",
-      "clone.clone_tooltip_heading": "Embryo",
-      "clone.clone_tooltip": "Embryo must be placed in §aLiving Ooze§r §7to gestate",
-
       "activity.activity_type": "sleepless",
-      "activity.activity_tooltip": "Does not sleep",
 
       "feature_1.item": "tag:unusual_prehistory:tames_metriorhynchus",
       "feature_1.tooltip": "Metriorhynchus can be tamed using §aTropical Fish§7; tamed Metriorhynchus can be commanded to attack",

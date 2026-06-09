@@ -27,13 +27,8 @@
       "era_tooltip_period": "Late Cretaceous Period",
 
       "temperament.temperament_type": "hostile",
-
       "clone.clone_type": "nest_egg",
-      "clone.clone_tooltip_heading": "Nest Egg",
-      "clone.clone_tooltip": "Egg must be placed down to hatch",
-
       "activity.activity_type": "nocturnal",
-      "activity.activity_tooltip": "Active during the night",
 
       "feature_1.item": "minecraft:glass",
       "feature_1.tooltip": "Majungasaurus is equipped with skin like a chameleon, using it to camouflage from prey or larger predators",

@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.mixins;
+package com.barlinc.unusual_prehistory.mixins.minecraft;
 
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.mixins.client;
+package com.barlinc.unusual_prehistory.mixins.minecraft.client;
 
 import com.barlinc.unusual_prehistory.events.PlayerPoseEvent;
 import net.minecraft.client.model.HumanoidModel;

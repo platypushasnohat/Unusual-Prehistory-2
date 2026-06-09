@@ -609,13 +609,33 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add(UP2MobEffects.TRANQUILITY.get(), "Tranquility");
         this.add(UP2MobEffects.TRANQUILITY.get().getDescriptionId() + ".description", "Heals over time and prevents mobs from targeting entities");
 
-        // Book
+        // Paleopedia
         this.add("item.unusual_prehistory.paleopedia.landing", "This book acts as a guide to the revival process of various ancient plants and animals, along with any notable traits or uses that they may have.");
         this.add("item.unusual_prehistory.paleopedia.desc", "By Professor Peeko Noneyah Jr.");
 
         this.add("item.unusual_prehistory.paleopedia.recipe_title", "");
 
-        //Questline
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_heading.projectile_egg", "Projectile Egg");
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip.projectile_egg", "§7Egg must be thrown to hatch");
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_heading.nest_egg", "Nest Egg");
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip.nest_egg", "§7Egg must be placed down to hatch");
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_heading.aquatic_egg", "Aquatic Egg");
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip.aquatic_egg", "§7Egg must be placed underwater to hatch");
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_heading.raft_egg", "Raft Egg");
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip.raft_egg", "§7Egg must be placed on-top of water to hatch");
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_heading.embryo", "Embryo");
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip.embryo", "§7Embryo must be placed in §aLiving Ooze§r §7to gestate");
+
+        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip_heading.sleepless", "Sleepless");
+        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip.sleepless", "§7Does not sleep");
+        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip_heading.diurnal", "Diurnal");
+        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip.diurnal", "§7Active during the day");
+        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip_heading.nocturnal", "Nocturnal");
+        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip.nocturnal", "§7Active during the night");
+        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip_heading.cathemeral", "Cathemeral");
+        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip.cathemeral", "§7Active randomly throughout the day or based on specific factors");
+
+        // Questline
         this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_fossil.title", "Fossil Hunting");
         this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_fossil.desc", "One of the first steps in your journey is to find $(l:unusual_prehistory:features/world)Fossil Sites$() underground or on the surface. Fossils can be obtained using a $(highlight)Brush$() on suspicious blocks in these sites.");
 
@@ -631,7 +651,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_egg.title", "Life Finds a Way");
         this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_egg.desc", "Using the process of transmogrification, new life may be created from a fossil. $(l:unusual_prehistory:features/miscellaneous/incubation)Incubate$(/l) your newly made egg and let extinct creatures roam the Overworld once more.");
 
-        //Features
+        // Features
         this.add("item.unusual_prehistory.paleopedia.entry.machine_parts.desc", "Machine Parts can be found within $(highlight)Dungeons$(), $(highlight)Jungle Temples$(), $(highlight)Desert Pyramids$() or $(highlight)Mineshafts$().");
         this.add("item.unusual_prehistory.paleopedia.entry.organic_ooze.desc", "Organic Ooze is used as fuel for the $(l:unusual_prehistory:features/blocks_items/transmogrifier)Transmogrifier$(/l), and also to make $(l:unusual_prehistory:features/mobs/living_ooze)Living Ooze$(/l).");
         this.add("item.unusual_prehistory.paleopedia.entry.transmogrifier.desc", "The Transmogrifier is a machine used to transmogrify fossils into living organisms. It is fueled with $(l:unusual_prehistory:features/blocks_items/organic_ooze)Organic Ooze$(/l) and any fossil can be placed within it to begin conversion. Larger mobs require more fuel.");
@@ -639,7 +659,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("item.unusual_prehistory.paleopedia.entry.asphalt.desc", "Asphalt forms when tar comes into contact with lava or water. Mobs on asphalt gain increased movement speed.");
         this.add("item.unusual_prehistory.paleopedia.entry.reinforced_glass.desc", "Reinforced Glass is blast-resistant and mob-resistant glass, and can be used to protect viewing areas from aggressive mobs.");
 
-        //World
+        // World
         this.add("item.unusual_prehistory.paleopedia.entry.mesozoic_fossil_site.desc", "Mesozoic Fossil Sites are encased large fossils found underground. They are surrounded by $(highlight)Mesonite$(). Excavating fossils from mesozoic fossil sites yields mesozoic fossils.");
         this.add("item.unusual_prehistory.paleopedia.entry.mesozoic_fossil_site.title", "Mesozoic Fossil Site");
 
@@ -655,7 +675,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("item.unusual_prehistory.paleopedia.entry.holocene_artifact.desc", "Recently extinct mobs have left behind traces—artifacts—of themselves in the world. Use these remains to bring them back once more.");
         this.add("item.unusual_prehistory.paleopedia.entry.holocene_artifact.title", "Holocene Artifact");
 
-        //Misc
+        // Misc
         this.add("item.unusual_prehistory.paleopedia.entry.pacification.title", "Pacification");
         this.add("item.unusual_prehistory.paleopedia.entry.pacification.desc", "Aggressive mobs may be pacified for a little less than a day by feeding them their favorite foods. An $(highlight)Enchanted Golden Apple$() can be used to pacify mobs permanently.");
 
@@ -714,7 +734,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         // Paintings
         this.add("painting.unusual_prehistory.unusual_encounter.title", "Unusual Encounter");
         this.add("painting.unusual_prehistory.unusual_encounter.author", "Slime");
-
     }
 
     private void forBlock(Supplier<? extends Block> block) {

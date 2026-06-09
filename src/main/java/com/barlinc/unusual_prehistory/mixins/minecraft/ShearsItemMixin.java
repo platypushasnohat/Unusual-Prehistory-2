@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.mixins;
+package com.barlinc.unusual_prehistory.mixins.minecraft;
 
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;

@@ -26,13 +26,8 @@
       "era_tooltip_period": "Late Carboniferous into the Late Permian Period",
 
       "temperament.temperament_type": "passive",
-
       "clone.clone_type": "raft_egg",
-      "clone.clone_tooltip_heading": "Raft Egg",
-      "clone.clone_tooltip": "Egg must be placed on-top of water to hatch",
-
       "activity.activity_type": "sleepless",
-      "activity.activity_tooltip": "Does not sleep",
 
       "feature_1.item": "unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={BucketVariantTag:0}],unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={BucketVariantTag:1}],unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={BucketVariantTag:2}],unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={BucketVariantTag:3}]",
       "feature_1.tooltip": "Diplocaulus can be collected and transported using a §aWater Bucket§7",

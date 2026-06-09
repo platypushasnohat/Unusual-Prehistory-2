@@ -11,8 +11,8 @@
     {
       "type": "patchouli:tooltip",
       "tooltip": [
-        "§f#activity_type->fcapital#",
-        "§7#activity_tooltip#"
+        "item.unusual_prehistory.paleopedia.activity_type.tooltip_heading.#activity_type#",
+        "item.unusual_prehistory.paleopedia.activity_type.tooltip.#activity_type#"
       ],
       "width": 16,
       "height": 16

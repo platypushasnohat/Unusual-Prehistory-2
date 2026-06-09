@@ -27,13 +27,8 @@
       "era_tooltip_period": "Late Cretaceous Period",
 
       "temperament.temperament_type": "neutral",
-
       "clone.clone_type": "nest_egg",
-      "clone.clone_tooltip_heading": "Nest Egg",
-      "clone.clone_tooltip": "Egg must be placed down to hatch",
-
       "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "minecraft:iron_helmet",
       "feature_1.tooltip": "Pachycephalosaurus uses powerful charges to ram attackers, and engage in head-butting contests with other individuals or nearby mobs",

@@ -27,13 +27,8 @@
       "era_tooltip_period": "Late Carboniferous Period",
 
       "temperament.temperament_type": "passive",
-
       "clone.clone_type": "aquatic_egg",
-      "clone.clone_tooltip_heading": "Aquatic Egg",
-      "clone.clone_tooltip": "Egg must be placed underwater to hatch",
-
-      "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep",
+      "activity.activity_type": "sleepless",
 
       "feature_2.item": "minecraft:cactus",
       "feature_2.tooltip": "Stethacanthus is covered in spines, messing with them results in much pain",

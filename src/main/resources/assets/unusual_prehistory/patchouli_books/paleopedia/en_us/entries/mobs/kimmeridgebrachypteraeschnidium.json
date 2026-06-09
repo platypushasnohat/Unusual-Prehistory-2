@@ -28,13 +28,8 @@
       "era_tooltip_period": "Late Jurassic Period",
 
       "temperament.temperament_type": "passive",
-
       "clone.clone_type": "raft_egg",
-      "clone.clone_tooltip_heading": "Raft Egg",
-      "clone.clone_tooltip": "Egg must be placed on-top of water to hatch",
-
-      "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep",
+      "activity.activity_type": "sleepless",
 
       "feature_2.item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph_bucket",
       "feature_2.tooltip": "Kimmeridgebrachypteraeschnidium start their lives as aquatic nymphs before they grow into their flying adult forms",

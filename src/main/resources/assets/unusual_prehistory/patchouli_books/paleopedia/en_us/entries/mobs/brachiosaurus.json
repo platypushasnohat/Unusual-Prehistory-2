@@ -27,13 +27,8 @@
       "era_tooltip_period": "Late Jurassic Period",
 
       "temperament.temperament_type": "neutral",
-
-      "clone.clone_type": "nest_egg",  
-      "clone.clone_tooltip_heading": "Nest Egg",  
-      "clone.clone_tooltip": "Egg must be placed down to hatch",
-
+      "clone.clone_type": "nest_egg",
       "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "minecraft:seagrass",
       "feature_1.tooltip": "Brachiosaurus is able to wade effortlessly through deep water to cool off",

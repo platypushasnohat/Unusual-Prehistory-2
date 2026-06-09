@@ -11,8 +11,8 @@
     {
       "type": "patchouli:tooltip",
       "tooltip": [
-        "§f#clone_tooltip_heading#",
-        "§7#clone_tooltip#"
+        "item.unusual_prehistory.paleopedia.clone_type.tooltip_heading.#clone_type#",
+        "item.unusual_prehistory.paleopedia.clone_type.tooltip.#clone_type#"
       ],
       "width": 16,
       "height": 16

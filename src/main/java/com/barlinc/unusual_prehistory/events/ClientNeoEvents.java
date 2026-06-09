@@ -3,7 +3,7 @@ package com.barlinc.unusual_prehistory.events;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.renderer.entity.layers.CustomPlayerRidePose;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Ichthyosaurus;
-import com.barlinc.unusual_prehistory.mixins.client.GameRendererAccessor;
+import com.barlinc.unusual_prehistory.mixins.minecraft.client.GameRendererAccessor;
 import com.barlinc.unusual_prehistory.registry.UP2EnumProxy;
 import com.barlinc.unusual_prehistory.registry.UP2MobEffects;
 import com.barlinc.unusual_prehistory.utils.ClientProxy;

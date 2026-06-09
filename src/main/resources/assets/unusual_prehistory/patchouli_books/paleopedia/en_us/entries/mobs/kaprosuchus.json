@@ -24,12 +24,10 @@
       "type": "unusual_prehistory:mob_entry_2",
       "era_image": "late_cretaceous",
       "era_tooltip_period": "Late Cretaceous Period",
+
       "temperament.temperament_type": "neutral",
       "clone.clone_type": "nest_egg",
-      "clone.clone_tooltip_heading": "Nest Egg",
-      "clone.clone_tooltip": "Egg must be placed down to hatch",
       "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "tag:unusual_prehistory:tames_kaprosuchus",
       "feature_1.tooltip": "Kaprosuchus can be tamed using §aBones§7; tamed Kaprosuchus can be commanded to attack",

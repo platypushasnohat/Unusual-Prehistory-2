@@ -27,13 +27,8 @@
       "era_tooltip_period": "Late Cretaceous Period",
 
       "temperament.temperament_type": "passive",
-
       "clone.clone_type": "projectile_egg",
-      "clone.clone_tooltip_heading": "Projectile Egg",
-      "clone.clone_tooltip": "Egg must be thrown to hatch",
-
       "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "minecraft:red_bed",
       "feature_1.tooltip": "§7Dromaeosaurus is hyperactive and will continuously run and jump around - however, it will instantly fall asleep as night falls",

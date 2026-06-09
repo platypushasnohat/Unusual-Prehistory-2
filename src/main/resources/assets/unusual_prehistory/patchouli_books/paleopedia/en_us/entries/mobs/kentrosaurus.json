@@ -27,13 +27,8 @@
       "era_tooltip_period": "Late Jurassic Period",
 
       "temperament.temperament_type": "neutral",
-
       "clone.clone_type": "nest_egg",
-      "clone.clone_tooltip_heading": "Nest Egg",
-      "clone.clone_tooltip": "Egg must be placed down to hatch",
-
       "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "tag:unusual_prehistory:guarded_by_kentrosaurus",
       "feature_1.tooltip": "Kentrosaurus is protective of prickly blocks near it, and will attack players who break them",

@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.mixins.client;
+package com.barlinc.unusual_prehistory.mixins.minecraft.client;
 
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Ichthyosaurus;

@@ -27,13 +27,8 @@
       "era_tooltip_period": "Late Permian into the Early Triassic Period",
 
       "temperament.temperament_type": "passive",
-
       "clone.clone_type": "nest_egg",
-      "clone.clone_tooltip_heading": "Nest Egg",
-      "clone.clone_tooltip": "Egg must be placed down to hatch",
-
       "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "minecraft:nether_star",
       "feature_1.tooltip": "§7Lystrosaurus are near-indestructable, being completely immune to many types of damage, and become incredibly skittish when injured",

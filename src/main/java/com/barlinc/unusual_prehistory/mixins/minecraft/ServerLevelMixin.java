@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.mixins;
+package com.barlinc.unusual_prehistory.mixins.minecraft;
 
 import com.barlinc.unusual_prehistory.entity.mob.update_6.Brontoscorpio;
 import net.minecraft.core.BlockPos;

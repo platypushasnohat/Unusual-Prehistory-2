@@ -5,6 +5,7 @@ import com.barlinc.unusual_prehistory.datagen.client.UP2ItemModelProvider;
 import com.barlinc.unusual_prehistory.datagen.client.UP2LanguageProvider;
 import com.barlinc.unusual_prehistory.datagen.client.UP2SoundDefinitionsProvider;
 import com.barlinc.unusual_prehistory.datagen.server.*;
+import com.barlinc.unusual_prehistory.network.GiantCampanilePartPacket;
 import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
 import com.barlinc.unusual_prehistory.network.MultipartEntityPacket;
 import com.barlinc.unusual_prehistory.network.ParticlePacket;
@@ -95,6 +96,7 @@ public class UnusualPrehistory2 {
         // Server
         registrar.playToServer(MountedEntityKeyPacket.TYPE, MountedEntityKeyPacket.CODEC, MountedEntityKeyPacket::handle);
         registrar.playToServer(MultipartEntityPacket.TYPE, MultipartEntityPacket.CODEC, MultipartEntityPacket::handle);
+        registrar.playToServer(GiantCampanilePartPacket.TYPE, GiantCampanilePartPacket.CODEC, GiantCampanilePartPacket::handle);
     }
 
     private void dataSetup(GatherDataEvent data) {

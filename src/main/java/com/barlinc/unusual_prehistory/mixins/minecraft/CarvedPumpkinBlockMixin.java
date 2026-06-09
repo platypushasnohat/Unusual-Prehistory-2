@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.mixins;
+package com.barlinc.unusual_prehistory.mixins.minecraft;
 
 import com.barlinc.unusual_prehistory.entity.mob.update_3.LivingOoze;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;

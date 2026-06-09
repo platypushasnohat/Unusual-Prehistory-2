@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.mixins.client;
+package com.barlinc.unusual_prehistory.mixins.minecraft.client;
 
 import com.barlinc.unusual_prehistory.events.ModelRotationEvent;
 import com.mojang.blaze3d.vertex.PoseStack;

@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.mixins;
+package com.barlinc.unusual_prehistory.mixins.minecraft;
 
 import com.barlinc.unusual_prehistory.entity.accessor.LivingEntityAccessor;
 import com.barlinc.unusual_prehistory.registry.UP2MobEffects;

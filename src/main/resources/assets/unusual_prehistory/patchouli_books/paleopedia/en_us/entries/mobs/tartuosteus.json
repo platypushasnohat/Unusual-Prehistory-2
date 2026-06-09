@@ -27,13 +27,8 @@
       "era_tooltip_period": "Late Devonian Period",
 
       "temperament.temperament_type": "passive",
-
       "clone.clone_type": "aquatic_egg",
-      "clone.clone_tooltip_heading": "Aquatic Egg",
-      "clone.clone_tooltip": "Egg must be placed underwater to hatch",
-
-      "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep",
+      "activity.activity_type": "sleepless",
 
       "feature_1.item": "minecraft:feather",
       "feature_1.tooltip": "Tartuosteus occasionally launches itself out of the water",

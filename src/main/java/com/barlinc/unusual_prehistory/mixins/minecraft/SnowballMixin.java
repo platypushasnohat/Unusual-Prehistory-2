@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.mixins;
+package com.barlinc.unusual_prehistory.mixins.minecraft;
 
 import com.barlinc.unusual_prehistory.entity.mob.update_5.Desmatosuchus;
 import net.minecraft.world.entity.Entity;

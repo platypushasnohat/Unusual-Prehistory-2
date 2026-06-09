@@ -37,6 +37,7 @@ public class JadePlugin implements IWailaPlugin {
             return accessor;
         });
 
+        // todo: this doesn't work
         // Overrides jade's sus block hiding plugin because we extend brushable block for the matrices
         registration.addRayTraceCallback((hitResult, accessor, originalAccessor) -> {
             if (accessor instanceof BlockAccessor blockAccessor) {

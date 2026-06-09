@@ -261,15 +261,15 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
             if (this.canHealOverTime()) {
                 this.heal(2);
             }
-            else if (this.isFood(this.getMainHandItem())) {
-                ItemStack stack = this.getMainHandItem();
-                this.level().broadcastEntityEvent(this, (byte) 45);
-                this.level().playSound(null, this.blockPosition(), this.getEatingSound(), SoundSource.NEUTRAL, 1.0F, 0.9F + this.getRandom().nextFloat() * 0.2F);
-                FoodProperties foodproperties = stack.getFoodProperties(this);
-                float healAmount = foodproperties != null ? (float) foodproperties.nutrition() : 2.0F;
-                this.heal(2.0F * healAmount);
-                stack.shrink(1);
-            }
+//            else if (this.isFood(this.getMainHandItem())) {
+//                ItemStack stack = this.getMainHandItem();
+//                this.level().broadcastEntityEvent(this, (byte) 45);
+//                this.level().playSound(null, this.blockPosition(), this.getEatingSound(), SoundSource.NEUTRAL, 1.0F, 0.9F + this.getRandom().nextFloat() * 0.2F);
+//                FoodProperties foodproperties = stack.getFoodProperties(this);
+//                float healAmount = foodproperties != null ? (float) foodproperties.nutrition() : 2.0F;
+//                this.heal(2.0F * healAmount);
+//                stack.shrink(1);
+//            }
         }
 
         if (this.isAgeLocked() && this.isBaby()) {

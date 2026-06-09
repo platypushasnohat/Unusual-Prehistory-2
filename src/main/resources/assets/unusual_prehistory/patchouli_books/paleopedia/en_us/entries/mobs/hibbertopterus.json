@@ -27,13 +27,8 @@
       "era_tooltip_period": "Mid Devonian into the Late Carboniferous Period",
 
       "temperament.temperament_type": "passive",
-
-      "clone.clone_type": "aquatic_egg",  
-      "clone.clone_tooltip_heading": "Aquatic Egg",  
-      "clone.clone_tooltip": "Egg must be placed underwater to hatch",
-
-      "activity.activity_type": "sleepless",  
-      "activity.activity_tooltip": "Does not sleep",
+      "clone.clone_type": "aquatic_egg",
+      "activity.activity_type": "sleepless",
 
       "feature_1.item": "minecraft:water_bucket",
       "feature_1.tooltip": "Hibbertopterus’ home is the water, but it can survive indefinitely on land—the only thing it cannot do yet is fly",

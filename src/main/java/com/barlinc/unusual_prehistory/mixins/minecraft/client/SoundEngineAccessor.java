@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.mixins.client;
+package com.barlinc.unusual_prehistory.mixins.minecraft.client;
 
 import net.minecraft.client.resources.sounds.TickableSoundInstance;
 import net.minecraft.client.sounds.SoundEngine;

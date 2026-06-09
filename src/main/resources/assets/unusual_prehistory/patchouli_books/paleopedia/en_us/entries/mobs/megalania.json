@@ -27,13 +27,8 @@
       "era_tooltip_period": "Quaternary Period",
 
       "temperament.temperament_type": "neutral",
-
       "clone.clone_type": "nest_egg",
-      "clone.clone_tooltip_heading": "Nest Egg",
-      "clone.clone_tooltip": "Egg must be placed down to hatch",
-
       "activity.activity_type": "cathemeral",
-      "activity.activity_tooltip": "Active randomly throughout the day or based on specific factors",
 
       "feature_2.item": "minecraft:red_sand",
       "feature_2.tooltip": "Megalania are cold-blooded, and will become more active and hostile in warmer biomes",

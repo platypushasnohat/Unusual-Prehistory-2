@@ -8,6 +8,7 @@
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
  import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
+ import com.barlinc.unusual_prehistory.network.GiantCampanilePartPacket;
  import com.barlinc.unusual_prehistory.registry.UP2Blocks;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2MobEffects;
@@ -20,7 +21,6 @@
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
- import net.minecraft.sounds.SoundSource;
  import net.minecraft.tags.FluidTags;
  import net.minecraft.util.Mth;
  import net.minecraft.world.damagesource.DamageSource;
@@ -41,6 +41,7 @@
  import net.minecraft.world.level.pathfinder.PathType;
  import net.minecraft.world.phys.Vec3;
  import net.neoforged.neoforge.entity.PartEntity;
+ import net.neoforged.neoforge.network.PacketDistributor;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
@@ -311,8 +312,14 @@
          @Override
          public boolean hurt(@NotNull DamageSource source, float amount) {
              GiantCampanile parent = this.getParent();
-             if (!this.level().isClientSide) {
-                 this.level().playSound(null, parent.blockPosition(), UP2SoundEvents.GIANT_CAMPANILE_BLOCK.get(), SoundSource.NEUTRAL, 1.0F, parent.getVoicePitch());
+             if (!this.isInvulnerableTo(source)) {
+                 Entity attacker = source.getEntity();
+                 if (attacker != null && attacker.level().isClientSide) {
+                     PacketDistributor.sendToServer(new GiantCampanilePartPacket(parent.getId(), attacker.getId()));
+                     return false;
+                 } else if (attacker == null || !attacker.level().isClientSide) {
+                     return false;
+                 }
              }
              return false;
          }

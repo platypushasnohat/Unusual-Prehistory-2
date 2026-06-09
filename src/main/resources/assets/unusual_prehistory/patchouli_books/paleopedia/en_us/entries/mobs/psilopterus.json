@@ -27,13 +27,8 @@
       "era_tooltip_period": "Late Paleogene into the Quaternary Period",
 
       "temperament.temperament_type": "neutral",
-
       "clone.clone_type": "projectile_egg",
-      "clone.clone_tooltip_heading": "Projectile Egg",
-      "clone.clone_tooltip": "Egg must be thrown to hatch",
-
       "activity.activity_type": "diurnal",
-      "activity.activity_tooltip": "Active during the day",
 
       "feature_1.item": "minecraft:feather",
       "feature_1.tooltip": "Psilopterus hunt in packs led by an alpha, becoming more aggressive and bolder in larger groups",
