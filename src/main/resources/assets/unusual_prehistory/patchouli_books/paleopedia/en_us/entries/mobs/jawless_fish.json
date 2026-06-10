@@ -10,8 +10,7 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Jawless Fish",
+      "type": "unusual_prehistory:variated_mob_display",
       "id": "jawless_fish",
       "fossil_item": "unusual_prehistory:jawless_fossil",
       "egg_item": "unusual_prehistory:jawless_fish_roe",
@@ -19,8 +18,8 @@
       "image_tooltip": "The first familiar forms in otherwise alien seas, Jawless Fish were feisty nibblers, feeding on soft moss."
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "jawless_fish",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "jawless_fish",
       "era_tooltip_period": "Mid Ordovician into the Early Devonian Period",

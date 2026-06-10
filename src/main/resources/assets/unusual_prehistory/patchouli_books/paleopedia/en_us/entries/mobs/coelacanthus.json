@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Coelacanthus",
+      "type": "unusual_prehistory:mob_display",
       "id": "coelacanthus",
       "flavor_text": "hollow-spine",
       "fossil_item": "unusual_prehistory:gluttonous_fossil",
       "egg_item": "unusual_prehistory:coelacanthus_roe",
-      "variant_key": "",
       "image_tooltip": "The original Coelacanth, Coelacanthus is a glutton, devouring anything and everything it can fit in its mouth."
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "coelacanthus",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_permian",
       "era_tooltip_period": "Late Permian Period",

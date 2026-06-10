@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Dromaeosaurus",
+      "type": "unusual_prehistory:mob_display",
       "id": "dromaeosaurus",
       "flavor_text": "running-lizard",
       "fossil_item": "unusual_prehistory:runner_fossil",
       "egg_item": "unusual_prehistory:dromaeosaurus_egg",
-      "variant_key": "",
       "image_tooltip": "A fleet-footed feathered therapod, Dromaeosaurus has unparalleled stamina, running and jumping after its prey seemingly without end."
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "dromaeosaurus",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_cretaceous",
       "era_tooltip_period": "Late Cretaceous Period",

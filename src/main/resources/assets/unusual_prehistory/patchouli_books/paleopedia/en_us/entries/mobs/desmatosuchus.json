@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Desmatosuchus",
+      "type": "unusual_prehistory:mob_display",
       "id": "desmatosuchus",
       "flavor_text": "link-crocodile",
       "fossil_item": "unusual_prehistory:flat_back_fossil",
       "egg_item": "unusual_prehistory:desmatosuchus_egg",
-      "variant_key": "",
       "image_tooltip": "An ancient armored reptile with a sharp pair of spikes protruding from its back, Desmatosuchus is actually quite shy, opting to dig itself into the ground and wallow in the mud instead."
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "desmatosuchus",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_triassic",
       "era_tooltip_period": "Late Triassic Period",
@@ -43,7 +41,7 @@
       "feature_3.title_two_line": "Happy, In My Lane."
     },
     {
-      "type": "unusual_prehistory:mob_entry_features",
+      "type": "unusual_prehistory:mob_features_extended",
 
       "feature_1.item": "minecraft:shears,minecraft:moss_block",
       "feature_1.tooltip": "Mossy Desmatosuchus be sheared and drops §aMoss§7",

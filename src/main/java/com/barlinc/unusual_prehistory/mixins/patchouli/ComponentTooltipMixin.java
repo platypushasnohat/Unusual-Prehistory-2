@@ -13,7 +13,7 @@ public class ComponentTooltipMixin {
     @Redirect(method = "onDisplayed", at = @At(value = "INVOKE", target = "Lvazkii/patchouli/api/IVariable;as(Ljava/lang/Class;)Ljava/lang/Object;"))
     private Object unusualPrehistory$translateTooltips(IVariable variable, Class<?> clazz) {
         String text = variable.asString();
-        if (text.contains(".") && !text.contains(" ")) {
+        if (text.contains(".")) {
             return Component.translatable(text);
         }
         return variable.as(Component.class);

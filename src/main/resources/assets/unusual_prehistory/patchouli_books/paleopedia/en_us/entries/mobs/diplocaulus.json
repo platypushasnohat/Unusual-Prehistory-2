@@ -10,8 +10,7 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Diplocaulus",
+      "type": "unusual_prehistory:mob_display",
       "id": "diplocaulus",
       "flavor_text": "double-stalk",
       "fossil_item": "unusual_prehistory:boomerang_fossil",
@@ -19,8 +18,8 @@
       "image_tooltip": "Small salamandrine amphibians with bizzare, boomerang-shaped heads, Diplocaulus may look like an unfortunate accident, but they are entirely as natural as they are striking"
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "diplocaulus",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "diplocaulus",
       "era_tooltip_period": "Late Carboniferous into the Late Permian Period",

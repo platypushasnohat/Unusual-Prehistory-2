@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Kentrosaurus",
+      "type": "unusual_prehistory:mob_display",
       "id": "kentrosaurus",
       "flavor_text": "prickle-lizard",
       "fossil_item": "unusual_prehistory:prickly_fossil",
       "egg_item": "unusual_prehistory:kentrosaurus_egg",
-      "variant_key": "",
       "image_tooltip": "An armored and guarded stegosaurid, Kentrosaurus is fiercely protective of all things spiky, mistaking them as its own."
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "kentrosaurus",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_jurassic",
       "era_tooltip_period": "Late Jurassic Period",

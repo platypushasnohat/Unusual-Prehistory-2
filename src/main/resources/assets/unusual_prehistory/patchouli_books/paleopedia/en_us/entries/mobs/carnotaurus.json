@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Carnotaurus",
+      "type": "unusual_prehistory:mob_display",
       "id": "carnotaurus",
       "flavor_text": "meat-eating-bull",
       "fossil_item": "unusual_prehistory:fury_fossil",
       "egg_item": "unusual_prehistory:carnotaurus_egg",
-      "variant_key": "",
       "image_tooltip": "An abelisaur with a short, deep skull and massive pair of horns, Carnotaurus furiously charges at anything it sets its sights on in a blind, rage-fuelled stampede."
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "carnotaurus",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_cretaceous",
       "era_tooltip_period": "Late Cretaceous Period",

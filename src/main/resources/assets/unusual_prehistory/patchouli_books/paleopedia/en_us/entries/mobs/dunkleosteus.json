@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Dunkleosteus",
+      "type": "unusual_prehistory:mob_display",
       "id": "dunkleosteus",
       "flavor_text": "Dunkle's-bone",
       "fossil_item": "unusual_prehistory:guillotine_fossil",
       "egg_item": "unusual_prehistory:dunkleosteus_sac",
-      "variant_key": "",
       "image_tooltip": "The placoderm pioneer of jaws, the deadly Devonian Dunkleosteus is capable of using its bony jaws to slice any enemy clean in half "
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "dunkleosteus",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_devonian",
       "era_tooltip_period": "Late Devonian Period",
@@ -43,7 +41,7 @@
       "feature_3.title_two_line": "Off With Their Heads!"
     },
     {
-      "type": "unusual_prehistory:mob_entry_features",
+      "type": "unusual_prehistory:mob_features_extended",
 
       "feature_1.item": "minecraft:deepslate",
       "feature_1.tooltip": "Dunkleosteus hatch-size increases with depth underwater",

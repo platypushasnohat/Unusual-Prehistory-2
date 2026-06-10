@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Leptictidium",
+      "type": "unusual_prehistory:mob_display",
       "id": "leptictidium",
       "flavor_text": "graceful-weasel",
       "fossil_item": "unusual_prehistory:trunk_mouse_fossil",
       "egg_item": "unusual_prehistory:leptictidium_embryo",
-      "variant_key": "",
       "image_tooltip": "A long-legged mammal capable of leaping great distances, Leptictidium laces nearby life with its lingering musk, leaving creatures hopping mad."
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "leptictidium",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "early_cenozoic",
       "era_tooltip_period": "Early Paleogene Period",

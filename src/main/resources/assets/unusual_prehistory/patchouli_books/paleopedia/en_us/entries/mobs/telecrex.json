@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Telecrex",
+      "type": "unusual_prehistory:mob_display",
       "id": "telecrex",
       "flavor_text": "far-crake",
       "fossil_item": "unusual_prehistory:plumage_fossil",
       "egg_item": "unusual_prehistory:telecrex_egg",
-      "variant_key": "",
       "image_tooltip": "A guineafowl with poor eyesight, Telecrex clumsily flees at the sight of any movement, often slamming into unseen obstacles."
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "telecrex",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "mid_paleogene",
       "era_tooltip_period": "Mid Paleogene Period",

@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Psilopterus",
+      "type": "unusual_prehistory:mob_display",
       "id": "psilopterus",
       "flavor_text": "bare-wing",
       "fossil_item": "unusual_prehistory:crooked_beak_fossil",
       "egg_item": "unusual_prehistory:psilopterus_egg",
-      "variant_key": "",
       "image_tooltip": "A tall terror-bird with powerful legs, Psilopterus are social birds, following an alpha in group structures, and will descend upon foe or prey with a feathery barrage of kicks and swipes. "
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "psilopterus",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "psilopterus",
       "era_tooltip_period": "Late Paleogene into the Quaternary Period",
@@ -43,7 +41,7 @@
       "feature_3.title_one_line": "Raptor Robber"
     },
     {
-      "type": "unusual_prehistory:mob_entry_features",
+      "type": "unusual_prehistory:mob_features_extended",
 
       "feature_1.item": "minecraft:target",
       "feature_1.tooltip": "Psilopterus is temperamental and lashes out by kicking small mobs",

@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Pachycephalosaurus",
+      "type": "unusual_prehistory:mob_display",
       "id": "pachycephalosaurus",
       "flavor_text": "thick-head-lizard",
       "fossil_item": "unusual_prehistory:cranium_fossil",
       "egg_item": "unusual_prehistory:pachycephalosaurus_egg",
-      "variant_key": "",
       "image_tooltip": "Sporting an iconic thick and domed skull, Pachycephalosaurus furiously butts heads with each other, often leaving them stunned by the concussive force."
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "pachycephalosaurus",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_cretaceous",
       "era_tooltip_period": "Late Cretaceous Period",

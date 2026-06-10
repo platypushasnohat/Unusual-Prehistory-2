@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Prognathodon",
+      "type": "unusual_prehistory:mob_display",
       "id": "prognathodon",
       "flavor_text": "Forejaw-Tooth",
       "fossil_item": "unusual_prehistory:surge_fossil",
       "egg_item": "unusual_prehistory:prognathodon_embryo",
-      "variant_key": "",
       "image_tooltip": "A large, streamlined marine reptile sporting an enormous toothy set of jaws, Prognathodon is a terrifyingly agile predator, often leaping out of the water in order to grab its prey."
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "prognathodon",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_cretaceous",
       "era_tooltip_period": "Late Cretaceous Period",

@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Kaprosuchus",
+      "type": "unusual_prehistory:mob_display",
       "id": "kaprosuchus",
       "flavor_text": "boar-crocodile",
       "fossil_item": "unusual_prehistory:boar_tooth_fossil",
       "egg_item": "unusual_prehistory:kaprosuchus_egg",
-      "variant_key": "",
       "image_tooltip": "A highly active ancient crocodilian, Kaprosuchus has gnarly, tusk-like teeth crowding its maw and a nasty temper. Its unusual, powerful legs are built to propel it directly into view, with its jaws clamped firmly around your head."
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "kaprosuchus",
-      "type": "unusual_prehistory:mob_entry_2",
       "era_image": "late_cretaceous",
       "era_tooltip_period": "Late Cretaceous Period",
 

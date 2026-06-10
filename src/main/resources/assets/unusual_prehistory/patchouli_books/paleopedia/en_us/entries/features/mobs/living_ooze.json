@@ -15,7 +15,7 @@
       "temperament.temperament_type": "passive"
     },
     {
-      "type": "unusual_prehistory:mob_entry_features",
+      "type": "unusual_prehistory:mob_features",
 
       "feature_1.item": "minecraft:cauldron,unusual_prehistory:organic_ooze",
       "feature_1.tooltip": "Fill a §aCauldron§7 with §aOrganic Ooze§7 to create your very own Living Ooze",

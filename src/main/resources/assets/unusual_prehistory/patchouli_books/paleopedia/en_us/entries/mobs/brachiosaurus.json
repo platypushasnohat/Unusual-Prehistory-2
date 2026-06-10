@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Brachiosaurus",
+      "type": "unusual_prehistory:mob_display",
       "id": "brachiosaurus",
       "flavor_text": "arm-lizard",
       "fossil_item": "unusual_prehistory:arm_fossil",
       "egg_item": "unusual_prehistory:brachiosaurus_egg",
-      "variant_key": "",
       "image_tooltip": "A majestic sauropod with a towering upright posture and enormous front limbs, Brachiosaurus spends much of its time wading in deep water."
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "brachiosaurus",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_jurassic",
       "era_tooltip_period": "Late Jurassic Period",

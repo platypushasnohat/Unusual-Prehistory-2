@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Metriorhynchus",
+      "type": "unusual_prehistory:mob_display",
       "id": "metriorhynchus",
       "flavor_text": "moderate-snout",
       "fossil_item": "unusual_prehistory:meltdown_fossil",
       "egg_item": "unusual_prehistory:metriorhynchus_embryo",
-      "variant_key": "",
       "image_tooltip": "A strange thalattosuchian with a fish-like tail-fluke, Metriorhynchus may seem amphibious, but its true home is the deep. "
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "metriorhynchus",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_jurassic",
       "era_tooltip_period": "Late Jurassic Period",

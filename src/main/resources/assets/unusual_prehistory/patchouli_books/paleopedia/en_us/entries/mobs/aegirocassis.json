@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Aegirocassis",
+      "type": "unusual_prehistory:mob_display",
       "id": "aegirocassis",
       "flavor_text": "Aegir’s-helmet",
       "fossil_item": "unusual_prehistory:bristle_fossil",
       "egg_item": "unusual_prehistory:aegirocassis_eggs",
-      "variant_key": "",
       "image_tooltip": "The whale of the radiodonts, Aegirocassis drifts through the water using its bristles to filter-feed. It can be seen occasionally launching itself out of the water, seemingly in an attempt to… fly?"
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "aegirocassis",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "early_ordovician",
       "era_tooltip_period": "Early Ordovician Period",

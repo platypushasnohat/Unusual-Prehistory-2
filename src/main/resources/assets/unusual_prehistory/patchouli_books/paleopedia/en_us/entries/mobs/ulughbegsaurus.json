@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Ulughbegsaurus",
+      "type": "unusual_prehistory:mob_display",
       "id": "ulughbegsaurus",
       "flavor_text": "Ulugh-Beg’s-lizard",
       "fossil_item": "unusual_prehistory:dubious_fossil",
       "egg_item": "unusual_prehistory:ulughbegsaurus_egg",
-      "variant_key": "",
       "image_tooltip": "What?"
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "ulughbegsaurus",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_cretaceous",
       "era_tooltip_period": "Late Cretaceous Period",
@@ -34,7 +32,7 @@
       "feature_1.tooltip": "Ulughbegsaurus can be tamed using various meats; tamed Ulughbegsaurus can be ridden and are able to jump up to 3 blocks forward",
       "feature_1.title_one_line": "Liftoff",
 
-      "feature_2.item": "tag:forge:dyes",
+      "feature_2.item": "tag:c:dyes",
       "feature_2.tooltip": "Ulughbegsaurus' pattern color can be changed using dye",
       "feature_2.title_two_line": "Taste the Rainbow"
     }

@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Megalania",
+      "type": "unusual_prehistory:mob_display",
       "id": "megalania",
       "flavor_text": "ancient-great-roamer",
       "fossil_item": "unusual_prehistory:thermal_fossil",
       "egg_item": "unusual_prehistory:megalania_egg",
-      "variant_key": "",
       "image_tooltip": "One of the largest lizards of all time, Megalania displays a fondness for sunny skies and hot sand, using its nasty bite and whip-like tail to fiercely hunt across the great desert landscape."
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "megalania",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "quaternary",
       "era_tooltip_period": "Quaternary Period",

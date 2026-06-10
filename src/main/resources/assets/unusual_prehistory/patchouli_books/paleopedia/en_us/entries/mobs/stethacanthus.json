@@ -10,18 +10,16 @@
   },
   "pages": [
     {
-      "type": "unusual_prehistory:mob_entry_1",
-      "display_name": "Stethacanthus",
+      "type": "unusual_prehistory:mob_display",
       "id": "stethacanthus",
       "flavor_text": "chest-spine",
       "fossil_item": "unusual_prehistory:anvil_fossil",
       "egg_item": "unusual_prehistory:stethacanthus_sac",
-      "variant_key": "",
       "image_tooltip": "A shark-like fish with a bizarre brush on its head, Stethacanthus uses these spines to ward off would-be attackers.  "
     },
     {
+      "type": "unusual_prehistory:mob_features",
       "id": "stethacanthus",
-      "type": "unusual_prehistory:mob_entry_2",
 
       "era_image": "late_carboniferous",
       "era_tooltip_period": "Late Carboniferous Period",
