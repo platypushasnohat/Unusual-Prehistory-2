@@ -51,13 +51,14 @@ public class Telecrex extends PrehistoricFlyingMob {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
+                .add(Attributes.FLYING_SPEED, 0.6F)
                 .add(Attributes.STEP_HEIGHT, 1.15D);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new FlyingPanicGoal(this));
+        this.goalSelector.addGoal(1, new FlyingPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(2, new TelecrexScatterGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TELECREX_FOOD), false));
         this.goalSelector.addGoal(4, new LandLockedRandomStrollGoal(this, 1.0D));
@@ -107,13 +108,18 @@ public class Telecrex extends PrehistoricFlyingMob {
         if (this.isFlying() && this.horizontalCollision && this.getRandom().nextBoolean() && !this.level().isClientSide) {
             this.setSplat(true);
             this.setFlying(false);
+            if (this.isRunning()) {
+                this.setRunning(false);
+            }
         }
 
         if (this.hasSplat()) {
             this.splatTicks++;
             this.setDeltaMovement(this.getDeltaMovement().x * 0.1F, this.getDeltaMovement().y * 0.4F, this.getDeltaMovement().z * 0.1F);
         }
-        if (splatTicks > 60 || this.onGround() || this.isInWaterOrBubble()) this.setSplat(false);
+        if (splatTicks > 60 || this.onGround() || this.isInWaterOrBubble()) {
+            this.setSplat(false);
+        }
     }
 
     @Override
@@ -129,8 +135,8 @@ public class Telecrex extends PrehistoricFlyingMob {
     @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isFlying() && this.getIdleState() != 1 && this.getIdleState() != 2, this.tickCount);
-        this.flyAnimationState.animateWhen(this.isFlying() && !this.isRunning(), this.tickCount);
-        this.flyFastAnimationState.animateWhen(this.isFlying() && this.isRunning(), this.tickCount);
+        this.flyAnimationState.animateWhen(this.isFlying() && !this.isRunning() && !this.hasSplat(), this.tickCount);
+        this.flyFastAnimationState.animateWhen(this.isFlying() && this.isRunning() && !this.hasSplat(), this.tickCount);
         this.splatAnimationState.animateWhen(this.hasSplat(), this.tickCount);
         this.preen1AnimationState.animateWhen(this.getIdleState() == 1 && !preenAlt, this.tickCount);
         this.preen2AnimationState.animateWhen(this.getIdleState() == 1 && preenAlt, this.tickCount);

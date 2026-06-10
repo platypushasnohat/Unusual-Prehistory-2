@@ -2,13 +2,14 @@ package com.barlinc.unusual_prehistory.entity.ai.control;
 
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.phys.Vec3;
 
 public class PrehistoricFlyingMoveControl extends MoveControl {
 
     protected final PrehistoricMob prehistoricMob;
-    protected final float stepSize;
+    private final float stepSize;
 
     public PrehistoricFlyingMoveControl(PrehistoricMob prehistoricMob) {
         this(prehistoricMob, 10);
@@ -20,6 +21,7 @@ public class PrehistoricFlyingMoveControl extends MoveControl {
         this.stepSize = stepSize;
     }
 
+    @SuppressWarnings("SuspiciousNameCombination")
     @Override
     public void tick() {
         if (!prehistoricMob.refuseToMove()) {
@@ -27,12 +29,13 @@ public class PrehistoricFlyingMoveControl extends MoveControl {
                 Vec3 moveDirection = new Vec3(wantedX - prehistoricMob.getX(), wantedY - prehistoricMob.getY(), wantedZ - prehistoricMob.getZ());
                 double length = moveDirection.length();
                 double width = prehistoricMob.getBoundingBox().getSize();
-                Vec3 vector3d1 = moveDirection.scale(speedModifier * 0.05D / length);
-                this.prehistoricMob.setDeltaMovement(prehistoricMob.getDeltaMovement().add(vector3d1).scale(0.95D).add(0, -0.01, 0));
+                float speed = (float) (speedModifier * prehistoricMob.getAttributeValue(Attributes.FLYING_SPEED));
+                Vec3 scaled = moveDirection.scale(speed * 0.05D / length);
+                this.prehistoricMob.setDeltaMovement(prehistoricMob.getDeltaMovement().add(scaled).add(0, -0.01D, 0));
                 if (length < width) {
                     this.operation = Operation.WAIT;
                 } else if (length >= width) {
-                    float yaw = -((float) Mth.atan2(vector3d1.x, vector3d1.z)) * (180F / (float) Math.PI);
+                    float yaw = -((float) Mth.atan2(scaled.x, scaled.z)) * (180F / (float) Math.PI);
                     this.prehistoricMob.setYRot(Mth.approachDegrees(prehistoricMob.getYRot(), yaw, stepSize));
                 }
             }

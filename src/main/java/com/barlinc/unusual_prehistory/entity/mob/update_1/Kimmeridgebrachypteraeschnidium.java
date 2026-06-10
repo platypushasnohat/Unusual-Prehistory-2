@@ -79,6 +79,7 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.15F)
+                .add(Attributes.FLYING_SPEED, 0.75F)
                 .add(Attributes.STEP_HEIGHT, 1.0D);
     }
 
@@ -90,7 +91,7 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
                 return !Kimmeridgebrachypteraeschnidium.this.isBaby() && super.canUse();
             }
         });
-        this.goalSelector.addGoal(1, new FlyingPanicGoal(this) {
+        this.goalSelector.addGoal(1, new FlyingPanicGoal(this, 1.5D) {
             @Override
             public boolean canUse() {
                 return !Kimmeridgebrachypteraeschnidium.this.isBaby() && super.canUse();

@@ -7,12 +7,14 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.util.VisibleForDebug;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -30,6 +32,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -39,6 +43,11 @@ import javax.annotation.Nullable;
 public class Anurognathus extends PrehistoricFlyingMob implements VariantHolder<Anurognathus.AnurognathusVariant> {
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Anurognathus.class, EntityDataSerializers.INT);
+
+    @Nullable
+    private BlockPos hivePos;
+    private int remainingCooldownBeforeLocatingNewHive;
+    private int stayOutOfHiveCountdown;
 
     public Anurognathus(EntityType<? extends PrehistoricFlyingMob> entityType, Level level) {
         super(entityType, level);
@@ -50,6 +59,7 @@ public class Anurognathus extends PrehistoricFlyingMob implements VariantHolder<
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.225F)
+                .add(Attributes.FLYING_SPEED, 0.65F)
                 .add(Attributes.STEP_HEIGHT, 1.15D)
                 .add(Attributes.ATTACK_DAMAGE, 4.0D);
     }
@@ -57,7 +67,7 @@ public class Anurognathus extends PrehistoricFlyingMob implements VariantHolder<
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new FlyingPanicGoal(this));
+        this.goalSelector.addGoal(1, new FlyingPanicGoal(this, 1.8D));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_INSECTIVORE), true));
         this.goalSelector.addGoal(3, new LandLockedRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new LandFromFlightGoal(this, 200));
@@ -102,6 +112,66 @@ public class Anurognathus extends PrehistoricFlyingMob implements VariantHolder<
         return new Vec3(0.0D, this.getBbHeight() * 0.5F, this.getBbWidth() * 0.4F).yRot(-yBodyRot * ((float) Math.PI / 180F));
     }
 
+    private boolean wantsToEnterHive() {
+        if (stayOutOfHiveCountdown <= 0 && this.getTarget() == null) {
+            boolean flag = this.level().isRaining() || this.level().isDay();
+            return flag && !this.isHiveNearFire();
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isHiveNearFire() {
+        if (hivePos == null) {
+            return false;
+        } else {
+            BlockEntity blockentity = this.level().getBlockEntity(hivePos);
+            return blockentity instanceof BeehiveBlockEntity beehive && beehive.isFireNearby();
+        }
+    }
+
+    private boolean isHiveValid() {
+        if (!this.hasHive()) {
+            return false;
+        } else if (this.isTooFarAway(this.hivePos)) {
+            return false;
+        } else {
+            BlockEntity blockentity = this.level().getBlockEntity(this.hivePos);
+            return blockentity instanceof BeehiveBlockEntity;
+        }
+    }
+
+    private boolean isTooFarAway(BlockPos pos) {
+        return !pos.closerThan(this.blockPosition(), 32.0D);
+    }
+
+    public void setStayOutOfHiveCountdown(int stayOutOfHiveCountdown) {
+        this.stayOutOfHiveCountdown = stayOutOfHiveCountdown;
+    }
+
+    private boolean doesHiveHaveSpace(BlockPos hivePos) {
+        BlockEntity blockentity = this.level().getBlockEntity(hivePos);
+        return blockentity instanceof BeehiveBlockEntity beehive && !beehive.isFull();
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (!this.level().isClientSide) {
+            if (this.stayOutOfHiveCountdown > 0) {
+                this.stayOutOfHiveCountdown--;
+            }
+
+            if (this.remainingCooldownBeforeLocatingNewHive > 0) {
+                this.remainingCooldownBeforeLocatingNewHive--;
+            }
+
+            if (this.tickCount % 20 == 0 && !this.isHiveValid()) {
+                this.hivePos = null;
+            }
+        }
+    }
+
     @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isFlying() && !this.isEepy(), this.tickCount);
@@ -125,12 +195,18 @@ public class Anurognathus extends PrehistoricFlyingMob implements VariantHolder<
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("Variant", this.getVariant().getId());
+        if (this.hasHive() && this.getHivePos() != null) {
+            compoundTag.put("hive_pos", NbtUtils.writeBlockPos(this.getHivePos()));
+        }
+        compoundTag.putInt("CannotEnterHiveTicks", this.stayOutOfHiveCountdown);
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setVariant(AnurognathusVariant.byId(compoundTag.getInt("Variant")));
+        this.hivePos = NbtUtils.readBlockPos(compoundTag, "hive_pos").orElse(null);
+        this.stayOutOfHiveCountdown = compoundTag.getInt("CannotEnterHiveTicks");
     }
 
     @Override
@@ -141,6 +217,16 @@ public class Anurognathus extends PrehistoricFlyingMob implements VariantHolder<
     @Override
     public void setVariant(AnurognathusVariant variant) {
         this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, AnurognathusVariant.values().length));
+    }
+
+    @VisibleForDebug
+    public boolean hasHive() {
+        return this.hivePos != null;
+    }
+    @Nullable
+    @VisibleForDebug
+    public BlockPos getHivePos() {
+        return this.hivePos;
     }
 
     @Override
