@@ -89,7 +89,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         this.goalSelector.addGoal(2, new JoinPackGoal(this, 60, 5));
         this.goalSelector.addGoal(3, new PsilopterusAttackGoal(this));
         this.goalSelector.addGoal(4, new PsilopterusFleeGoal(this));
-        this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PSILOPTERUS_FOOD), false));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
         this.goalSelector.addGoal(6, new PsilopterusOpenDoorGoal(this));
         this.goalSelector.addGoal(7, new LootChestGoal(this, 1, 8, 6));
         this.goalSelector.addGoal(8, new PressButtonGoal(this, 1, 6, 4));
@@ -172,7 +172,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.PSILOPTERUS_FOOD);
+        return stack.is(UP2ItemTags.DIET_CARNIVORE);
     }
 
     @Override
@@ -207,7 +207,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
 
     @Override
     public boolean shouldLootItem(ItemStack stack) {
-        return stack.is(UP2ItemTags.PSILOPTERUS_FOOD);
+        return stack.is(UP2ItemTags.DIET_CARNIVORE);
     }
 
     @Override

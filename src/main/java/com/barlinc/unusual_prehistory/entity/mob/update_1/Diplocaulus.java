@@ -82,7 +82,7 @@
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.6D, 10, 4, true));
          this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 10.0F, 1.6D, true, entity -> entity.getType().is(UP2EntityTags.DIPLOCAULUS_AVOIDS)));
-         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIPLOCAULUS_FOOD), false));
+         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
          this.goalSelector.addGoal(3, new LeaveWaterGoal(this, 1.0D));
          this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D));
          this.goalSelector.addGoal(4, new DiplocaulusSlideGoal(this, 2.0D));
@@ -151,7 +151,7 @@
 
      @Override
      public boolean isFood(ItemStack stack) {
-         return stack.is(UP2ItemTags.DIPLOCAULUS_FOOD);
+         return stack.is(UP2ItemTags.DIET_PISCIVORE);
      }
 
      @Override

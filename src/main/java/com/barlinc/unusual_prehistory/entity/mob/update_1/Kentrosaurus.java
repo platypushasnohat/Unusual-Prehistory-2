@@ -77,7 +77,7 @@ public class Kentrosaurus extends PrehistoricMob implements PlushableMob {
         });
         this.goalSelector.addGoal(2, new KentrosaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new KentrosaurusFollowThornsGoal(this));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KENTROSAURUS_FOOD), false));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
         this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new PrehistoricFollowParentGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -128,7 +128,7 @@ public class Kentrosaurus extends PrehistoricMob implements PlushableMob {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.KENTROSAURUS_FOOD);
+        return stack.is(UP2ItemTags.DIET_HERBIVORE);
     }
 
     public boolean entityHasThorns(LivingEntity entity) {

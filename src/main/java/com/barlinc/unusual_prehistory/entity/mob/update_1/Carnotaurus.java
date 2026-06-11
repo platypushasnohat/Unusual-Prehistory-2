@@ -87,7 +87,7 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new CarnotaurusAttackGoal(this));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.CARNOTAURUS_FOOD), false));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
         this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
@@ -144,7 +144,7 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.CARNOTAURUS_FOOD);
+        return stack.is(UP2ItemTags.DIET_CARNIVORE);
     }
 
     @Override

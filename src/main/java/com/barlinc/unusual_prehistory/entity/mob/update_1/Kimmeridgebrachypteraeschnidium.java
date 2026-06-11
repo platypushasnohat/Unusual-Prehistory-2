@@ -97,7 +97,7 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
                 return !Kimmeridgebrachypteraeschnidium.this.isBaby() && super.canUse();
             }
         });
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD), false));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_INSECTIVORE), false));
         this.goalSelector.addGoal(3, new LandOrAttachFromFlightGoal(this, 300) {
             @Override
             public boolean canUse() {
@@ -227,7 +227,7 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD);
+        return stack.is(UP2ItemTags.DIET_INSECTIVORE);
     }
 
     @Override

@@ -85,7 +85,7 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable, V
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new FlyingPanicGoal(this, 1.5D));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PTERODACTYLUS_FOOD), true));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_INSECTIVORE), true));
         this.goalSelector.addGoal(3, new PterodactylusFlyAndHangGoal(this));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
@@ -219,7 +219,7 @@ public class Pterodactylus extends PrehistoricFlyingMob implements Bucketable, V
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.PTERODACTYLUS_FOOD);
+        return stack.is(UP2ItemTags.DIET_INSECTIVORE);
     }
 
     @Override

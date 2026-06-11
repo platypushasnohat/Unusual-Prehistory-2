@@ -91,7 +91,7 @@
          this.goalSelector.addGoal(2, new AquaticLeapGoal(this, 10, 0.9D, 0.7D));
          this.goalSelector.addGoal(3, new MetriorhynchusAttackGoal(this));
          this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.5D, 7.0F, 4.0F));
-         this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.METRIORHYNCHUS_FOOD), false));
+         this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
          this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D, 3000, false));
          this.goalSelector.addGoal(7, new CustomizableRandomSwimGoal(this, 1.0D, 20, 3));
          this.goalSelector.addGoal(7, new SemiAquaticRandomStrollGoal(this, 1.0D));
@@ -164,7 +164,7 @@
 
      @Override
      public boolean isFood(ItemStack stack) {
-         return stack.is(UP2ItemTags.METRIORHYNCHUS_FOOD);
+         return stack.is(UP2ItemTags.DIET_PISCIVORE);
      }
 
      @Override
