@@ -1,7 +1,7 @@
 {
   "include": [
     {
-      "template": "unusual_prehistory:template_framed_image",
+      "template": "unusual_prehistory:nested_templates/framed_image",
       "as": "framed_image",
       "using": {
         "image": "#image"

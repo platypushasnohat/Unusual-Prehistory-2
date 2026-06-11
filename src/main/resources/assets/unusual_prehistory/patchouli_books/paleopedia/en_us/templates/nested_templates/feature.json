@@ -1,0 +1,40 @@
+{
+  "components": [
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": ["§f#title#", "§7#tooltip#"],
+      "width": 100,
+      "height": 24,
+      "x": 0,
+      "y": 0,
+      "guard": "#tooltip->exists#"
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#item",
+      "framed": "true",
+      "x": 8,
+      "y": 0
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#title#",
+      "max_width": 80,
+      "x": 32,
+      "y": 5,
+      "scale": 0.5,
+      "color": "968351",
+      "guard": "#center_long_title->inv#"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#title#",
+      "max_width": 80,
+      "x": 32,
+      "y": 1,
+      "scale": 0.5,
+      "color": "968351",
+      "guard": "#center_long_title#"
+    }
+  ]
+}

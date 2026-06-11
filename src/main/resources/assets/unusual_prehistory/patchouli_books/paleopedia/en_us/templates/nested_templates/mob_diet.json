@@ -1,0 +1,34 @@
+{
+  "include": [
+    {
+      "template": "unusual_prehistory:nested_templates/mob_unknown",
+      "as": "unknown",
+      "using": {
+        "id": "#id"
+      }
+    }
+  ],
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/diet_#diet_type#.png",
+      "width": 16,
+      "height": 16,
+      "texture_width": 16,
+      "texture_height": 16,
+      "advancement": "unusual_prehistory:revive_#id#",
+      "negate_advancement": false
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": [
+        "item.unusual_prehistory.paleopedia.diet_type.tooltip_title.#diet_type#",
+        "item.unusual_prehistory.paleopedia.diet_type.tooltip.#diet_type#"
+      ],
+      "width": 16,
+      "height": 16,
+      "advancement": "unusual_prehistory:revive_#id#",
+      "negate_advancement": false
+    }
+  ]
+}

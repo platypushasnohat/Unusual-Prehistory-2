@@ -1,0 +1,44 @@
+{
+  "name": "Antarctopelta",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/antarctopelta.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_antarctopelta_egg",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/antarctopelta": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "antarctopelta",
+
+      "rarity": "rare",
+      "fossil_item": "unusual_prehistory:snow_shovel_fossil",
+      "egg_item": "minecraft:barrier",
+
+      "flavor_text": "Antarctic-shield",
+      "image_tooltip": ""
+    },
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "antarctopelta",
+
+      "era": "late_cretaceous",
+      "temperament": "neutral",
+      "clone_type": "nest_egg",
+      "activity": "diurnal",
+      "diet": "herbivore",
+
+      "feature_1.center_long_title": true,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:snow_block",
+      "feature_1.tooltip": "Antarctopelta likes to hibernate in snowy area while covered in snow igloo",
+      "feature_1.title": "Frosty the Snowman",
+
+      "feature_2.item": "minecraft:ice",
+      "feature_2.tooltip": "Antarctopelta turn frosted after hibernating which can be collected to craft a large ice pop",
+      "feature_2.title": ""
+    }
+  ]
+}

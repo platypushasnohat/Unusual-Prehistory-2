@@ -1,40 +1,44 @@
 {
   "name": "Aegirocassis",
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/aegirocassis.png",
+  "advancement": "unusual_prehistory:obtain_aegirocassis_eggs",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:revive_aegirocassis",
   "extra_recipe_mappings": {
-    "unusual_prehistory:bristle_fossil": 0,
-    "unusual_prehistory:aegirocassis_eggs": 0,
-    "unusual_prehistory:aegirocassis_spawn_egg": 0
+    "tag:unusual_prehistory:recipe_mappings/aegirocassis": 0
   },
   "pages": [
     {
       "type": "unusual_prehistory:mob_display",
       "id": "aegirocassis",
-      "flavor_text": "Aegir’s-helmet",
+
+      "rarity": "unusual",
       "fossil_item": "unusual_prehistory:bristle_fossil",
       "egg_item": "unusual_prehistory:aegirocassis_eggs",
+
+      "flavor_text": "Aegir’s-helmet",
       "image_tooltip": "The whale of the radiodonts, Aegirocassis drifts through the water using its bristles to filter-feed. It can be seen occasionally launching itself out of the water, seemingly in an attempt to… fly?"
     },
     {
-      "type": "unusual_prehistory:mob_features",
       "id": "aegirocassis",
+      "type": "unusual_prehistory:mob_features",
 
-      "era_image": "early_ordovician",
-      "era_tooltip_period": "Early Ordovician Period",
+      "era": "early_ordovician",
+      "temperament": "passive",
+      "clone_type": "aquatic_egg",
+      "activity": "sleepless",
+      "diet": "planktivore",
 
-      "temperament.temperament_type": "passive",
-      "clone.clone_type": "aquatic_egg",
-      "activity.activity_type": "sleepless",
+      "feature_1.center_long_title": true,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
 
       "feature_1.item": "unusual_prehistory:baby_aegirocassis_bucket",
       "feature_1.tooltip": "§7Baby Aegirocassis can be collected and transported using a §aWater Bucket§7",
-      "feature_1.title_two_line": "Humble Beginnings",
+      "feature_1.title": "Humble Beginnings",
 
       "feature_2.item": "minecraft:gravel",
       "feature_2.tooltip": "Aegirocassis prefers deep water",
-      "feature_2.title_one_line": "Depth Dweller"
+      "feature_2.title": "Depth Dweller"
     }
   ]
 }

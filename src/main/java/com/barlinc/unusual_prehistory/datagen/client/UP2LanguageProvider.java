@@ -615,25 +615,102 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.add("item.unusual_prehistory.paleopedia.recipe_title", "");
 
-        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_heading.projectile_egg", "Projectile Egg");
+        this.add("item.unusual_prehistory.paleopedia.rarity.tooltip.common", "§8Common");
+        this.add("item.unusual_prehistory.paleopedia.rarity.tooltip.uncommon", "§2Uncommon");
+        this.add("item.unusual_prehistory.paleopedia.rarity.tooltip.rare", "§cRare");
+        this.add("item.unusual_prehistory.paleopedia.rarity.tooltip.unusual", "§5Unusual");
+
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.early_cambrian", "§7Lived during the §fEarly Cambrian Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.mid_cambrian", "§7Lived during the §fMiddle Cambrian Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.late_cambrian", "§7Lived during the §fLate Cambrian Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.early_ordovician", "§7Lived during the §fEarly Ordovician Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.mid_ordovician", "§7Lived during the §fMiddle Ordovician Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.late_ordovician", "§7Lived during the §fLate Ordovician Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.early_silurian", "§7Lived during the §fEarly Silurian Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.mid_silurian", "§7Lived during the §fMiddle Silurian Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.late_silurian", "§7Lived during the §fLate Silurian Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.early_devonian", "§7Lived during the §fEarly Devonian Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.mid_devonian", "§7Lived during the §fMiddle Devonian Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.late_devonian", "§7Lived during the §fLate Devonian Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.early_carboniferous", "§7Lived during the §fEarly Carboniferous Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.mid_carboniferous", "§7Lived during the §fMiddle Carboniferous Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.late_carboniferous", "§7Lived during the §fLate Carboniferous Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.early_permian", "§7Lived during the §fEarly Permian Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.mid_permian", "§7Lived during the §fMiddle Permian Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.late_permian", "§7Lived during the §fLate Permian Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.early_triassic", "§7Lived during the §fEarly Triassic Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.mid_triassic", "§7Lived during the §fMiddle Triassic Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.late_triassic", "§7Lived during the §fLate Triassic Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.early_jurassic", "§7Lived during the §fEarly Jurassic Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.mid_jurassic", "§7Lived during the §fMiddle Jurassic Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.late_jurassic", "§7Lived during the §fLate Jurassic Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.early_cretaceous", "§7Lived during the §fEarly Cretaceous Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.mid_cretaceous", "§7Lived during the §fMiddle Cretaceous Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.late_cretaceous", "§7Lived during the §fLate Cretaceous Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.early_paleogene", "§7Lived during the §fEarly Paleogene Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.mid_paleogene", "§7Lived during the §fMiddle Paleogene Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.late_paleogene", "§7Lived during the §fLate Paleogene Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.early_neogene", "§7Lived during the §fEarly Neogene Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.mid_neogene", "§7Lived during the §fMiddle Neogene Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.late_neogene", "§7Lived during the §fLate Neogene Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.early_quaternary", "§7Lived during the §fEarly Quaternary Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.mid_quaternary", "§7Lived during the §fMiddle Quaternary Period");
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.late_quaternary", "§7Lived during the §fLate Quaternary Period");
+
+        this.add("item.unusual_prehistory.paleopedia.era.tooltip.jawless_fish", "§7Lived from the §fMid Ordovician Period §7to the §fEarly Devonian Period");
+
+
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_title.projectile_egg", "Projectile Egg");
         this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip.projectile_egg", "§7Egg must be thrown to hatch");
-        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_heading.nest_egg", "Nest Egg");
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_title.nest_egg", "Nest Egg");
         this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip.nest_egg", "§7Egg must be placed down to hatch");
-        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_heading.aquatic_egg", "Aquatic Egg");
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_title.aquatic_egg", "Aquatic Egg");
         this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip.aquatic_egg", "§7Egg must be placed underwater to hatch");
-        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_heading.raft_egg", "Raft Egg");
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_title.raft_egg", "Raft Egg");
         this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip.raft_egg", "§7Egg must be placed on-top of water to hatch");
-        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_heading.embryo", "Embryo");
+        this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_title.embryo", "Embryo");
         this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip.embryo", "§7Embryo must be placed in §aLiving Ooze§r §7to gestate");
 
-        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip_heading.sleepless", "Sleepless");
+        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip_title.sleepless", "Sleepless");
         this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip.sleepless", "§7Does not sleep");
-        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip_heading.diurnal", "Diurnal");
+        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip_title.diurnal", "Diurnal");
         this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip.diurnal", "§7Active during the day");
-        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip_heading.nocturnal", "Nocturnal");
+        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip_title.nocturnal", "Nocturnal");
         this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip.nocturnal", "§7Active during the night");
-        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip_heading.cathemeral", "Cathemeral");
+        this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip_title.cathemeral", "Cathemeral");
         this.add("item.unusual_prehistory.paleopedia.activity_type.tooltip.cathemeral", "§7Active randomly throughout the day or based on specific factors");
+
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.carnivore", "Carnivore");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.carnivore", "§7...");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.herbivore", "Herbivore");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.herbivore", "§7...");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.omnivore", "Omnivore");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.omnivore", "§7...");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.nectarivore", "Nectarivore");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.nectarivore", "§7...");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.piscivore", "Piscivore");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.piscivore", "§7...");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.detritivore", "Detritivore");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.detritivore", "§7...");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.insectivore", "Insectivore");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.insectivore", "§7...");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.scavenger", "Scavenger");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.scavenger", "§7...");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.frugivore", "Frugivore");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.frugivore", "§7...");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.granivore", "Granivore");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.granivore", "§7...");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.corallivore", "Corallivore");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.corallivore", "§7...");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.ovivore", "Ovivore");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.ovivore", "§7...");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.ovivore", "Planktivore");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.ovivore", "§7...");
+
+        this.add("item.unusual_prehistory.paleopedia.temperament_type.tooltip_title.hostile", "Hostile");
+        this.add("item.unusual_prehistory.paleopedia.temperament_type.tooltip_title.passive", "Passive");
+        this.add("item.unusual_prehistory.paleopedia.temperament_type.tooltip_title.neutral", "Neutral");
+        this.add("item.unusual_prehistory.paleopedia.temperament_type.tooltip_title.boss", "Boss");
 
         // Questline
         this.add("item.unusual_prehistory.paleopedia.entry.getting_started.obtain_fossil.title", "Fossil Hunting");
@@ -683,42 +760,24 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.add("item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.title", "Raft Egg");
         this.add("item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.desc", "Egg must be placed on-top of water to hatch.");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.raft_egg.tooltip", "Egg must be placed on-top of water to hatch");
 
         this.add("item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.title", "Nest Egg");
         this.add("item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.desc", "Egg must be placed down to hatch. $(highlight)Wool$(), $(highlight)Moss$() or $(highlight)Hay Bales$() may be placed under nest eggs to speed up hatching.");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.nest_egg.tooltip", "Egg must be placed down to hatch");
 
         this.add("item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.title", "Projectile Egg");
         this.add("item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.desc", "Egg must be thrown to hatch.");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.projectile_egg.tooltip", "Egg must be thrown to hatch");
 
         this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.title", "Embryo");
         this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.desc", "Embryos must be placed in $(l:unusual_prehistory:features/mobs/living_ooze)Living Ooze$(/l) to gestate.");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.embryo.tooltip", "Embryo must be placed in §aLiving Ooze§7to gestate");
 
         this.add("item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.title", "Aquatic Egg");
         this.add("item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.desc", "Egg must be placed underwater to hatch.");
-        this.add("item.unusual_prehistory.paleopedia.entry.incubation.aquatic_egg.tooltip", "Egg must be placed underwater to hatch");
-
-        this.add("item.unusual_prehistory.paleopedia.entry.activity.diurnal.title", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.activity.diurnal.tooltip", "");
-
-        this.add("item.unusual_prehistory.paleopedia.entry.activity.nocturnal.title", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.activity.nocturnal.tooltip", "");
-
-        this.add("item.unusual_prehistory.paleopedia.entry.activity.crepuscular.title", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.activity.crepuscular.tooltip", "");
-
-        this.add("item.unusual_prehistory.paleopedia.entry.activity.cathemeral.title", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.activity.cathemeral.tooltip", "");
-
-        this.add("item.unusual_prehistory.paleopedia.entry.activity.sleepless.title", "");
-        this.add("item.unusual_prehistory.paleopedia.entry.activity.sleepless.tooltip", "");
 
         this.add("death.attack.unusual_prehistory.execute", "%s was executed by %s");
 
         this.add("death.attack.unusual_prehistory.grug", "%s got Grugged");
+
+
 
         // Jade
         this.add("unusual_prehistory.jade.prehistoric_mob.age_locked", "Age Locked");

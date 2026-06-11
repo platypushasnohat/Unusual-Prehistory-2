@@ -1,7 +1,7 @@
 {
   "include": [
     {
-      "template": "unusual_prehistory:template_clone",
+      "template": "unusual_prehistory:nested_templates/clone",
       "as": "clone",
       "x": 49,
       "y": 16
