@@ -107,7 +107,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 2.0D, 10, 4));
         this.goalSelector.addGoal(1, new AegirocassisTryToFlyGoal(this));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.AEGIROCASSIS_FOOD), false));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 40, 30, 15, 3, true));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this) {
             @Override
@@ -126,7 +126,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.AEGIROCASSIS_FOOD);
+        return stack.is(UP2ItemTags.DIET_PISCIVORE);
     }
 
     @Override

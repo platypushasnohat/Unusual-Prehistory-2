@@ -72,7 +72,7 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
             }
         });
         this.goalSelector.addGoal(2, new PachycephalosaurusAttackGoal(this));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PACHYCEPHALOSAURUS_FOOD), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
         this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -110,7 +110,7 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.PACHYCEPHALOSAURUS_FOOD);
+        return stack.is(UP2ItemTags.DIET_HERBIVORE);
     }
 
     @Override

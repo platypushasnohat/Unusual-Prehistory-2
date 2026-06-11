@@ -56,7 +56,7 @@ public class Dromaeosaurus extends PrehistoricMob {
         this.goalSelector.addGoal(3, new DromaeosaurusLeapGoal(this));
         this.goalSelector.addGoal(4, new DromaeosaurusAttackGoal(this));
         this.goalSelector.addGoal(5, new OpenDoorGoal(this, false));
-        this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(UP2ItemTags.DROMAEOSAURUS_FOOD), false));
+        this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
         this.goalSelector.addGoal(7, new DromaeosaurusRunGoal(this));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -91,7 +91,7 @@ public class Dromaeosaurus extends PrehistoricMob {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.DROMAEOSAURUS_FOOD);
+        return stack.is(UP2ItemTags.DIET_CARNIVORE);
     }
 
     @Override

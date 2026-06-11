@@ -92,7 +92,7 @@
          this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.6D, 10, 4, true));
          this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.8D, entity -> entity.getType().is(UP2EntityTags.PRAEPUSA_AVOIDS)));
          this.goalSelector.addGoal(3, new PraepusaAttackGoal(this));
-         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.PRAEPUSA_FOOD), false));
+         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
          this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D));
          this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D));
          this.goalSelector.addGoal(6, new SemiAquaticRandomStrollGoal(this, 1.0D));
@@ -159,7 +159,7 @@
 
      @Override
      public boolean isFood(ItemStack stack) {
-         return stack.is(UP2ItemTags.PRAEPUSA_FOOD);
+         return stack.is(UP2ItemTags.DIET_PISCIVORE);
      }
 
      @Override

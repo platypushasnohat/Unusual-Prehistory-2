@@ -84,7 +84,7 @@ public class Coelacanthus extends PrehistoricAquaticMob implements Bucketable, V
             }
         });
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.COELACANTHUS_FOOD), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(4, new PrehistoricAvoidEntityGoal<>(this, Player.class, 8.0F, 1.8D, EntitySelector.NO_SPECTATORS::test) {
             @Override
             public boolean canUse() {
@@ -102,7 +102,7 @@ public class Coelacanthus extends PrehistoricAquaticMob implements Bucketable, V
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.COELACANTHUS_FOOD);
+        return stack.is(UP2ItemTags.DIET_PISCIVORE);
     }
 
     @Override

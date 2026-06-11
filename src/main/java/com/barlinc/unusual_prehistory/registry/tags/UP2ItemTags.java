@@ -9,19 +9,18 @@ import net.minecraft.world.item.Item;
 public class UP2ItemTags {
 
     // Update 1
-    public static final TagKey<Item> CARNOTAURUS_FOOD = modItemTag("carnotaurus_food");
-    public static final TagKey<Item> DIPLOCAULUS_FOOD = modItemTag("diplocaulus_food");
-    public static final TagKey<Item> DROMAEOSAURUS_FOOD = modItemTag("dromaeosaurus_food");
-    public static final TagKey<Item> DUNKLEOSTEUS_FOOD = modItemTag("dunkleosteus_food");
-    public static final TagKey<Item> JAWLESS_FISH_FOOD = modItemTag("jawless_fish_food");
-    public static final TagKey<Item> KENTROSAURUS_FOOD = modItemTag("kentrosaurus_food");
-    public static final TagKey<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_FOOD = modItemTag("kimmeridgebrachypteraeschnidium_food");
-    public static final TagKey<Item> MAJUNGASAURUS_FOOD = modItemTag("majungasaurus_food");
-    public static final TagKey<Item> MEGALANIA_FOOD = modItemTag("megalania_food");
-    public static final TagKey<Item> STETHACANTHUS_FOOD = modItemTag("stethacanthus_food");
-    public static final TagKey<Item> TALPANAS_FOOD = modItemTag("talpanas_food");
-    public static final TagKey<Item> TELECREX_FOOD = modItemTag("telecrex_food");
-    public static final TagKey<Item> UNICORN_FOOD = modItemTag("unicorn_food");
+    public static final TagKey<Item> CARNOTAURUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/carnotaurus");
+    public static final TagKey<Item> DIPLOCAULUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/diplocaulus");
+    public static final TagKey<Item> DROMAEOSAURUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/dromaeosaurus");
+    public static final TagKey<Item> DUNKLEOSTEUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/dunkleosteus");
+    public static final TagKey<Item> JAWLESS_FISH_RECIPE_MAPPINGS = modItemTag("recipe_mappings/jawless_fish");
+    public static final TagKey<Item> KENTROSAURUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/kentrosaurus");
+    public static final TagKey<Item> KIMMERIDGEBRACHYPTERAESCHNIDIUM_RECIPE_MAPPINGS = modItemTag("recipe_mappings/kimmeridgebrachypteraeschnidium");
+    public static final TagKey<Item> MAJUNGASAURUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/majungasaurus");
+    public static final TagKey<Item> MEGALANIA_RECIPE_MAPPINGS = modItemTag("recipe_mappings/megalania");
+    public static final TagKey<Item> STETHACANTHUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/stethacanthus");
+    public static final TagKey<Item> TALPANAS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/talpanas");
+    public static final TagKey<Item> TELECREX_RECIPE_MAPPINGS = modItemTag("recipe_mappings/telecrex");
 
     public static final TagKey<Item> TAMES_MEGALANIA = modItemTag("tames_megalania");
 
@@ -42,17 +41,17 @@ public class UP2ItemTags {
     public static final TagKey<Item> GINKGO_LOGS = modItemTag("ginkgo_logs");
     public static final TagKey<Item> LEPIDODENDRON_LOGS = modItemTag("lepidodendron_logs");
 
-    public static final TagKey<Item> FRUITS = commonItemTag("fruits");
     public static final TagKey<Item> FRUITS_GINKGO = commonItemTag("fruits/ginkgo");
 
     public static final TagKey<Item> TRANSMOGRIFIER_FUEL = modItemTag("transmogrifier_fuel");
 
     // Update 2
-    public static final TagKey<Item> ONCHOPRISTIS_FOOD = modItemTag("onchopristis_food");
+    public static final TagKey<Item> ONCHOPRISTIS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/onchopristis");
 
     // Update 3
-    public static final TagKey<Item> METRIORHYNCHUS_FOOD = modItemTag("metriorhynchus_food");
-    public static final TagKey<Item> TARTUOSTEUS_FOOD = modItemTag("tartuosteus_food");
+    public static final TagKey<Item> LIVING_OOZE_RECIPE_MAPPINGS = modItemTag("recipe_mappings/living_ooze");
+    public static final TagKey<Item> METRIORHYNCHUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/metriorhynchus");
+    public static final TagKey<Item> TARTUOSTEUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/tartuosteus");
 
     public static final TagKey<Item> TAMES_METRIORHYNCHUS = modItemTag("tames_metriorhynchus");
 
@@ -61,17 +60,17 @@ public class UP2ItemTags {
     public static final TagKey<Item> LIVING_OOZE_CANNOT_ABSORB = modItemTag("living_ooze_cannot_absorb");
 
     // Update 4
-    public static final TagKey<Item> BRACHIOSAURUS_FOOD = modItemTag("brachiosaurus_food");
-    public static final TagKey<Item> COELACANTHUS_FOOD = modItemTag("coelacanthus_food");
-    public static final TagKey<Item> HIBBERTOPTERUS_FOOD = modItemTag("hibbertopterus_food");
-    public static final TagKey<Item> KAPROSUCHUS_FOOD = modItemTag("kaprosuchus_food");
-    public static final TagKey<Item> LEPTICTIDIUM_FOOD = modItemTag("leptictidium_food");
-    public static final TagKey<Item> LOBE_FINNED_FISH_FOOD = modItemTag("lobe_finned_fish_food");
-    public static final TagKey<Item> LYSTROSAURUS_FOOD = modItemTag("lystrosaurus_food");
-    public static final TagKey<Item> PACHYCEPHALOSAURUS_FOOD = modItemTag("pachycephalosaurus_food");
-    public static final TagKey<Item> PRAEPUSA_FOOD = modItemTag("praepusa_food");
-    public static final TagKey<Item> PTERODACTYLUS_FOOD = modItemTag("pterodactylus_food");
-    public static final TagKey<Item> ULUGHBEGSAURUS_FOOD = modItemTag("ulughbegsaurus_food");
+    public static final TagKey<Item> BRACHIOSAURUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/brachiosaurus");
+    public static final TagKey<Item> COELACANTHUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/coelacanthus");
+    public static final TagKey<Item> HIBBERTOPTERUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/hibbertopterus");
+    public static final TagKey<Item> KAPROSUCHUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/kaprosuchus");
+    public static final TagKey<Item> LEPTICTIDIUM_RECIPE_MAPPINGS = modItemTag("recipe_mappings/leptictidium");
+    public static final TagKey<Item> LOBE_FINNED_FISH_RECIPE_MAPPINGS = modItemTag("recipe_mappings/lobe_finned_fish");
+    public static final TagKey<Item> LYSTROSAURUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/lystrosaurus");
+    public static final TagKey<Item> PACHYCEPHALOSAURUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/pachycephalosaurus");
+    public static final TagKey<Item> PRAEPUSA_RECIPE_MAPPINGS = modItemTag("recipe_mappings/praepusa");
+    public static final TagKey<Item> PTERODACTYLUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/pterodactylus");
+    public static final TagKey<Item> ULUGHBEGSAURUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/ulughbegsaurus");
 
     public static final TagKey<Item> TAMES_KAPROSUCHUS = modItemTag("tames_kaprosuchus");
     public static final TagKey<Item> TAMES_ULUGHBEGSAURUS = modItemTag("tames_ulughbegsaurus");
@@ -101,9 +100,9 @@ public class UP2ItemTags {
     public static final TagKey<Item> VERDANT_DYES = modItemTag("verdant_dyes");
 
     // Update 5
-    public static final TagKey<Item> AEGIROCASSIS_FOOD = modItemTag("aegirocassis_food");
-    public static final TagKey<Item> DESMATOSUCHUS_FOOD = modItemTag("desmatosuchus_food");
-    public static final TagKey<Item> PSILOPTERUS_FOOD = modItemTag("psilopterus_food");
+    public static final TagKey<Item> AEGIROCASSIS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/aegirocassis");
+    public static final TagKey<Item> DESMATOSUCHUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/desmatosuchus");
+    public static final TagKey<Item> PSILOPTERUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/psilopterus");
 
     public static final TagKey<Item> SNOW = modItemTag("snow");
     public static final TagKey<Item> MOSS = modItemTag("moss");
@@ -125,6 +124,30 @@ public class UP2ItemTags {
     public static final TagKey<Item> PREVENTS_EGG_HATCHING = modItemTag("prevents_egg_hatching");
 
     // Update 6
+    public static final TagKey<Item> AMMONITE_RECIPE_MAPPINGS = modItemTag("recipe_mappings/ammonite");
+    public static final TagKey<Item> ANTARCTOPELTA_RECIPE_MAPPINGS = modItemTag("recipe_mappings/antarctopelta");
+    public static final TagKey<Item> ANUROGNATHUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/anurognathus");
+    public static final TagKey<Item> ARTHROPLEURA_RECIPE_MAPPINGS = modItemTag("recipe_mappings/arthropleura");
+    public static final TagKey<Item> BRONTOSCORPIO_RECIPE_MAPPINGS = modItemTag("recipe_mappings/brontoscorpio");
+    public static final TagKey<Item> CONCAVENATOR_RECIPE_MAPPINGS = modItemTag("recipe_mappings/concavenator");
+    public static final TagKey<Item> COTYLORHYNCHUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/cotylorhynchus");
+    public static final TagKey<Item> CRYPTOCLIDUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/cryptoclidus");
+    public static final TagKey<Item> GIANT_CAMPANILE_RECIPE_MAPPINGS = modItemTag("recipe_mappings/giant_campanile");
+    public static final TagKey<Item> HYNERPETON_RECIPE_MAPPINGS = modItemTag("recipe_mappings/hynerpeton");
+    public static final TagKey<Item> ICHTHYOSAURUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/ichthyosaurus");
+    public static final TagKey<Item> KING_LINGCOD_RECIPE_MAPPINGS = modItemTag("recipe_mappings/king_lingcod");
+    public static final TagKey<Item> LEEDSICHTHYS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/leedsichthys");
+    public static final TagKey<Item> LINGCOD_RECIPE_MAPPINGS = modItemTag("recipe_mappings/lingcod");
+    public static final TagKey<Item> LORRAINOSAURUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/lorrainosaurus");
+    public static final TagKey<Item> PROGNATHODON_RECIPE_MAPPINGS = modItemTag("recipe_mappings/prognathodon");
+    public static final TagKey<Item> RHIZODUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/rhizodus");
+    public static final TagKey<Item> SHRINGASAURUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/shringasaurus");
+    public static final TagKey<Item> SPIKE_TOOTHED_SALMON_RECIPE_MAPPINGS = modItemTag("recipe_mappings/spike_toothed_salmon");
+    public static final TagKey<Item> THERIZINOSAURUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/therizinosaurus");
+    public static final TagKey<Item> THYLACINE_RECIPE_MAPPINGS = modItemTag("recipe_mappings/thylacine");
+    public static final TagKey<Item> TUSOTEUTHIS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/tusoteuthis");
+    public static final TagKey<Item> WOOLLY_MAMMOTH_RECIPE_MAPPINGS = modItemTag("recipe_mappings/woolly_mammoth");
+
     public static final TagKey<Item> DIET_CARNIVORE = modItemTag("diet/carnivore");
     public static final TagKey<Item> DIET_HERBIVORE = modItemTag("diet/herbivore");
     public static final TagKey<Item> DIET_OMNIVORE = modItemTag("diet/omnivore");

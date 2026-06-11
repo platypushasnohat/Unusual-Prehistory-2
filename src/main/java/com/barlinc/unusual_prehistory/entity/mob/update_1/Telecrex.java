@@ -60,7 +60,7 @@ public class Telecrex extends PrehistoricFlyingMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new FlyingPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(2, new TelecrexScatterGoal(this));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TELECREX_FOOD), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_GRANIVORE), false));
         this.goalSelector.addGoal(4, new LandLockedRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new LandFromFlightGoal(this, 100));
         this.goalSelector.addGoal(6, new RandomFlightGoal(this, 1.0F, 6));
@@ -186,7 +186,7 @@ public class Telecrex extends PrehistoricFlyingMob {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.TELECREX_FOOD);
+        return stack.is(UP2ItemTags.DIET_GRANIVORE);
     }
 
     @Override
