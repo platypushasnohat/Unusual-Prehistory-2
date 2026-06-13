@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "unusual_prehistory:desert_fossil",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 7014,
+    "separation": 18,
+    "spacing": 46,
+    "type": "minecraft:random_spread"
+  }
+}

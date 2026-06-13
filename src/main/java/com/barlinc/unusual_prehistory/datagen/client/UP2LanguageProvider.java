@@ -705,8 +705,8 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.corallivore", "§7...");
         this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.ovivore", "Ovivore");
         this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.ovivore", "§7...");
-        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.ovivore", "Planktivore");
-        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.ovivore", "§7...");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip_title.planktivore", "Planktivore");
+        this.add("item.unusual_prehistory.paleopedia.diet_type.tooltip.planktivore", "§7...");
 
         this.add("item.unusual_prehistory.paleopedia.temperament_type.tooltip_title.hostile", "Hostile");
         this.add("item.unusual_prehistory.paleopedia.temperament_type.tooltip_title.passive", "Passive");
