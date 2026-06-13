@@ -244,13 +244,14 @@ public class UnusualPrehistory2Tab {
                         output.accept(SURGE_FOSSIL.get()); // prognathodon
                         output.accept(CROOKED_BEAK_FOSSIL.get()); // psilopterus
                         output.accept(WING_FOSSIL.get()); // pterodactylus
-                        output.accept(WHISKERED_FOSSIL.get()); // rhizodus
+                        output.accept(SUCTION_FOSSIL.get()); // rhizodus
                         output.accept(ROT_FOSSIL.get()); // spike-toothed salmon
                         output.accept(ANVIL_FOSSIL.get()); // stethacanthus
                         output.accept(AGED_FEATHER.get()); // talpanas
                         output.accept(MOSSY_FOSSIL.get()); // tartuosteus
                         output.accept(PLUMAGE_FOSSIL.get()); // telecrex
                         output.accept(SCYTHE_FOSSIL.get()); // therizinosaurus
+                        output.accept(SHIMMER_FOSSIL.get()); // tusoteuthis
                         output.accept(STRIPED_PELT.get()); // thylacine
                         output.accept(DUBIOUS_FOSSIL.get()); // ulughbegsaurus
                         output.accept(MOLAR_FOSSIL.get()); // woolly mammoth
@@ -298,6 +299,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.TARTUOSTEUS_ROE.get());
                         output.accept(TELECREX_EGG.get());
                         output.accept(UP2Blocks.THERIZINOSAURUS_EGG.get());
+                        output.accept(UP2Blocks.TUSOTEUTHIS_EGGS.get());
                         output.accept(THYLACINE_EMBRYO.get());
                         output.accept(UP2Blocks.ULUGHBEGSAURUS_EGG.get());
                         output.accept(WOOLLY_MAMMOTH_EMBRYO.get());

@@ -1,6 +1,5 @@
 package com.barlinc.unusual_prehistory.datagen.server;
 
-import com.barlinc.unusual_prehistory.blocks.egg.TallEggBlock;
 import com.barlinc.unusual_prehistory.blocks.plant.ThreeTallPlantBlock;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.google.common.collect.ImmutableList;
@@ -167,7 +166,7 @@ public class UP2LootTableProvider extends LootTableProvider {
             this.dropSelf(TARTUOSTEUS_ROE.get());
 
             // Update 4
-            this.add(BRACHIOSAURUS_EGG.get(), (block) -> this.createSinglePropConditionTable(block, TallEggBlock.HALF, DoubleBlockHalf.LOWER));
+            this.dropSelf(BRACHIOSAURUS_EGG.get());
             this.dropSelf(COELACANTHUS_ROE.get());
             this.dropSelf(HIBBERTOPTERUS_EGGS.get());
             this.dropSelf(KAPROSUCHUS_EGG.get());
@@ -276,6 +275,7 @@ public class UP2LootTableProvider extends LootTableProvider {
             this.dropSelf(RHIZODUS_ROE.get());
             this.dropSelf(SPIKE_TOOTHED_SALMON_ROE.get());
             this.dropSelf(THERIZINOSAURUS_EGG.get());
+            this.dropSelf(TUSOTEUTHIS_EGGS.get());
 
             this.dropSelf(BRACHIOSAURUS_PLUSHIE.get());
             this.dropSelf(CARNOTAURUS_PLUSHIE.get());

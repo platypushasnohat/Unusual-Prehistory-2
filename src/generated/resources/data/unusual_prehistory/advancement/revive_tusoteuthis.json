@@ -1,14 +1,14 @@
 {
-  "parent": "unusual_prehistory:revive_tusoteuthis",
+  "parent": "unusual_prehistory:revive_therizinosaurus",
   "criteria": {
-    "revive_ulughbegsaurus": {
+    "revive_tusoteuthis": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "unusual_prehistory:ulughbegsaurus"
+              "type": "unusual_prehistory:tusoteuthis"
             }
           }
         ]
@@ -18,20 +18,20 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.unusual_prehistory.revive_ulughbegsaurus.description"
+      "translate": "advancements.unusual_prehistory.revive_tusoteuthis.description"
     },
     "hidden": true,
     "icon": {
       "count": 1,
-      "id": "unusual_prehistory:ulughbegsaurus_egg"
+      "id": "unusual_prehistory:tusoteuthis_eggs"
     },
     "title": {
-      "translate": "advancements.unusual_prehistory.revive_ulughbegsaurus.title"
+      "translate": "advancements.unusual_prehistory.revive_tusoteuthis.title"
     }
   },
   "requirements": [
     [
-      "revive_ulughbegsaurus"
+      "revive_tusoteuthis"
     ]
   ],
   "rewards": {

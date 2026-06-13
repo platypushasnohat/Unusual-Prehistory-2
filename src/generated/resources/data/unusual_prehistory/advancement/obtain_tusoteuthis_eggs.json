@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "obtain_tusoteuthis_eggs": {
+      "conditions": {
+        "items": [
+          {
+            "items": "unusual_prehistory:tusoteuthis_eggs"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_tusoteuthis_eggs"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

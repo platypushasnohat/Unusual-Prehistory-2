@@ -29,8 +29,8 @@ public class MultipleEggBlock extends EggBlock {
     public static final IntegerProperty EGGS = BlockStateProperties.EGGS;
     private final int maxEggs;
 
-    public MultipleEggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, int maxEggs, int widthPx, int heightPx, int multipleWidthPx, int multipleHeightPx) {
-        super(properties, hatchedEntity, widthPx, heightPx);
+    public MultipleEggBlock(Properties properties, Supplier<EntityType<?>> hatchedEntity, int hatchAmount, int maxEggs, int widthPx, int heightPx, int multipleWidthPx, int multipleHeightPx) {
+        super(properties, hatchedEntity, hatchAmount, widthPx, heightPx);
         this.maxEggs = maxEggs;
         int px = (16 - multipleWidthPx) / 2;
         this.multipleShape = Block.box(px, 0, px, 16 - px, multipleHeightPx, 16 - px);
@@ -38,7 +38,7 @@ public class MultipleEggBlock extends EggBlock {
     }
 
     protected void removeOneEgg(Level level, BlockPos pos, BlockState state) {
-        level.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
+        level.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + level.getRandom().nextFloat() * 0.2F);
         int i = state.getValue(EGGS);
         if (i <= 1) {
             level.destroyBlock(pos, false);
@@ -56,7 +56,7 @@ public class MultipleEggBlock extends EggBlock {
     }
 
     @Override
-    public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter getter, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter getter, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return state.getValue(EGGS) > 1 ? multipleShape : shape;
     }
 
@@ -74,7 +74,7 @@ public class MultipleEggBlock extends EggBlock {
 
     @Override
     protected int getMobsBornFrom(BlockState state) {
-        return state.getValue(EGGS);
+        return state.getValue(EGGS) * hatchAmount;
     }
 
     @Override

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cross",
+  "ambientocclusion": false,
+  "render_type": "cutout",
+  "textures": {
+    "cross": "unusual_prehistory:block/tusoteuthis_eggs"
+  }
+}

@@ -156,7 +156,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 ROTUND_FOSSIL.get(),
                 THUNDEROUS_FOSSIL.get(),
                 FORCIPULE_FOSSIL.get(),
-                WHISKERED_FOSSIL.get(),
+                SUCTION_FOSSIL.get(),
                 COMBUSTIBLE_FOSSIL.get()
         );
         this.tag(UP2ItemTags.MESOZOIC_FOSSILS).add(
@@ -182,7 +182,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 CLAMP_JAW_FOSSIL.get(),
                 CRYPTIC_FOSSIL.get(),
                 CONCAVE_FOSSIL.get(),
-                SCYTHE_FOSSIL.get()
+                SCYTHE_FOSSIL.get(),
+                SHIMMER_FOSSIL.get()
         );
         this.tag(UP2ItemTags.CENOZOIC_FOSSILS).add(
                 TRUNK_MOUSE_FOSSIL.get(),
@@ -256,6 +257,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 CRYPTOCLIDUS_EMBRYO.get(),
                 UP2Blocks.CONCAVENATOR_EGG.asItem(),
                 UP2Blocks.THERIZINOSAURUS_EGG.asItem(),
+                UP2Blocks.TUSOTEUTHIS_EGGS.asItem(),
                 UP2Blocks.AMMONITE_EGGS.asItem(),
                 UP2Blocks.LEEDSICHTHYS_ROE.asItem()
         );
@@ -297,12 +299,12 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.LINGCOD_RECIPE_MAPPINGS).add(LINGCOD_SPAWN_EGG.get());
         this.tag(UP2ItemTags.LORRAINOSAURUS_RECIPE_MAPPINGS).add(LORRAINOSAURUS_SPAWN_EGG.get(), CLAMP_JAW_FOSSIL.get(), LORRAINOSAURUS_EMBRYO.get());
         this.tag(UP2ItemTags.PROGNATHODON_RECIPE_MAPPINGS).add(PROGNATHODON_SPAWN_EGG.get(), SURGE_FOSSIL.get(), PROGNATHODON_EMBRYO.get());
-        this.tag(UP2ItemTags.RHIZODUS_RECIPE_MAPPINGS).add(RHIZODUS_SPAWN_EGG.get(), WHISKERED_FOSSIL.get(), UP2Blocks.RHIZODUS_ROE.asItem());
+        this.tag(UP2ItemTags.RHIZODUS_RECIPE_MAPPINGS).add(RHIZODUS_SPAWN_EGG.get(), SUCTION_FOSSIL.get(), UP2Blocks.RHIZODUS_ROE.asItem());
         this.tag(UP2ItemTags.SHRINGASAURUS_RECIPE_MAPPINGS).add(SHRINGASAURUS_SPAWN_EGG.get());
         this.tag(UP2ItemTags.SPIKE_TOOTHED_SALMON_RECIPE_MAPPINGS).add(SPIKE_TOOTHED_SALMON_SPAWN_EGG.get(), ROT_FOSSIL.get(), UP2Blocks.SPIKE_TOOTHED_SALMON_ROE.asItem());
         this.tag(UP2ItemTags.THERIZINOSAURUS_RECIPE_MAPPINGS).add(THERIZINOSAURUS_SPAWN_EGG.get(), SCYTHE_FOSSIL.get(), UP2Blocks.THERIZINOSAURUS_EGG.asItem());
         this.tag(UP2ItemTags.THYLACINE_RECIPE_MAPPINGS).add(THYLACINE_SPAWN_EGG.get(), STRIPED_PELT.get(), THYLACINE_EMBRYO.get());
-        this.tag(UP2ItemTags.TUSOTEUTHIS_RECIPE_MAPPINGS).add(TUSOTEUTHIS_SPAWN_EGG.get());
+        this.tag(UP2ItemTags.TUSOTEUTHIS_RECIPE_MAPPINGS).add(TUSOTEUTHIS_SPAWN_EGG.get(), SHIMMER_FOSSIL.get(), UP2Blocks.TUSOTEUTHIS_EGGS.asItem());
         this.tag(UP2ItemTags.WOOLLY_MAMMOTH_RECIPE_MAPPINGS).add(WOOLLY_MAMMOTH_SPAWN_EGG.get(), MOLAR_FOSSIL.get(), WOOLLY_MAMMOTH_EMBRYO.get());
 
         this.tag(UP2ItemTags.PLANTS).add(
@@ -340,7 +342,6 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 Blocks.SMALL_DRIPLEAF.asItem(),
                 Blocks.LILY_PAD.asItem(),
                 Blocks.SEAGRASS.asItem(),
-                Blocks.TALL_SEAGRASS.asItem(),
                 Blocks.KELP.asItem(),
                 Items.DRIED_KELP,
                 Blocks.DRIED_KELP_BLOCK.asItem()

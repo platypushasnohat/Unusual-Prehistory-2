@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:brachiosaurus_egg"
+          "name": "unusual_prehistory:tusoteuthis_eggs"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "unusual_prehistory:blocks/brachiosaurus_egg"
+  "random_sequence": "unusual_prehistory:blocks/tusoteuthis_eggs"
 }

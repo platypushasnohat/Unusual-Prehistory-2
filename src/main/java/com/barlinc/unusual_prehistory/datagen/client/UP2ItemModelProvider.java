@@ -193,9 +193,10 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 CLAMP_JAW_FOSSIL,
                 MOLAR_FOSSIL,
                 SURGE_FOSSIL,
-                WHISKERED_FOSSIL,
+                SUCTION_FOSSIL,
                 ROT_FOSSIL,
                 SCYTHE_FOSSIL,
+                SHIMMER_FOSSIL,
                 STRIPED_PELT,
 
                 UP2Blocks.AMMONITE_EGGS,
@@ -215,6 +216,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 THYLACINE_EMBRYO,
                 UP2Blocks.SPIKE_TOOTHED_SALMON_ROE,
                 UP2Blocks.THERIZINOSAURUS_EGG,
+                UP2Blocks.TUSOTEUTHIS_EGGS,
 
                 SWEET_GROG_BOTTLE,
                 FOUL_GROG_BOTTLE,

@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-10T20:02:26.1999963	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-06-12T20:07:45.4252639	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/foods/fruit.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -17,7 +17,7 @@ bb2f2bd35ca7533bb6fb695accabe9a39b7ac315 data/minecraft/tags/item/logs_that_burn
 89f4fb041a4a71f910326b168143602635566739 data/minecraft/tags/item/tall_flowers.json
 db3c96eb7cd03de76f2e14d5835d063bf45cdb18 data/unusual_prehistory/tags/item/accelerates_egg_hatching.json
 ffe57e9cdea11fe60c80e433f1900332f79e4c6b data/unusual_prehistory/tags/item/amber_dyes.json
-f578bb8192865ea987d775ac336e9d5077f07357 data/unusual_prehistory/tags/item/aquatic_plants.json
+d28646e783e9acec2395a01acfb2917ef4fa05cf data/unusual_prehistory/tags/item/aquatic_plants.json
 59d19bfde363f8ed639e6bddf524eedb97f05bc9 data/unusual_prehistory/tags/item/aqua_dyes.json
 7ce3e5c3cf373eb937f3701a01585e5bf6da3d16 data/unusual_prehistory/tags/item/armors_concavenator.json
 b88c5603f992b7ea7b583abad932d4a83c93fa16 data/unusual_prehistory/tags/item/beige_dyes.json
@@ -60,8 +60,8 @@ a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/item/ginkg
 efe6d58e86177a50d0cd62cbaa1b811e7f7c0715 data/unusual_prehistory/tags/item/jawless_fish_nibbling_blocks.json
 613819adbadf49e5c3524cdeb95cba4031f7a16e data/unusual_prehistory/tags/item/lepidodendron_logs.json
 35e26ac7c30d0cf81cb7c891fbf1d1b3632de467 data/unusual_prehistory/tags/item/maroon_dyes.json
-41c0929185b61986b7d9ef84b7fe3a82000499e2 data/unusual_prehistory/tags/item/mesozoic_eggs.json
-b71e9293064a20626d6359b0531cbe26d92be561 data/unusual_prehistory/tags/item/mesozoic_fossils.json
+a6587c548711cbbba2429962c405d57be439397b data/unusual_prehistory/tags/item/mesozoic_eggs.json
+13fa492673f5de2745372f98f0983b94ed72aaf2 data/unusual_prehistory/tags/item/mesozoic_fossils.json
 10c79f72da170e2b943ca4ef38c33b0fa504433d data/unusual_prehistory/tags/item/metasequoia_logs.json
 a4b75585e021d577a4d300f0733d955413234b04 data/unusual_prehistory/tags/item/mint_dyes.json
 eec86d820e6e0e75fab412b69cafa5d9a7aa0cc8 data/unusual_prehistory/tags/item/mob_fossils.json
@@ -70,7 +70,7 @@ eec86d820e6e0e75fab412b69cafa5d9a7aa0cc8 data/unusual_prehistory/tags/item/mob_f
 2e180d4a596d414c896bd7eb7c296d4d71b3c5a1 data/unusual_prehistory/tags/item/navy_dyes.json
 70315add23e98c47f6db7088b4b86001fac8ec6d data/unusual_prehistory/tags/item/olive_dyes.json
 6201f8b4595bad5e3255f3b5acbee8c92ab8bb67 data/unusual_prehistory/tags/item/paleozoic_eggs.json
-eba35505c344540231bfc13f73a7ecf055e6b17b data/unusual_prehistory/tags/item/paleozoic_fossils.json
+3a17ba478d1af990411c251cdd9ec0cb70656a49 data/unusual_prehistory/tags/item/paleozoic_fossils.json
 c96fe471a5bebd7af6996ace286bc112c85c20ee data/unusual_prehistory/tags/item/plants.json
 4ceeb58a62abc316ee052dacd214451a9ee8d7aa data/unusual_prehistory/tags/item/plant_fossils.json
 31161c3b3c305669b256128085c82c580aa883d9 data/unusual_prehistory/tags/item/plushies.json
@@ -116,7 +116,7 @@ f98b581bef98e9003442671634c7bb19cb8da2c6 data/unusual_prehistory/tags/item/recip
 ddabb4f7aec47602b7dcf079d13342c2b011aae0 data/unusual_prehistory/tags/item/recipe_mappings/prognathodon.json
 860daf9b3b1657d372c114ca2f4c444424e14483 data/unusual_prehistory/tags/item/recipe_mappings/psilopterus.json
 a83531177048bee715678d62c5372b226d67b116 data/unusual_prehistory/tags/item/recipe_mappings/pterodactylus.json
-a3b5a7e077125f69a91cec65729f6a1b05f2556d data/unusual_prehistory/tags/item/recipe_mappings/rhizodus.json
+db266218cc6308302a885c1ee5d1c1444822c577 data/unusual_prehistory/tags/item/recipe_mappings/rhizodus.json
 2949fc0d4fdc6645046e1262f903e3929543231f data/unusual_prehistory/tags/item/recipe_mappings/shringasaurus.json
 523c4934b57545e1618e62b09272a1c5d12fde1e data/unusual_prehistory/tags/item/recipe_mappings/spike_toothed_salmon.json
 d17b53c6da87a7ea1b3870e87b381c5f04eb8d1a data/unusual_prehistory/tags/item/recipe_mappings/stethacanthus.json
@@ -125,7 +125,7 @@ ca4ff3243651c2dd25cfdfd46af118b5678a4e7d data/unusual_prehistory/tags/item/recip
 4ea7e59ed1434fc7cfd8a18ea27f300513260b5f data/unusual_prehistory/tags/item/recipe_mappings/telecrex.json
 e30e0b8fa4ccb00104f3b3492d38c7ade714120a data/unusual_prehistory/tags/item/recipe_mappings/therizinosaurus.json
 d8484c110d25e8f92cdaaee0d4fa5ff5b9d3c608 data/unusual_prehistory/tags/item/recipe_mappings/thylacine.json
-ec6879b9277b1cd893b4f1923b554105f6f0eb7c data/unusual_prehistory/tags/item/recipe_mappings/tusoteuthis.json
+d09aaaf07d6061d0dbea2094821ebf1ba51d6e9b data/unusual_prehistory/tags/item/recipe_mappings/tusoteuthis.json
 8ef17d2fc069c8f16d724380fe960a19705687d9 data/unusual_prehistory/tags/item/recipe_mappings/ulughbegsaurus.json
 4a06dbfd600941ec6663caadbff923705a1f456f data/unusual_prehistory/tags/item/recipe_mappings/woolly_mammoth.json
 6a2ddadbd039a6e5f42a42e1248de6b11e74d18a data/unusual_prehistory/tags/item/reinforced_glass.json

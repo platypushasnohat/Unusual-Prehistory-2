@@ -181,7 +181,8 @@ public class UP2AdvancementProvider implements AdvancementProvider.AdvancementGe
         AdvancementHolder revivePachycephalosaurus = reviveMobAdvancement(reviveOnchopristis, UP2Blocks.PACHYCEPHALOSAURUS_EGG.get(), UP2Entities.PACHYCEPHALOSAURUS.get(), consumer, helper);
         AdvancementHolder revivePrognathodon = reviveMobAdvancement(revivePachycephalosaurus, UP2Items.PROGNATHODON_EMBRYO.get(), UP2Entities.PROGNATHODON.get(), consumer, helper);
         AdvancementHolder reviveTherizinosaurus = reviveMobAdvancement(revivePrognathodon, UP2Blocks.THERIZINOSAURUS_EGG.get(), UP2Entities.THERIZINOSAURUS.get(), consumer, helper);
-        AdvancementHolder reviveUlughbegsaurus = reviveMobAdvancement(reviveTherizinosaurus, UP2Blocks.ULUGHBEGSAURUS_EGG.get(), UP2Entities.ULUGHBEGSAURUS.get(), consumer, helper);
+        AdvancementHolder reviveTusoteuthis = reviveMobAdvancement(reviveTherizinosaurus, UP2Blocks.TUSOTEUTHIS_EGGS.get(), UP2Entities.TUSOTEUTHIS.get(), consumer, helper);
+        AdvancementHolder reviveUlughbegsaurus = reviveMobAdvancement(reviveTusoteuthis, UP2Blocks.ULUGHBEGSAURUS_EGG.get(), UP2Entities.ULUGHBEGSAURUS.get(), consumer, helper);
 
         // Paleogene
         AdvancementHolder reviveLeptictidium = reviveMobAdvancement(paleogeneRoot, UP2Items.LEPTICTIDIUM_EMBRYO.get(), UP2Entities.LEPTICTIDIUM.get(), consumer, helper);

@@ -259,9 +259,10 @@ public class UP2Items {
     public static final DeferredItem<Item> GARGANTUAN_FOSSIL = registerFossilItem("gargantuan"); // leedsichthys
     public static final DeferredItem<Item> CLAMP_JAW_FOSSIL = registerFossilItem("clamp_jaw"); // lorrainosaurus
     public static final DeferredItem<Item> SURGE_FOSSIL = registerFossilItem("surge"); // prognathodon
-    public static final DeferredItem<Item> WHISKERED_FOSSIL = registerFossilItem("whiskered"); // rhizodus
+    public static final DeferredItem<Item> SUCTION_FOSSIL = registerFossilItem("suction"); // rhizodus
     public static final DeferredItem<Item> ROT_FOSSIL = registerFossilItem("rot"); // spike-toothed salmon
     public static final DeferredItem<Item> SCYTHE_FOSSIL = registerFossilItem("scythe"); // therizinosaurus
+    public static final DeferredItem<Item> SHIMMER_FOSSIL = registerFossilItem("shimmer"); // tusoteuthis
     public static final DeferredItem<Item> STRIPED_PELT = registerItem("striped_pelt", () -> new Item(new Item.Properties().rarity(UP2EnumProxy.FOSSIL.getValue()))); // thylacine
     public static final DeferredItem<Item> MOLAR_FOSSIL = registerFossilItem("molar"); // woolly mammoth
 

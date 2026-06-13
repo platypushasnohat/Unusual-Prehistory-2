@@ -17,7 +17,7 @@ public class UP2BlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, UnusualPrehistory2.MOD_ID);
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TransmogrifierBlockEntity>> TRANSMOGRIFIER_BLOCK_ENTITY = BLOCK_ENTITIES.register("transmogrifier_block_entity", () -> BlockEntityType.Builder.of(TransmogrifierBlockEntity::new, UP2Blocks.TRANSMOGRIFIER.get()).build(null));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ExtraDataBlockEntity>> EXTRA_DATA_BLOCK_ENTITY = BLOCK_ENTITIES.register("extra_data_block_entity", () -> BlockEntityType.Builder.of(ExtraDataBlockEntity::new, UP2Blocks.EGG_BLOCKS.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<EggBlockEntity>> EGG_BLOCK_ENTITY = BLOCK_ENTITIES.register("egg_block_entity", () -> BlockEntityType.Builder.of(EggBlockEntity::new, UP2Blocks.EGG_BLOCKS.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PlushieBlockEntity>> PLUSHIE_BLOCK_ENTITY = BLOCK_ENTITIES.register("plushie_block_entity", () -> BlockEntityType.Builder.of(PlushieBlockEntity::new, UP2Blocks.PLUSHIE_BLOCKS.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
 

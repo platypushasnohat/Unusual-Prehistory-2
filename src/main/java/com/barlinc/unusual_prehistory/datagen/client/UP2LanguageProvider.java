@@ -597,6 +597,7 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.translateAdvancement("revive_tartuosteus", "Thinkin’ Bout Moss Balls", "Revive a Tartuosteus");
         this.translateAdvancement("revive_telecrex", "From a Singular Femur", "Revive a Telecrex");
         this.translateAdvancement("revive_therizinosaurus", "Tickle Chicken", "Revive a Therizinosaurus");
+        this.translateAdvancement("revive_tusoteuthis", "Unidentified Swimming Cephalopod", "Revive a Tusoteuthis");
         this.translateAdvancement("revive_ulughbegsaurus", "How Do You Pronounce That?", "Revive an Ulughbegsaurus");
         this.translateAdvancement("revive_woolly_mammoth", "Ice Age", "Revive a Woolly Mammoth");
 
@@ -726,10 +727,12 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("unusual_prehistory.jade.prehistoric_mob.pacified_time", "Pacified time: %s");
         this.add("unusual_prehistory.jade.living_ooze.gestation_time", "Gestation time: %s");
         this.add("unusual_prehistory.jade.living_ooze.gestation_cooldown", "Gestation cooldown: %s");
+        this.add("unusual_prehistory.jade.egg_block.hatch_time", "Hatch time: %s");
 
         this.add("config.jade.plugin_unusual_prehistory.prehistoric_mob", "Prehistoric Mob Info");
         this.add("config.jade.plugin_unusual_prehistory.transmogrifier", "Transmogrifier Contents");
         this.add("config.jade.plugin_unusual_prehistory.living_ooze", "Living Ooze Info");
+        this.add("config.jade.plugin_unusual_prehistory.egg_block", "Egg Block Info");
 
         // Paintings
         this.add("painting.unusual_prehistory.unusual_encounter.title", "Unusual Encounter");
