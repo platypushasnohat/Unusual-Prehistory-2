@@ -5,10 +5,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BubbleColumnBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -34,11 +34,7 @@ public class RaftEggBlock extends EggBlock {
 
     @Override
     public boolean hatchBoost(BlockGetter blockGetter, BlockPos pos) {
-        return true;
-    }
-
-    @Override
-    protected void spawnParticles(Level level, BlockPos pos) {
+        return blockGetter.getBlockState(pos.below()).getBlock() instanceof BubbleColumnBlock;
     }
 
     private static boolean mayPlaceOn(BlockGetter level, BlockPos pos) {
