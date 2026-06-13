@@ -205,6 +205,12 @@ public class UnusualPrehistory2Tab {
                         output.accept(CENOZOIC_BANNER_PATTERN.get());
                         output.accept(getPainting(UP2PaintingVariants.UNUSUAL_ENCOUNTER));
 
+                        output.accept(AMBER_BEAR.get());
+                        output.accept(COPROLITE.get());
+                        output.accept(FOSSILIZED_FOOTPRINT.get());
+                        output.accept(GASTROLITH.get());
+                        output.accept(PETRIFIED_EGG.get());
+
                         output.accept(BRISTLE_FOSSIL.get()); // aegirocassis
                         output.accept(SPIRAL_FOSSIL.get()); // ammonite
                         output.accept(SNOW_SHOVEL_FOSSIL.get()); // antarctopelta

@@ -32,6 +32,9 @@ public class UP2EnumProxy {
     );
 
     // Rarities
-    public static final EnumProxy<Rarity> FOSSIL = new EnumProxy<>(Rarity.class, -1, UnusualPrehistory2.MOD_ID + ":fossil", (UnaryOperator<Style>) style -> style.withColor(0xbd8562));
+    public static final EnumProxy<Rarity> FOSSIL = new EnumProxy<>(Rarity.class, -1, UnusualPrehistory2.MOD_ID + ":fossil", (UnaryOperator<Style>) style -> style.withColor(0x986748));
+
+    // Relic matches Sully's Mod ancient rarity (might be nice for modpack consistency :?)
+    public static final EnumProxy<Rarity> RELIC = new EnumProxy<>(Rarity.class, -1, UnusualPrehistory2.MOD_ID + ":relic", (UnaryOperator<Style>) style -> style.withColor(0xe68600));
 
 }

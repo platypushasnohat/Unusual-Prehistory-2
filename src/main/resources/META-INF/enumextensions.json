@@ -55,6 +55,15 @@
         "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
         "field": "FOSSIL"
       }
+    },
+    {
+      "enum": "net/minecraft/world/item/Rarity",
+      "name": "UNUSUAL_PREHISTORY_RELIC",
+      "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
+      "parameters": {
+        "class": "com/barlinc/unusual_prehistory/registry/UP2EnumProxy",
+        "field": "RELIC"
+      }
     }
   ]
 }

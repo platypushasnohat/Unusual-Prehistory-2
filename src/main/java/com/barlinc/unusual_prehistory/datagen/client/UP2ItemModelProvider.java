@@ -223,7 +223,13 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
                 LEEDSICHTHYS_SLICE,
 
-                PLUSHIE_KIT
+                PLUSHIE_KIT,
+
+                AMBER_BEAR,
+                COPROLITE,
+                FOSSILIZED_FOOTPRINT,
+                GASTROLITH,
+                PETRIFIED_EGG
         );
 
         this.generatedItem(GINKGO_FOSSIL);

@@ -6,7 +6,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BrushableBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,8 +16,9 @@ import javax.annotation.Nullable;
 
 public class MatrixBlock extends BrushableBlock {
 
-    public MatrixBlock(SoundEvent brushSound, SoundEvent brushCompletedSound, Properties properties) {
-        super(Blocks.DIRT, brushSound, brushCompletedSound, properties);
+    // We need to set the block for each one to work properly with Jade
+    public MatrixBlock(Block block, SoundEvent brushSound, SoundEvent brushCompletedSound, Properties properties) {
+        super(block, brushSound, brushCompletedSound, properties);
     }
 
     @Override

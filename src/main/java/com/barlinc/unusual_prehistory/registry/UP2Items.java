@@ -288,6 +288,12 @@ public class UP2Items {
 
     public static final DeferredItem<Item> PLUSHIE_KIT = registerItem("plushie_kit", () -> new PlushieKitItem(new Item.Properties()));
 
+    public static final DeferredItem<Item> AMBER_BEAR = registerItem("amber_bear", () -> new RelicItem(1, 5000, 10000, new Item.Properties()));
+    public static final DeferredItem<Item> COPROLITE = registerItem("coprolite", () -> new RelicItem(2, 1000, 538000, new Item.Properties()));
+    public static final DeferredItem<Item> FOSSILIZED_FOOTPRINT = registerItem("fossilized_footprint", () -> new RelicItem(2, 66000, 237000, new Item.Properties()));
+    public static final DeferredItem<Item> GASTROLITH = registerItem("gastrolith", () -> new RelicItem(2, 66000, 199000, new Item.Properties()));
+    public static final DeferredItem<Item> PETRIFIED_EGG = registerItem("petrified_egg", () -> new RelicItem(2, 1000, 316000, new Item.Properties()));
+
     // Future
     public static final DeferredItem<Item> PETRIFIED_LUCA = registerItemNoLang("petrified_luca", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> LUCA = registerItemNoLang("luca", () -> new Item(new Item.Properties()));

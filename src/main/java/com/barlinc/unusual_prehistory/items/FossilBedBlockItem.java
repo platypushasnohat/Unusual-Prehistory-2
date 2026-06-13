@@ -21,9 +21,9 @@ public class FossilBedBlockItem extends BlockItem {
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
         this.getBlock().appendHoverText(stack, context, tooltipComponents, tooltipFlag);
         tooltipComponents.add(this.getDisplayName().withColor(rarity.color));
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 
     public MutableComponent getDisplayName() {
@@ -31,7 +31,7 @@ public class FossilBedBlockItem extends BlockItem {
     }
 
     public enum FossilBedRarity {
-        COMMON(0x7e594d),
+        COMMON(0x916658),
         UNCOMMON(0x16ac24),
         RARE(0xe44d00),
         UNUSUAL(0xa682f4);
