@@ -292,7 +292,7 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 POLISHED_PETRIFIED_WOOD_BUTTON.get(),
                 ASPHALT.get(),
 
-                FOSSIL_BED.get(),
+                COMMON_FOSSIL_BED.get(),
                 UNCOMMON_FOSSIL_BED.get(),
                 RARE_FOSSIL_BED.get(),
                 UNUSUAL_FOSSIL_BED.get()

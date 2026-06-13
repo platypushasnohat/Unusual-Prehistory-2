@@ -26,7 +26,7 @@ public class UP2BlockstateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
 
-        this.block(FOSSIL_BED);
+        this.block(COMMON_FOSSIL_BED);
         this.block(UNCOMMON_FOSSIL_BED);
         this.block(RARE_FOSSIL_BED);
         this.block(UNUSUAL_FOSSIL_BED);

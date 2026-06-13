@@ -518,6 +518,18 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.addItem(UP2Items.SPIKE_TOOTHED_SALMON_SPAWN_EGG, "Spike-Toothed Salmon Spawn Egg");
         this.addEntityType(UP2Entities.SPIKE_TOOTHED_SALMON, "Spike-Toothed Salmon");
 
+        this.addBlock(UP2Blocks.COMMON_FOSSIL_BED, "Fossil Bed");
+        this.add("block.unusual_prehistory.common_fossil_bed.desc", "Common");
+
+        this.addBlock(UP2Blocks.UNCOMMON_FOSSIL_BED, "Fossil Bed");
+        this.add("block.unusual_prehistory.uncommon_fossil_bed.desc", "Uncommon");
+
+        this.addBlock(UP2Blocks.RARE_FOSSIL_BED, "Fossil Bed");
+        this.add("block.unusual_prehistory.rare_fossil_bed.desc", "Rare");
+
+        this.addBlock(UP2Blocks.UNUSUAL_FOSSIL_BED, "Fossil Bed");
+        this.add("block.unusual_prehistory.unusual_fossil_bed.desc", "Unusual");
+
         this.add("item.unusual_prehistory.plushie_kit.desc", "Used to sew plushies from mobs");
 
         // Future

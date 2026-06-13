@@ -165,7 +165,7 @@ public class MatrixBlockEntity extends BlockEntity implements Brushable {
     }
 
     public enum LootRarity {
-        COMMON(UP2Blocks.FOSSIL_BED.get(), "common"),
+        COMMON(UP2Blocks.COMMON_FOSSIL_BED.get(), "common"),
         UNCOMMON(UP2Blocks.UNCOMMON_FOSSIL_BED.get(), "uncommon"),
         RARE(UP2Blocks.RARE_FOSSIL_BED.get(), "rare"),
         UNUSUAL(UP2Blocks.UNUSUAL_FOSSIL_BED.get(), "unusual");

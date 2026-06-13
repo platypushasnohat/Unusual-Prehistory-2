@@ -2,58 +2,62 @@
   "processors": [
     {
       "delegate": {
-        "processor_type": "minecraft:rule",
-        "rules": [
-          {
-            "block_entity_modifier": {
-              "type": "minecraft:append_loot",
-              "loot_table": "minecraft:archaeology/trail_ruins_common"
-            },
-            "input_predicate": {
-              "predicate_type": "minecraft:tag_match",
-              "tag": "minecraft:sand"
-            },
-            "location_predicate": {
-              "predicate_type": "minecraft:always_true"
-            },
-            "output_state": {
-              "Name": "minecraft:suspicious_sand",
-              "Properties": {
-                "dusted": "0"
-              }
-            }
-          }
-        ]
+        "processor_type": "unusual_prehistory:matrix",
+        "target_state": {
+          "Name": "minecraft:sand"
+        },
+        "matrix_state": {
+          "Name": "unusual_prehistory:sand_matrix"
+        },
+        "loot_table": "unusual_prehistory:archaeology/fossil/desert/common",
+        "rarity": "common"
       },
-      "limit": 6,
+      "limit": 10,
       "processor_type": "minecraft:capped"
     },
     {
       "delegate": {
-        "processor_type": "minecraft:rule",
-        "rules": [
-          {
-            "block_entity_modifier": {
-              "type": "minecraft:append_loot",
-              "loot_table": "minecraft:archaeology/trail_ruins_rare"
-            },
-            "input_predicate": {
-              "predicate_type": "minecraft:tag_match",
-              "tag": "minecraft:sand"
-            },
-            "location_predicate": {
-              "predicate_type": "minecraft:always_true"
-            },
-            "output_state": {
-              "Name": "minecraft:suspicious_sand",
-              "Properties": {
-                "dusted": "0"
-              }
-            }
-          }
-        ]
+        "processor_type": "unusual_prehistory:matrix",
+        "target_state": {
+          "Name": "minecraft:sand"
+        },
+        "matrix_state": {
+          "Name": "unusual_prehistory:sand_matrix"
+        },
+        "loot_table": "unusual_prehistory:archaeology/fossil/desert/uncommon",
+        "rarity": "uncommon"
       },
-      "limit": 3,
+      "limit": 8,
+      "processor_type": "minecraft:capped"
+    },
+    {
+      "delegate": {
+        "processor_type": "unusual_prehistory:matrix",
+        "target_state": {
+          "Name": "minecraft:sand"
+        },
+        "matrix_state": {
+          "Name": "unusual_prehistory:sand_matrix"
+        },
+        "loot_table": "unusual_prehistory:archaeology/fossil/desert/rare",
+        "rarity": "rare"
+      },
+      "limit": 5,
+      "processor_type": "minecraft:capped"
+    },
+    {
+      "delegate": {
+        "processor_type": "unusual_prehistory:matrix",
+        "target_state": {
+          "Name": "minecraft:sand"
+        },
+        "matrix_state": {
+          "Name": "unusual_prehistory:sand_matrix"
+        },
+        "loot_table": "unusual_prehistory:archaeology/fossil/desert/unusual",
+        "rarity": "unusual"
+      },
+      "limit": 2,
       "processor_type": "minecraft:capped"
     }
   ]

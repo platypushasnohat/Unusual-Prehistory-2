@@ -22,7 +22,7 @@ public class UP2BlockEntities {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PlushieBlockEntity>> PLUSHIE_BLOCK_ENTITY = BLOCK_ENTITIES.register("plushie_block_entity", () -> BlockEntityType.Builder.of(PlushieBlockEntity::new, UP2Blocks.PLUSHIE_BLOCKS.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MatrixBlockEntity>> MATRIX_BLOCK_ENTITY = BLOCK_ENTITIES.register("matrix_block_entity", () -> BlockEntityType.Builder.of(MatrixBlockEntity::new, UP2Blocks.DIRT_MATRIX.get(), UP2Blocks.MUD_MATRIX.get(), UP2Blocks.GRAVEL_MATRIX.get(), UP2Blocks.SAND_MATRIX.get(), UP2Blocks.RED_SAND_MATRIX.get(), UP2Blocks.SNOW_MATRIX.get()).build(null));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FossilBedBlockEntity>> FOSSIL_BED_BLOCK_ENTITY = BLOCK_ENTITIES.register("fossil_bed_block_entity", () -> BlockEntityType.Builder.of(FossilBedBlockEntity::new, UP2Blocks.FOSSIL_BED.get(), UP2Blocks.UNCOMMON_FOSSIL_BED.get(), UP2Blocks.RARE_FOSSIL_BED.get(), UP2Blocks.UNUSUAL_FOSSIL_BED.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FossilBedBlockEntity>> FOSSIL_BED_BLOCK_ENTITY = BLOCK_ENTITIES.register("fossil_bed_block_entity", () -> BlockEntityType.Builder.of(FossilBedBlockEntity::new, UP2Blocks.COMMON_FOSSIL_BED.get(), UP2Blocks.UNCOMMON_FOSSIL_BED.get(), UP2Blocks.RARE_FOSSIL_BED.get(), UP2Blocks.UNUSUAL_FOSSIL_BED.get()).build(null));
 
     public static void addBlockEntities(final BlockEntityTypeAddBlocksEvent event) {
         event.modify(BlockEntityType.SIGN,

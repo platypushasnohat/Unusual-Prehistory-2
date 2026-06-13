@@ -113,7 +113,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(UP2Blocks.RED_SAND_MATRIX.get());
                         output.accept(UP2Blocks.SNOW_MATRIX.get());
 
-                        output.accept(UP2Blocks.FOSSIL_BED.get());
+                        output.accept(UP2Blocks.COMMON_FOSSIL_BED.get());
                         output.accept(UP2Blocks.UNCOMMON_FOSSIL_BED.get());
                         output.accept(UP2Blocks.RARE_FOSSIL_BED.get());
                         output.accept(UP2Blocks.UNUSUAL_FOSSIL_BED.get());

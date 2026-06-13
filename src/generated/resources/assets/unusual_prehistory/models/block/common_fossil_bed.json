@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "unusual_prehistory:block/fossil_bed"
+    "all": "unusual_prehistory:block/common_fossil_bed"
   }
 }
