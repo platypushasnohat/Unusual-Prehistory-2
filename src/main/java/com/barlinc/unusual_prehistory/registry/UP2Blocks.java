@@ -2,7 +2,10 @@ package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.blocks.*;
-import com.barlinc.unusual_prehistory.blocks.egg.*;
+import com.barlinc.unusual_prehistory.blocks.egg.EggBlock;
+import com.barlinc.unusual_prehistory.blocks.egg.MultipleEggBlock;
+import com.barlinc.unusual_prehistory.blocks.egg.RaftEggBlock;
+import com.barlinc.unusual_prehistory.blocks.egg.UnderwaterEggBlock;
 import com.barlinc.unusual_prehistory.blocks.plant.*;
 import com.barlinc.unusual_prehistory.blocks.plant.update_1.*;
 import com.barlinc.unusual_prehistory.blocks.plant.update_4.*;

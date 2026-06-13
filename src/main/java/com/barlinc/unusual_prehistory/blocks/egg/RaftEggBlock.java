@@ -1,15 +1,9 @@
 package com.barlinc.unusual_prehistory.blocks.egg;
 
-import com.barlinc.unusual_prehistory.registry.UP2Particles;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
-import com.barlinc.unusual_prehistory.utils.UP2ParticleUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
