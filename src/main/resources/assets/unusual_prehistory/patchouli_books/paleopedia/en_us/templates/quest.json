@@ -1,13 +1,13 @@
 {
   "include": [
     {
-      "template": "unusual_prehistory:template_advancement_checkbox",
+      "template": "unusual_prehistory:nested_templates/advancement_checkbox",
       "as": "checkbox",
       "x": 43,
       "y": 16
     },
     {
-      "template": "unusual_prehistory:template_hyperlink_button",
+      "template": "unusual_prehistory:nested_templates/hyperlink_button",
       "as": "button_next",
       "using": {
       "text": ">>>",
@@ -17,7 +17,7 @@
       "y": 160
     },
     {
-      "template": "unusual_prehistory:template_hyperlink_button",
+      "template": "unusual_prehistory:nested_templates/hyperlink_button",
       "as": "button_previous",
       "using": {
         "text": "<<<",

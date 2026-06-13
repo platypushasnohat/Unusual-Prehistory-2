@@ -2,46 +2,47 @@
   "name": "Carnotaurus",
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/carnotaurus.png",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:revive_carnotaurus",
+  "advancement": "unusual_prehistory:obtain_carnotaurus_egg",
   "extra_recipe_mappings": {
-    "unusual_prehistory:fury_fossil": 0,
-    "unusual_prehistory:carnotaurus_egg": 0,
-    "unusual_prehistory:carnotaurus_spawn_egg": 0
+    "tag:unusual_prehistory:recipe_mappings/carnotaurus": 0
   },
   "pages": [
     {
       "type": "unusual_prehistory:mob_display",
       "id": "carnotaurus",
-      "flavor_text": "meat-eating-bull",
+
+      "rarity": "rare",
       "fossil_item": "unusual_prehistory:fury_fossil",
       "egg_item": "unusual_prehistory:carnotaurus_egg",
+
+      "flavor_text": "meat-eating-bull",
       "image_tooltip": "An abelisaur with a short, deep skull and massive pair of horns, Carnotaurus furiously charges at anything it sets its sights on in a blind, rage-fuelled stampede."
     },
     {
       "type": "unusual_prehistory:mob_features",
       "id": "carnotaurus",
 
-      "era_image": "late_cretaceous",
-      "era_tooltip_period": "Late Cretaceous Period",
+      "era": "late_cretaceous",
+      "temperament": "hostile",
+      "clone_type": "nest_egg",
+      "activity": "diurnal",
+      "diet": "carnivore",
 
-      "temperament.temperament_type": "hostile",
-      "clone.clone_type": "nest_egg",
-      "activity.activity_type": "diurnal",
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
 
       "feature_1.item": "minecraft:skeleton_skull",
+      "feature_1.title": "Furious",
       "feature_1.tooltip": "Carnotaurus charges at anything it attacks, ramming them with its horns",
-      "feature_1.title_one_line": "Furious",
-      "feature_1.title_two_line": "",
 
       "feature_2.item": "minecraft:bone",
+      "feature_2.title": "Bodyguard!",
       "feature_2.tooltip": "Carnotaurus will attack any monsters it sees on sight",
-      "feature_2.title_one_line": "Bodyguard!",
-      "feature_2.title_two_line": "",
 
       "feature_3.item": "minecraft:egg",
-      "feature_3.tooltip": "Baby Carnotaurus are just as aggressive as their adult counterparts",
-      "feature_3.title_one_line": "Born Warrior",
-      "feature_3.title_two_line": ""
+      "feature_3.title": "Born Warrior",
+      "feature_3.tooltip": "Baby Carnotaurus are just as aggressive as their adult counterparts"
     }
   ]
 }

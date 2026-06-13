@@ -1,7 +1,7 @@
 {
   "include": [
     {
-      "template": "unusual_prehistory:template_temperament",
+      "template": "unusual_prehistory:nested_templates/nonrevivable_mob_temperament",
       "as": "temperament",
       "y": 112,
       "x": 51

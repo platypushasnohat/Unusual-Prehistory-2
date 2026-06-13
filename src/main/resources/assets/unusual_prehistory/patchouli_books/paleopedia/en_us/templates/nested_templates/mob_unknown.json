@@ -1,0 +1,14 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/question_mark_small.png",
+      "width": 16,
+      "height": 16,
+      "texture_width": 16,
+      "texture_height": 16,
+      "advancement": "unusual_prehistory:revive_#id#",
+      "negate_advancement": true
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "name": "Cotylorhynchus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/cotylorhynchus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_cotylorhynchus_egg",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/cotylorhynchus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_entry_1",
+      "id": "cotylorhynchus",
+
+      "rarity": "rare",
+      "fossil_item": "unusual_prehistory:rotund_fossil",
+      "egg_item": "unusual_prehistory:cotylorhynchus_egg",
+
+      "flavor_text": "cup-snout",
+      "image_tooltip": ""
+    },
+    {
+      "id": "cotylorhynchus",
+      "type": "unusual_prehistory:mob_entry_2",
+
+      "era": "cotylorhynchus",
+      "temperament": "passive",
+      "clone_type": "nest_egg",
+      "activity": "diurnal",
+      "diet": "herbivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:bottle",
+      "feature_1.tooltip": "Cotylorhynchus can produce an exotic drink called grog when being fed with fruit",
+      "feature_1.title": "Give Me A Drink Bartender",
+
+      "feature_2.item": "unusual_prehistory:sweet_grog",
+      "feature_2.tooltip": "Sweet Grog can be drinked and grant player some buff effects",
+      "feature_2.title": "",
+
+      "feature_3.item": "unusual_prehistory:foul_grog",
+      "feature_3.tooltip": "Foul Grog can be thrown and stuns mob for a few moments due to their smell",
+      "feature_3.title": ""
+    }
+  ]
+}

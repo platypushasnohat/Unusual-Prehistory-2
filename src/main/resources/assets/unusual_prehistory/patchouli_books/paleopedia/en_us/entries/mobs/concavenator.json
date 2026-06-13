@@ -1,0 +1,50 @@
+{
+  "name": "Concavenator",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/concavenator.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_concavenator_egg",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/concavenator": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "concavenator",
+
+      "rarity": "unusual",
+      "fossil_item": "unusual_prehistory:concave_fossil",
+      "egg_item": "unusual_prehistory:concavenator_egg",
+
+      "flavor_text": "Cuenca's-hunter",
+      "image_tooltip": "What?"
+    },
+    {
+      "type": "unusual_prehistory:mob_features",
+      "id": "concavenator",
+
+      "era": "early_cretaceous",
+      "temperament": "hostile",
+      "clone_type": "nest_egg",
+      "activity": "diurnal",
+      "diet": "carnivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:sand",
+      "feature_1.tooltip": "concavenator hunt in pack by swimming through sand to surround their prey",
+      "feature_1.title": "",
+
+      "feature_2.item": "minecraft:iron_chestplate",
+      "feature_2.tooltip": "concavenator can gain a sandstone armor based on the sand they swim through",
+      "feature_2.title": "",
+
+      "feature_3.item": "tag:unusual_prehistory:tames_concavenator",
+      "feature_3.tooltip": "concavenator can be tamed by feeding them 4 stacks of sandstone, and can be equipped with armor by giving them sandstone or soul sand/soil ",
+      "feature_3.title": ""
+
+
+    }
+  ]
+}

@@ -6,7 +6,9 @@
       "color": "968351",
       "max_width": 108,
       "x": 4,
-      "y": -6
+      "y": -6,
+      "advancement": "unusual_prehistory:revive_#id#",
+      "negate_advancement": false
     }
   ]
 }

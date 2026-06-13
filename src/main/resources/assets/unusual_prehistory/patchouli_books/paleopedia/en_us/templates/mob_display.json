@@ -4,8 +4,17 @@
       "type": "patchouli:header",
       "text": "entity.unusual_prehistory.#id#",
       "x": 57,
+      "y": 5,
+      "color": "988552",
+      "guard": "#flavor_text->exists->inv#"
+    },
+    {
+      "type": "patchouli:header",
+      "text": "entity.unusual_prehistory.#id#",
+      "x": 57,
       "y": -2,
-      "color": "988552"
+      "color": "988552",
+      "guard": "#flavor_text->exists#"
     },
     {
       "type": "patchouli:header",
@@ -13,7 +22,19 @@
       "x": 57,
       "y": 7,
       "color": "d8c697",
-      "guard": "#flavor_text->exists#"
+      "guard": "#flavor_text->exists#",
+      "advancement": "unusual_prehistory:revive_#id#",
+      "negate_advancement": false
+    },
+    {
+      "type": "patchouli:header",
+      "text": "???",
+      "x": 57,
+      "y": 7,
+      "color": "d8c697",
+      "guard": "#flavor_text->exists#",
+      "advancement": "unusual_prehistory:revive_#id#",
+      "negate_advancement": true
     },
     {
       "type": "patchouli:separator",
@@ -22,23 +43,46 @@
     },
     {
       "type": "patchouli:image",
-      "image": "unusual_prehistory:textures/gui/paleopedia/images/#id#.png",
+      "image": "unusual_prehistory:textures/gui/paleopedia/images/mob_renders/#id#.png",
       "width": 200,
       "height": 200,
       "scale": 0.40,
       "x": 17,
-      "y": 26
+      "y": 26,
+      "advancement": "unusual_prehistory:revive_#id#"
+    },
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/images/mob_renders/#id#_unknown.png",
+      "width": 200,
+      "height": 200,
+      "scale": 0.40,
+      "x": 17,
+      "y": 26,
+      "advancement": "unusual_prehistory:revive_#id#",
+      "negate_advancement": true
     },
     {
       "type": "patchouli:tooltip",
-      "tooltip": [
-        "entity.unusual_prehistory.#id#",
-        "§7#image_tooltip#"
-      ],
+      "tooltip": ["entity.unusual_prehistory.#id#", "§7#image_tooltip#"],
       "width": 85,
       "height": 85,
       "x": 1,
-      "y": 10
+      "y": 10,
+      "guard": "#variant_key->exists->inv",
+      "advancement": "unusual_prehistory:revive_#id#",
+      "negate_advancement": false
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": ["entity.unusual_prehistory.#id#", "§e§o#variant_key#", "§7#image_tooltip#"],
+      "width": 85,
+      "height": 85,
+      "x": 1,
+      "y": 10,
+      "guard": "#variant_key->exists",
+      "advancement": "unusual_prehistory:revive_#id#",
+      "negate_advancement": false
     },
     {
       "type": "patchouli:item",
@@ -53,6 +97,31 @@
       "item": "#egg_item",
       "x": 64,
       "y": 112
+    },
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/rarity_#rarity#.png",
+      "width": 48,
+      "height": 48,
+      "scale": 1,
+      "x": -1,
+      "y": 26,
+      "texture_height": 48,
+      "texture_width": 48,
+      "advancement": "unusual_prehistory:revive_#id#",
+      "negate_advancement": false
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": [
+        "item.unusual_prehistory.paleopedia.rarity.tooltip.#rarity#"
+      ],
+      "width": 16,
+      "height": 48,
+      "x": -1,
+      "y": 26,
+      "advancement": "unusual_prehistory:revive_#id#",
+      "negate_advancement": false
     }
   ]
 }

@@ -1,0 +1,48 @@
+{
+  "name": "Brontoscorpio",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/brontoscorpio.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_brontoscorpio_embryo",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/brontoscorpio": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "brontoscorpio",
+
+      "rarity": "uncommon",
+      "fossil_item": "unusual_prehistory:thunderous_fossil",
+      "egg_item": "unusual_prehistory:brontoscorpio_embryo",
+
+      "flavor_text": "thunder-scorpion",
+      "image_tooltip": ""
+    },
+    {
+      "id": "brontoscorpio",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "early_devonian",
+      "temperament": "neutral",
+      "clone_type": "embryo",
+      "activity": "sleepless",
+      "diet": "insectivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": true,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:grass_block",
+      "feature_1.tooltip": "brontoscorpio can walk both on land and underwater floor",
+      "feature_1.title": "",
+
+      "feature_2.item": "minecraft:barrier",
+      "feature_2.tooltip": "brontoscorpio is very defensive and will sting any player who approached",
+      "feature_2.title_two_line": "Thunderous Sting",
+
+      "feature_3.item": "minecraft:barrier",
+      "feature_3.tooltip": "brontoscorpio sting will paralyze their victim, preventing them from jumping and sprinting, while slowly killing them",
+      "feature_3.title_two_line": "MY LEGS!"
+    }
+  ]
+}

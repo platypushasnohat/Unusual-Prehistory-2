@@ -2,36 +2,39 @@
   "name": "Brachiosaurus",
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/brachiosaurus.png",
   "category": "unusual_prehistory:mobs",
-  "advancement": "unusual_prehistory:revive_brachiosaurus",
+  "advancement": "unusual_prehistory:obtain_brachiosaurus_egg",
   "extra_recipe_mappings": {
-    "unusual_prehistory:arm_fossil": 0,
-    "unusual_prehistory:brachiosaurus_egg": 0,
-    "unusual_prehistory:brachiosaurus_spawn_egg": 0
+    "tag:unusual_prehistory:recipe_mappings/brachiosaurus": 0
   },
   "pages": [
     {
       "type": "unusual_prehistory:mob_display",
       "id": "brachiosaurus",
-      "flavor_text": "arm-lizard",
+
+      "rarity": "uncommon",
       "fossil_item": "unusual_prehistory:arm_fossil",
       "egg_item": "unusual_prehistory:brachiosaurus_egg",
+
+      "flavor_text": "arm-lizard",
       "image_tooltip": "A majestic sauropod with a towering upright posture and enormous front limbs, Brachiosaurus spends much of its time wading in deep water."
     },
     {
       "type": "unusual_prehistory:mob_features",
       "id": "brachiosaurus",
 
-      "era_image": "late_jurassic",
-      "era_tooltip_period": "Late Jurassic Period",
+      "era": "late_jurassic",
+      "temperament": "neutral",
+      "clone_type": "nest_egg",
+      "activity": "diurnal",
+      "diet": "herbivore",
 
-      "temperament.temperament_type": "neutral",
-      "clone.clone_type": "nest_egg",
-      "activity.activity_type": "diurnal",
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
 
       "feature_1.item": "minecraft:seagrass",
       "feature_1.tooltip": "Brachiosaurus is able to wade effortlessly through deep water to cool off",
-      "feature_1.title_one_line": "River-Stopper",
-      "feature_1.title_two_line": ""
+      "feature_1.title": "River-Stopper"
     }
   ]
 }

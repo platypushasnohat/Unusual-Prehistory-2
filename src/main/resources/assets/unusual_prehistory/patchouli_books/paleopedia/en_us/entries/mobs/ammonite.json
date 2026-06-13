@@ -1,0 +1,45 @@
+{
+  "name": "Ammonite",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/ammonite.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_ammonite_eggs",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/ammonite": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "ammonite",
+
+      "rarity": "common",
+      "fossil_item": "unusual_prehistory:spiral_fossil",
+      "egg_item": "unusual_prehistory:ammonite_eggs",
+
+      "flavor_text": "horns-of-Ammon",
+      "variant_key": "1 Crioceratites 2 Hoplites 3 Tropites 4 Nostoceras 5 Pinacoceras",
+      "image_tooltip": ""
+    },
+    {
+      "id": "ammonite",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "ammonite",
+      "temperament": "passive",
+      "clone_type": "aquatic_egg",
+      "activity": "sleepless",
+      "diet": "piscivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "unusual_prehistory:lobe_finned_fish_bucket[minecraft:bucket_entity_data={BucketVariantTag:0}],unusual_prehistory:lobe_finned_fish_bucket[minecraft:bucket_entity_data={BucketVariantTag:1}],unusual_prehistory:lobe_finned_fish_bucket[minecraft:bucket_entity_data={BucketVariantTag:2}],unusual_prehistory:lobe_finned_fish_bucket[minecraft:bucket_entity_data={BucketVariantTag:3}],unusual_prehistory:lobe_finned_fish_bucket[minecraft:bucket_entity_data={BucketVariantTag:4}]",
+      "feature_1.tooltip": "ammonite can be collected and transported using a §aWater Bucket§7",
+      "feature_1.title": "",
+
+      "feature_2.item": "minecraft:nautilus_shell",
+      "feature_2.tooltip": "ammonite will hide inside their shell when being attacked",
+      "feature_2.title": ""
+    }
+  ]
+}

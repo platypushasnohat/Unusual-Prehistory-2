@@ -1,0 +1,44 @@
+{
+  "name": "Arthropleura",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/arthropleura.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_arthropleura_eggs",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/arthropleura": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "arthropleura",
+
+      "rarity": "unusual",
+      "fossil_item": "unusual_prehistory:forcipule_fossil",
+      "egg_item": "minecraft:barrier",
+
+      "flavor_text": "jointed-ribs",
+      "image_tooltip": ""
+    },
+    {
+      "type": "unusual_prehistory:mob_features",
+      "id": "arthropleura",
+
+      "era": "arthropleura",
+      "temperament": "passive",
+      "clone_type": "nest_egg",
+      "activity": "sleepless",
+      "diet": "Detritivore",
+
+      "feature_1.center_long_title": true,
+      "feature_2.center_long_title": true,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:rail",
+      "feature_1.tooltip": "arthropleura can be used as a multi-passenger mount and can be boosted using dirt_on_a_stick",
+      "feature_1.title": "Thomas the tank engine",
+
+      "feature_2.item": "minecraft:lead",
+      "feature_2.tooltip": "shift-right clicking a leashed mob into an arthropleura will turn them into a passenger",
+      "feature_2.title": "All aboard!"
+    }
+  ]
+}
