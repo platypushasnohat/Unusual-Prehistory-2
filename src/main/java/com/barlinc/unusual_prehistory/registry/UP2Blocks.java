@@ -176,10 +176,6 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> MESONITE_STAIRS = registerBlock("mesonite_stairs", () -> new StairBlock(MESONITE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(MESONITE.get())));
     public static final DeferredBlock<Block> MESONITE_SLAB = registerBlock("mesonite_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MESONITE.get())));
 
-    public static final DeferredBlock<Block> FLORALITE = registerBlock("floralite", () -> new Block(UP2BlockProperties.FOSSIL_STONE));
-    public static final DeferredBlock<Block> FLORALITE_STAIRS = registerBlock("floralite_stairs", () -> new StairBlock(FLORALITE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(FLORALITE.get())));
-    public static final DeferredBlock<Block> FLORALITE_SLAB = registerBlock("floralite_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(FLORALITE.get())));
-
     public static final DeferredBlock<Block> REINFORCED_GLASS = registerBlock("reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.NONE)));
     public static final DeferredBlock<Block> TINTED_REINFORCED_GLASS = registerBlock("tinted_reinforced_glass", ()-> new TintedConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.COLOR_GRAY)));
     public static final DeferredBlock<Block> WHITE_REINFORCED_GLASS = registerBlock("white_reinforced_glass", ()-> new ConnectedGlassBlock(UP2BlockProperties.reinforcedGlass(MapColor.SNOW)));
@@ -247,6 +243,8 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> TARTUOSTEUS_PLUSHIE = registerPlushieBlock("tartuosteus_plushie", () -> new PlushieBlock(UP2BlockProperties.PLUSHIE, 14, 4, UP2SoundEvents.JAWLESS_FISH_FLOP.get()));
 
     public static final DeferredBlock<Block> LEEDSICHTHYS_SLICE_BLOCK = registerBlock("leedsichthys_slice_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).strength(0.6F).sound(SoundType.CORAL_BLOCK)));
+    public static final DeferredBlock<Block> LEEDSICHTHYS_SLICE_STAIRS = registerBlock("leedsichthys_slice_stairs", () -> new StairBlock(LEEDSICHTHYS_SLICE_BLOCK.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(LEEDSICHTHYS_SLICE_BLOCK.get())));
+    public static final DeferredBlock<Block> LEEDSICHTHYS_SLICE_SLAB = registerBlock("leedsichthys_slice_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(LEEDSICHTHYS_SLICE_BLOCK.get())));
 
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);

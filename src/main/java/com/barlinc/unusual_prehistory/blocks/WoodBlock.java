@@ -39,16 +39,24 @@ public class WoodBlock extends RotatedPillarBlock {
             BlockState checkedState;
 
             checkedState = UP2Blocks.DRYOPHYLLUM.checkLogStripping(state);
-            if (checkedState != null) return checkedState;
+            if (checkedState != null) {
+                return checkedState;
+            }
 
             checkedState = UP2Blocks.GINKGO.checkLogStripping(state);
-            if (checkedState != null) return checkedState;
+            if (checkedState != null) {
+                return checkedState;
+            }
 
             checkedState = UP2Blocks.LEPIDODENDRON.checkLogStripping(state);
-            if (checkedState != null) return checkedState;
+            if (checkedState != null) {
+                return checkedState;
+            }
 
             checkedState = UP2Blocks.METASEQUOIA.checkLogStripping(state);
-            if (checkedState != null) return checkedState;
+            if (checkedState != null) {
+                return checkedState;
+            }
 
         }
         return super.getToolModifiedState(state, context, itemAbility, simulate);

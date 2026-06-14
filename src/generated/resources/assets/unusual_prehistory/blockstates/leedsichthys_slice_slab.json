@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "unusual_prehistory:block/leedsichthys_slice_slab"
+    },
+    "type=double": {
+      "model": "unusual_prehistory:block/leedsichthys_slice_block"
+    },
+    "type=top": {
+      "model": "unusual_prehistory:block/leedsichthys_slice_slab_top"
+    }
+  }
+}

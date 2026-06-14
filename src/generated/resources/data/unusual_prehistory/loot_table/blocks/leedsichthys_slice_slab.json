@@ -11,7 +11,7 @@
               "add": false,
               "conditions": [
                 {
-                  "block": "unusual_prehistory:floralite_slab",
+                  "block": "unusual_prehistory:leedsichthys_slice_slab",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "type": "double"
@@ -25,11 +25,11 @@
               "function": "minecraft:explosion_decay"
             }
           ],
-          "name": "unusual_prehistory:floralite_slab"
+          "name": "unusual_prehistory:leedsichthys_slice_slab"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "unusual_prehistory:blocks/floralite_slab"
+  "random_sequence": "unusual_prehistory:blocks/leedsichthys_slice_slab"
 }

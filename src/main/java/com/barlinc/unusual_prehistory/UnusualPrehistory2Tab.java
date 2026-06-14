@@ -183,6 +183,8 @@ public class UnusualPrehistory2Tab {
 
                         output.accept(LEEDSICHTHYS_SLICE.get());
                         output.accept(UP2Blocks.LEEDSICHTHYS_SLICE_BLOCK.get());
+                        output.accept(UP2Blocks.LEEDSICHTHYS_SLICE_STAIRS.get());
+                        output.accept(UP2Blocks.LEEDSICHTHYS_SLICE_SLAB.get());
 
                         output.accept(DOOMSURF_DISC.get());
                         output.accept(PUMMEL_AND_SNATCH_DISC.get());

@@ -11,11 +11,6 @@ public class UP2LootTables {
     public static final ResourceKey<LootTable> DESMATOSUCHUS_MUDDY = createLootTableKey("entities/desmatosuchus_muddy");
     public static final ResourceKey<LootTable> DESMATOSUCHUS_SNOWY = createLootTableKey("entities/desmatosuchus_snowy");
 
-    public static final ResourceKey<LootTable> DESERT_FOSSIL_COMMON = createLootTableKey("archaeology/fossils/desert/common");
-    public static final ResourceKey<LootTable> DESERT_FOSSIL_UNCOMMON = createLootTableKey("archaeology/fossils/desert/uncommon");
-    public static final ResourceKey<LootTable> DESERT_FOSSIL_RARE = createLootTableKey("archaeology/fossils/desert/rare");
-    public static final ResourceKey<LootTable> DESERT_FOSSIL_UNUSUAL = createLootTableKey("archaeology/fossils/desert/unusual");
-
     private static ResourceKey<LootTable> createLootTableKey(String name) {
         return ResourceKey.create(Registries.LOOT_TABLE, UnusualPrehistory2.modPrefix(name));
     }

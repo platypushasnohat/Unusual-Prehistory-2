@@ -41,10 +41,6 @@ public class UP2BlockstateProvider extends BlockStateProvider {
         this.stairsBlock(MESONITE.get(), MESONITE_STAIRS.get());
         this.slabBlock(MESONITE.get(), MESONITE_SLAB.get());
 
-        this.block(FLORALITE);
-        this.stairsBlock(FLORALITE.get(), FLORALITE_STAIRS.get());
-        this.slabBlock(FLORALITE.get(), FLORALITE_SLAB.get());
-
         this.crossBlockWithPot(BENNETTITALES, POTTED_BENNETTITALES);
         this.crossBlockWithPot(COOKSONIA, POTTED_COOKSONIA);
         this.crossBlockWithPot(HORSETAIL, POTTED_HORSETAIL);
@@ -100,6 +96,9 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         // Update 6
         this.block(LEEDSICHTHYS_SLICE_BLOCK);
+        this.stairsBlock(LEEDSICHTHYS_SLICE_BLOCK.get(), LEEDSICHTHYS_SLICE_STAIRS.get());
+        this.slabBlock(LEEDSICHTHYS_SLICE_BLOCK.get(), LEEDSICHTHYS_SLICE_SLAB.get());
+
     }
 
     public static String name(Block block) {

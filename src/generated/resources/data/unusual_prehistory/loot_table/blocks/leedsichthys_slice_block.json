@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:floralite_stairs"
+          "name": "unusual_prehistory:leedsichthys_slice_block"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "unusual_prehistory:blocks/floralite_stairs"
+  "random_sequence": "unusual_prehistory:blocks/leedsichthys_slice_block"
 }

@@ -99,10 +99,6 @@ public class UP2LootTableProvider extends LootTableProvider {
             this.dropSelf(MESONITE_STAIRS.get());
             this.add(MESONITE_SLAB.get(), this::createSlabItemTable);
 
-            this.dropSelf(FLORALITE.get());
-            this.dropSelf(FLORALITE_STAIRS.get());
-            this.add(FLORALITE_SLAB.get(), this::createSlabItemTable);
-
             this.add(FOSSILIZED_BONE_BLOCK.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, COBBLED_FOSSILIZED_BONE.get()));
             this.add(FOSSILIZED_BONE_BARK.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, COBBLED_FOSSILIZED_BONE.get()));
             this.add(FOSSILIZED_BONE_VERTEBRA.get(), (block) -> this.createSingleItemTableWithSilkTouch(block, COBBLED_FOSSILIZED_BONE.get()));
@@ -285,6 +281,10 @@ public class UP2LootTableProvider extends LootTableProvider {
             this.dropSelf(KENTROSAURUS_PLUSHIE.get());
             this.dropSelf(MAJUNGASAURUS_PLUSHIE.get());
             this.dropSelf(TARTUOSTEUS_PLUSHIE.get());
+
+            this.dropSelf(LEEDSICHTHYS_SLICE_BLOCK.get());
+            this.dropSelf(LEEDSICHTHYS_SLICE_STAIRS.get());
+            this.add(LEEDSICHTHYS_SLICE_SLAB.get(), this::createSlabItemTable);
         }
 
         @Override

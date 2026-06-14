@@ -268,9 +268,6 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 MESONITE.get(),
                 MESONITE_STAIRS.get(),
                 MESONITE_SLAB.get(),
-                FLORALITE.get(),
-                FLORALITE_STAIRS.get(),
-                FLORALITE_SLAB.get(),
                 FOSSILIZED_BONE_BLOCK.get(),
                 FOSSILIZED_BONE_BARK.get(),
                 FOSSILIZED_BONE_VERTEBRA.get(),
@@ -312,7 +309,9 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
                 MOSSY_LEPIDODENDRON_LOG.get(), MOSSY_LEPIDODENDRON_WOOD.get(),
 
-                LEEDSICHTHYS_SLICE_BLOCK.get()
+                LEEDSICHTHYS_SLICE_BLOCK.get(),
+                LEEDSICHTHYS_SLICE_STAIRS.get(),
+                LEEDSICHTHYS_SLICE_SLAB.get()
         );
 
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(
@@ -325,7 +324,9 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 DAWN_METASEQUOIA_LEAVES.get(),
                 DUSK_METASEQUOIA_LEAVES.get(),
 
-                LEEDSICHTHYS_SLICE_BLOCK.get()
+                LEEDSICHTHYS_SLICE_BLOCK.get(),
+                LEEDSICHTHYS_SLICE_STAIRS.get(),
+                LEEDSICHTHYS_SLICE_SLAB.get()
         );
 
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
@@ -350,15 +351,15 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         this.tag(BlockTags.SLABS).add(
                 PALEOSTONE_SLAB.get(),
                 MESONITE_SLAB.get(),
-                FLORALITE_SLAB.get(),
-                POLISHED_PETRIFIED_WOOD_SLAB.get()
+                POLISHED_PETRIFIED_WOOD_SLAB.get(),
+                LEEDSICHTHYS_SLICE_SLAB.get()
         );
 
         this.tag(BlockTags.STAIRS).add(
                 PALEOSTONE_STAIRS.get(),
                 MESONITE_STAIRS.get(),
-                FLORALITE_STAIRS.get(),
-                POLISHED_PETRIFIED_WOOD_STAIRS.get()
+                POLISHED_PETRIFIED_WOOD_STAIRS.get(),
+                LEEDSICHTHYS_SLICE_STAIRS.get()
         );
 
         this.tag(BlockTags.STONE_PRESSURE_PLATES).add(

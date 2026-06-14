@@ -54,7 +54,6 @@ public class ClientNeoEvents {
         }
     }
 
-    // todo: fix screen shaking (probably mixin)
     @SubscribeEvent
     public void clientTick(ClientTickEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();
