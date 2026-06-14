@@ -210,6 +210,10 @@ public class UnusualPrehistory2Tab {
                         output.accept(FOSSILIZED_FOOTPRINT.get());
                         output.accept(GASTROLITH.get());
                         output.accept(PETRIFIED_EGG.get());
+                        output.accept(INDOCHINITE.get());
+                        output.accept(FOSSILIZED_METEORITE.get());
+                        output.accept(CHONDRITE.get());
+                        output.accept(PALLASITE.get());
 
                         output.accept(BRISTLE_FOSSIL.get()); // aegirocassis
                         output.accept(SPIRAL_FOSSIL.get()); // ammonite

@@ -229,7 +229,12 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 COPROLITE,
                 FOSSILIZED_FOOTPRINT,
                 GASTROLITH,
-                PETRIFIED_EGG
+                PETRIFIED_EGG,
+
+                INDOCHINITE,
+                FOSSILIZED_METEORITE,
+                PALLASITE,
+                CHONDRITE
         );
 
         this.generatedItem(GINKGO_FOSSIL);

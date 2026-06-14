@@ -5,6 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
@@ -23,7 +24,7 @@ public class RelicItem extends Item {
     private final int maxAge;
 
     public RelicItem(int ageType, int minAge, int maxAge, Properties properties) {
-        super(properties.stacksTo(1).rarity(UP2EnumProxy.RELIC.getValue()));
+        super(properties.stacksTo(64).rarity(UP2EnumProxy.RELIC.getValue()));
         this.ageType = ageType;
         this.minAge = minAge;
         this.maxAge = maxAge;
@@ -31,6 +32,8 @@ public class RelicItem extends Item {
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        tooltip.add(this.getDisplayName().withStyle(ChatFormatting.GRAY));
+
         int age = getAge(stack);
         if (age <= 0) {
             return;
@@ -39,29 +42,23 @@ public class RelicItem extends Item {
         super.appendHoverText(stack, context, tooltip, flag);
     }
 
+    public MutableComponent getDisplayName() {
+        return Component.translatable(this.getDescriptionId() + ".desc");
+    }
+
     private String formatAge(int age) {
         return switch (ageType) {
             case 0 -> age + " CE";
-            case 1 -> this.roundBCE(age) + " BCE";
-            case 2 -> this.roundAge(age) + " MYA";
-            case 3 -> this.roundAge(age) + " BYA";
+            case 1 -> age + " BCE";
+            case 2 -> age + " KYA";
+            case 3 -> age + " MYA";
+            case 4 -> this.roundAge(age) + " BYA";
             default -> String.valueOf(age);
         };
     }
 
-    private int roundBCE(int age) {
-        return Math.round(age / 10.0F) * 10;
-    }
-
     private String roundAge(int age) {
-        double mya = age / 1000.0;
-        if (mya >= 10) {
-            return String.valueOf(Math.round(mya));
-        }
-        return this.trimDecimal(mya);
-    }
-
-    private String trimDecimal(double v) {
+        double v = age / 10.0D;
         String string = String.format("%.1f", v);
         return string.replaceAll("\\.?0+$", "");
     }

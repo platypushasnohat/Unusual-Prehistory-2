@@ -530,6 +530,16 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.addBlock(UP2Blocks.UNUSUAL_FOSSIL_BED, "Fossil Bed");
         this.add("block.unusual_prehistory.unusual_fossil_bed.desc", "Unusual");
 
+        this.add("item.unusual_prehistory.amber_bear.desc", "???");
+        this.add("item.unusual_prehistory.coprolite.desc", "???");
+        this.add("item.unusual_prehistory.fossilized_footprint.desc", "???");
+        this.add("item.unusual_prehistory.gastrolith.desc", "???");
+        this.add("item.unusual_prehistory.petrified_egg.desc", "???");
+        this.add("item.unusual_prehistory.indochinite.desc", "???");
+        this.add("item.unusual_prehistory.fossilized_meteorite.desc", "???");
+        this.add("item.unusual_prehistory.chondrite.desc", "???");
+        this.add("item.unusual_prehistory.pallasite.desc", "???");
+
         this.add("item.unusual_prehistory.plushie_kit.desc", "Used to sew plushies from mobs");
 
         // Future
