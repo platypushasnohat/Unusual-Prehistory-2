@@ -1,14 +1,14 @@
 {
   "structures": [
     {
-      "structure": "unusual_prehistory:desert_fossil",
+      "structure": "unusual_prehistory:badlands_fossil",
       "weight": 1
     }
   ],
   "placement": {
-    "salt": 7014,
+    "salt": 8147,
     "separation": 18,
-    "spacing": 46,
+    "spacing": 48,
     "type": "minecraft:random_spread"
   }
 }

@@ -31,7 +31,7 @@ public class FossilBedBlockItem extends BlockItem {
     }
 
     public enum FossilBedRarity {
-        COMMON(0x916658),
+        COMMON(0x986748),
         UNCOMMON(0x16ac24),
         RARE(0xe44d00),
         UNUSUAL(0xa682f4);

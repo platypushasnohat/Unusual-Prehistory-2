@@ -1,0 +1,64 @@
+{
+  "processors": [
+    {
+      "delegate": {
+        "processor_type": "unusual_prehistory:matrix",
+        "target_state": {
+          "Name": "minecraft:red_sand"
+        },
+        "matrix_state": {
+          "Name": "unusual_prehistory:red_sand_matrix"
+        },
+        "loot_table": "unusual_prehistory:archaeology/fossil/badlands/common",
+        "rarity": "common"
+      },
+      "limit": 10,
+      "processor_type": "minecraft:capped"
+    },
+    {
+      "delegate": {
+        "processor_type": "unusual_prehistory:matrix",
+        "target_state": {
+          "Name": "minecraft:red_sand"
+        },
+        "matrix_state": {
+          "Name": "unusual_prehistory:red_sand_matrix"
+        },
+        "loot_table": "unusual_prehistory:archaeology/fossil/badlands/uncommon",
+        "rarity": "uncommon"
+      },
+      "limit": 8,
+      "processor_type": "minecraft:capped"
+    },
+    {
+      "delegate": {
+        "processor_type": "unusual_prehistory:matrix",
+        "target_state": {
+          "Name": "minecraft:red_sand"
+        },
+        "matrix_state": {
+          "Name": "unusual_prehistory:red_sand_matrix"
+        },
+        "loot_table": "unusual_prehistory:archaeology/fossil/badlands/rare",
+        "rarity": "rare"
+      },
+      "limit": 5,
+      "processor_type": "minecraft:capped"
+    },
+    {
+      "delegate": {
+        "processor_type": "unusual_prehistory:matrix",
+        "target_state": {
+          "Name": "minecraft:red_sand"
+        },
+        "matrix_state": {
+          "Name": "unusual_prehistory:red_sand_matrix"
+        },
+        "loot_table": "unusual_prehistory:archaeology/fossil/badlands/unusual",
+        "rarity": "unusual"
+      },
+      "limit": 2,
+      "processor_type": "minecraft:capped"
+    }
+  ]
+}

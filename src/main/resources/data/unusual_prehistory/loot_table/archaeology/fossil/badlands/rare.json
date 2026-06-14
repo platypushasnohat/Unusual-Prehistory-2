@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:boar_tooth_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:dubious_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:fury_fossil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:scythe_fossil",
+          "weight": 1
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 2.0,
+        "min": 1.0
+      }
+    }
+  ],
+  "random_sequence": "unusual_prehistory:archaeology/fossil/badlands/rare"
+}
