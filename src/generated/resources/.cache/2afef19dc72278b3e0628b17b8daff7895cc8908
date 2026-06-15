@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-14T11:08:21.8173018	Tags for minecraft:block mod id unusual_prehistory
+// 1.21.1	2026-06-14T19:15:56.460542	Tags for minecraft:block mod id unusual_prehistory
 39037ad1172ab78149fbd5ae7406d00ab9fc329a data/c/tags/block/fences/wooden.json
 457a48d6d1174d5981ff9d4cf21d2c320fa00c61 data/c/tags/block/fence_gates/wooden.json
 61ade7b203d314e3ddb3a4e4f57e30b44953207a data/c/tags/block/stripped_logs.json
@@ -53,7 +53,7 @@ b1ec8eb71e51dd2382f705b80b7c0231936f2537 data/unusual_prehistory/tags/block/dipl
 8e597328e4babaee30b4d67a98f853fab13d414e data/unusual_prehistory/tags/block/diplocaulus_sliding_blocks.json
 cddcf8efa0da5db637b9a56b31fe6a0e73126835 data/unusual_prehistory/tags/block/dryophyllum_logs.json
 1dbdf9841f185e84bed6eb0ac3700d990c52c29a data/unusual_prehistory/tags/block/fossilized_bone_blocks.json
-4083729c1bc8e3cb5dd236cdeb4d3c135ff5cde4 data/unusual_prehistory/tags/block/fossil_replaceable.json
+38b61c675c52d4a232e01111bc4662492b469b13 data/unusual_prehistory/tags/block/fossil_pile_placeable.json
 a81a4e498bb0f792c1ab45ed9f10287cbf2445ab data/unusual_prehistory/tags/block/ginkgo_logs.json
 110626db4b774ee9ea8b873fde325816a510bfc4 data/unusual_prehistory/tags/block/guangdedendron_plantable_on.json
 d033385a638abbeacea8d8e59f7610e1ab169130 data/unusual_prehistory/tags/block/guarded_by_kentrosaurus.json
@@ -66,7 +66,6 @@ c07eea1ddcaec89c68eb37483977c8e939d9f916 data/unusual_prehistory/tags/block/lyst
 10c79f72da170e2b943ca4ef38c33b0fa504433d data/unusual_prehistory/tags/block/metasequoia_logs.json
 0af7061c09b0348babf57109e9aeab450199ca19 data/unusual_prehistory/tags/block/mineable/shears.json
 c07eea1ddcaec89c68eb37483977c8e939d9f916 data/unusual_prehistory/tags/block/pachycephalosaurus_food_blocks.json
-4083729c1bc8e3cb5dd236cdeb4d3c135ff5cde4 data/unusual_prehistory/tags/block/petrified_tree_replaceable.json
 24f677d61a08d0a549c729adb4fa26457ff4b62e data/unusual_prehistory/tags/block/petrified_wood.json
 31161c3b3c305669b256128085c82c580aa883d9 data/unusual_prehistory/tags/block/plushies.json
 52413a870520da3227b0d97b44e5455211b16e49 data/unusual_prehistory/tags/block/prevents_egg_hatching.json
@@ -74,5 +73,4 @@ c07eea1ddcaec89c68eb37483977c8e939d9f916 data/unusual_prehistory/tags/block/pach
 6a2ddadbd039a6e5f42a42e1248de6b11e74d18a data/unusual_prehistory/tags/block/reinforced_glass.json
 efe6d58e86177a50d0cd62cbaa1b811e7f7c0715 data/unusual_prehistory/tags/block/talpanas_food_blocks.json
 efe6d58e86177a50d0cd62cbaa1b811e7f7c0715 data/unusual_prehistory/tags/block/tartuosteus_food_blocks.json
-4083729c1bc8e3cb5dd236cdeb4d3c135ff5cde4 data/unusual_prehistory/tags/block/tar_pit_replaceable.json
 92861bbfc33718f65a6c66f4468675fa09ac162f data/unusual_prehistory/tags/block/telecrex_food_blocks.json

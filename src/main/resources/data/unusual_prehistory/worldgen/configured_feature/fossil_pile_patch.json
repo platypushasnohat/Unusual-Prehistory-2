@@ -1,0 +1,91 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "unusual_prehistory:fossilized_bone_rod"
+                },
+                "weight": 5
+              },
+              {
+                "data": {
+                  "Name": "unusual_prehistory:fossilized_bone_spike"
+                },
+                "weight": 10
+              },
+              {
+                "data": {
+                  "Name": "unusual_prehistory:fossilized_bone_row",
+                  "Properties": {
+                    "facing": "north"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "weight": 1,
+                "data": {
+                  "Name": "unusual_prehistory:fossilized_bone_row",
+                  "Properties": {
+                    "facing": "west"
+                  }
+                }
+              },
+              {
+                "weight": 1,
+                "data": {
+                  "Name": "unusual_prehistory:fossilized_bone_row",
+                  "Properties": {
+                    "facing": "east"
+                  }
+                }
+              },
+              {
+                "weight": 1,
+                "data": {
+                  "Name": "unusual_prehistory:fossilized_bone_row",
+                  "Properties": {
+                    "facing": "south"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:air"
+              },
+              {
+                "type": "minecraft:matching_blocks",
+                "offset": [
+                  0,
+                  -1,
+                  0
+                ],
+                "blocks": "#unusual_prehistory:fossil_pile_placeable"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tries": 32,
+    "xz_spread": 4,
+    "y_spread": 3
+  }
+}

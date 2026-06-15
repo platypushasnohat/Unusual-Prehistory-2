@@ -59,7 +59,7 @@ public class UnusualPrehistory2 {
         UP2MenuTypes.MENU_TYPE.register(modEventBus);
         UP2Recipes.RECIPE_TYPES.register(modEventBus);
         UP2Recipes.RECIPE_SERIALIZERS.register(modEventBus);
-        UP2Features.FEATURES.register(modEventBus);
+        UP2FeatureTypes.FEATURE_TYPES.register(modEventBus);
         UP2Trees.TREE_DECORATORS.register(modEventBus);
         UP2Trees.TRUNK_PLACERS.register(modEventBus);
         UP2Trees.FOLIAGE_PLACERS.register(modEventBus);

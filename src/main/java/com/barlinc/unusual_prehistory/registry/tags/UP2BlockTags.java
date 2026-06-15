@@ -20,15 +20,10 @@ public class UP2BlockTags {
     public static final TagKey<Block> TALPANAS_FOOD_BLOCKS = modBlockTag("talpanas_food_blocks");
     public static final TagKey<Block> TELECREX_FOOD_BLOCKS = modBlockTag("telecrex_food_blocks");
 
-    public static final TagKey<Block> FOSSIL_REPLACEABLE = modBlockTag("fossil_replaceable");
-    public static final TagKey<Block> TAR_PIT_REPLACEABLE = modBlockTag("tar_pit_replaceable");
-    public static final TagKey<Block> PETRIFIED_TREE_REPLACEABLE = modBlockTag("petrified_tree_replaceable");
-
     public static final TagKey<Block> ACCELERATES_EGG_HATCHING = modBlockTag("accelerates_egg_hatching");
     public static final TagKey<Block> PREVENTS_EGG_HATCHING = modBlockTag("prevents_egg_hatching");
 
     public static final TagKey<Block> ANCIENT_PLANT_PLACEABLE = modBlockTag("ancient_plant_placeable");
-    public static final TagKey<Block> ZOMBIE_EGG_TARGETS = modBlockTag("zombie_egg_targets");
 
     public static final TagKey<Block> GINKGO_LOGS = modBlockTag("ginkgo_logs");
     public static final TagKey<Block> LEPIDODENDRON_LOGS = modBlockTag("lepidodendron_logs");
@@ -74,6 +69,8 @@ public class UP2BlockTags {
 
     public static final TagKey<Block> PLUSHIES = modBlockTag("plushies");
     public static final TagKey<Block> MINEABLE_WITH_SHEARS = modBlockTag("mineable/shears");
+
+    public static final TagKey<Block> FOSSIL_PILE_PLACEABLE = modBlockTag("fossil_pile_placeable");
 
     private static TagKey<Block> modBlockTag(String name) {
         return blockTag(UnusualPrehistory2.MOD_ID, name);

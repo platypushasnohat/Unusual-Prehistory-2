@@ -1,0 +1,7 @@
+{
+  "type": "unusual_prehistory:cave_fossil",
+  "biomes": "#minecraft:has_structure/village_plains",
+  "step": "underground_structures",
+  "terrain_adaptation": "bury",
+  "spawn_overrides": {}
+}

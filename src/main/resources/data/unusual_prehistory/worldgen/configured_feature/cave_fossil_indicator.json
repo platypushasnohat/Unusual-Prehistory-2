@@ -1,0 +1,15 @@
+{
+  "type": "unusual_prehistory:fossil_pile",
+  "config": {
+    "state": {
+      "Name": "unusual_prehistory:cobbled_fossilized_bone"
+    },
+    "floor_state": {
+      "Name": "minecraft:coarse_dirt"
+    },
+    "feature": {
+      "feature": "unusual_prehistory:fossil_pile_patch",
+      "placement": []
+    }
+  }
+}

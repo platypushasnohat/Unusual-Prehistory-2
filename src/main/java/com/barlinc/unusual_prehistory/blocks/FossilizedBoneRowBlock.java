@@ -54,7 +54,7 @@ public class FossilizedBoneRowBlock extends HorizontalDirectionalBlock implement
 
     public FossilizedBoneRowBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(ATTACHED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(ATTACHED, false).setValue(WATERLOGGED, false));
     }
 
     @Override

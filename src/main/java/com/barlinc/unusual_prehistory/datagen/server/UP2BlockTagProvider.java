@@ -1,6 +1,7 @@
 package com.barlinc.unusual_prehistory.datagen.server;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
@@ -63,18 +64,6 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
                 Blocks.MOSS_BLOCK
         );
         this.tag(UP2BlockTags.PREVENTS_EGG_HATCHING).add(Blocks.ICE, Blocks.PACKED_ICE, Blocks.BLUE_ICE);
-
-        this.tag(UP2BlockTags.FOSSIL_REPLACEABLE).addTag(BlockTags.DIRT).add(
-                Blocks.GRAVEL
-        );
-
-        this.tag(UP2BlockTags.TAR_PIT_REPLACEABLE).addTag(BlockTags.DIRT).add(
-                Blocks.GRAVEL
-        );
-
-        this.tag(UP2BlockTags.PETRIFIED_TREE_REPLACEABLE).addTag(BlockTags.DIRT).add(
-                Blocks.GRAVEL
-        );
 
         this.tag(UP2BlockTags.REINFORCED_GLASS).add(
                 REINFORCED_GLASS.get(),
@@ -257,6 +246,12 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
 
         this.tag(UP2BlockTags.MINEABLE_WITH_SHEARS).addTags(
                 UP2BlockTags.PLUSHIES
+        );
+
+        this.tag(UP2BlockTags.FOSSIL_PILE_PLACEABLE).addTags(
+                BlockTags.DIRT
+        ).add(
+                COBBLED_FOSSILIZED_BONE.get()
         );
 
         // Minecraft

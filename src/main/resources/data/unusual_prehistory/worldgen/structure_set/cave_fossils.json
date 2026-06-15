@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "unusual_prehistory:cave_fossil",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 9293,
+    "separation": 8,
+    "spacing": 20,
+    "type": "minecraft:random_spread"
+  }
+}

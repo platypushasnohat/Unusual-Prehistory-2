@@ -4,13 +4,9 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class UP2Features {
-
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, UnusualPrehistory2.MOD_ID);
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> CYCAD = createConfiguredFeatureKey("cycad");
 
@@ -28,6 +24,8 @@ public class UP2Features {
     public static final ResourceKey<PlacedFeature> NEEDLE_LITTER_PLANTS = createPlacedFeatureKey("needle_litter_plants");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PROTOTAXITES = createConfiguredFeatureKey("prototaxites");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CAVE_FOSSIL_INDICATOR = createConfiguredFeatureKey("cave_fossil_indicator");
 
     private static ResourceKey<PlacedFeature> createPlacedFeatureKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, UnusualPrehistory2.modPrefix(name));
