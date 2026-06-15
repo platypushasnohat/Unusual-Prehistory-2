@@ -1,0 +1,45 @@
+{
+  "name": "Dromaeosaurus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/dromaeosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_dromaeosaurus_egg",
+  "turnin": "unusual_prehistory:revive_dromaeosaurus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/dromaeosaurus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "dromaeosaurus",
+
+      "rarity": "common",
+      "fossil_item": "unusual_prehistory:runner_fossil",
+      "egg_item": "unusual_prehistory:dromaeosaurus_egg",
+
+      "flavor_text": "running-lizard",
+      "image_tooltip": "A fleet-footed feathered therapod, Dromaeosaurus has unparalleled stamina, running and jumping after its prey seemingly without end."
+    },
+    {
+      "type": "unusual_prehistory:mob_features",
+      "id": "dromaeosaurus",
+
+      "era": "late_cretaceous",
+      "temperament": "passive",
+      "clone_type": "projectile_egg",
+      "activity": "diurnal",
+      "diet": "carnivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:red_bed",
+      "feature_1.tooltip": "§7Dromaeosaurus is hyperactive and will continuously run and jump around - however, it will instantly fall asleep as night falls",
+      "feature_1.title": "Dino-Run!",
+
+      "feature_2.item": "minecraft:feather",
+      "feature_2.tooltip": "§7Dromaeosaurus preys on §aChickens§7 and other fowl",
+      "feature_2.title": "Fowl Play"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "name": "Hynerpeton",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/hynerpeton.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_hynerpeton_eggs",
+  "turnin": "unusual_prehistory:revive_hynerpeton",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/hynerpeton": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "hynerpeton",
+
+      "rarity": "uncommon",
+      "fossil_item": "unusual_prehistory:combustible_fossil",
+      "egg_item": "minecraft:barrier",
+
+      "flavor_text": "Hyner's-creeping-animal",
+      "image_tooltip": ""
+    },
+    {
+      "id": "hynerpeton",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "late_devonian",
+      "temperament": "passive",
+      "clone_type": "raft_egg",
+      "activity": "sleepless",
+      "diet": "piscivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:barrier",
+      "feature_1.tooltip": "hynerpeton will drop their tail when intimidated, and will regrow them back after some time",
+      "feature_1.title_one_line": "Autotomy",
+
+      "feature_2.item": "minecraft:tnt",
+      "feature_2.tooltip": "hynerpeton tail will explode shortly after dropping off",
+      "feature_2.title_one_line": "GRENADE!"
+
+
+    }
+  ]
+}

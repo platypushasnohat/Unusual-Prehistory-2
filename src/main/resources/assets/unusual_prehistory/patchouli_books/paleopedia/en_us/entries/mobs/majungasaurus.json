@@ -1,0 +1,45 @@
+{
+  "name": "Majungasaurus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/majungasaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_majungasaurus_egg",
+  "turnin": "unusual_prehistory:revive_majungasaurus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/majungasaurus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "majungasaurus",
+
+      "rarity": "rare",
+      "fossil_item": "unusual_prehistory:rugose_fossil",
+      "egg_item": "unusual_prehistory:majungasaurus_egg",
+
+      "flavor_text": "Mahajanga-lizard",
+      "image_tooltip": "An abelisaur with a blunt-skull and color-changing skin, Majungasaurus uses its unique ability of metachrosis to stalk prey while being virtually invisible."
+    },
+    {
+      "id": "majungasaurus",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "late_cretaceous",
+      "temperament": "hostile",
+      "clone_type": "nest_egg",
+      "activity": "nocturnal",
+      "diet": "carnivore",
+
+      "feature_1.center_long_title": true,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:glass",
+      "feature_1.tooltip": "Majungasaurus is equipped with skin like a chameleon, using it to camouflage from prey or larger predators",
+      "feature_1.title": "The Invisible Man",
+
+      "feature_2.item": "minecraft:iron_axe",
+      "feature_2.tooltip": "Majungasaurus is known to eat younger members of their species",
+      "feature_2.title": "Kids' Meal"
+    }
+  ]
+}

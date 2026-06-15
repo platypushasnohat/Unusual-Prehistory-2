@@ -3,6 +3,7 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/antarctopelta.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:obtain_antarctopelta_egg",
+  "turnin": "unusual_prehistory:revive_antarctopelta",
   "extra_recipe_mappings": {
     "tag:unusual_prehistory:recipe_mappings/antarctopelta": 0
   },

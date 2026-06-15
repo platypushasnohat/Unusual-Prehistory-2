@@ -1,0 +1,41 @@
+{
+  "name": "Lystrosaurus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/lystrosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_lystrosaurus_egg",
+  "turnin": "unusual_prehistory:revive_lystrosaurus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/lystrosaurus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "lystrosaurus",
+
+      "rarity": "common",
+      "fossil_item": "unusual_prehistory:impervious_fossil",
+      "egg_item": "unusual_prehistory:lystrosaurus_egg",
+
+      "flavor_text": "shovel-lizard",
+      "image_tooltip": "A stocky dicynodont with fearsome tusks, Lystrosaurus is venerated for surviving the Permian extinction and subsequently thriving, a feat attributed to it being invulnerable, indestructible, impervious, and..."
+    },
+    {
+      "type": "unusual_prehistory:mob_features",
+      "id": "lystrosaurus",
+
+      "era": "lystrosaurus",
+      "temperament": "passive",
+      "clone_type": "nest_egg",
+      "activity": "diurnal",
+      "diet": "omnivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:nether_star",
+      "feature_1.tooltip": "§7Lystrosaurus are near-indestructable, being completely immune to many types of damage, and become incredibly skittish when injured",
+      "feature_1.title": "INVINCIBLE!"
+    }
+  ]
+}

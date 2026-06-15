@@ -3,6 +3,7 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/concavenator.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:obtain_concavenator_egg",
+  "turnin": "unusual_prehistory:revive_concavenator",
   "extra_recipe_mappings": {
     "tag:unusual_prehistory:recipe_mappings/concavenator": 0
   },

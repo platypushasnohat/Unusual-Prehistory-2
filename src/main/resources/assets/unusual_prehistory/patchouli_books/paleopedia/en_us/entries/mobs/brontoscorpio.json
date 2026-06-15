@@ -3,6 +3,7 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/brontoscorpio.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:obtain_brontoscorpio_embryo",
+  "turnin": "unusual_prehistory:revive_brontoscorpio",
   "extra_recipe_mappings": {
     "tag:unusual_prehistory:recipe_mappings/brontoscorpio": 0
   },

@@ -87,7 +87,7 @@
     {
       "type": "patchouli:tooltip",
       "tooltip": [
-        "item.unusual_prehistory.paleopedia.era.title.#era#"
+        "item.unusual_prehistory.paleopedia.era.tooltip.#era#"
       ],
       "width": 112,
       "height": 18,

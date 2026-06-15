@@ -3,6 +3,7 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/coelacanthus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:obtain_coelacanthus_roe",
+  "turnin": "unusual_prehistory:revive_coelacanthus",
   "extra_recipe_mappings": {
     "tag:unusual_prehistory:recipe_mappings/coelacanthus": 0
   },

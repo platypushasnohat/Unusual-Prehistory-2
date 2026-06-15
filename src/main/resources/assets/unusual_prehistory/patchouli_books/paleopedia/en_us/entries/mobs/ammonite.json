@@ -3,6 +3,7 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/ammonite.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:obtain_ammonite_eggs",
+  "turnin": "unusual_prehistory:revive_ammonite",
   "extra_recipe_mappings": {
     "tag:unusual_prehistory:recipe_mappings/ammonite": 0
   },

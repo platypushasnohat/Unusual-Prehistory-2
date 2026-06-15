@@ -1,0 +1,49 @@
+{
+  "name": "Kimmeridgebrachypteraeschnidium",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/kimmeridgebrachypteraeschnidium.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_kimmeridgebrachypteraeschnidium_eggs",
+  "turnin": "unusual_prehistory:revive_kimmeridgebrachypteraeschnidium",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/kimmeridgebrachypteraeschnidium": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "kimmeridgebrachypteraeschnidium",
+
+      "rarity": "common",
+      "fossil_item": "unusual_prehistory:imperative_fossil",
+      "egg_item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_eggs",
+
+      "flavor_text": "Kimmeridge-arm-winged-small-darner",
+      "image_tooltip": "Dazzling dervish darners dropping in dozens of distinct designs, delivering the drive for decoration. Try saying that ten times in a row."
+    },
+    {
+      "type": "unusual_prehistory:mob_features",
+      "id": "kimmeridgebrachypteraeschnidium",
+
+      "era": "late_jurassic",
+      "temperament": "passive",
+      "clone_type": "raft_egg",
+      "activity": "sleepless",
+      "diet": "insectivore",
+
+      "feature_1.center_long_title": true,
+      "feature_2.center_long_title": true,
+      "feature_3.center_long_title": true,
+
+      "feature_2.item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph_bucket",
+      "feature_2.tooltip": "Kimmeridgebrachypteraeschnidium start their lives as aquatic nymphs before they grow into their flying adult forms",
+      "feature_2.title": "Bug Baby Biology",
+
+      "feature_1.item": "unusual_prehistory:kimmeridgebrachypteraeschnidium_bottle,unusual_prehistory:kimmeridgebrachypteraeschnidium_nymph_bucket",
+      "feature_1.tooltip": "Kimmeridgebrachypteraeschnidium nymphs can be collected and transported using a §aWater Bucket§7, and adults can be collected and transported using a §aGlass Bottle§7",
+      "feature_1.title": "Transportation Troubles",
+
+      "feature_3.item": "tag:forge:dyes",
+      "feature_3.tooltip": "Kimmeridgebrachypteraeschnidiums' bodies, wings and patterns all come in random colors, providing near-infinite possibilities",
+      "feature_3.title": "Thousands of Flavours!"
+    }
+  ]
+}

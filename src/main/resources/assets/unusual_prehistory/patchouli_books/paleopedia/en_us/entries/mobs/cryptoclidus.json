@@ -1,0 +1,46 @@
+{
+  "name": "Cryptoclidus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/cryptoclidus.png",
+  "advancement": "unusual_prehistory:obtain_cryptoclidus_egg",
+  "turnin": "unusual_prehistory:revive_cryptoclidus",
+  "category": "unusual_prehistory:mobs",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/cryptoclidus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "cryptoclidus",
+
+      "rarity": "uncommon",
+      "fossil_item": "unusual_prehistory:cryptic_fossil",
+      "egg_item": "unusual_prehistory:cryptoclidus_embryo",
+
+      "flavor_text": "hidden_clavices",
+      "image_tooltip": ""
+    },
+    {
+      "id": "cryptoclidus",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "cryptoclidus",
+      "temperament": "hostile",
+      "clone_type": "embryo",
+      "activity": "sleepless",
+      "diet": "piscivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:spyglass",
+      "feature_1.tooltip": "cryptoclidus prefer to swim at deeper water and hostile to player at day time",
+      "feature_1.title": "Loch Ness Monster",
+      "feature_1.title_two_line": "",
+
+      "feature_2.item": "minecraft:sand",
+      "feature_2.tooltip": "cryptoclidus will come and gather on land during night time",
+      "feature_2.title_two_line": "Nightclub"
+    }
+  ]
+}
