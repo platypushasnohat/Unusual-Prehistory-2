@@ -12,13 +12,13 @@
                 "data": {
                   "Name": "unusual_prehistory:fossilized_bone_rod"
                 },
-                "weight": 5
+                "weight": 6
               },
               {
                 "data": {
                   "Name": "unusual_prehistory:fossilized_bone_spike"
                 },
-                "weight": 10
+                "weight": 8
               },
               {
                 "data": {
@@ -84,8 +84,8 @@
         }
       ]
     },
-    "tries": 32,
-    "xz_spread": 4,
-    "y_spread": 3
+    "tries": 16,
+    "xz_spread": 3,
+    "y_spread": 2
   }
 }

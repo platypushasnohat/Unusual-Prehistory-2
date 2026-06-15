@@ -25,7 +25,7 @@ public class UP2Features {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PROTOTAXITES = createConfiguredFeatureKey("prototaxites");
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> CAVE_FOSSIL_INDICATOR = createConfiguredFeatureKey("cave_fossil_indicator");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FOSSIL_PILE = createConfiguredFeatureKey("fossil_pile");
 
     private static ResourceKey<PlacedFeature> createPlacedFeatureKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, UnusualPrehistory2.modPrefix(name));

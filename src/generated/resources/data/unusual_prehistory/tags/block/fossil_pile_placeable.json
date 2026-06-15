@@ -1,6 +1,10 @@
 {
   "values": [
     "#minecraft:dirt",
-    "unusual_prehistory:cobbled_fossilized_bone"
+    "unusual_prehistory:cobbled_fossilized_bone",
+    "unusual_prehistory:fossilized_bone_bark",
+    "unusual_prehistory:fossilized_bone_block",
+    "unusual_prehistory:fossilized_skull",
+    "unusual_prehistory:fossilized_bone_vertebra"
   ]
 }

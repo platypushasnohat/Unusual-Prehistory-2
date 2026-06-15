@@ -4,13 +4,13 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Features;
 import com.barlinc.unusual_prehistory.registry.UP2StructurePieces;
+import com.barlinc.unusual_prehistory.worldgen.structure.processor.CaveFossilProcessor;
 import com.barlinc.unusual_prehistory.worldgen.structure.processor.MatrixProcessor;
 import com.google.common.collect.Maps;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
@@ -33,7 +33,8 @@ import java.util.*;
 public class CaveFossilPiece extends TemplateStructurePiece {
 
     public static final Map<ResourceLocation, Integer> HEIGHT_TO_TEMPLATES = Util.make(Maps.newHashMap(), map -> {
-        map.put(UnusualPrehistory2.modPrefix("fossil/cave_1"), 4);
+        map.put(UnusualPrehistory2.modPrefix("fossil/cave_1"), 0);
+        map.put(UnusualPrehistory2.modPrefix("fossil/cave_2"), 0);
     });
 
     public CaveFossilPiece(StructureTemplateManager manager, ResourceLocation id, BlockPos pos, Rotation rotation) {
@@ -59,12 +60,13 @@ public class CaveFossilPiece extends TemplateStructurePiece {
         BlockPos blockPos = templatePosition;
         this.templatePosition = templatePosition.below(HEIGHT_TO_TEMPLATES.get(ResourceLocation.parse(templateName)));
         this.placeSettings.clearProcessors()
+                .addProcessor(new CaveFossilProcessor())
                 .addProcessor(matrixProcessor(UnusualPrehistory2.modPrefix("archaeology/fossil/badlands/common"), "common", 10))
                 .addProcessor(matrixProcessor(UnusualPrehistory2.modPrefix("archaeology/fossil/badlands/uncommon"), "uncommon", 7))
                 .addProcessor(matrixProcessor(UnusualPrehistory2.modPrefix("archaeology/fossil/badlands/rare"), "rare", 5))
                 .addProcessor(matrixProcessor(UnusualPrehistory2.modPrefix("archaeology/fossil/badlands/unusual"), "unusual", 2));
         super.postProcess(level, manager, generator, random, boundingBox, chunkPos, pos);
-        this.placeSurfaceFeature(level, generator, random);
+        this.placeSurfaceFeature(level, generator, random, blockPos);
         this.templatePosition = blockPos;
     }
 
@@ -72,12 +74,14 @@ public class CaveFossilPiece extends TemplateStructurePiece {
     protected void handleDataMarker(@NotNull String key, @NotNull BlockPos blockPos, @NotNull ServerLevelAccessor level, @NotNull RandomSource random, @NotNull BoundingBox boundingBox) {
     }
 
-    private void placeSurfaceFeature(WorldGenLevel level, ChunkGenerator generator, RandomSource random) {
-        int x = templatePosition.getX();
-        int z = templatePosition.getZ();
-        int surfaceY = generator.getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE_WG, level, level.getLevel().getChunkSource().randomState());
-        BlockPos surfacePos = new BlockPos(x, surfaceY, z);
-        Holder<ConfiguredFeature<?, ?>> feature = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).getOrThrow(UP2Features.CAVE_FOSSIL_INDICATOR);
+    private void placeSurfaceFeature(WorldGenLevel level, ChunkGenerator generator, RandomSource random, BlockPos origin) {
+        StructureTemplate template = level.getLevel().getStructureManager().getOrCreate(ResourceLocation.parse(templateName));
+        BoundingBox box = template.getBoundingBox(placeSettings, origin);
+        int centerX = (box.minX() + box.maxX()) / 2;
+        int centerZ = (box.minZ() + box.maxZ()) / 2;
+        int surfaceY = generator.getBaseHeight(centerX, centerZ, Heightmap.Types.WORLD_SURFACE_WG, level, level.getLevel().getChunkSource().randomState());
+        BlockPos surfacePos = new BlockPos(centerX, surfaceY, centerZ);
+        Holder<ConfiguredFeature<?, ?>> feature = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).getOrThrow(UP2Features.FOSSIL_PILE);
         feature.value().place(level, generator, random, surfacePos);
     }
 

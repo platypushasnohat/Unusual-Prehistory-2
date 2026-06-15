@@ -31,7 +31,7 @@ public class CaveFossilStructure extends Structure {
         int blockX = chunkPos.getBlockX(random.nextInt(16));
         int blockZ = chunkPos.getBlockZ(random.nextInt(16));
         int baseHeight = context.chunkGenerator().getBaseHeight(blockX, blockZ, Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor(), context.randomState());
-        int blockY = Mth.clamp(baseHeight - random.nextIntBetweenInclusive(64, 128), 0, 32);
+        int blockY = Mth.clamp(baseHeight - random.nextIntBetweenInclusive(64, 128), 0, 63);
         int y = this.extraChecks(context, new BlockPos(blockX, blockY, blockZ));
         if (y == -1) {
             return Optional.empty();

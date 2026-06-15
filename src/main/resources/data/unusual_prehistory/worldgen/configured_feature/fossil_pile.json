@@ -1,0 +1,143 @@
+{
+  "type": "unusual_prehistory:fossil_pile",
+  "config": {
+    "state": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "weight": 120,
+          "data": {
+            "Name": "unusual_prehistory:cobbled_fossilized_bone"
+          }
+        },
+        {
+          "weight": 20,
+          "data": {
+            "Name": "unusual_prehistory:fossilized_bone_block",
+            "Properties": {
+              "axis": "x"
+            }
+          }
+        },
+        {
+          "weight": 20,
+          "data": {
+            "Name": "unusual_prehistory:fossilized_bone_block",
+            "Properties": {
+              "axis": "y"
+            }
+          }
+        },
+        {
+          "weight": 20,
+          "data": {
+            "Name": "unusual_prehistory:fossilized_bone_block",
+            "Properties": {
+              "axis": "z"
+            }
+          }
+        },
+        {
+          "weight": 20,
+          "data": {
+            "Name": "unusual_prehistory:fossilized_bone_bark",
+            "Properties": {
+              "axis": "x"
+            }
+          }
+        },
+        {
+          "weight": 20,
+          "data": {
+            "Name": "unusual_prehistory:fossilized_bone_bark",
+            "Properties": {
+              "axis": "y"
+            }
+          }
+        },
+        {
+          "weight": 20,
+          "data": {
+            "Name": "unusual_prehistory:fossilized_bone_bark",
+            "Properties": {
+              "axis": "z"
+            }
+          }
+        },
+        {
+          "weight": 16,
+          "data": {
+            "Name": "unusual_prehistory:fossilized_bone_vertebra",
+            "Properties": {
+              "axis": "x"
+            }
+          }
+        },
+        {
+          "weight": 16,
+          "data": {
+            "Name": "unusual_prehistory:fossilized_bone_vertebra",
+            "Properties": {
+              "axis": "y"
+            }
+          }
+        },
+        {
+          "weight": 16,
+          "data": {
+            "Name": "unusual_prehistory:fossilized_bone_vertebra",
+            "Properties": {
+              "axis": "z"
+            }
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "unusual_prehistory:fossilized_skull",
+            "Properties": {
+              "facing": "north"
+            }
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "unusual_prehistory:fossilized_skull",
+            "Properties": {
+              "facing": "south"
+            }
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "unusual_prehistory:fossilized_skull",
+            "Properties": {
+              "facing": "east"
+            }
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "unusual_prehistory:fossilized_skull",
+            "Properties": {
+              "facing": "west"
+            }
+          }
+        }
+      ]
+    },
+    "floor_state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:coarse_dirt"
+      }
+    },
+    "feature": {
+      "feature": "unusual_prehistory:fossil_pile_patch",
+      "placement": []
+    }
+  }
+}

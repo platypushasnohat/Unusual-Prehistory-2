@@ -251,7 +251,11 @@ public class UP2BlockTagProvider extends BlockTagsProvider {
         this.tag(UP2BlockTags.FOSSIL_PILE_PLACEABLE).addTags(
                 BlockTags.DIRT
         ).add(
-                COBBLED_FOSSILIZED_BONE.get()
+                COBBLED_FOSSILIZED_BONE.get(),
+                FOSSILIZED_BONE_BARK.get(),
+                FOSSILIZED_BONE_BLOCK.get(),
+                FOSSILIZED_SKULL.get(),
+                FOSSILIZED_BONE_VERTEBRA.get()
         );
 
         // Minecraft
