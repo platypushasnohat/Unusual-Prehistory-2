@@ -535,10 +535,10 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("item.unusual_prehistory.fossilized_footprint.desc", "???");
         this.add("item.unusual_prehistory.gastrolith.desc", "???");
         this.add("item.unusual_prehistory.petrified_egg.desc", "???");
-        this.add("item.unusual_prehistory.indochinite.desc", "???");
-        this.add("item.unusual_prehistory.fossilized_meteorite.desc", "???");
-        this.add("item.unusual_prehistory.chondrite.desc", "???");
-        this.add("item.unusual_prehistory.pallasite.desc", "???");
+        this.add("item.unusual_prehistory.indochinite.desc", "A shard of obsidian formed from an ancient impact");
+        this.add("item.unusual_prehistory.fossilized_meteorite.desc", "A meteor preceding a mass extinction, it has undergone fossilization similar to organic life");
+        this.add("item.unusual_prehistory.chondrite.desc", "An accumulation of stardust older than most worlds, yet it appears to contain the compounds for early life");
+        this.add("item.unusual_prehistory.pallasite.desc", "These gemstones were forged within the heart of a prehistoric asteroid");
 
         this.add("item.unusual_prehistory.plushie_kit.desc", "Used to sew plushies from mobs");
 
