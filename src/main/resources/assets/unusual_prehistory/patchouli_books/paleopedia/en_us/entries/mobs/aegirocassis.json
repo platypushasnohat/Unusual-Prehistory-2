@@ -2,6 +2,7 @@
   "name": "Aegirocassis",
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/aegirocassis.png",
   "advancement": "unusual_prehistory:obtain_aegirocassis_eggs",
+  "turnin": "unusual_prehistory:revive_aegirocassis",
   "category": "unusual_prehistory:mobs",
   "extra_recipe_mappings": {
     "tag:unusual_prehistory:recipe_mappings/aegirocassis": 0

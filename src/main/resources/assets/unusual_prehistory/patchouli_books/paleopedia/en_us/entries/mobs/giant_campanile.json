@@ -1,0 +1,41 @@
+{
+  "name": "Giant Campanile",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/giant_campanile.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_giant_campanile_eggs",
+  "turnin": "unusual_prehistory:revive_giant_campanile",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/giant_campanile": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "giant_campanile",
+
+      "rarity": "rare",
+      "fossil_item": "unusual_prehistory:pillar_fossil",
+      "egg_item": "unusual_prehistory:giant_campanile_eggs",
+
+      "image_tooltip": ""
+    },
+    {
+      "type": "unusual_prehistory:mob_features",
+      "id": "giant_campanile",
+
+      "era": "mid_paleogene",
+      "temperament": "passive",
+      "clone_type": "raft_egg",
+      "activity": "sleepless",
+      "diet": "detritivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:cherry_sapling",
+      "feature_1.tooltip": "Giant Campanile presences can heal any creatures around it and calm them down",
+      "feature_1.title": "Make Peace",
+      "feature_1.title_two_line": ""
+    }
+  ]
+}

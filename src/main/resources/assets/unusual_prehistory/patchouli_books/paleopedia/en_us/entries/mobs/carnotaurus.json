@@ -3,6 +3,7 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/carnotaurus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:obtain_carnotaurus_egg",
+  "turnin": "unusual_prehistory:revive_carnotaurus",
   "extra_recipe_mappings": {
     "tag:unusual_prehistory:recipe_mappings/carnotaurus": 0
   },

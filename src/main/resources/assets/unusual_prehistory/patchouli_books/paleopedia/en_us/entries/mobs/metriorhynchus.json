@@ -1,0 +1,46 @@
+{
+  "name": "Metriorhynchus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/metriorhynchus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_metriorhynchus_embryo",
+  "turnin": "unusual_prehistory:revive_metriorhynchus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/metriorhynchus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "metriorhynchus",
+
+      "rarity": "uncommon",
+      "fossil_item": "unusual_prehistory:meltdown_fossil",
+      "egg_item": "unusual_prehistory:metriorhynchus_embryo",
+
+      "flavor_text": "moderate-snout",
+      "image_tooltip": "A strange thalattosuchian with a fish-like tail-fluke, Metriorhynchus may seem amphibious, but its true home is the deep. "
+    },
+    {
+      "id": "metriorhynchus",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "late_jurassic",
+      "temperament": "neutral",
+      "clone_type": "embryo",
+      "activity": "sleepless",
+      "diet": "piscivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": true,
+      "feature_3.center_long_title": false,
+
+
+      "feature_1.item": "tag:unusual_prehistory:tames_metriorhynchus",
+      "feature_1.tooltip": "Metriorhynchus can be tamed using §aTropical Fish§7; tamed Metriorhynchus can be commanded to attack",
+      "feature_1.title": "Amphibious Ally",
+
+      "feature_2.item": "minecraft:sand",
+      "feature_2.tooltip": "Metriorhynchus is capable of pursuing their prey on land too, just lacking the agility they possess in the water",
+      "feature_2.title": "Risk on the Riverbanks"
+    }
+  ]
+}

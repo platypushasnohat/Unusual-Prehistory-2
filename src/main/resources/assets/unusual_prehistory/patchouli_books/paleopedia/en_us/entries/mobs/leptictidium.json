@@ -1,0 +1,45 @@
+{
+  "name": "Leptictidium",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/leptictidium.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_leptictidium_embryo",
+  "turnin": "unusual_prehistory:revive_leptictidium",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/leptictidium": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "leptictidium",
+
+      "rarity": "uncommon",
+      "fossil_item": "unusual_prehistory:trunk_mouse_fossil",
+      "egg_item": "unusual_prehistory:leptictidium_embryo",
+
+      "flavor_text": "graceful-weasel",
+      "image_tooltip": "A long-legged mammal capable of leaping great distances, Leptictidium laces nearby life with its lingering musk, leaving creatures hopping mad."
+    },
+    {
+      "id": "leptictidium",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "early_paleogene",
+      "temperament": "passive",
+      "clone_type": "embryo",
+      "activity": "sleepless",
+      "diet": "insectivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:spider_eye",
+      "feature_1.tooltip": "Leptictidium preys on all arthropods",
+      "feature_1.title": "Pest Control",
+
+      "feature_2.item": "minecraft:splash_potion[potion_contents={custom_color:8439583,custom_effects:[{id:poison,duration:600}]}]",
+      "feature_2.tooltip": "Leptictidium carries and spreads potion effects to other mobs",
+      "feature_2.title": "Plague Rats"
+    }
+  ]
+}

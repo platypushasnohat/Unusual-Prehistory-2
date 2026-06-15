@@ -1,0 +1,45 @@
+{
+  "name": "Leedsichthys",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/leedsichthys.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_leedsichthys_egg",
+  "turnin": "unusual_prehistory:revive_leedsichthys",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/leedsichthys": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "leedsichthys",
+
+      "rarity": "unusual",
+      "fossil_item": "unusual_prehistory:gargantuan_fossil",
+      "egg_item": "unusual_prehistory:leedsichthys_roe",
+
+      "flavor_text": "Leed's-fish",
+      "image_tooltip": ""
+    },
+    {
+      "type": "unusual_prehistory:mob_features",
+      "id": "leedsichthys",
+
+      "era": "leedsichthys",
+      "temperament": "passive",
+      "clone_type": "aquatic_egg",
+      "activity": "sleepless",
+      "diet": "planktivore",
+
+      "feature_1.center_long_title": true,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "unusual_prehistory:leedsichthys_slice",
+      "feature_1.tooltip": "The meat of this gargantuan fish can be sheared as an infinite food source",
+      "feature_1.title": "Giant Sushi",
+
+      "feature_2.item": "",
+      "feature_2.tooltip": "leedsichthys docile nature makes them an easy target for Metriorhynchus",
+      "feature_2.title": ""
+    }
+  ]
+}

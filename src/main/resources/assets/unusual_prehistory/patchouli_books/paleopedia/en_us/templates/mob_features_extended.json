@@ -1,24 +1,36 @@
 {
   "include": [
     {
-      "template": "unusual_prehistory:nested_templates/feature",
+      "template": "unusual_prehistory:nested_templates/mob_feature",
       "as": "feature_4",
-      "y": 106
+      "y": 106,
+      "using": {
+        "id": "#id"
+      }
     },
     {
-      "template": "unusual_prehistory:nested_templates/feature",
+      "template": "unusual_prehistory:nested_templates/mob_feature",
       "as": "feature_3",
-      "y": 75
+      "y": 75,
+      "using": {
+        "id": "#id"
+      }
     },
     {
-      "template": "unusual_prehistory:nested_templates/feature",
+      "template": "unusual_prehistory:nested_templates/mob_feature",
       "as": "feature_2",
-      "y": 44
+      "y": 44,
+      "using": {
+        "id": "#id"
+      }
     },
     {
-      "template": "unusual_prehistory:nested_templates/feature",
+      "template": "unusual_prehistory:nested_templates/mob_feature",
       "as": "feature_1",
-      "y": 13
+      "y": 13,
+      "using": {
+        "id": "#id"
+      }
     }
   ]
 }

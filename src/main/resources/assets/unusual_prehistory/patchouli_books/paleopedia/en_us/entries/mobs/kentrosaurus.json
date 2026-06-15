@@ -1,0 +1,45 @@
+{
+  "name": "Kentrosaurus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/kentrosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_kentrosaurus_egg",
+  "turnin": "unusual_prehistory:revive_kentrosaurus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/kentrosaurus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "kentrosaurus",
+
+      "rarity": "uncommon",
+      "fossil_item": "unusual_prehistory:prickly_fossil",
+      "egg_item": "unusual_prehistory:kentrosaurus_egg",
+
+      "flavor_text": "prickle-lizard",
+      "image_tooltip": "An armored and guarded stegosaurid, Kentrosaurus is fiercely protective of all things spiky, mistaking them as its own."
+    },
+    {
+      "type": "unusual_prehistory:mob_features",
+      "id": "kentrosaurus",
+
+      "era": "late_jurassic",
+      "temperament": "neutral",
+      "clone_type": "nest_egg",
+      "activity": "diurnal",
+      "diet": "herbivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": true,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "tag:unusual_prehistory:guarded_by_kentrosaurus",
+      "feature_1.tooltip": "Kentrosaurus is protective of prickly blocks near it, and will attack players who break them",
+      "feature_1.title": "Cactus-coded",
+
+      "feature_2.item": "minecraft:iron_chestplate[minecraft:enchantments={levels:{\"minecraft:thorns\":3}}]",
+      "feature_2.tooltip": "Those who cover themselves in §aThorns§7 will find themselves under Kentrosaurus' protection",
+      "feature_2.title": "Friend of the Thorny"
+    }
+  ]
+}

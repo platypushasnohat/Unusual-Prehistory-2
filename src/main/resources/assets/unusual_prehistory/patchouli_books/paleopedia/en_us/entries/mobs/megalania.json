@@ -1,0 +1,49 @@
+{
+  "name": "Megalania",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/megalania.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_megalania_egg",
+  "turnin": "unusual_prehistory:revive_megalania",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/megalania": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "megalania",
+
+      "rarity": "unusual",
+      "fossil_item": "unusual_prehistory:thermal_fossil",
+      "egg_item": "unusual_prehistory:megalania_egg",
+
+      "flavor_text": "ancient-great-roamer",
+      "image_tooltip": "One of the largest lizards of all time, Megalania displays a fondness for sunny skies and hot sand, using its nasty bite and whip-like tail to fiercely hunt across the great desert landscape."
+    },
+    {
+      "id": "megalania",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "quaternary",
+      "temperament": "neutral",
+      "clone_type": "nest_egg",
+      "activity": "cathemeral",
+      "diet": "carnivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": true,
+
+      "feature_2.item": "minecraft:red_sand",
+      "feature_2.tooltip": "Megalania are cold-blooded, and will become more active and hostile in warmer biomes",
+      "feature_2.title": "Desert Danger!",
+
+      "feature_3.item": "minecraft:spider_eye",
+      "feature_3.tooltip": "Megalania's bite is highly venomous",
+      "feature_3.title": "Vile Bite",
+
+      "feature_1.item": "tag:unusual_prehistory:tames_megalania",
+      "feature_1.tooltip": "Megalania can be tamed using §aRotten Flesh§7; tamed Megalania can be commanded to attack",
+      "feature_1.title": "Unexpected Friend?"
+    }
+  ]
+}

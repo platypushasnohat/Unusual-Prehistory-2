@@ -1,0 +1,45 @@
+{
+  "name": "Ichthyosaurus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/ichthyosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_ichthyosaurus_embryo",
+  "turnin": "unusual_prehistory:revive_icthyosaurus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/ichthyosaurus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "ichthyosaurus",
+
+      "rarity": "uncommon",
+      "fossil_item": "unusual_prehistory:fish_reptile_fossil",
+      "egg_item": "unusual_prehistory:ichthyosaurus_embryo",
+
+      "flavor_text": "fish-lizard",
+      "image_tooltip": ""
+    },
+    {
+      "id": "ichthyosaurus",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "early_jurassic",
+      "temperament": "passive",
+      "clone_type": "embryo",
+      "activity": "sleepless",
+      "diet": "piscivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": true,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "tag:unusual_prehistory:tames_ichthyosaurus",
+      "feature_1.tooltip": "Ichthyosaurus can be tamed using §aBucket of Cod§7; and act as underwater mount that able to perform dash",
+      "feature_1.title": "DPV",
+
+      "feature_2.item": "minecraft:seagrass",
+      "feature_2.tooltip": "ichthyosaurus prefer to swim at deeper water during night time",
+      "feature_2.title": "Not Dolphin"
+    }
+  ]
+}

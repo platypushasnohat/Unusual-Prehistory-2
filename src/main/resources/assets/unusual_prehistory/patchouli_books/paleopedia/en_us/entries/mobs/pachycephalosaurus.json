@@ -1,0 +1,45 @@
+{
+  "name": "Pachycephalosaurus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/pachycephalosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_pachycephalosaurus_egg",
+  "turnin": "unusual_prehistory:revive_pachycephalosaurus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/pachycephalosaurus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "pachycephalosaurus",
+
+      "rarity": "rare",
+      "fossil_item": "unusual_prehistory:cranium_fossil",
+      "egg_item": "unusual_prehistory:pachycephalosaurus_egg",
+
+      "flavor_text": "thick-head-lizard",
+      "image_tooltip": "Sporting an iconic thick and domed skull, Pachycephalosaurus furiously butts heads with each other, often leaving them stunned by the concussive force."
+    },
+    {
+      "type": "unusual_prehistory:mob_features",
+      "id": "pachycephalosaurus",
+
+      "era": "late_cretaceous",
+      "temperament": "neutral",
+      "clone_type": "nest_egg",
+      "activity": "diurnal",
+      "diet": "herbivore",
+
+      "feature_1.center_long_title": true,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:iron_helmet",
+      "feature_1.tooltip": "Pachycephalosaurus uses powerful charges to ram attackers, and engage in head-butting contests with other individuals or nearby mobs",
+      "feature_1.title": "Way to Use Your Head!",
+
+      "feature_2.item": "minecraft:shield",
+      "feature_2.tooltip": "Pachycephalosaurus may get reckless and stun themselves by ramming headfirst into hard surfaces like blocks and §r§aShields§r§7",
+      "feature_2.title": "Concussive"
+    }
+  ]
+}

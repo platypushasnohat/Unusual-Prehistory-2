@@ -3,6 +3,7 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/brachiosaurus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:obtain_brachiosaurus_egg",
+  "turnin": "unusual_prehistory:revive_brachiosaurus",
   "extra_recipe_mappings": {
     "tag:unusual_prehistory:recipe_mappings/brachiosaurus": 0
   },

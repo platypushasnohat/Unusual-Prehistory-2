@@ -1,0 +1,62 @@
+{
+  "name": "Dunkleosteus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/dunkleosteus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_dunkleosteus_sac",
+  "turnin": "unusual_prehistory:revive_dunkleosteus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/dunkleosteus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "dunkleosteus",
+
+      "rarity": "rare",
+      "fossil_item": "unusual_prehistory:guillotine_fossil",
+      "egg_item": "unusual_prehistory:dunkleosteus_sac",
+
+      "flavor_text": "Dunkle's-bone",
+      "image_tooltip": "The placoderm pioneer of jaws, the deadly Devonian Dunkleosteus is capable of using its bony jaws to slice any enemy clean in half "
+    },
+    {
+      "type": "unusual_prehistory:mob_features",
+      "id": "dunkleosteus",
+
+      "era": "late_devonian",
+      "temperament": "hostile",
+      "clone_type": "aquatic_egg",
+      "activity": "sleepless",
+      "diet": "carnivore",
+
+      "feature_1.center_long_title": true,
+      "feature_2.center_long_title": true,
+      "feature_3.center_long_title": true,
+
+      "feature_1.item": "unusual_prehistory:dunkleosteus_bucket[minecraft:bucket_entity_data={BucketVariantTag:0}],unusual_prehistory:dunkleosteus_bucket[minecraft:bucket_entity_data={BucketVariantTag:1}],unusual_prehistory:dunkleosteus_bucket[minecraft:bucket_entity_data={BucketVariantTag:2}]",
+      "feature_1.tooltip": "Dunkleosteus can be collected and transported using a §aWater Bucket§7",
+      "feature_1.title": "Gonna Need a Bigger Bucket",
+
+      "feature_2.item": "minecraft:prismarine",
+      "feature_2.tooltip": "Dunkleosteus' armour-piercing jaws are particularly threatening to guardians, who deeply fear these creatures",
+      "feature_2.title": "Crushing Crunch",
+
+      "feature_3.item": "tag:forge:heads",
+      "feature_3.tooltip": "Dunkleosteus' guillotine jaws can sever the heads right off their victims",
+      "feature_3.title": "Off With Their Heads!"
+    },
+    {
+      "type": "unusual_prehistory:mob_features_extended",
+      "id": "dunkleosteus",
+
+      "feature_1.center_long_title": true,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+      "feature_4.center_long_title": false,
+
+      "feature_1.item": "minecraft:deepslate",
+      "feature_1.tooltip": "Dunkleosteus hatch-size increases with depth underwater",
+      "feature_1.title": "Under Pressure"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "name": "Onchopristis",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/onchopristis.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_onchopristis_sac",
+  "turnin": "unusual_prehistory:revive_onchopristis",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/onchopristis": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "onchopristis",
+
+      "rarity": "uncommon",
+      "fossil_item": "unusual_prehistory:saw_fossil",
+      "egg_item": "unusual_prehistory:onchopristis_sac",
+
+      "flavor_text": "barb-saw",
+      "image_tooltip": "A prehistoric sawskate of spiny demeanor, Onchopristis spends much of its time using its sensitive rostrum to detect and ambush prey, whilst hiding from giants."
+    },
+    {
+      "type": "unusual_prehistory:mob_features",
+      "id": "onchopristis",
+
+      "era": "late_cretaceous",
+      "temperament": "neutral",
+      "clone_type": "aquatic_egg",
+      "activity": "sleepless",
+      "diet": "piscivore",
+
+      "feature_1.center_long_title": true,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:coarse_dirt",
+      "feature_1.tooltip": "§7Onchopristis dwell at the bottom of water bodies and often bury themselves in the sediment",
+      "feature_1.title": "Scales in the Soil",
+
+      "feature_2.item": "minecraft:redstone_block",
+      "feature_2.tooltip": "§7If stepped on while buried, Onchopristis will spring into a toothy attack",
+      "feature_2.title": "I Saw That!"
+    }
+  ]
+}

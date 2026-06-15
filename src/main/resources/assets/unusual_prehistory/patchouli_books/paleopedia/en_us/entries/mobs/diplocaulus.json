@@ -1,0 +1,49 @@
+{
+  "name": "Diplocaulus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/diplocaulus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_diplocaulus_eggs",
+  "turnin": "unusual_prehistory:revive_diplocaulus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/diplocaulus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "diplocaulus",
+
+      "rarity": "uncommon",
+      "fossil_item": "unusual_prehistory:boomerang_fossil",
+      "egg_item": "unusual_prehistory:diplocaulus_eggs",
+
+      "flavor_text": "double-stalk",
+      "image_tooltip": "Small salamandrine amphibians with bizzare, boomerang-shaped heads, Diplocaulus may look like an unfortunate accident, but they are entirely as natural as they are striking"
+    },
+    {
+      "id": "diplocaulus",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "diplocaulus",
+      "temperament": "passive",
+      "clone_type": "raft_egg",
+      "activity": "sleepless",
+      "diet": "piscivore",
+
+      "feature_1.center_long_title": true,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={BucketVariantTag:0}],unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={BucketVariantTag:1}],unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={BucketVariantTag:2}],unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={BucketVariantTag:3}]",
+      "feature_1.tooltip": "Diplocaulus can be collected and transported using a §aWater Bucket§7",
+      "feature_1.title": "Tactical Salamandering",
+
+      "feature_2.item": "tag:unusual_prehistory:diplocaulus_sliding_blocks",
+      "feature_2.tooltip": "Diplocaulus loves to slide around on various slippery blocks",
+      "feature_2.title": "Slip n' Slide!",
+
+      "feature_3.item": "tag:unusual_prehistory:diplocaulus_burrowing_blocks",
+      "feature_3.tooltip": "Diplocaulus may occasionally bury itself in sediment blocks",
+      "feature_3.title": "In the Mud"
+    }
+  ]
+}

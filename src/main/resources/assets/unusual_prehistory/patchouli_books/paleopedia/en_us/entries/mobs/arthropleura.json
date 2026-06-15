@@ -3,6 +3,7 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/arthropleura.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:obtain_arthropleura_eggs",
+  "turnin": "unusual_prehistory:revive_arthropleura",
   "extra_recipe_mappings": {
     "tag:unusual_prehistory:recipe_mappings/arthropleura": 0
   },
