@@ -27,7 +27,7 @@ public class MountainFossilStructure extends Structure {
         int z = context.chunkPos().getMinBlockZ() + random.nextInt(16);
         int y = context.chunkGenerator().getBaseHeight(x, z, Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor(), context.randomState());
 
-        if (y < 80) {
+        if (y < 90) {
             return Optional.empty();
         }
         BlockPos pos = new BlockPos(x, y, z);

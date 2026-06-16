@@ -37,6 +37,9 @@ public class CaveFossilStructure extends Structure {
             return Optional.empty();
         }
         BlockPos pos = new BlockPos(blockX, y, blockZ);
+//        if (y < 0) {
+//            return Optional.empty();
+//        }
         return Optional.of(new GenerationStub(pos, pieces -> CaveFossilPiece.addPieces(context.structureTemplateManager(), pos, pieces, random)));
     }
 
@@ -70,7 +73,7 @@ public class CaveFossilStructure extends Structure {
         if (emptySpace < 8) {
             return -1;
         }
-        return surfaceLevel;
+        return surfaceLevel - 11;
     }
 
     @Override
