@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.registry;
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.worldgen.structure.BadlandsFossilStructure;
 import com.barlinc.unusual_prehistory.worldgen.structure.CaveFossilStructure;
+import com.barlinc.unusual_prehistory.worldgen.structure.MountainFossilStructure;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -14,5 +15,6 @@ public class UP2Structures {
 
     public static final DeferredHolder<StructureType<?>, StructureType<BadlandsFossilStructure>> BADLANDS_FOSSIL = STRUCTURE_TYPES.register("badlands_fossil", () -> () -> BadlandsFossilStructure.CODEC);
     public static final DeferredHolder<StructureType<?>, StructureType<CaveFossilStructure>> CAVE_FOSSIL = STRUCTURE_TYPES.register("cave_fossil", () -> () -> CaveFossilStructure.CODEC);
+    public static final DeferredHolder<StructureType<?>, StructureType<MountainFossilStructure>> MOUNTAIN_FOSSIL = STRUCTURE_TYPES.register("mountain_fossil", () -> () -> MountainFossilStructure.CODEC);
 
 }

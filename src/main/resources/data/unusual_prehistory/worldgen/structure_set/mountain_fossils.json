@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "unusual_prehistory:mountain_fossil",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 8182,
+    "separation": 8,
+    "spacing": 24,
+    "type": "minecraft:random_spread"
+  }
+}

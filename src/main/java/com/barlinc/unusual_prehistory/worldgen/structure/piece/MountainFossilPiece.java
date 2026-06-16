@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2StructurePieces;
 import com.barlinc.unusual_prehistory.worldgen.structure.processor.MatrixProcessor;
+import com.barlinc.unusual_prehistory.worldgen.structure.processor.MountainFossilProcessor;
 import com.google.common.collect.Maps;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -22,7 +23,9 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructurePieceAccessor;
 import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
-import net.minecraft.world.level.levelgen.structure.templatesystem.*;
+import net.minecraft.world.level.levelgen.structure.templatesystem.CappedProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -30,24 +33,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class BadlandsFossilPiece extends TemplateStructurePiece {
+public class MountainFossilPiece extends TemplateStructurePiece {
 
     public static final Map<ResourceLocation, Integer> HEIGHT_TO_TEMPLATES = Util.make(Maps.newHashMap(), map -> {
-        map.put(UnusualPrehistory2.modPrefix("fossil/badlands_1"), 5);
-        map.put(UnusualPrehistory2.modPrefix("fossil/badlands_2"), 3);
-        map.put(UnusualPrehistory2.modPrefix("fossil/badlands_3"), 3);
-        map.put(UnusualPrehistory2.modPrefix("fossil/badlands_4"), 7);
+        map.put(UnusualPrehistory2.modPrefix("fossil/mountain_1"), 5);
+        map.put(UnusualPrehistory2.modPrefix("fossil/mountain_2"), 6);
+        map.put(UnusualPrehistory2.modPrefix("fossil/mountain_3"), 2);
     });
 
-    public BadlandsFossilPiece(StructureTemplateManager manager, ResourceLocation id, BlockPos pos, Rotation rotation) {
-        super(UP2StructurePieces.BADLANDS_FOSSIL.get(), HEIGHT_TO_TEMPLATES.get(id), manager, id, id.toString(), createPlacementData(rotation), pos);
+    public MountainFossilPiece(StructureTemplateManager manager, ResourceLocation id, BlockPos pos, Rotation rotation) {
+        super(UP2StructurePieces.MOUNTAIN_FOSSIL.get(), HEIGHT_TO_TEMPLATES.get(id), manager, id, id.toString(), createPlacementData(rotation), pos);
     }
 
-    public BadlandsFossilPiece(StructureTemplateManager manager, CompoundTag compoundTag) {
-        super(UP2StructurePieces.BADLANDS_FOSSIL.get(), compoundTag, manager, id -> createPlacementData(Rotation.valueOf(compoundTag.getString("Rotation"))));
+    public MountainFossilPiece(StructureTemplateManager manager, CompoundTag compoundTag) {
+        super(UP2StructurePieces.MOUNTAIN_FOSSIL.get(), compoundTag, manager, id -> createPlacementData(Rotation.valueOf(compoundTag.getString("Rotation"))));
     }
 
-    public BadlandsFossilPiece(StructurePieceSerializationContext context, CompoundTag compoundTag) {
+    public MountainFossilPiece(StructurePieceSerializationContext context, CompoundTag compoundTag) {
         this(context.structureTemplateManager(), compoundTag);
     }
 
@@ -56,7 +58,7 @@ public class BadlandsFossilPiece extends TemplateStructurePiece {
         List<ResourceLocation> templates = new ArrayList<>(resourceLocations.stream().toList());
         ResourceLocation randomTemplate = Util.getRandom(templates, random);
         Rotation rotation = Rotation.getRandom(random);
-        holder.addPiece(new BadlandsFossilPiece(manager, randomTemplate, pos, rotation));
+        holder.addPiece(new MountainFossilPiece(manager, randomTemplate, pos, rotation));
     }
 
     private static StructurePlaceSettings createPlacementData(Rotation rotation) {
@@ -72,8 +74,9 @@ public class BadlandsFossilPiece extends TemplateStructurePiece {
     @Override
     public void postProcess(@NotNull WorldGenLevel level, @NotNull StructureManager manager, @NotNull ChunkGenerator generator, @NotNull RandomSource random, @NotNull BoundingBox boundingBox, @NotNull ChunkPos chunkPos, @NotNull BlockPos pos) {
         BlockPos blockPos = templatePosition;
-        this.templatePosition = templatePosition.below(HEIGHT_TO_TEMPLATES.get(ResourceLocation.parse(templateName)));
+//        this.templatePosition = templatePosition.below(HEIGHT_TO_TEMPLATES.get(ResourceLocation.parse(templateName)));
         this.placeSettings.clearProcessors()
+                .addProcessor(new MountainFossilProcessor(HEIGHT_TO_TEMPLATES.get(ResourceLocation.parse(templateName))))
                 .addProcessor(matrixProcessor(UnusualPrehistory2.modPrefix("archaeology/fossil/badlands/common"), "common", 10))
                 .addProcessor(matrixProcessor(UnusualPrehistory2.modPrefix("archaeology/fossil/badlands/uncommon"), "uncommon", 7))
                 .addProcessor(matrixProcessor(UnusualPrehistory2.modPrefix("archaeology/fossil/badlands/rare"), "rare", 5))
@@ -87,6 +90,6 @@ public class BadlandsFossilPiece extends TemplateStructurePiece {
     }
 
     private static CappedProcessor matrixProcessor(ResourceLocation lootTable, String rarity, int cap) {
-        return new CappedProcessor(new MatrixProcessor(Blocks.RED_SAND.defaultBlockState(), UP2Blocks.RED_SAND_MATRIX.get().defaultBlockState(), lootTable, rarity), ConstantInt.of(cap));
+        return new CappedProcessor(new MatrixProcessor(Blocks.GRAVEL.defaultBlockState(), UP2Blocks.GRAVEL_MATRIX.get().defaultBlockState(), lootTable, rarity), ConstantInt.of(cap));
     }
 }

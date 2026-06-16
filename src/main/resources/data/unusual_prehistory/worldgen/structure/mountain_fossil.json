@@ -1,0 +1,7 @@
+{
+  "type": "unusual_prehistory:mountain_fossil",
+  "biomes": "#minecraft:is_mountain",
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "spawn_overrides": {}
+}

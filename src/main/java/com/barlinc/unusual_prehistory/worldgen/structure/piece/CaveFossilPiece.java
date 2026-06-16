@@ -35,6 +35,9 @@ public class CaveFossilPiece extends TemplateStructurePiece {
     public static final Map<ResourceLocation, Integer> HEIGHT_TO_TEMPLATES = Util.make(Maps.newHashMap(), map -> {
         map.put(UnusualPrehistory2.modPrefix("fossil/cave_1"), 0);
         map.put(UnusualPrehistory2.modPrefix("fossil/cave_2"), 0);
+        map.put(UnusualPrehistory2.modPrefix("fossil/cave_3"), 0);
+        map.put(UnusualPrehistory2.modPrefix("fossil/cave_4"), 0);
+        map.put(UnusualPrehistory2.modPrefix("fossil/cave_5"), 0);
     });
 
     public CaveFossilPiece(StructureTemplateManager manager, ResourceLocation id, BlockPos pos, Rotation rotation) {
@@ -94,7 +97,7 @@ public class CaveFossilPiece extends TemplateStructurePiece {
     }
 
     private static StructurePlaceSettings createPlacementData(Rotation rotation) {
-        return new StructurePlaceSettings().setRotation(rotation).addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK);
+        return new StructurePlaceSettings().setRotation(rotation);
     }
 
     private static CappedProcessor matrixProcessor(ResourceLocation lootTable, String rarity, int cap) {
