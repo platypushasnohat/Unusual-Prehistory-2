@@ -1,0 +1,7 @@
+{
+  "type": "unusual_prehistory:tundra_fossil",
+  "biomes": "minecraft:snowy_plains",
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_box",
+  "spawn_overrides": {}
+}

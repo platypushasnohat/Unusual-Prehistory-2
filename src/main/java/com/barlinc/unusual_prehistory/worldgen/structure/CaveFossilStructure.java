@@ -37,6 +37,7 @@ public class CaveFossilStructure extends Structure {
             return Optional.empty();
         }
         BlockPos pos = new BlockPos(blockX, y, blockZ);
+        // todo: change height stuff later when we add deep cave fossils
 //        if (y < 0) {
 //            return Optional.empty();
 //        }
@@ -73,7 +74,7 @@ public class CaveFossilStructure extends Structure {
         if (emptySpace < 8) {
             return -1;
         }
-        return surfaceLevel - 11;
+        return surfaceLevel - 12;
     }
 
     @Override
