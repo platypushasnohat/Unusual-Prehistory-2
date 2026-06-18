@@ -4,12 +4,15 @@ import com.barlinc.unusual_prehistory.registry.UP2Structures;
 import com.barlinc.unusual_prehistory.worldgen.structure.piece.BadlandsFossilPiece;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class BadlandsFossilStructure extends Structure {
@@ -35,7 +38,27 @@ public class BadlandsFossilStructure extends Structure {
             return Optional.empty();
         }
         BlockPos pos = new BlockPos(x, y, z);
-        return Optional.of(new Structure.GenerationStub(pos, pieces -> BadlandsFossilPiece.addPieces(context.structureTemplateManager(), pos, pieces, random)));
+        if (this.isSufficientlyFlat(context, pos, 3)) {
+            return Optional.of(new Structure.GenerationStub(pos, pieces -> BadlandsFossilPiece.addPieces(context.structureTemplateManager(), pos, pieces, random)));
+        }
+        return Optional.empty();
+    }
+
+    public boolean isSufficientlyFlat(GenerationContext context, BlockPos origin, int check) {
+        List<BlockPos> blockPosList = new ArrayList<>();
+        for (int x = -check; x < check; x++) {
+            for (int z = -check; z < check; z++) {
+                blockPosList.add(origin.offset(x, 0, z));
+            }
+        }
+        int count = 0;
+        for (BlockPos pos : blockPosList) {
+            NoiseColumn blockView = context.chunkGenerator().getBaseColumn(pos.getX(), pos.getZ(), context.heightAccessor(), context.randomState());
+            if (blockView.getBlock(pos.getY()).isAir() && !blockView.getBlock(pos.below().getY()).isAir()) {
+                count++;
+            }
+        }
+        return count >= check * check * 2;
     }
 
     @Override

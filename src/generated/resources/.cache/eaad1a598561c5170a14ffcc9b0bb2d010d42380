@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-12T20:07:45.4252639	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-06-17T21:38:04.9292582	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/foods/fruit.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -92,6 +92,7 @@ a1ae3e5ab6a2dbd81041eb53042b58880a9743b2 data/unusual_prehistory/tags/item/recip
 e03f894a7f0767e4d6d15d13c3ba46c9fa578907 data/unusual_prehistory/tags/item/recipe_mappings/diplocaulus.json
 2e9a67dceaab96f21538f55dc879775511bb93c5 data/unusual_prehistory/tags/item/recipe_mappings/dromaeosaurus.json
 e93088980d2d662fc23a7fcd0a18204b4e44cd65 data/unusual_prehistory/tags/item/recipe_mappings/dunkleosteus.json
+b0e75631465df1e23c28364bdc9c81c844c0f8f0 data/unusual_prehistory/tags/item/recipe_mappings/gastric_brooding_frog.json
 016f8451e6daba1483237a0f7353eb07800cdccb data/unusual_prehistory/tags/item/recipe_mappings/giant_campanile.json
 0c38989bf7783d6b9fc22969422cb0f8196fe2dd data/unusual_prehistory/tags/item/recipe_mappings/hibbertopterus.json
 302232976b5d11bb3808134ff88f71db2bfc1c2e data/unusual_prehistory/tags/item/recipe_mappings/hynerpeton.json

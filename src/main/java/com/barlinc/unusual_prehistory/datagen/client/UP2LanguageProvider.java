@@ -514,6 +514,9 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.addItem(UP2Items.BROWN_MUSHROOM_ON_A_STICK, "Brown Mushroom on a Stick");
 
+        this.addEntityType(UP2Entities.GASTRIC_BROODING_FROG, "Gastric-Brooding Frog");
+        this.addItem(UP2Items.GASTRIC_BROODING_FROG_SPAWN_EGG, "Gastric-Brooding Frog Spawn Egg");
+
         this.addBlock(UP2Blocks.SPIKE_TOOTHED_SALMON_ROE, "Spike-Toothed Salmon Roe");
         this.addItem(UP2Items.SPIKE_TOOTHED_SALMON_SPAWN_EGG, "Spike-Toothed Salmon Spawn Egg");
         this.addEntityType(UP2Entities.SPIKE_TOOTHED_SALMON, "Spike-Toothed Salmon");

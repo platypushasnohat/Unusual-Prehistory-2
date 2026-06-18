@@ -83,6 +83,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation CONCAVENATOR = mainLayer("concavenator");
     public static final ModelLayerLocation COTYLORHYNCHUS = mainLayer("cotylorhynchus");
     public static final ModelLayerLocation CRYPTOCLIDUS = mainLayer("cryptoclidus");
+    public static final ModelLayerLocation GASTRIC_BROODING_FROG = mainLayer("gastric_brooding_frog");
     public static final ModelLayerLocation GIANT_CAMPANILE = mainLayer("giant_campanile");
     public static final ModelLayerLocation HYNERPETON = mainLayer("hynerpeton");
     public static final ModelLayerLocation ICHTHYOSAURUS = mainLayer("ichthyosaurus");

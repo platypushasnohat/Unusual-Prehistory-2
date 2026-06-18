@@ -215,6 +215,7 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 TALPANAS.get(),
                 WOOLLY_MAMMOTH.get(),
                 SPIKE_TOOTHED_SALMON.get(),
+                GASTRIC_BROODING_FROG.get(),
                 GIANT_CAMPANILE.get(),
                 THYLACINE.get(),
                 KING_LINGCOD.get()

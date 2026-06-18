@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-13T17:46:21.3941497	Item Models: unusual_prehistory
+// 1.21.1	2026-06-17T21:38:04.9157361	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -74,6 +74,7 @@ de67c830dddd4782d8f816655b5b116dc68113aa assets/unusual_prehistory/models/item/f
 f9034a2dc18e2237d32f2939703af38e15d3db7f assets/unusual_prehistory/models/item/foul_grog_bottle.json
 158b2a9b3ab18df3ff848d0cbdd054aa062df9ea assets/unusual_prehistory/models/item/fury_fossil.json
 257e2f442242749cd6d46e32494e6a1f94c975e8 assets/unusual_prehistory/models/item/gargantuan_fossil.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/gastric_brooding_frog_spawn_egg.json
 693538517616339a2af3f1053c1ca85324e9730d assets/unusual_prehistory/models/item/gastrolith.json
 1360f22e136bd8af86446c00202c306a4853de79 assets/unusual_prehistory/models/item/giant_campanile_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/giant_campanile_spawn_egg.json

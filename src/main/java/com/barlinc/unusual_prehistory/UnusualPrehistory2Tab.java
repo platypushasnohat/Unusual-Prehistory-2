@@ -44,6 +44,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(DIPLOCAULUS_SPAWN_EGG.get());
                         output.accept(DROMAEOSAURUS_SPAWN_EGG.get());
                         output.accept(DUNKLEOSTEUS_SPAWN_EGG.get());
+                        output.accept(GASTRIC_BROODING_FROG_SPAWN_EGG.get());
                         output.accept(GIANT_CAMPANILE_SPAWN_EGG.get());
                         output.accept(HIBBERTOPTERUS_SPAWN_EGG.get());
                         output.accept(HYNERPETON_SPAWN_EGG.get());

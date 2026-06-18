@@ -132,6 +132,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> CONCAVENATOR_RECIPE_MAPPINGS = modItemTag("recipe_mappings/concavenator");
     public static final TagKey<Item> COTYLORHYNCHUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/cotylorhynchus");
     public static final TagKey<Item> CRYPTOCLIDUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/cryptoclidus");
+    public static final TagKey<Item> GASTRIC_BROODING_FROG_RECIPE_MAPPINGS = modItemTag("recipe_mappings/gastric_brooding_frog");
     public static final TagKey<Item> GIANT_CAMPANILE_RECIPE_MAPPINGS = modItemTag("recipe_mappings/giant_campanile");
     public static final TagKey<Item> HYNERPETON_RECIPE_MAPPINGS = modItemTag("recipe_mappings/hynerpeton");
     public static final TagKey<Item> ICHTHYOSAURUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/ichthyosaurus");

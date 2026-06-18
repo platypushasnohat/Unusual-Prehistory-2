@@ -35,7 +35,7 @@ public class TundraFossilStructure extends Structure {
             return Optional.empty();
         }
         BlockPos pos = new BlockPos(x, y, z);
-        if (this.isSufficientlyFlat(context, pos, 5)) {
+        if (this.isSufficientlyFlat(context, pos, 4)) {
             return Optional.of(new GenerationStub(pos, pieces -> TundraFossilPiece.addPieces(context.structureTemplateManager(), pos, pieces, random)));
         }
         return Optional.empty();
