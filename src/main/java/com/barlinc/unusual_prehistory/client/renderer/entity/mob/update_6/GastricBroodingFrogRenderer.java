@@ -1,9 +1,13 @@
 package com.barlinc.unusual_prehistory.client.renderer.entity.mob.update_6;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.GastricBroodingFrogModel;
+import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.gastric_brooding_frog.GastricBroodingFrogModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.gastric_brooding_frog.GastricBroodingFrogletModel;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.GastricBroodingFrog;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -12,16 +16,28 @@ import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class GastricBroodingFrogRenderer extends MobRenderer<GastricBroodingFrog, GastricBroodingFrogModel> {
+public class GastricBroodingFrogRenderer extends MobRenderer<GastricBroodingFrog, UP2Model<GastricBroodingFrog>> {
 
     private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/gastric_brooding_frog/temperate.png");
+    private static final ResourceLocation TEXTURE_BABY = UnusualPrehistory2.modPrefix("textures/entity/mob/gastric_brooding_frog/temperate_froglet.png");
+
+    private final GastricBroodingFrogModel adultModel;
+    private final GastricBroodingFrogletModel babyModel;
 
     public GastricBroodingFrogRenderer(EntityRendererProvider.Context context) {
         super(context, new GastricBroodingFrogModel(context.bakeLayer(UP2ModelLayers.GASTRIC_BROODING_FROG)), 0.3F);
+        this.adultModel = new GastricBroodingFrogModel(context.bakeLayer(UP2ModelLayers.GASTRIC_BROODING_FROG));
+        this.babyModel = new GastricBroodingFrogletModel(context.bakeLayer(UP2ModelLayers.GASTRIC_BROODING_FROGLET));
+    }
+
+    @Override
+    public void render(GastricBroodingFrog entity, float entityYaw, float partialTicks, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
+        this.model = entity.isBaby() ? babyModel : adultModel;
+        super.render(entity, entityYaw, partialTicks, poseStack, bufferSource, packedLight);
     }
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull GastricBroodingFrog entity) {
-        return TEXTURE;
+        return entity.isBaby() ? TEXTURE_BABY : TEXTURE;
     }
 }

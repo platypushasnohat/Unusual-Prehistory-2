@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.gastric_brooding_frog;
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.GastricBroodingFrogAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
@@ -112,14 +112,17 @@ public class GastricBroodingFrogModel extends UP2Model<GastricBroodingFrog> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
 
-        if (entity.isInWaterOrBubble()) {
-            this.animateWalk(GastricBroodingFrogAnimations.SWIM, limbSwing, limbSwingAmount, 1.0F, 2.5F);
-        } else {
-            this.animateWalk(GastricBroodingFrogAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 2.5F);
+        if (!entity.isLeaping()) {
+            if (entity.isInWaterOrBubble()) {
+                this.animateWalk(GastricBroodingFrogAnimations.SWIM, limbSwing, limbSwingAmount, 1.0F, 2.5F);
+            } else {
+                this.animateWalk(GastricBroodingFrogAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 2.5F);
+            }
         }
 		this.animateIdleSmooth(entity.idleAnimationState, GastricBroodingFrogAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
         this.animateIdleSmooth(entity.idleAnimationState, GastricBroodingFrogAnimations.IDLE_OVERLAY, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
         this.animateIdleSmooth(entity.swimIdleAnimationState, GastricBroodingFrogAnimations.SWIM, ageInTicks, partialTicks, limbSwingAmount, 3);
+        this.animateSmooth(entity.leapAnimationState, GastricBroodingFrogAnimations.JUMP_HOLD, ageInTicks, partialTicks);
 
         if (entity.isInWaterOrBubble()) {
             this.root.xRot = headPitch * ((float) Math.PI / 180F);

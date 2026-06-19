@@ -74,6 +74,6 @@ public abstract class AmphibiousMob extends PrehistoricMob {
 
     @Override
     public boolean canDrownInFluidType(@NotNull FluidType fluidType) {
-        return fluidType != NeoForgeMod.WATER_TYPE.value();
+        return false;
     }
 }

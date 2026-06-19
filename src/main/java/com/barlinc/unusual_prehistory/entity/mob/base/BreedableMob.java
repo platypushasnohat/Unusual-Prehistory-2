@@ -26,7 +26,7 @@ public abstract class BreedableMob extends PrehistoricMob {
 
     @Override
     public int getBaseExperienceReward() {
-        return 1 + this.level().random.nextInt(3);
+        return 1 + this.level().getRandom().nextInt(3);
     }
 
     @Override

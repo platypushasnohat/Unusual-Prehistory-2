@@ -37,6 +37,8 @@ import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.ammonite
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraBodyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraHeadModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.arthropleura.ArthropleuraTailModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.gastric_brooding_frog.GastricBroodingFrogModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.gastric_brooding_frog.GastricBroodingFrogletModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.leedsichthys.LeedsichthysBabyModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.leedsichthys.LeedsichthysModel;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.lingcod.KingLingcodModel;
@@ -300,6 +302,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.COTYLORHYNCHUS, CotylorhynchusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.CRYPTOCLIDUS, CryptoclidusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.GASTRIC_BROODING_FROG, GastricBroodingFrogModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.GASTRIC_BROODING_FROGLET, GastricBroodingFrogletModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.GIANT_CAMPANILE, GiantCampanileModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.HYNERPETON, HynerpetonModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ICHTHYOSAURUS, IchthyosaurusModel::createBodyLayer);
