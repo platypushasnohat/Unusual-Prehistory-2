@@ -91,7 +91,7 @@ public class GastricBroodingFrogletModel extends UP2Model<GastricBroodingFrog> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
 
-        if (!entity.isLeaping()) {
+        if (!entity.isLeaping() && !entity.wasLaunched()) {
             if (entity.isInWaterOrBubble()) {
                 this.animateWalk(GastricBroodingFrogAnimations.FROGLET_SWIM, limbSwing, limbSwingAmount, 1.0F, 2.5F);
             } else {
@@ -102,6 +102,7 @@ public class GastricBroodingFrogletModel extends UP2Model<GastricBroodingFrog> {
         this.animateIdleSmooth(entity.idleAnimationState, GastricBroodingFrogAnimations.FROGLET_IDLE_OVERLAY, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
         this.animateIdleSmooth(entity.swimIdleAnimationState, GastricBroodingFrogAnimations.FROGLET_SWIM, ageInTicks, partialTicks, limbSwingAmount, 3);
         this.animateSmooth(entity.leapAnimationState, GastricBroodingFrogAnimations.FROGLET_JUMP_HOLD, ageInTicks, partialTicks);
+        this.animateSmooth(entity.launchAnimationState, GastricBroodingFrogAnimations.FROGLET_LAUNCH, ageInTicks, partialTicks);
 
         if (entity.isInWaterOrBubble()) {
             this.root.xRot = headPitch * ((float) Math.PI / 180F);

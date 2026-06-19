@@ -123,6 +123,8 @@ public class GastricBroodingFrogModel extends UP2Model<GastricBroodingFrog> {
         this.animateIdleSmooth(entity.idleAnimationState, GastricBroodingFrogAnimations.IDLE_OVERLAY, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
         this.animateIdleSmooth(entity.swimIdleAnimationState, GastricBroodingFrogAnimations.SWIM, ageInTicks, partialTicks, limbSwingAmount, 3);
         this.animateSmooth(entity.leapAnimationState, GastricBroodingFrogAnimations.JUMP_HOLD, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eatAnimationState, GastricBroodingFrogAnimations.ATTTACK_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attackAnimationState, GastricBroodingFrogAnimations.VOMIT_LAUNCH_BLEND, ageInTicks, partialTicks);
 
         if (entity.isInWaterOrBubble()) {
             this.root.xRot = headPitch * ((float) Math.PI / 180F);
