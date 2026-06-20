@@ -5,6 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveC
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -15,6 +16,8 @@ import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -24,13 +27,16 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -41,9 +47,12 @@ import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.*;
@@ -56,8 +65,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, LeapingMob {
+public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, LeapingMob, VariantHolder<GastricBroodingFrog.GastricBroodingFrogVariant> {
 
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(GastricBroodingFrog.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(GastricBroodingFrog.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> LAUNCHED = SynchedEntityData.defineId(GastricBroodingFrog.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_ATTACK = SynchedEntityData.defineId(GastricBroodingFrog.class, EntityDataSerializers.BOOLEAN);
@@ -74,13 +84,13 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.lookControl = new FrogLookControl(this);
-        this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F);
+        this.moveControl = new FrogMoveControl(this);
     }
 
     @Override
     protected void registerGoals() {
 //        this.goalSelector.addGoal(0, new AmphibiousPanicGoal(this, 2.0D, 10, 5, true));
-        this.goalSelector.addGoal(1, new FrogAttackGoal(this));
+        this.goalSelector.addGoal(1, new FrogAttackGoal(this, 20.0F));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_INSECTIVORE), false));
         this.goalSelector.addGoal(3, new LeaveWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D));
@@ -98,7 +108,8 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
                 .add(Attributes.MAX_HEALTH, 16.0D)
                 .add(Attributes.MOVEMENT_SPEED, 1.0F)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
-                .add(Attributes.STEP_HEIGHT, 1.15D);
+                .add(Attributes.STEP_HEIGHT, 1.2D)
+                .add(Attributes.FOLLOW_RANGE, 20.0D);
     }
 
     @Override
@@ -162,6 +173,9 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
 
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
+        if (this.isFromAttack()) {
+            return InteractionResult.PASS;
+        }
         ItemStack itemstack = player.getItemInHand(hand);
         if (this.getEatTicks() <= 0 && this.isFood(itemstack) ) {
             int i = this.getAge();
@@ -234,9 +248,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         final double angle = 57.2957763671875D;
         Vec3 shootVec = (new Vec3(x, y, z)).normalize().scale(scale);
         this.setDeltaMovement(shootVec);
-        float horizontalDistance = (float) shootVec.horizontalDistanceSqr();
         this.setYRot((float) (Mth.atan2(shootVec.x, shootVec.z) * angle));
-        this.setXRot((float) (Mth.atan2(shootVec.y, horizontalDistance) * angle));
         this.xRotO = this.getXRot();
         this.yBodyRot = this.getYRot();
         this.yHeadRot = this.getYRot();
@@ -248,6 +260,14 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
     @Override
     public boolean onClimbable() {
         return !this.wasLaunched() && super.onClimbable();
+    }
+
+    private void onHitEntity(EntityHitResult hitResult) {
+        if (!this.level().isClientSide && hitResult.getEntity() instanceof LivingEntity target) {
+            target.hurt(this.damageSources().mobProjectile(this, this), 6.0F);
+            target.knockback(this.getKnockback(this, this.damageSources().mobProjectile(this, this)) * 0.5F, Mth.sin(this.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180F)));
+            this.setLaunched(false);
+        }
     }
 
     @Override
@@ -271,18 +291,20 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         if (this.wasLaunched()) {
             this.yBodyRot = this.getYRot();
             HitResult hitResult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
+            if (this.isInWater()) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.03D, 0.0D));
+            }
             if (hitResult.getType() != HitResult.Type.MISS) {
                 if (hitResult.getType() == HitResult.Type.ENTITY) {
-                    this.doHurtTarget(((EntityHitResult) hitResult).getEntity());
-                    this.setLaunched(false);
+                    this.onHitEntity(((EntityHitResult) hitResult));
                 }
             }
         }
         if (this.isFromAttack()) {
-            if (this.onGround()) {
+            if (this.onGround() || (tickCount > 20 && this.isInWaterOrBubble())) {
                 this.setLaunched(false);
             }
-            if (this.tickCount > 60) {
+            if (tickCount > 80) {
                 if (this.isAlive()) {
                     this.spawnAnim();
                     this.remove(Entity.RemovalReason.KILLED);
@@ -320,6 +342,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
         builder.define(LEAPING, false);
         builder.define(LAUNCHED, false);
         builder.define(FROM_ATTACK, false);
@@ -328,13 +351,25 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant().getId());
         compoundTag.putBoolean("FromAttack", this.isFromAttack());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
+        this.setVariant(GastricBroodingFrogVariant.byId(compoundTag.getInt("Variant")));
         this.setFromAttack(compoundTag.getBoolean("FromAttack"));
+    }
+
+    @Override
+    public @NotNull GastricBroodingFrogVariant getVariant() {
+        return GastricBroodingFrogVariant.byId(this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void setVariant(GastricBroodingFrogVariant variant) {
+        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, GastricBroodingFrogVariant.values().length));
     }
 
     @Override
@@ -374,7 +409,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
 
     @Override
     public @NotNull ItemStack getBucketItemStack() {
-        return new ItemStack(UP2Items.HYNERPETON_BUCKET.get());
+        return new ItemStack(UP2Items.GASTRIC_BROODING_FROG_BUCKET.get());
     }
 
     @Override
@@ -385,17 +420,23 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
     @Override
     public void saveToBucketTag(@NotNull ItemStack bucket) {
         MobUtils.savePrehistoricDataToBucket(this, bucket);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, (compoundTag) -> compoundTag.putInt("Variant", this.getVariant().getId()));
     }
 
     @Override
     public void loadFromBucketTag(@NotNull CompoundTag compoundTag) {
         MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+        this.setVariant(GastricBroodingFrogVariant.byId(compoundTag.getInt("Variant")));
     }
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        return UP2Entities.GASTRIC_BROODING_FROG.get().create(level);
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
+        GastricBroodingFrog frog = UP2Entities.GASTRIC_BROODING_FROG.get().create(level);
+        if (frog != null) {
+            frog.setVariant(this.getVariant());
+        }
+        return frog;
     }
 
     @Nullable
@@ -421,43 +462,153 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         this.playSound(SoundEvents.FROG_STEP, 0.15F, 1.0F);
     }
 
+    public enum GastricBroodingFrogVariant {
+        TEMPERATE(0),
+        WARM(1),
+        COLD(2);
+
+        private final int id;
+
+        GastricBroodingFrogVariant(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return this.id;
+        }
+
+        public static GastricBroodingFrogVariant byId(int id) {
+            if (id < 0 || id >= GastricBroodingFrogVariant.values().length) {
+                id = 0;
+            }
+            return GastricBroodingFrogVariant.values()[id];
+        }
+    }
+
+    @Override
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+        if (spawnType != MobSpawnType.MOB_SUMMONED) {
+            Holder<Biome> holder = level.getBiome(this.blockPosition());
+            if (holder.is(BiomeTags.SPAWNS_COLD_VARIANT_FROGS)) {
+                this.setVariant(GastricBroodingFrogVariant.COLD);
+            } else if (holder.is(BiomeTags.SPAWNS_WARM_VARIANT_FROGS)) {
+                this.setVariant(GastricBroodingFrogVariant.WARM);
+            } else {
+                this.setVariant(GastricBroodingFrogVariant.TEMPERATE);
+            }
+        }
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
+    }
+
     private static class FrogAttackGoal extends AttackGoal {
 
         protected final GastricBroodingFrog frog;
+        private int seeTime;
+        private boolean strafingClockwise;
+        private boolean strafingBackwards;
+        private int strafingTime = -1;
+        private float verticalStrafe;
+        private int verticalStrafeTime;
+        private final float maxAttackDistance;
 
-        public FrogAttackGoal(GastricBroodingFrog frog) {
+        public FrogAttackGoal(GastricBroodingFrog frog, float maxAttackDistance) {
             super(frog);
             this.frog = frog;
+            this.maxAttackDistance = maxAttackDistance * maxAttackDistance;
         }
 
         @Override
         public void tick() {
             LivingEntity target = frog.getTarget();
             if (target != null) {
-                double distance = frog.distanceTo(target);
-                this.frog.lookAt(target, 30.0F, 30.0F);
-                this.frog.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                double distance = frog.distanceToSqr(target);
 
-                if (this.frog.getAttackState() == 1) {
-                    this.frog.getNavigation().stop();
-                    this.tickEat(target);
-                }
-                else if (this.frog.getAttackState() == 2) {
-                    this.frog.getNavigation().stop();
-                    this.tickLaunchFroglet(target);
-                }
-                else {
-                    if (frog.attackCooldown == 0) {
-                        if (distance <= 1.75D) {
+                if (frog.canSwallowTarget(target)) {
+                    this.lookAtTarget(target);
+
+                    if (this.frog.getAttackState() == 1) {
+                        this.frog.getNavigation().stop();
+                        this.tickEat(target);
+                    }
+                    else {
+                        if (frog.attackCooldown == 0 && distance <= this.getAttackReachSqr(target, 1.75D)) {
                             this.frog.setAttackState(1);
                         }
-                        if (distance > 1.75D) {
-                            this.frog.setAttackState(2);
+                        this.frog.getNavigation().moveTo(target, 1.2D);
+                    }
+                }
+                else {
+                    if (this.frog.getAttackState() == 1) {
+                        this.frog.getNavigation().stop();
+                        this.tickLaunchFroglet(target);
+                    } else {
+                        if (frog.attackCooldown == 0) {
+                            this.frog.setAttackState(1);
+                        }
+                        else {
+                            this.strafe(target, frog.isInWater() ? 0.5F : 0.7F, distance);
                         }
                     }
-                    this.frog.getNavigation().moveTo(target, 1.2D);
                 }
             }
+        }
+
+        @SuppressWarnings("SameParameterValue")
+        private void strafe(LivingEntity target, float speed, double distance) {
+            boolean lineOfSight = frog.hasLineOfSight(target);
+            boolean seen = seeTime > 0;
+
+            if (lineOfSight != seen) {
+                this.seeTime = 0;
+            }
+
+            if (lineOfSight) {
+                this.seeTime++;
+            } else {
+                this.seeTime--;
+            }
+
+            if (!(distance > (double) maxAttackDistance) && seeTime >= 20) {
+                this.frog.getNavigation().stop();
+                this.strafingTime++;
+            } else {
+                this.frog.getNavigation().moveTo(target, speed);
+                this.strafingTime = -1;
+            }
+
+            if (this.strafingTime >= 20) {
+                if (frog.getRandom().nextFloat() < 0.3F) {
+                    this.strafingClockwise = !strafingClockwise;
+                }
+                if (frog.getRandom().nextFloat() < 0.3F) {
+                    this.strafingBackwards = !strafingBackwards;
+                }
+                this.strafingTime = 0;
+            }
+
+            if (this.strafingTime > -1) {
+                if (distance > (double) (maxAttackDistance * 0.75F)) {
+                    this.strafingBackwards = false;
+                } else if (distance < (double) (maxAttackDistance * 0.25F)) {
+                    this.strafingBackwards = true;
+                }
+                this.frog.getMoveControl().strafe(strafingBackwards ? -speed : speed, strafingClockwise ? speed : -speed);
+                if (frog.isInWater()) {
+                    if (verticalStrafeTime-- <= 0) {
+                        this.verticalStrafe = (frog.getRandom().nextFloat() - 0.5F) * 2.0F;
+                        this.verticalStrafeTime = 20 + frog.getRandom().nextInt(20);
+                    }
+                    this.frog.setDeltaMovement(frog.getDeltaMovement().add(0.0D, verticalStrafe * speed * 0.04D, 0.0D));
+                }
+                this.frog.lookAt(target, 30.0F, 30.0F);
+            } else {
+                this.frog.getLookControl().setLookAt(target, 30.0F, 30.0F);
+            }
+        }
+
+        private void lookAtTarget(LivingEntity target) {
+            this.frog.lookAt(target, 30.0F, 30.0F);
+            this.frog.getLookControl().setLookAt(target, 30.0F, 30.0F);
         }
 
         protected void tickEat(LivingEntity target) {
@@ -488,17 +639,18 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
 
         protected void tickLaunchFroglet(LivingEntity target) {
             this.timer++;
-            ServerLevel serverLevel = (ServerLevel) frog.level();
             if (timer == 1) {
                 this.frog.setPose(UP2Poses.ATTACKING.get());
             }
             if (timer == 2) {
+                ServerLevel serverLevel = (ServerLevel) frog.level();
                 GastricBroodingFrog froglet = UP2Entities.GASTRIC_BROODING_FROG.get().create(frog.level());
                 if (froglet != null) {
                     froglet.setFromAttack(true);
                     froglet.setBaby(true);
-                    froglet.setPos(frog.getX(), frog.getEyeY(), frog.getZ());
-                    double eyeY = target.getEyeY() - (double) 1.1F;
+                    froglet.setVariant(frog.getVariant());
+                    froglet.setPos(frog.getX(), frog.getEyeY() - 0.335D, frog.getZ());
+                    double eyeY = target.getEyeY() - (frog.isInWater() ? 2.0D : 1.25D);
                     double x = target.getX() - frog.getX();
                     double y = eyeY - froglet.getY();
                     double z = target.getZ() - frog.getZ();
@@ -506,10 +658,9 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
                     this.frog.gameEvent(GameEvent.PROJECTILE_SHOOT);
                     this.frog.playSound(SoundEvents.SLIME_ATTACK, 1.0F, 1.0F / (frog.getRandom().nextFloat() * 0.4F + 0.8F));
                     double horizontalDistance = Math.sqrt(x * x + z * z);
-                    float speed = Mth.lerp(Mth.clamp((float) (horizontalDistance / 16.0D), 0.0F, 1.0F), 1.15F, 2.15F);
+                    float speed = Mth.lerp(Mth.clamp((float) (horizontalDistance / 16.0D), 0.0F, 1.0F), 1.0F, 2.0F);
                     froglet.shootFroglet(x, y + (double) distanceSqr, z, speed);
                     froglet.setYRot(frog.getYRot() % 360.0F);
-                    froglet.setXRot(Mth.clamp(frog.getYRot(), -90.0F, 90.0F) % 360.0F);
                     if (!frog.level().isClientSide) {
                         this.frog.level().addFreshEntity(froglet);
                         EventHooks.finalizeMobSpawn(mob, serverLevel, serverLevel.getCurrentDifficultyAt(frog.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
@@ -520,8 +671,64 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
             if (timer > 10) {
                 this.timer = 0;
                 this.frog.setPose(Pose.STANDING);
-                this.frog.attackCooldown = 10 + frog.getRandom().nextInt(10);
+                this.frog.attackCooldown = 15 + frog.getRandom().nextInt(10);
                 this.frog.setAttackState(0);
+            }
+        }
+    }
+
+    private static class FrogMoveControl extends PrehistoricSwimmingMoveControl {
+
+        public FrogMoveControl(PrehistoricMob prehistoricMob) {
+            super(prehistoricMob, 85, 10, 0.02F, 0.1F);
+        }
+
+        @Override
+        public void tick() {
+            if (!prehistoricMob.refuseToMove()) {
+                if (this.operation == MoveControl.Operation.STRAFE) {
+                    float speed = (float) (speedModifier * (float) mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                    if (mob.isInWater()) {
+                        float forward = strafeForwards;
+                        float right = strafeRight;
+                        float length = Mth.sqrt(forward * forward + right * right);
+                        if (length < 1.0F) {
+                            length = 1.0F;
+                        }
+                        forward /= length;
+                        right /= length;
+                        float yaw = mob.getYRot() * ((float) Math.PI / 180.0F);
+                        float x = forward * -Mth.sin(yaw) + right * Mth.cos(yaw);
+                        float z = forward * Mth.cos(yaw) + right * Mth.sin(yaw);
+                        this.mob.setSpeed(speed * 0.02F);
+                        this.mob.setDeltaMovement(mob.getDeltaMovement().add(x * speed * 0.05D, 0.0D, z * speed * 0.05D));
+                    } else {
+                        float forward = strafeForwards;
+                        float right = strafeRight;
+                        float length = Mth.sqrt(forward * forward + right * right);
+                        if (length < 1.0F) {
+                            length = 1.0F;
+                        }
+
+                        length = speed / length;
+                        forward *= length;
+                        right *= length;
+                        float yaw = mob.getYRot() * ((float) Math.PI / 180.0F);
+                        float x = forward * -Mth.sin(yaw) + right * Mth.cos(yaw);
+                        float z = forward * Mth.cos(yaw) + right * Mth.sin(yaw);
+                        if (!this.isWalkable(x, z)) {
+                            this.strafeForwards = 1.0F;
+                            this.strafeRight = 0.0F;
+                        }
+
+                        this.mob.setSpeed(speed * 0.1F);
+                        this.mob.setZza(strafeForwards);
+                        this.mob.setXxa(strafeRight);
+                        this.operation = MoveControl.Operation.WAIT;
+                    }
+                } else {
+                    super.tick();
+                }
             }
         }
     }

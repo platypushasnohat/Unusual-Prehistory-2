@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "unusual_prehistory:item/gastric_brooding_frog_bucket_temperate"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "unusual_prehistory:variant": 0
+      },
+      "model": "unusual_prehistory:item/gastric_brooding_frog_bucket"
+    },
+    {
+      "predicate": {
+        "unusual_prehistory:variant": 1
+      },
+      "model": "unusual_prehistory:item/gastric_brooding_frog_bucket_warm"
+    },
+    {
+      "predicate": {
+        "unusual_prehistory:variant": 2
+      },
+      "model": "unusual_prehistory:item/gastric_brooding_frog_bucket_cold"
+    }
+  ]
+}

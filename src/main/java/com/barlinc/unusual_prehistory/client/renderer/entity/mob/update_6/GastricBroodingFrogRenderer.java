@@ -15,11 +15,10 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
+
 @OnlyIn(Dist.CLIENT)
 public class GastricBroodingFrogRenderer extends MobRenderer<GastricBroodingFrog, UP2Model<GastricBroodingFrog>> {
-
-    private static final ResourceLocation TEXTURE = UnusualPrehistory2.modPrefix("textures/entity/mob/gastric_brooding_frog/temperate.png");
-    private static final ResourceLocation TEXTURE_BABY = UnusualPrehistory2.modPrefix("textures/entity/mob/gastric_brooding_frog/temperate_froglet.png");
 
     private final GastricBroodingFrogModel adultModel;
     private final GastricBroodingFrogletModel babyModel;
@@ -38,6 +37,10 @@ public class GastricBroodingFrogRenderer extends MobRenderer<GastricBroodingFrog
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull GastricBroodingFrog entity) {
-        return entity.isBaby() ? TEXTURE_BABY : TEXTURE;
+        GastricBroodingFrog.GastricBroodingFrogVariant variant = GastricBroodingFrog.GastricBroodingFrogVariant.byId(entity.getVariant().getId());
+        if (entity.isBaby()) {
+            return UnusualPrehistory2.modPrefix("textures/entity/mob/gastric_brooding_frog/" + variant.name().toLowerCase(Locale.ROOT) + "_froglet.png");
+        }
+        return UnusualPrehistory2.modPrefix("textures/entity/mob/gastric_brooding_frog/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }

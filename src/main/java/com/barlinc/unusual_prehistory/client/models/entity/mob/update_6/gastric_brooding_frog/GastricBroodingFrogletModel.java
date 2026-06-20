@@ -104,7 +104,7 @@ public class GastricBroodingFrogletModel extends UP2Model<GastricBroodingFrog> {
         this.animateSmooth(entity.leapAnimationState, GastricBroodingFrogAnimations.FROGLET_JUMP_HOLD, ageInTicks, partialTicks);
         this.animateSmooth(entity.launchAnimationState, GastricBroodingFrogAnimations.FROGLET_LAUNCH, ageInTicks, partialTicks);
 
-        if (entity.isInWaterOrBubble()) {
+        if (entity.isInWaterOrBubble() && !entity.wasLaunched()) {
             this.root.xRot = headPitch * ((float) Math.PI / 180F);
         }
 	}

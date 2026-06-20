@@ -545,6 +545,11 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.add("item.unusual_prehistory.plushie_kit.desc", "Used to sew plushies from mobs");
 
+        this.addItem(UP2Items.GASTRIC_BROODING_FROG_BUCKET, "Bucket of Gastric-Brooding Frog");
+        this.add("entity.unusual_prehistory.gastric_brooding_frog.variant_temperate", "Temperate");
+        this.add("entity.unusual_prehistory.gastric_brooding_frog.variant_warm", "Warm");
+        this.add("entity.unusual_prehistory.gastric_brooding_frog.variant_cold", "Cold");
+
         // Future
         this.addItem(UP2Items.PETRIFIED_LUCA, "Petrified L.U.C.A");
         this.addItem(UP2Items.LUCA, "L.U.C.A");
@@ -685,7 +690,6 @@ public class UP2LanguageProvider extends LanguageProvider {
 
         this.add("item.unusual_prehistory.paleopedia.era.tooltip.jawless_fish", "§7Lived from the §fMid Ordovician Period §7to the §fEarly Devonian Period");
 
-
         this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_title.projectile_egg", "Projectile Egg");
         this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip.projectile_egg", "§7Egg must be thrown to hatch");
         this.add("item.unusual_prehistory.paleopedia.clone_type.tooltip_title.nest_egg", "Nest Egg");
@@ -802,8 +806,6 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.add("death.attack.unusual_prehistory.execute", "%s was executed by %s");
 
         this.add("death.attack.unusual_prehistory.grug", "%s got Grugged");
-
-
 
         // Jade
         this.add("unusual_prehistory.jade.prehistoric_mob.age_locked", "Age Locked");

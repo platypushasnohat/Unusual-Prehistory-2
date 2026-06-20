@@ -7,6 +7,7 @@ import com.barlinc.unusual_prehistory.entity.mob.update_1.JawlessFish;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Coelacanthus;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.LobeFinnedFish;
 import com.barlinc.unusual_prehistory.entity.mob.update_4.Pterodactylus;
+import com.barlinc.unusual_prehistory.entity.mob.update_6.GastricBroodingFrog;
 import com.barlinc.unusual_prehistory.items.*;
 import com.barlinc.unusual_prehistory.registry.tags.UP2BannerPatternTags;
 import com.barlinc.unusual_prehistory.utils.VariantHelper;
@@ -288,6 +289,8 @@ public class UP2Items {
     public static final DeferredItem<Item> LEEDSICHTHYS_SLICE = registerItem("leedsichthys_slice", () -> new Item(registerFoodValue(UP2FoodValues.LEEDSICHTHYS_SLICE)));
 
     public static final DeferredItem<Item> PLUSHIE_KIT = registerItem("plushie_kit", () -> new PlushieKitItem(new Item.Properties()));
+
+    public static final DeferredItem<Item> GASTRIC_BROODING_FROG_BUCKET = registerItemNoLang("gastric_brooding_frog_bucket", () -> new UP2MobBucketItem(UP2Entities.GASTRIC_BROODING_FROG.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1), VariantHelper.nameOf(GastricBroodingFrog.GastricBroodingFrogVariant::byId)));
 
     public static final DeferredItem<Item> AMBER_BEAR = registerItem("amber_bear", () -> new RelicItem(1, 5000, 10000, new Item.Properties()));
     public static final DeferredItem<Item> COPROLITE = registerItem("coprolite", () -> new RelicItem(3, 10, 400, new Item.Properties()));

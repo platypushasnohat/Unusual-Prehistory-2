@@ -167,6 +167,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(COELACANTHUS_BUCKET.get());
                         output.accept(DIPLOCAULUS_BUCKET.get());
                         output.accept(DUNKLEOSTEUS_BUCKET.get());
+                        output.accept(GASTRIC_BROODING_FROG_BUCKET.get());
                         output.accept(HYNERPETON_BUCKET.get());
                         output.accept(JAWLESS_FISH_BUCKET.get());
                         output.accept(KIMMERIDGEBRACHYPTERAESCHNIDIUM_NYMPH_BUCKET.get());

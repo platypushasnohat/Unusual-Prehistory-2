@@ -67,19 +67,23 @@ public class UP2MobBucketItem extends MobBucketItem {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, List<Component> components, @NotNull TooltipFlag flag) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag flag) {
         super.appendHoverText(stack, context, components, flag);
 
-        if (variantNameGetter == null) return;
+        if (variantNameGetter == null) {
+            return;
+        }
         ChatFormatting[] grayChatFormatting = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
         CustomData customdata = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
 
-        if (customdata.isEmpty() || !customdata.contains("BucketVariantTag")) return;
+        if (customdata.isEmpty() || !customdata.contains("Variant")) {
+            return;
+        }
 
-        int variantId = customdata.copyTag().getInt("BucketVariantTag");
+        int variantId = customdata.copyTag().getInt("Variant");
         String variantName = variantNameGetter.apply(variantId);
 
-        EntityType<?> type = this.entityType;
+        EntityType<?> type = entityType;
         ResourceLocation key = EntityType.getKey(type);
 
         String translationKey = "entity." + key.getNamespace() + "." + key.getPath() + ".variant_" + variantName;
