@@ -29,45 +29,53 @@ public class PrehistoricMoveControl extends MoveControl {
     public void tick() {
         if (!prehistoricMob.refuseToMove()) {
             if (this.operation == Operation.STRAFE) {
-                this.doStrafing();
-            } else if (this.operation == Operation.MOVE_TO) {
+                this.doStrafing(true);
+            }
+            else if (this.operation == Operation.MOVE_TO) {
                 this.doMoveTo();
                 if (!prehistoricMob.isLeashed() && prehistoricMob.isSitting() && !prehistoricMob.isOrderedToSit()) {
                     this.prehistoricMob.setSitting(false);
                 }
-            } else if (operation == Operation.JUMPING) {
+            }
+            else if (operation == Operation.JUMPING) {
                 this.mob.setSpeed((float) (speedModifier * mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
                 if (mob.onGround()) {
                     this.operation = Operation.WAIT;
                 }
-            } else {
+            }
+            else {
                 this.mob.setZza(0.0F);
             }
         }
     }
 
-    public void doStrafing() {
-        float speed = (float) (speedModifier * mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
-        float forwards = strafeForwards;
+    public void doStrafing(boolean requireWalkable) {
+        float speed = (float) speedModifier * (float) mob.getAttributeValue(Attributes.MOVEMENT_SPEED);
+        float forward = strafeForwards;
         float right = strafeRight;
-        float sqrt = Mth.sqrt(forwards * forwards + right * right);
-        if (sqrt < 1.0F) {
-            sqrt = 1.0F;
+
+        float length = Mth.sqrt(forward * forward + right * right);
+        if (length < 1.0F) {
+            length = 1.0F;
         }
-        sqrt = speed / sqrt;
-        forwards *= sqrt;
-        right *= sqrt;
-        float f5 = Mth.sin(mob.getYRot() * Mth.DEG_TO_RAD);
-        float f6 = Mth.cos(mob.getYRot() * Mth.DEG_TO_RAD);
-        float f7 = forwards * f6 - right * f5;
-        float f8 = right * f6 + forwards * f5;
-        if (!this.isWalkable(f7, f8)) {
+
+        float scale = speed / length;
+        forward *= scale;
+        right *= scale;
+
+        float sin = Mth.sin(mob.getYRot() * ((float) Math.PI / 180F));
+        float cos = Mth.cos(mob.getYRot() * ((float) Math.PI / 180F));
+        float x = forward * cos - right * sin;
+        float z = right * cos + forward * sin;
+
+        if (requireWalkable && !this.isWalkable(x, z)) {
             this.strafeForwards = 1.0F;
             this.strafeRight = 0.0F;
+            return;
         }
-        this.mob.setSpeed(speed);
-        this.mob.setZza(strafeForwards);
-        this.mob.setXxa(strafeRight);
+
+        double speedMultiplier = mob.isInWater() ? 0.02D : 0.1D;
+        this.mob.setDeltaMovement(mob.getDeltaMovement().add(x * speedMultiplier, 0.0D, z * speedMultiplier));
         this.operation = Operation.WAIT;
     }
 
@@ -77,8 +85,8 @@ public class PrehistoricMoveControl extends MoveControl {
         double x = wantedX - mob.getX();
         double y = wantedY - mob.getY();
         double z = wantedZ - mob.getZ();
-        double direction = x * x + y * y + z * z;
-        if (direction < (double) 2.5000003E-7F) {
+        double length = x * x + y * y + z * z;
+        if (length < (double) 2.5000003E-7F) {
             this.mob.setZza(0.0F);
             return;
         }

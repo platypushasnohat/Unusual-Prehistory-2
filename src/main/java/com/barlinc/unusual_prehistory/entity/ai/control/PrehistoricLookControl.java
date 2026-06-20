@@ -7,10 +7,16 @@ import net.minecraft.world.entity.ai.control.LookControl;
 public class PrehistoricLookControl extends LookControl {
 
     protected final PrehistoricMob mob;
+    protected final boolean resetXRotOnTick;
 
     public PrehistoricLookControl(PrehistoricMob mob) {
+        this(mob, true);
+    }
+
+    public PrehistoricLookControl(PrehistoricMob mob, boolean resetXRotOnTick) {
         super(mob);
         this.mob = mob;
+        this.resetXRotOnTick = resetXRotOnTick;
     }
 
     @Override
@@ -25,6 +31,8 @@ public class PrehistoricLookControl extends LookControl {
         if (mob instanceof LeapingMob leapingMob) {
             return !leapingMob.isLeaping();
         }
-        return super.resetXRotOnTick();
+        else {
+            return resetXRotOnTick;
+        }
     }
 }

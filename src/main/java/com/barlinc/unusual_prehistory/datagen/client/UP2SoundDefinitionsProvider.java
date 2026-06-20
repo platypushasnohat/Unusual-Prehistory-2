@@ -909,6 +909,58 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/frog/step4").pitch(0.8F)
         );
 
+        // Gastric Brooding Frog
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_HURT,
+                sound("mob/frog/hurt1").pitch(0.93F),
+                sound("mob/frog/hurt2").pitch(0.93F),
+                sound("mob/frog/hurt3").pitch(0.93F),
+                sound("mob/frog/hurt4").pitch(0.93F),
+                sound("mob/frog/hurt5").pitch(0.93F)
+        );
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_DEATH,
+                sound("mob/frog/death1").pitch(0.93F),
+                sound("mob/frog/death2").pitch(0.93F),
+                sound("mob/frog/death3").pitch(0.93F)
+        );
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_IDLE,
+                sound("mob/frog/idle1").pitch(0.93F),
+                sound("mob/frog/idle2").pitch(0.93F),
+                sound("mob/frog/idle3").pitch(0.93F),
+                sound("mob/frog/idle4").pitch(0.93F),
+                sound("mob/frog/idle5").pitch(0.93F),
+                sound("mob/frog/idle6").pitch(0.93F),
+                sound("mob/frog/idle7").pitch(0.93F),
+                sound("mob/frog/idle8").pitch(0.93F)
+        );
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_STEP,
+                sound("mob/frog/step1").pitch(0.93F),
+                sound("mob/frog/step2").pitch(0.93F),
+                sound("mob/frog/step3").pitch(0.93F),
+                sound("mob/frog/step4").pitch(0.93F)
+        );
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_LEAP,
+                sound("mob/frog/long_jump1").pitch(0.93F),
+                sound("mob/frog/long_jump2").pitch(0.93F),
+                sound("mob/frog/long_jump3").pitch(0.93F),
+                sound("mob/frog/long_jump4").pitch(0.93F)
+        );
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_LAUNCH,
+                sound("mob/slime/attack1").pitch(1.08F),
+                sound("mob/slime/attack2").pitch(1.08F)
+        );
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_EAT,
+                sound("mob/frog/eat1").pitch(0.93F),
+                sound("mob/frog/eat2").pitch(0.93F),
+                sound("mob/frog/eat3").pitch(0.93F),
+                sound("mob/frog/eat4").pitch(0.93F)
+        );
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_TONGUE,
+                sound("mob/frog/tongue1").pitch(0.93F),
+                sound("mob/frog/tongue2").pitch(0.93F),
+                sound("mob/frog/tongue3").pitch(0.93F),
+                sound("mob/frog/tongue4").pitch(0.93F)
+        );
+
         this.sound(UP2SoundEvents.GIANT_CAMPANILE_HURT,
                 sound("mob/slime/big1").pitch(0.8F),
                 sound("mob/slime/big2").pitch(0.8F),

@@ -239,6 +239,15 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> CRYPTOCLIDUS_ATTACK = registerSoundEvent("cryptoclidus_attack");
     public static final DeferredHolder<SoundEvent, SoundEvent> CRYPTOCLIDUS_STEP = registerSoundEvent("cryptoclidus_step");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> GASTRIC_BROODING_FROG_HURT = registerSoundEvent("gastric_brooding_frog_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GASTRIC_BROODING_FROG_DEATH = registerSoundEvent("gastric_brooding_frog_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GASTRIC_BROODING_FROG_IDLE = registerSoundEvent("gastric_brooding_frog_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GASTRIC_BROODING_FROG_STEP = registerSoundEvent("gastric_brooding_frog_step");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GASTRIC_BROODING_FROG_LEAP = registerSoundEvent("gastric_brooding_frog_leap");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GASTRIC_BROODING_FROG_LAUNCH = registerSoundEvent("gastric_brooding_frog_launch");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GASTRIC_BROODING_FROG_EAT = registerSoundEvent("gastric_brooding_frog_eat");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GASTRIC_BROODING_FROG_TONGUE = registerSoundEvent("gastric_brooding_frog_tongue");
+
     public static final DeferredHolder<SoundEvent, SoundEvent> GIANT_CAMPANILE_HURT = registerSoundEvent("giant_campanile_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> GIANT_CAMPANILE_DEATH = registerSoundEvent("giant_campanile_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> GIANT_CAMPANILE_IDLE = registerSoundEvent("giant_campanile_idle");

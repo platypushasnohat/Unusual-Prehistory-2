@@ -444,6 +444,15 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.CRYPTOCLIDUS_ATTACK, "Cryptoclidus bites");
         this.sound(UP2SoundEvents.CRYPTOCLIDUS_STEP, "Cryptoclidus steps");
 
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_HURT, "Gastric Brooding Frog hurts");
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_DEATH, "Gastric Brooding Frog dies");
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_IDLE, "Gastric Brooding Frog croaks");
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_STEP, "Gastric Brooding Frog steps");
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_LEAP, "Gastric Brooding Frog jumps");
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_LAUNCH, "Gastric Brooding Frog launches froglet");
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_EAT, "Gastric Brooding Frog eats");
+        this.sound(UP2SoundEvents.GASTRIC_BROODING_FROG_TONGUE, "Gastric Brooding Frog launches tongue");
+
         this.sound(UP2SoundEvents.GIANT_CAMPANILE_HURT, "Giant Campanile hurts");
         this.sound(UP2SoundEvents.GIANT_CAMPANILE_DEATH, "Giant Campanile dies");
         this.sound(UP2SoundEvents.GIANT_CAMPANILE_IDLE, "Giant Campanile rumbles");
