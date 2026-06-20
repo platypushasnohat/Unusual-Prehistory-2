@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -12,6 +13,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.Objects;
+import java.util.UUID;
 
 @SuppressWarnings("deprecation")
 public class MobUtils {
@@ -42,6 +46,9 @@ public class MobUtils {
             compoundTag.putBoolean("FromEgg", mob.isFromEgg());
             compoundTag.putInt("EatingCooldown", mob.getEatCooldown());
             compoundTag.putBoolean("Pacified", mob.isPacified());
+            if (mob.getOwnerUUID() != null) {
+                compoundTag.putUUID("Owner", mob.getOwnerUUID());
+            }
         });
     }
 
@@ -58,6 +65,22 @@ public class MobUtils {
         }
         if (compoundTag.contains("EatingCooldown")) {
             mob.setEatCooldown(compoundTag.getInt("EatingCooldown"));
+        }
+
+        UUID uuid;
+        if (compoundTag.hasUUID("Owner")) {
+            uuid = compoundTag.getUUID("Owner");
+        } else {
+            String owner = compoundTag.getString("Owner");
+            uuid = OldUsersConverter.convertMobOwnerIfNecessary(Objects.requireNonNull(mob.getServer()), owner);
+        }
+        if (uuid != null) {
+            try {
+                mob.setOwnerUUID(uuid);
+                mob.setTame(true, false);
+            } catch (Throwable throwable) {
+                mob.setTame(false, true);
+            }
         }
     }
 }

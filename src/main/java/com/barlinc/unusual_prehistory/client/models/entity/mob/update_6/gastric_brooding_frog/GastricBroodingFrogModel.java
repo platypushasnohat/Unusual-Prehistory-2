@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.client.models.entity.mob.update_6.gastric_brooding_frog;
 
+import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.AntarctopeltaAnimations;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.update_6.GastricBroodingFrogAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.update_6.GastricBroodingFrog;
@@ -82,7 +83,7 @@ public class GastricBroodingFrogModel extends UP2Model<GastricBroodingFrog> {
 
         PartDefinition jaw = body.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(0, 29).addBox(-4.0F, 0.0F, -11.0F, 8.0F, 2.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 5.0F));
 
-        PartDefinition tongue = jaw.addOrReplaceChild("tongue", CubeListBuilder.create().texOffs(-11, 48).addBox(-2.0F, 0.0F, -11.0F, 4.0F, 0.0F, 11.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition tongue = jaw.addOrReplaceChild("tongue", CubeListBuilder.create().texOffs(-11, 48).addBox(-2.0F, 0.0F, -10.978F, 4.0F, 0.0F, 11.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition arm_control = body_main.addOrReplaceChild("arm_control", CubeListBuilder.create(), PartPose.offset(0.0F, 2.0F, -0.5F));
 
@@ -112,25 +113,37 @@ public class GastricBroodingFrogModel extends UP2Model<GastricBroodingFrog> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
 
-        if (!entity.isLeaping()) {
+        if (!entity.isLeaping() && !entity.isPassenger() && !entity.isSitting()) {
             if (entity.isInWaterOrBubble()) {
                 this.animateWalk(GastricBroodingFrogAnimations.SWIM, limbSwing, limbSwingAmount, 1.0F, 2.5F);
             } else {
                 this.animateWalk(GastricBroodingFrogAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 2.5F);
             }
         }
-		this.animateIdleSmooth(entity.idleAnimationState, GastricBroodingFrogAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
+        this.animateIdleSmooth(entity.idleAnimationState, GastricBroodingFrogAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
         this.animateIdleSmooth(entity.idleAnimationState, GastricBroodingFrogAnimations.IDLE_OVERLAY, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
         this.animateIdleSmooth(entity.swimIdleAnimationState, GastricBroodingFrogAnimations.SWIM, ageInTicks, partialTicks, limbSwingAmount, 3);
         this.animateSmooth(entity.leapAnimationState, GastricBroodingFrogAnimations.JUMP_HOLD, ageInTicks, partialTicks);
         this.animateSmooth(entity.eatAnimationState, GastricBroodingFrogAnimations.ATTTACK_BLEND, ageInTicks, partialTicks);
         this.animateSmooth(entity.attackAnimationState, GastricBroodingFrogAnimations.VOMIT_LAUNCH_BLEND, ageInTicks, partialTicks);
-        this.animateSmooth(entity.sitAnimationState, GastricBroodingFrogAnimations.IDLE, ageInTicks, partialTicks);
+        this.animateSmooth(entity.blinkAnimationState, GastricBroodingFrogAnimations.BLINK_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.croakAnimationState, GastricBroodingFrogAnimations.IDLE_CROAK_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.yawnAnimationState, GastricBroodingFrogAnimations.IDLE_YAWN_BLEND, ageInTicks, partialTicks);
 
         if (entity.isInWaterOrBubble()) {
+            this.animateSmooth(entity.sitAnimationState, GastricBroodingFrogAnimations.SWIM, ageInTicks, partialTicks);
+        } else {
+            this.animateSmooth(entity.sitAnimationState, GastricBroodingFrogAnimations.IDLE, ageInTicks, partialTicks);
+        }
+
+        if (entity.isInWaterOrBubble() && !entity.isPassenger()) {
             this.root.xRot = headPitch * ((float) Math.PI / 180F);
         }
-	}
+
+        if (entity.hasFroglet()) {
+            this.applyStatic(GastricBroodingFrogAnimations.PREGNANT_OVERLAY);
+        }
+    }
 
 	@Override
 	public @NotNull ModelPart root() {

@@ -74,8 +74,7 @@ public class PrehistoricMoveControl extends MoveControl {
             return;
         }
 
-        double speedMultiplier = mob.isInWater() ? 0.02D : 0.1D;
-        this.mob.setDeltaMovement(mob.getDeltaMovement().add(x * speedMultiplier, 0.0D, z * speedMultiplier));
+        this.mob.setDeltaMovement(mob.getDeltaMovement().add(x, 0.0D, z));
         this.operation = Operation.WAIT;
     }
 

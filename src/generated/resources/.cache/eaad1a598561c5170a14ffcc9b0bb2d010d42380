@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-17T21:38:04.9292582	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-06-20T14:18:05.8114255	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/foods/fruit.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -110,6 +110,7 @@ c0fa9092769051c44168ec2af0d48a6b9dafc696 data/unusual_prehistory/tags/item/recip
 0fecd3270477922b2a37da54d59d383651bf6958 data/unusual_prehistory/tags/item/recipe_mappings/lorrainosaurus.json
 770e22cbe2547812d269a041eff6f3015b22c5c5 data/unusual_prehistory/tags/item/recipe_mappings/lystrosaurus.json
 87272bf3a8946b09e1aca7bb590fce257c23bc12 data/unusual_prehistory/tags/item/recipe_mappings/majungasaurus.json
+189d3743e02ece14ec912e89f3274afb417ec257 data/unusual_prehistory/tags/item/recipe_mappings/megalania.json
 87ea83ed4e33147808cd2c4efc75b0ec68261c34 data/unusual_prehistory/tags/item/recipe_mappings/metriorhynchus.json
 9df9b0c2bc30647d1fe1ff3b8c3460a8adc4b7ac data/unusual_prehistory/tags/item/recipe_mappings/onchopristis.json
 05287c27b292d25d840a2ededdfa54fb73f37542 data/unusual_prehistory/tags/item/recipe_mappings/pachycephalosaurus.json
@@ -136,6 +137,7 @@ ff07c521dd33e35f38a8521b108c24c6a1140cfa data/unusual_prehistory/tags/item/rose_
 635de4c7559d65c52269150e0f5edf6de7379583 data/unusual_prehistory/tags/item/stops_mob_aging.json
 65a948972be54d0dc9ce5ee6eb59a29341fd6ec0 data/unusual_prehistory/tags/item/sweet_cotylorhynchus_food.json
 4d850c9e536882dc6651e44454c6551d739210bd data/unusual_prehistory/tags/item/tames_concavenator.json
+105727dc444ddc319293c250e6c64f197b4ba151 data/unusual_prehistory/tags/item/tames_gastric_brooding_frog.json
 243f2dab6ef46a493d12775f6f28baf7b72922cf data/unusual_prehistory/tags/item/tames_kaprosuchus.json
 36f6f9ee2db6fb21a405b24d3ab1e8118b294286 data/unusual_prehistory/tags/item/tames_king_lingcod.json
 ed812d11a070d92ca88d1d889a167aa4dcda4159 data/unusual_prehistory/tags/item/tames_megalania.json
@@ -147,6 +149,7 @@ efe6d58e86177a50d0cd62cbaa1b811e7f7c0715 data/unusual_prehistory/tags/item/tartu
 65517f45a4d2b94c69defe3ec084e4866c2d9237 data/unusual_prehistory/tags/item/teal_dyes.json
 e8e1ed20a45b0e9d0a2087ca9b7d34bb5aca37bf data/unusual_prehistory/tags/item/tempts_arthropleura.json
 cc267fa0624e0f319c9aab6f82c1584747c18909 data/unusual_prehistory/tags/item/tempts_concavenator.json
+6827f682a969af3cac545c83c78e7be015c6cdb5 data/unusual_prehistory/tags/item/tempts_gastric_brooding_frog.json
 8c321aba0a93319f8359cfb34bed8e7ed948c620 data/unusual_prehistory/tags/item/tempts_lingcod.json
 4c9e07b11895bbe6e04fc38db9fb4d0a9dc448a0 data/unusual_prehistory/tags/item/tempts_thylacine.json
 30f1477f8902716e21f1b4679f260a7373960bab data/unusual_prehistory/tags/item/transmogrifier_fuel.json

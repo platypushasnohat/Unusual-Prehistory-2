@@ -74,6 +74,8 @@ public class UP2EntityTags {
     public static final TagKey<EntityType<?>> PROGNATHODON_FIGHT_TARGETS = modEntityTag("prognathodon_fight_targets");
     public static final TagKey<EntityType<?>> THYLACINE_TARGETS = modEntityTag("thylacine_targets");
 
+    public static final TagKey<EntityType<?>> GASTRIC_BROODING_FROG_TARGETS = modEntityTag("gastric_brooding_frog_targets");
+
     public static final TagKey<EntityType<?>> ARTHROPLEURA_CANT_CARRY = modEntityTag("arthropleura_cant_carry");
     public static final TagKey<EntityType<?>> ARTHROPLEURA_CAN_CARRY = modEntityTag("arthropleura_can_carry");
 

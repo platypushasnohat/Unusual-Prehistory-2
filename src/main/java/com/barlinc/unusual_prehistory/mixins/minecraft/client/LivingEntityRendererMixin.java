@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory.mixins.minecraft.client;
 
+import com.barlinc.unusual_prehistory.entity.mob.update_6.GastricBroodingFrog;
 import com.barlinc.unusual_prehistory.events.ModelRotationEvent;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.EntityModel;
@@ -7,12 +8,14 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.common.NeoForge;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntityRenderer.class)
@@ -32,5 +35,15 @@ public abstract class LivingEntityRendererMixin extends EntityRenderer<LivingEnt
         if (event.isCanceled()) {
             ci.cancel();
         }
+    }
+
+    @Redirect(method = "render(Lnet/minecraft/world/entity/LivingEntity;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;shouldRiderSit()Z"))
+    private boolean unusualPrehistory$shouldRiderSitRender(Entity vehicle) {
+        for (Entity passenger : vehicle.getPassengers()) {
+            if (passenger instanceof GastricBroodingFrog) {
+                return false;
+            }
+        }
+        return vehicle.shouldRiderSit();
     }
 }

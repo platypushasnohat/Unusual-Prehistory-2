@@ -69,6 +69,37 @@ public class PrehistoricSwimmingMoveControl extends PrehistoricMoveControl {
         }
     }
 
+    @Override
+    public void doStrafing(boolean requireWalkable) {
+        float speed = (float) speedModifier * (float) mob.getAttributeValue(Attributes.MOVEMENT_SPEED);
+        float forward = strafeForwards;
+        float right = strafeRight;
+
+        float length = Mth.sqrt(forward * forward + right * right);
+        if (length < 1.0F) {
+            length = 1.0F;
+        }
+
+        float scale = speed / length;
+        forward *= scale;
+        right *= scale;
+
+        float sin = Mth.sin(mob.getYRot() * ((float) Math.PI / 180F));
+        float cos = Mth.cos(mob.getYRot() * ((float) Math.PI / 180F));
+        float x = forward * cos - right * sin;
+        float z = right * cos + forward * sin;
+
+        if (requireWalkable && !this.isWalkable(x, z)) {
+            this.strafeForwards = 1.0F;
+            this.strafeRight = 0.0F;
+            return;
+        }
+
+        double speedMultiplier = mob.isInWater() ? inWaterSpeedModifier : outsideWaterSpeedModifier;
+        this.mob.setDeltaMovement(mob.getDeltaMovement().add(x * speedMultiplier, 0.0D, z * speedMultiplier));
+        this.operation = Operation.WAIT;
+    }
+
     protected float getTurningSpeedFactor(float degreesToTurn) {
         return 1.0F - Mth.clamp((degreesToTurn - 10.0F) / 50.0F, 0.0F, 1.0F);
     }

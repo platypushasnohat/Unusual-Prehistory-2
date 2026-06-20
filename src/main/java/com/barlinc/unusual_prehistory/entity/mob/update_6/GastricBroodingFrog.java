@@ -1,10 +1,10 @@
 package com.barlinc.unusual_prehistory.entity.mob.update_6;
 
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
-import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
+import com.barlinc.unusual_prehistory.entity.ai.control.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -14,7 +14,6 @@ import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -26,7 +25,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -38,10 +36,13 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
@@ -63,7 +64,8 @@ import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
+import java.util.EnumSet;
+import java.util.List;
 
 public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, LeapingMob, VariantHolder<GastricBroodingFrog.GastricBroodingFrogVariant> {
 
@@ -72,6 +74,8 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
     private static final EntityDataAccessor<Boolean> LAUNCHED = SynchedEntityData.defineId(GastricBroodingFrog.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_ATTACK = SynchedEntityData.defineId(GastricBroodingFrog.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TAME_ATTEMPTS = SynchedEntityData.defineId(GastricBroodingFrog.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> HAS_FROGLET = SynchedEntityData.defineId(GastricBroodingFrog.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> FROGLET_TIME = SynchedEntityData.defineId(GastricBroodingFrog.class, EntityDataSerializers.INT);
 
     public int attackCooldown = 0;
 
@@ -80,37 +84,45 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
     public final SmoothAnimationState eatAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState launchAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState blinkAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState croakAnimationState = new SmoothAnimationState(1.0F);
+    public final SmoothAnimationState yawnAnimationState = new SmoothAnimationState(1.0F);
+
+    private int attackTicks = 0;
 
     public GastricBroodingFrog(EntityType<? extends AmphibiousMob> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
-        this.lookControl = new PrehistoricLookControl(this, false);
-        this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F);
+        this.switchNavigator(true);
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this, false));
         this.goalSelector.addGoal(1, new AmphibiousPanicGoal(this, 2.0D, 10, 5, true));
         this.goalSelector.addGoal(2, new FrogAttackGoal(this));
         this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.3D, 1.5D, 5.0F, 2.5F));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.3D, Ingredient.of(UP2ItemTags.DIET_INSECTIVORE), false));
-        this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new LeapRandomlyGoal(this, 70, 6, 0.8F));
-        this.goalSelector.addGoal(7, new CustomizableRandomSwimGoal(this, 1.0D, 40));
-        this.goalSelector.addGoal(7, new SemiAquaticRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new FrogBreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 1.3D, Ingredient.of(UP2ItemTags.TEMPTS_GASTRIC_BROODING_FROG), false));
+        this.goalSelector.addGoal(6, new LeaveWaterGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new LeapRandomlyGoal(this, 60, 7, 0.9F));
+        this.goalSelector.addGoal(8, new CustomizableRandomSwimGoal(this, 1.0D, 40));
+        this.goalSelector.addGoal(8, new SemiAquaticRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 10, 1, false, 0.001F, this::canPlayIdles));
+        this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 10, 2, false, 0.001F, this::canPlayIdles));
+        this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 40, 3, false, 0.001F, this::canPlayIdles));
         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new PrehistoricOwnerHurtTargetGoal(this));
-        this.targetSelector.addGoal(4, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 100, true, true, entity -> entity.getType().is(UP2EntityTags.THYLACINE_TARGETS)));
+        this.targetSelector.addGoal(4, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 100, true, true, entity -> entity.getType().is(UP2EntityTags.GASTRIC_BROODING_FROG_TARGETS)));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 16.0D)
-                .add(Attributes.MOVEMENT_SPEED, 1.0F)
+                .add(Attributes.MOVEMENT_SPEED, 0.125F)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
                 .add(Attributes.STEP_HEIGHT, 1.2D)
                 .add(Attributes.FOLLOW_RANGE, 20.0D);
@@ -119,6 +131,23 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
         return new SmoothAmphibiousNavigation(this, level);
+    }
+
+    @Override
+    protected @NotNull BodyRotationControl createBodyControl() {
+        return new FrogBodyRotationControl(this);
+    }
+
+    protected void switchNavigator(boolean onLand) {
+        if (onLand) {
+            this.moveControl = new PrehistoricMoveControl(this);
+            this.lookControl = new PrehistoricLookControl(this);
+            this.isLandNavigator = true;
+        } else {
+            this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.6F);
+            this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
+            this.isLandNavigator = false;
+        }
     }
 
     @Override
@@ -141,6 +170,26 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         return super.refuseToLook() || this.wasLaunched();
     }
 
+    private boolean canPlayIdles(Entity entity) {
+        return entity.isAlive();
+    }
+
+    @Override
+    public int getIdleAnimationCooldown(int idleState) {
+        if (idleState == 1) {
+            return 700 + this.getRandom().nextInt(700);
+        }
+        else if (idleState == 2) {
+            return 800 + this.getRandom().nextInt(800);
+        }
+        else if (idleState == 3) {
+            return 1200 + this.getRandom().nextInt(1200);
+        }
+        else {
+            throw new IllegalStateException("Unexpected value: " + idleState);
+        }
+    }
+
     @Override
     public boolean isPushable() {
         return !this.isSitting();
@@ -148,7 +197,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.DIET_INSECTIVORE);
+        return stack.is(UP2ItemTags.TEMPTS_GASTRIC_BROODING_FROG);
     }
 
     public float getAgeScale() {
@@ -181,8 +230,12 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         if (this.isFromAttack()) {
             return InteractionResult.PASS;
         }
-        else if (!this.isBaby() && !this.isTame() && this.getEatTicks() <= 0 && itemStack.is(UP2ItemTags.TAMES_THYLACINE) ) {
-            this.setEatTicks(25);
+        else if (itemStack.isEmpty() && this.isTame() && this.getOwner() == player && player.isShiftKeyDown() && !this.isPassenger() && !this.isSitting()) {
+            this.startRiding(player);
+            return InteractionResult.SUCCESS;
+        }
+        else if (!this.isBaby() && !this.isTame() && this.getEatTicks() <= 0 && itemStack.is(UP2ItemTags.TAMES_GASTRIC_BROODING_FROG) ) {
+            this.setPose(UP2Poses.EATING.get());
             if (!this.level().isClientSide) {
                 if (!player.getAbilities().instabuild) {
                     itemStack.shrink(1);
@@ -221,7 +274,22 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
 
     @Override
     public boolean canOwnerCommand(Player player, @NotNull InteractionHand hand) {
-        return true;
+        return !player.isShiftKeyDown() && !this.isPassenger();
+    }
+
+    @Override
+    public void rideTick() {
+        if (this.getVehicle() instanceof Player player && this.isPassenger()) {
+            super.rideTick();
+            this.setDeltaMovement(Vec3.ZERO);
+            boolean dismountOnLand = player.isShiftKeyDown() && !player.isInWaterOrBubble() && !player.onGround();
+            boolean dismountInWater = player.isInWaterOrBubble() && player.isSwimming();
+            if (!player.isAlive() || dismountOnLand || dismountInWater) {
+                this.stopRiding();
+            }
+        } else {
+            super.rideTick();
+        }
     }
 
     @Override
@@ -231,29 +299,31 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
     }
 
     @Override
-    public void finalizeSpawnChildFromBreeding(ServerLevel level, Animal animal, @Nullable AgeableMob baby) {
-        Optional.ofNullable(this.getLoveCause()).or(() -> Optional.ofNullable(animal.getLoveCause())).ifPresent((serverPlayer) -> {
-            serverPlayer.awardStat(Stats.ANIMALS_BRED);
-            CriteriaTriggers.BRED_ANIMALS.trigger(serverPlayer, this, animal, baby);
-        });
+    public void spawnChildFromBreeding(@NotNull ServerLevel level, @Nullable Animal partner) {
+        AgeableMob ageablemob = this.getBreedOffspring(level, null);
+        if (ageablemob instanceof GastricBroodingFrog froglet) {
+            froglet.setBaby(true);
+            froglet.setPos(this.getX(), this.getEyeY() - 0.335D, this.getZ());
+            this.gameEvent(GameEvent.PROJECTILE_SHOOT);
+            this.playSound(UP2SoundEvents.GASTRIC_BROODING_FROG_LAUNCH.get(), 1.0F, this.getVoicePitch());
+            Vec3 shootingVec = this.getLookAngle();
+            froglet.shootFroglet(this, shootingVec.x, shootingVec.y, shootingVec.z, 1.0F, false);
+            froglet.setYRot(this.getYRot() % 360.0F);
+            level.addFreshEntityWithPassengers(ageablemob);
+        }
+        this.setHasFroglet(false);
+    }
+
+    @Override
+    public void finalizeSpawnChildFromBreeding(ServerLevel level, Animal partner, @Nullable AgeableMob baby) {
         this.setAge(6000);
-        animal.setAge(6000);
+        partner.setAge(6000);
         this.resetLove();
-        animal.resetLove();
+        partner.resetLove();
         level.broadcastEntityEvent(this, (byte) 18);
         if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
             level.addFreshEntity(new ExperienceOrb(level, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
         }
-    }
-
-    @Override
-    public int getHeadRotSpeed() {
-        return 35;
-    }
-
-    @Override
-    public int getMaxHeadYRot() {
-        return 45;
     }
 
     @Override
@@ -286,11 +356,11 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
     }
 
     protected boolean canHitEntity(Entity entity) {
-        return !entity.isSpectator() && !(entity instanceof GastricBroodingFrog) && entity != this.getOwner();
+        return !entity.isSpectator() && entity != this.getOwner();
     }
 
     @SuppressWarnings("SuspiciousNameCombination")
-    public void shootFroglet(double x, double y, double z, float scale) {
+    public void shootFroglet(GastricBroodingFrog owner, double x, double y, double z, float scale, boolean setOwner) {
         final double angle = 57.2957763671875D;
         Vec3 shootVec = (new Vec3(x, y, z)).normalize().scale(scale);
         this.setDeltaMovement(shootVec);
@@ -301,6 +371,9 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         this.yHeadRotO = this.getYRot();
         this.yRotO = this.getYRot();
         this.setLaunched(true);
+        if (setOwner) {
+            this.setOwnerUUID(owner.getUUID());
+        }
     }
 
     @Override
@@ -310,7 +383,11 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
 
     private void onHitEntity(EntityHitResult hitResult) {
         if (!this.level().isClientSide && hitResult.getEntity() instanceof LivingEntity target) {
-            target.hurt(this.damageSources().mobProjectile(this, this), 6.0F);
+            if (this.getOwner() != null) {
+                target.hurt(this.damageSources().mobProjectile(this, this.getOwner()), 6.0F);
+            } else {
+                target.hurt(this.damageSources().mobProjectile(this, this), 6.0F);
+            }
             target.knockback(this.getKnockback(this, this.damageSources().mobProjectile(this, this)) * 0.5F, Mth.sin(this.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180F)));
             this.setLaunched(false);
         }
@@ -322,11 +399,35 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         if (attackCooldown > 0) {
             this.attackCooldown--;
         }
+        if (this.getEatTicks() <= 0 && this.getPose() == UP2Poses.EATING.get()) {
+            this.setPose(Pose.STANDING);
+        }
+        if (this.getFrogletTime() > 0) {
+            this.setFrogletTime(this.getFrogletTime() - 1);
+        }
+        if (this.getFrogletTime() <= 0 && this.hasFroglet()) {
+            this.setPose(UP2Poses.ATTACKING.get());
+            if (!this.level().isClientSide && this.level() instanceof ServerLevel serverLevel && attackTicks == 9) {
+                this.spawnChildFromBreeding(serverLevel, null);
+            }
+        }
+
+        if (attackTicks > 0) {
+            this.attackTicks--;
+        }
     }
 
     @Override
     public void tick() {
         super.tick();
+        final boolean ground = !this.isInWaterOrBubble();
+        if (!ground && isLandNavigator) {
+            this.switchNavigator(false);
+        }
+        if (ground && !isLandNavigator) {
+            this.switchNavigator(true);
+        }
+
         if (this.isLeaping() && (this.onGround() || this.isInFluidType())) {
             if (this.onGround() && !this.level().isClientSide) {
                 this.level().playSound(null, this, UP2SoundEvents.GASTRIC_BROODING_FROG_STEP.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
@@ -345,29 +446,29 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
                     this.onHitEntity(((EntityHitResult) hitResult));
                 }
             }
-        }
-        if (this.isFromAttack()) {
             if (this.onGround() || (tickCount > 20 && this.isInWaterOrBubble())) {
                 this.setLaunched(false);
             }
-            if (tickCount > 80) {
-                if (this.isAlive()) {
-                    this.spawnAnim();
-                    this.remove(Entity.RemovalReason.KILLED);
-                }
-            }
+        }
+
+        if (this.isFromAttack() && this.isAlive() && tickCount > 80) {
+            this.spawnAnim();
+            this.remove(Entity.RemovalReason.KILLED);
         }
     }
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isSitting() && !this.wasLaunched(), tickCount);
-        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isSitting() && !this.wasLaunched(), tickCount);
+        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isSitting() && !this.wasLaunched() && !this.isPassenger(), tickCount);
+        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isSitting() && !this.wasLaunched() && !this.isPassenger(), tickCount);
         this.leapAnimationState.animateWhen(this.isLeaping() && !this.wasLaunched(), tickCount);
         this.eatAnimationState.animateWhen(this.getPose() == UP2Poses.EATING.get(), tickCount);
         this.launchAnimationState.animateWhen(this.wasLaunched(), tickCount);
         this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), tickCount);
-        this.sitAnimationState.animateWhen(this.isSitting(), tickCount);
+        this.sitAnimationState.animateWhen(this.isSitting() || this.isPassenger(), tickCount);
+        this.blinkAnimationState.animateWhen(this.getIdleState() == 1, tickCount);
+        this.croakAnimationState.animateWhen(this.getIdleState() == 2, tickCount);
+        this.yawnAnimationState.animateWhen(this.getIdleState() == 3, tickCount);
     }
 
     @Override
@@ -387,6 +488,19 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
     }
 
     @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
+        if (DATA_POSE.equals(accessor)) {
+            if (this.getPose() == UP2Poses.EATING.get()) {
+                this.setEatTicks(10);
+            }
+            else if (this.getPose() == UP2Poses.ATTACKING.get()) {
+                this.attackTicks = 10;
+            }
+        }
+        super.onSyncedDataUpdated(accessor);
+    }
+
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(VARIANT, 0);
@@ -394,6 +508,8 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         builder.define(LAUNCHED, false);
         builder.define(FROM_ATTACK, false);
         builder.define(TAME_ATTEMPTS, 0);
+        builder.define(HAS_FROGLET, false);
+        builder.define(FROGLET_TIME, 0);
     }
 
     @Override
@@ -402,6 +518,8 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         compoundTag.putInt("Variant", this.getVariant().getId());
         compoundTag.putBoolean("FromAttack", this.isFromAttack());
         compoundTag.putInt("TameAttempts", this.getTameAttempts());
+        compoundTag.putBoolean("HasFroglet", this.hasFroglet());
+        compoundTag.putInt("FrogletTime", this.getFrogletTime());
     }
 
     @Override
@@ -410,6 +528,8 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         this.setVariant(GastricBroodingFrogVariant.byId(compoundTag.getInt("Variant")));
         this.setFromAttack(compoundTag.getBoolean("FromAttack"));
         this.setTameAttempts(compoundTag.getInt("TameAttempts"));
+        this.setHasFroglet(compoundTag.getBoolean("HasFroglet"));
+        this.setFrogletTime(compoundTag.getInt("FrogletTime"));
     }
 
     @Override
@@ -451,6 +571,19 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         return entityData.get(TAME_ATTEMPTS);
     }
 
+    public boolean hasFroglet() {
+        return this.entityData.get(HAS_FROGLET);
+    }
+    public void setHasFroglet(boolean hasFroglet) {
+        this.entityData.set(HAS_FROGLET, hasFroglet);
+    }
+    public int getFrogletTime() {
+        return this.entityData.get(FROGLET_TIME);
+    }
+    public void setFrogletTime(int frogletTime) {
+        this.entityData.set(FROGLET_TIME, frogletTime);
+    }
+
     @Override
     public boolean fromBucket() {
         return false;
@@ -484,7 +617,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob ageableMob) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @Nullable AgeableMob ageableMob) {
         GastricBroodingFrog frog = UP2Entities.GASTRIC_BROODING_FROG.get().create(level);
         if (frog != null) {
             frog.setVariant(this.getVariant());
@@ -560,7 +693,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
 
     private static class FrogAttackGoal extends AttackGoal {
 
-        protected final GastricBroodingFrog frog;
+        private final GastricBroodingFrog frog;
         private boolean strafingClockwise;
         private boolean strafingBackwards;
         private boolean strafingDownwards;
@@ -586,10 +719,13 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
                         this.tickEat(target);
                     }
                     else {
-                        if (frog.attackCooldown == 0 && distance <= this.getAttackReachSqr(target, 1.75D)) {
+                        double eatDistance = frog.isPassenger() ? 2.5D : 1.75D;
+                        if (frog.attackCooldown == 0 && distance <= this.getAttackReachSqr(target, eatDistance)) {
                             this.frog.setAttackState(1);
                         }
-                        this.frog.getNavigation().moveTo(target, 1.3D);
+                        else if (!frog.isPassenger()) {
+                            this.frog.getNavigation().moveTo(target, 1.3D);
+                        }
                     }
                 }
                 else {
@@ -600,8 +736,11 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
                         if (frog.attackCooldown == 0) {
                             this.frog.setAttackState(1);
                         }
-                        else {
+                        else if (!frog.isPassenger()) {
                             this.strafe(target, 0.75F, distance, 14.0D);
+                        }
+                        else {
+                            this.lookAtTarget(target);
                         }
                     }
                 }
@@ -710,7 +849,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
                     this.frog.playSound(UP2SoundEvents.GASTRIC_BROODING_FROG_LAUNCH.get(), 1.0F, frog.getVoicePitch());
                     double horizontalDistance = Math.sqrt(x * x + z * z);
                     float speed = (float) Mth.lerp(Mth.clamp(horizontalDistance / 16.0D, 0.0F, 1.0F), 1.0F, 2.25F);
-                    froglet.shootFroglet(x, y + sqrt, z, speed);
+                    froglet.shootFroglet(frog, x, y + sqrt, z, speed, true);
                     froglet.setYRot(frog.getYRot() % 360.0F);
                     if (!frog.level().isClientSide) {
                         this.frog.level().addFreshEntity(froglet);
@@ -724,6 +863,99 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
                 this.frog.setPose(Pose.STANDING);
                 this.frog.attackCooldown = 15 + frog.getRandom().nextInt(10);
                 this.frog.setAttackState(0);
+            }
+        }
+    }
+
+    private static class FrogBreedGoal extends Goal {
+
+        protected final GastricBroodingFrog frog;
+        protected final Level level;
+        @Nullable
+        protected GastricBroodingFrog partner;
+        private int loveTime;
+        private final double speedModifier;
+
+        public FrogBreedGoal(GastricBroodingFrog frog, double speedModifier) {
+            this.frog = frog;
+            this.level = this.frog.level();
+            this.speedModifier = speedModifier;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            if (!frog.isInLove()) {
+                return false;
+            } else {
+                this.partner = this.getFreePartner();
+                return partner != null;
+            }
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return partner != null && partner.isAlive() && partner.isInLove() && loveTime < 60 && !partner.isPanicking();
+        }
+
+        @Override
+        public void stop() {
+            this.partner = null;
+            this.loveTime = 0;
+        }
+
+        @Override
+        public void tick() {
+            if (partner != null) {
+                this.frog.getLookControl().setLookAt(partner, 10.0F, (float) frog.getMaxHeadXRot());
+                this.frog.getNavigation().moveTo(partner, speedModifier);
+                this.loveTime++;
+                if (loveTime >= this.adjustedTickDelay(60) && frog.distanceToSqr(partner) < 9.0) {
+                    this.breed();
+                }
+            }
+        }
+
+        @Nullable
+        private GastricBroodingFrog getFreePartner() {
+            List<? extends GastricBroodingFrog> list = level.getNearbyEntities(GastricBroodingFrog.class, TargetingConditions.forNonCombat().range(8.0).ignoreLineOfSight(), frog, frog.getBoundingBox().inflate(8.0));
+            double maxValue = Double.MAX_VALUE;
+            GastricBroodingFrog partner = null;
+            for (GastricBroodingFrog partner1 : list) {
+                if (frog.canMate(partner1) && !partner1.isPanicking() && frog.distanceToSqr(partner1) < maxValue) {
+                    partner = partner1;
+                    maxValue = frog.distanceToSqr(partner1);
+                }
+            }
+            return partner;
+        }
+
+        protected void breed() {
+            if (level instanceof ServerLevel serverLevel && partner != null) {
+                this.frog.finalizeSpawnChildFromBreeding(serverLevel, partner, null);
+            }
+            if (level.getRandom().nextBoolean() && partner != null) {
+                this.partner.setHasFroglet(true);
+                this.partner.setFrogletTime(1200);
+            } else {
+                this.frog.setHasFroglet(true);
+                this.frog.setFrogletTime(1200);
+            }
+        }
+    }
+
+    private static class FrogBodyRotationControl extends PrehistoricBodyRotationControl {
+
+        public FrogBodyRotationControl(PrehistoricMob mob) {
+            super(mob);
+        }
+
+        @Override
+        public void clientTick() {
+            if (mob.isPassenger() && !mob.refuseToLook()) {
+                this.mob.yBodyRot = mob.getYRot();
+            } else {
+                super.clientTick();
             }
         }
     }

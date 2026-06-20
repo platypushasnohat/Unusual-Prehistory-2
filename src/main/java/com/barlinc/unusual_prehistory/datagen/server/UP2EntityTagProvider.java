@@ -272,6 +272,15 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 EntityType.PARROT
         );
 
+        this.tag(UP2EntityTags.GASTRIC_BROODING_FROG_TARGETS).add(
+                EntityType.SLIME,
+                EntityType.MAGMA_CUBE,
+                EntityType.BEE,
+                EntityType.SILVERFISH,
+                DELITZSCHALA.get(),
+                ZHANGSOLVA.get()
+        );
+
         // Minecraft
         this.tag(EntityTypeTags.FROG_FOOD).add(
                 DELITZSCHALA.get(),

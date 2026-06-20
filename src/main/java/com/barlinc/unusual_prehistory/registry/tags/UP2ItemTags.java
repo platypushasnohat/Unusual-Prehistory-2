@@ -183,6 +183,9 @@ public class UP2ItemTags {
     public static final TagKey<Item> TAMES_THYLACINE = modItemTag("tames_thylacine");
     public static final TagKey<Item> TEMPTS_THYLACINE = modItemTag("tempts_thylacine");
 
+    public static final TagKey<Item> TAMES_GASTRIC_BROODING_FROG = modItemTag("tames_gastric_brooding_frog");
+    public static final TagKey<Item> TEMPTS_GASTRIC_BROODING_FROG = modItemTag("tempts_gastric_brooding_frog");
+
     public static final TagKey<Item> SWEET_COTYLORHYNCHUS_FOOD = modItemTag("sweet_cotylorhynchus_food");
     public static final TagKey<Item> FOUL_COTYLORHYNCHUS_FOOD = modItemTag("foul_cotylorhynchus_food");
 
