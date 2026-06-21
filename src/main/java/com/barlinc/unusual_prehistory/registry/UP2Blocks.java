@@ -246,6 +246,10 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> LEEDSICHTHYS_SLICE_STAIRS = registerBlock("leedsichthys_slice_stairs", () -> new StairBlock(LEEDSICHTHYS_SLICE_BLOCK.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(LEEDSICHTHYS_SLICE_BLOCK.get())));
     public static final DeferredBlock<Block> LEEDSICHTHYS_SLICE_SLAB = registerBlock("leedsichthys_slice_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(LEEDSICHTHYS_SLICE_BLOCK.get())));
 
+    public static final DeferredBlock<Block> BLOOD_GASTRICLIGHT = registerBlock("blood_gastriclight", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).strength(0.3F).lightLevel(state -> 15).sound(SoundType.FROGLIGHT)));
+    public static final DeferredBlock<Block> BILE_GASTRICLIGHT = registerBlock("bile_gastriclight", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).strength(0.3F).lightLevel(state -> 15).sound(SoundType.FROGLIGHT)));
+    public static final DeferredBlock<Block> BROOD_GASTRICLIGHT = registerBlock("brood_gastriclight", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).strength(0.3F).lightLevel(state -> 15).sound(SoundType.FROGLIGHT)));
+
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));

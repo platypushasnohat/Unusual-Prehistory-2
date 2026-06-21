@@ -183,6 +183,10 @@ public class UnusualPrehistory2Tab {
                         output.accept(SWEET_GROG_BOTTLE.get());
                         output.accept(FOUL_GROG_BOTTLE.get());
 
+                        output.accept(UP2Blocks.BILE_GASTRICLIGHT.get());
+                        output.accept(UP2Blocks.BROOD_GASTRICLIGHT.get());
+                        output.accept(UP2Blocks.BLOOD_GASTRICLIGHT.get());
+
                         output.accept(LEEDSICHTHYS_SLICE.get());
                         output.accept(UP2Blocks.LEEDSICHTHYS_SLICE_BLOCK.get());
                         output.accept(UP2Blocks.LEEDSICHTHYS_SLICE_STAIRS.get());

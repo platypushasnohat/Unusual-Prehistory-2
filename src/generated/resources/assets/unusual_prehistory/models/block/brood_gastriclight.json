@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "unusual_prehistory:block/brood_gastriclight_top",
+    "side": "unusual_prehistory:block/brood_gastriclight"
+  }
+}

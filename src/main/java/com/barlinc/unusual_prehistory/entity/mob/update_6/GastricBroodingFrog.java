@@ -77,7 +77,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
     private static final EntityDataAccessor<Boolean> HAS_FROGLET = SynchedEntityData.defineId(GastricBroodingFrog.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> FROGLET_TIME = SynchedEntityData.defineId(GastricBroodingFrog.class, EntityDataSerializers.INT);
 
-    public int attackCooldown = 0;
+    private int attackCooldown = 0;
 
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState leapAnimationState = new SmoothAnimationState();
@@ -352,7 +352,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         if (target instanceof GastricBroodingFrog) {
             return false;
         }
-        return target.getBbWidth() < this.getBbWidth() && target.getBbHeight() < this.getBbHeight();
+        return target.getBbWidth() < this.getBbWidth() && target.getBbHeight() < this.getBbHeight() * 1.25F;
     }
 
     protected boolean canHitEntity(Entity entity) {

@@ -94,6 +94,10 @@ public class UP2BlockstateProvider extends BlockStateProvider {
 
         this.crossBlock(PROTOTAXITES_CLUSTER);
 
+        this.axisBlock(BLOOD_GASTRICLIGHT);
+        this.axisBlock(BILE_GASTRICLIGHT);
+        this.axisBlock(BROOD_GASTRICLIGHT);
+
         // Update 6
         this.block(LEEDSICHTHYS_SLICE_BLOCK);
         this.stairsBlock(LEEDSICHTHYS_SLICE_BLOCK.get(), LEEDSICHTHYS_SLICE_STAIRS.get());
