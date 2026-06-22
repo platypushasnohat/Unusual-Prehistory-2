@@ -422,6 +422,13 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.ARTHROPLEURA_IDLE, "Arthropleura whistles");
         this.sound(UP2SoundEvents.ARTHROPLEURA_STEP, "Arthropleura steps");
 
+        this.sound(UP2SoundEvents.AUSTRORAPTOR_HURT, "Austroraptor hurts");
+        this.sound(UP2SoundEvents.AUSTRORAPTOR_DEATH, "Austroraptor dies");
+        this.sound(UP2SoundEvents.AUSTRORAPTOR_IDLE, "Austroraptor chirps");
+        this.sound(UP2SoundEvents.AUSTRORAPTOR_HISS, "Austroraptor hisses");
+        this.sound(UP2SoundEvents.AUSTRORAPTOR_ATTACK, "Austroraptor attacks");
+        this.sound(UP2SoundEvents.AUSTRORAPTOR_SCREAM, "Austroraptor screams");
+
         this.sound(UP2SoundEvents.BRONTOSCORPIO_HURT, "Brontoscorpio hurts");
         this.sound(UP2SoundEvents.BRONTOSCORPIO_DEATH, "Brontoscorpio dies");
         this.sound(UP2SoundEvents.BRONTOSCORPIO_IDLE, "Brontoscorpio chatters");

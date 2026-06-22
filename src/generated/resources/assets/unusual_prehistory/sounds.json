@@ -310,6 +310,49 @@
     ],
     "subtitle": "subtitles.arthropleura_step"
   },
+  "austroraptor_attack": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/austroraptor/attack1",
+      "unusual_prehistory:entity/mob/austroraptor/attack2"
+    ],
+    "subtitle": "subtitles.austroraptor_attack"
+  },
+  "austroraptor_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/austroraptor/death1"
+    ],
+    "subtitle": "subtitles.austroraptor_death"
+  },
+  "austroraptor_hiss": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/austroraptor/hiss1",
+      "unusual_prehistory:entity/mob/austroraptor/hiss2",
+      "unusual_prehistory:entity/mob/austroraptor/hiss3"
+    ],
+    "subtitle": "subtitles.austroraptor_hiss"
+  },
+  "austroraptor_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/austroraptor/hurt1",
+      "unusual_prehistory:entity/mob/austroraptor/hurt2"
+    ],
+    "subtitle": "subtitles.austroraptor_hurt"
+  },
+  "austroraptor_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/austroraptor/idle1",
+      "unusual_prehistory:entity/mob/austroraptor/idle2",
+      "unusual_prehistory:entity/mob/austroraptor/idle3",
+      "unusual_prehistory:entity/mob/austroraptor/idle4"
+    ],
+    "subtitle": "subtitles.austroraptor_idle"
+  },
+  "austroraptor_scream": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/austroraptor/scream1"
+    ],
+    "subtitle": "subtitles.austroraptor_scream"
+  },
   "brachiosaurus_attack": {
     "sounds": [
       {

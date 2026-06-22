@@ -817,6 +817,32 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/spider/step4").pitch(0.8F).volume(0.75F)
         );
 
+        this.sound(UP2SoundEvents.AUSTRORAPTOR_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/austroraptor/death1"))
+        );
+        this.sound(UP2SoundEvents.AUSTRORAPTOR_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/austroraptor/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/austroraptor/hurt2"))
+        );
+        this.sound(UP2SoundEvents.AUSTRORAPTOR_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/austroraptor/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/austroraptor/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/austroraptor/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/austroraptor/idle4"))
+        );
+        this.sound(UP2SoundEvents.AUSTRORAPTOR_HISS,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/austroraptor/hiss1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/austroraptor/hiss2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/austroraptor/hiss3"))
+        );
+        this.sound(UP2SoundEvents.AUSTRORAPTOR_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/austroraptor/attack1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/austroraptor/attack2"))
+        );
+        this.sound(UP2SoundEvents.AUSTRORAPTOR_SCREAM,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/austroraptor/scream1"))
+        );
+
         this.sound(UP2SoundEvents.BRONTOSCORPIO_DEATH,
                 sound("mob/spider/death").pitch(1.25F).volume(0.8F)
         );

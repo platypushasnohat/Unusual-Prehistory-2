@@ -196,6 +196,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.ANUROGNATHUS.get(), AnurognathusRenderer::new);
         event.registerEntityRenderer(UP2Entities.ARTHROPLEURA.get(), ArthropleuraRenderer::new);
         event.registerEntityRenderer(UP2Entities.ARTHROPLEURA_PART.get(), ArthropleuraPartRenderer::new);
+        event.registerEntityRenderer(UP2Entities.AUSTRORAPTOR.get(), AustroraptorRenderer::new);
         event.registerEntityRenderer(UP2Entities.BRONTOSCORPIO.get(), BrontoscorpioRenderer::new);
         event.registerEntityRenderer(UP2Entities.CONCAVENATOR.get(), ConcavenatorRenderer::new);
         event.registerEntityRenderer(UP2Entities.COTYLORHYNCHUS.get(), CotylorhynchusRenderer::new);
@@ -297,6 +298,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.ARTHROPLEURA_HEAD, ArthropleuraHeadModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ARTHROPLEURA_BODY, ArthropleuraBodyModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.ARTHROPLEURA_TAIL, ArthropleuraTailModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.AUSTRORAPTOR, AustroraptorModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.BRONTOSCORPIO, BrontoscorpioModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.CONCAVENATOR, ConcavenatorModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.COTYLORHYNCHUS, CotylorhynchusModel::createBodyLayer);

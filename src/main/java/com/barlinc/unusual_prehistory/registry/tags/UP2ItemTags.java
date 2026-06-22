@@ -128,6 +128,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> ANTARCTOPELTA_RECIPE_MAPPINGS = modItemTag("recipe_mappings/antarctopelta");
     public static final TagKey<Item> ANUROGNATHUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/anurognathus");
     public static final TagKey<Item> ARTHROPLEURA_RECIPE_MAPPINGS = modItemTag("recipe_mappings/arthropleura");
+    public static final TagKey<Item> AUSTRORAPTOR_RECIPE_MAPPINGS = modItemTag("recipe_mappings/austroraptor");
     public static final TagKey<Item> BRONTOSCORPIO_RECIPE_MAPPINGS = modItemTag("recipe_mappings/brontoscorpio");
     public static final TagKey<Item> CONCAVENATOR_RECIPE_MAPPINGS = modItemTag("recipe_mappings/concavenator");
     public static final TagKey<Item> COTYLORHYNCHUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/cotylorhynchus");

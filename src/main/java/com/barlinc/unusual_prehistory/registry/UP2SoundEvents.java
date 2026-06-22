@@ -217,6 +217,13 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> ARTHROPLEURA_IDLE = registerSoundEvent("arthropleura_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> ARTHROPLEURA_STEP = registerSoundEvent("arthropleura_step");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> AUSTRORAPTOR_HURT = registerSoundEvent("austroraptor_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> AUSTRORAPTOR_DEATH = registerSoundEvent("austroraptor_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> AUSTRORAPTOR_IDLE = registerSoundEvent("austroraptor_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> AUSTRORAPTOR_HISS = registerSoundEvent("austroraptor_hiss");
+    public static final DeferredHolder<SoundEvent, SoundEvent> AUSTRORAPTOR_ATTACK = registerSoundEvent("austroraptor_attack");
+    public static final DeferredHolder<SoundEvent, SoundEvent> AUSTRORAPTOR_SCREAM = registerSoundEvent("austroraptor_scream");
+
     public static final DeferredHolder<SoundEvent, SoundEvent> BRONTOSCORPIO_HURT = registerSoundEvent("brontoscorpio_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> BRONTOSCORPIO_DEATH = registerSoundEvent("brontoscorpio_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> BRONTOSCORPIO_IDLE = registerSoundEvent("brontoscorpio_idle");

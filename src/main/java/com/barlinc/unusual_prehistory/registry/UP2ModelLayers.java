@@ -79,6 +79,8 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation ARTHROPLEURA_HEAD = mainLayer("arthropleura_head");
     public static final ModelLayerLocation ARTHROPLEURA_BODY = mainLayer("arthropleura_body");
     public static final ModelLayerLocation ARTHROPLEURA_TAIL = mainLayer("arthropleura_tail");
+    public static final ModelLayerLocation AUSTRORAPTOR = mainLayer("austroraptor");
+
     public static final ModelLayerLocation BRONTOSCORPIO = mainLayer("brontoscorpio");
     public static final ModelLayerLocation CONCAVENATOR = mainLayer("concavenator");
     public static final ModelLayerLocation COTYLORHYNCHUS = mainLayer("cotylorhynchus");

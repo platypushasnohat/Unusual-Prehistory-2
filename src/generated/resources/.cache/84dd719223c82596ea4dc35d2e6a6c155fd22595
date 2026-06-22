@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-17T21:38:04.9157361	Item Models: unusual_prehistory
+// 1.21.1	2026-06-21T19:01:16.8270707	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -13,6 +13,7 @@ a554ecccd08b3e7d48ccbaf8fc06341dbb72528d assets/unusual_prehistory/models/item/a
 88992f359ffc7430c921c4022cf72bb73ab925df assets/unusual_prehistory/models/item/anvil_fossil.json
 199293b31f64ff2f65a4ed395c34fca3c0e6e6ea assets/unusual_prehistory/models/item/arm_fossil.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/arthropleura_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/austroraptor_spawn_egg.json
 943eae590104315acf4087296d8415d4d64b4633 assets/unusual_prehistory/models/item/baby_aegirocassis_bucket.json
 60e95d81f1e16ffc2144dbb94f4e70d72a4d3324 assets/unusual_prehistory/models/item/boar_tooth_fossil.json
 e7b4f31bda2666f7dbd4847ff52a2d43285d24d4 assets/unusual_prehistory/models/item/boomerang_fossil.json
