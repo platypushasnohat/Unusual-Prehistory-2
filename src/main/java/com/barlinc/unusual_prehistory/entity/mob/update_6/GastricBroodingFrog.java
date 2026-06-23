@@ -235,7 +235,10 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
             return InteractionResult.SUCCESS;
         }
         else if (!this.isBaby() && !this.isTame() && this.getEatTicks() <= 0 && itemStack.is(UP2ItemTags.TAMES_GASTRIC_BROODING_FROG) ) {
-            this.setPose(UP2Poses.EATING.get());
+            if (this.getPose() == Pose.STANDING) {
+                this.setPose(UP2Poses.EATING.get());
+            }
+            this.setEatTicks(10);
             if (!this.level().isClientSide) {
                 if (!player.getAbilities().instabuild) {
                     itemStack.shrink(1);
@@ -490,10 +493,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> accessor) {
         if (DATA_POSE.equals(accessor)) {
-            if (this.getPose() == UP2Poses.EATING.get()) {
-                this.setEatTicks(10);
-            }
-            else if (this.getPose() == UP2Poses.ATTACKING.get()) {
+            if (this.getPose() == UP2Poses.ATTACKING.get()) {
                 this.attackTicks = 10;
             }
         }
