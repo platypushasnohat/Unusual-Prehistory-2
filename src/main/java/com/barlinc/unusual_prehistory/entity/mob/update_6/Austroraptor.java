@@ -24,6 +24,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -35,9 +36,13 @@ import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+import java.util.UUID;
+
 public class Austroraptor extends PrehistoricMob {
 
     private static final EntityDataAccessor<Integer> SHEARED_TICKS = SynchedEntityData.defineId(Austroraptor.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Optional<UUID>> HATED_UUID = SynchedEntityData.defineId(Austroraptor.class, EntityDataSerializers.OPTIONAL_UUID);
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState fallAnimationState = new SmoothAnimationState();
@@ -56,7 +61,9 @@ public class Austroraptor extends PrehistoricMob {
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(6, new SleepingGoal(this));
-        this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, false, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)));
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)));
+        this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 10, true, false, entity -> entity == this.getHatedEntity()));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -90,6 +97,9 @@ public class Austroraptor extends PrehistoricMob {
         super.tickCooldowns();
         if (this.getShearedTicks() > 0) {
             this.setShearedTicks(this.getShearedTicks() - 1);
+        }
+        if (this.getShearedTicks() <= 0 && this.getHatedEntity() != null) {
+            this.setHatedUUID(null);
         }
     }
 
@@ -139,6 +149,7 @@ public class Austroraptor extends PrehistoricMob {
 //                items.forEach(this::spawnAtLocation);
 //            }
             this.setShearedTicks(24000 + this.getRandom().nextInt(24000));
+            this.setHatedUUID(player.getUUID());
             return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, hand);
@@ -148,18 +159,25 @@ public class Austroraptor extends PrehistoricMob {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(SHEARED_TICKS, 0);
+        builder.define(HATED_UUID, Optional.empty());
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("ShearedTicks", this.getShearedTicks());
+        if (this.getHatedUUID() != null) {
+            compoundTag.putUUID("Hated", this.getHatedUUID());
+        }
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.setShearedTicks(compoundTag.getInt("ShearedTicks"));
+        if (compoundTag.hasUUID("Hated")) {
+            this.setHatedUUID(compoundTag.getUUID("Hated"));
+        }
     }
 
     public int getShearedTicks() {
@@ -167,6 +185,19 @@ public class Austroraptor extends PrehistoricMob {
     }
     public void setShearedTicks(int i) {
         this.entityData.set(SHEARED_TICKS, i);
+    }
+
+    @Nullable
+    public UUID getHatedUUID() {
+        return entityData.get(HATED_UUID).orElse(null);
+    }
+    public void setHatedUUID(@Nullable UUID uuid) {
+        this.entityData.set(HATED_UUID, Optional.ofNullable(uuid));
+    }
+    @Nullable
+    public LivingEntity getHatedEntity() {
+        UUID uuid = this.getHatedUUID();
+        return uuid == null ? null : this.level().getPlayerByUUID(uuid);
     }
 
     @Nullable
@@ -199,15 +230,19 @@ public class Austroraptor extends PrehistoricMob {
 
         @Override
         public void tick() {
-            LivingEntity target = this.austroraptor.getTarget();
+            LivingEntity target = austroraptor.getTarget();
             if (target != null) {
-                double distance = this.austroraptor.distanceToSqr(target);
-                this.austroraptor.getLookControl().setLookAt(target, 30F, 30F);
-                this.austroraptor.getNavigation().moveTo(target, 1.0D);
+                double distance = austroraptor.distanceToSqr(target);
+                this.austroraptor.lookAt(target, 30.0F, 30.0F);
+                this.austroraptor.getLookControl().setLookAt(target, 30.0F, 30.0F);
                 if (this.austroraptor.getAttackState() == 1) {
+                    this.austroraptor.getNavigation().stop();
                     this.tickAttack(target);
-                } else if (distance <= this.getAttackReachSqr(target)) {
-                    this.austroraptor.setAttackState(1);
+                } else {
+                    this.austroraptor.getNavigation().moveTo(target, 1.8D);
+                    if (distance <= this.getAttackReachSqr(target)) {
+                        this.austroraptor.setAttackState(1);
+                    }
                 }
             }
         }
@@ -218,10 +253,9 @@ public class Austroraptor extends PrehistoricMob {
             if (timer == 6) {
                 if (this.isInAttackRange(target, 1.5D)) {
                     this.austroraptor.doHurtTarget(target);
-                    this.austroraptor.swing(InteractionHand.MAIN_HAND);
                 }
             }
-            if (timer > 15) {
+            if (timer > 10) {
                 this.timer = 0;
                 this.austroraptor.setPose(Pose.STANDING);
                 this.austroraptor.setAttackState(0);

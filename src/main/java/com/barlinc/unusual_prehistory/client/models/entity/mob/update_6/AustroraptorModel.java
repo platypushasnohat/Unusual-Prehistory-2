@@ -168,12 +168,21 @@ public class AustroraptorModel extends UP2Model<Austroraptor> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
 
-        this.animateWalk(AustroraptorAnimations.WALK, limbSwing, limbSwingAmount, 1.0F, 2.5F);
+        if (!entity.isInWaterOrBubble()) {
+            if (entity.isRunning()) {
+                this.animateWalk(AustroraptorAnimations.RUN, limbSwing, limbSwingAmount, 1.0F, 2.5F);
+            } else {
+                this.animateWalk(AustroraptorAnimations.WALK, limbSwing, limbSwingAmount, 1.0F, 2.5F);
+            }
+        }
 
 		this.animateIdleSmooth(entity.idleAnimationState, AustroraptorAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
-		this.animateSmooth(entity.attackAnimationState, AustroraptorAnimations.BITE_END, ageInTicks, partialTicks);
+        if (!entity.onGround() || entity.isInWaterOrBubble()) {
+            this.animateSmooth(entity.attackAnimationState, AustroraptorAnimations.BITE_END, ageInTicks, partialTicks);
+        } else {
+            this.animateSmooth(entity.attackAnimationState, AustroraptorAnimations.BITE_BLEND_RUN, ageInTicks, partialTicks);
+        }
 		this.animateSmooth(entity.fallAnimationState, AustroraptorAnimations.JUMP, ageInTicks, partialTicks);
-		this.animateSmooth(entity.eepyAnimationState, AustroraptorAnimations.SLEEP1, ageInTicks, partialTicks);
 
         if (young) {
             this.applyStatic(AustroraptorAnimations.BABY_TRANSFORM);
