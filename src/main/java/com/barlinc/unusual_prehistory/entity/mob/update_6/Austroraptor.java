@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -31,6 +32,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
@@ -44,11 +46,14 @@ public class Austroraptor extends PrehistoricMob {
     private static final EntityDataAccessor<Integer> SHEARED_TICKS = SynchedEntityData.defineId(Austroraptor.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Optional<UUID>> HATED_UUID = SynchedEntityData.defineId(Austroraptor.class, EntityDataSerializers.OPTIONAL_UUID);
 
+    public int attackCooldown = 0;
+
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState fallAnimationState = new SmoothAnimationState();
 
     public Austroraptor(EntityType<? extends Austroraptor> entityType, Level level) {
         super(entityType, level);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
     }
 
     @Override
@@ -57,10 +62,11 @@ public class Austroraptor extends PrehistoricMob {
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(2, new AustroraptorAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
-        this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D, false));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 10.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new SleepingGoal(this));
+        this.goalSelector.addGoal(4, new SurfaceSwimGoal(this, 0.65D));
+        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1.0D, false));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 10.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new SleepingGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 300, true, true, entity -> entity.getType().is(UP2EntityTags.DROMAEOSAURUS_TARGETS)));
         this.targetSelector.addGoal(2, new PrehistoricNearestAttackableTargetGoal<>(this, Player.class, 10, true, false, entity -> entity == this.getHatedEntity()));
@@ -77,6 +83,19 @@ public class Austroraptor extends PrehistoricMob {
     @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(UP2ItemTags.DIET_PISCIVORE);
+    }
+
+    @Override
+    public double getFluidJumpThreshold() {
+        if (this.isInWater() && horizontalCollision) {
+            return super.getFluidJumpThreshold();
+        }
+        return 0.75D;
+    }
+
+    @Override
+    protected float getWaterSlowDown() {
+        return 0.9F;
     }
 
     @Override
@@ -101,14 +120,34 @@ public class Austroraptor extends PrehistoricMob {
         if (this.getShearedTicks() <= 0 && this.getHatedEntity() != null) {
             this.setHatedUUID(null);
         }
+        if (attackCooldown > 0) {
+            this.attackCooldown--;
+        }
     }
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isEepy(), tickCount);
+        this.idleAnimationState.animateWhen(!this.isEepy() && this.onGround() && !this.isInWaterOrBubble(), tickCount);
         this.fallAnimationState.animateWhen(!this.onGround() && !this.isInWaterOrBubble() && !this.onClimbable() && !this.isPassenger() && !this.isEepy(), tickCount);
         this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), tickCount);
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), tickCount);
+    }
+
+    @Override
+    public void calculateEntityAnimation(boolean includeHeight) {
+        float f = (float) Mth.length(this.getX() - xo, includeHeight ? this.getY() - yo : 0.0, this.getZ() - zo);
+        if (this.isBaby()) {
+            this.updateWalkAnimation(f * 0.5F);
+        } else {
+            this.updateWalkAnimation(f);
+        }
+    }
+
+    @Override
+    protected void updateWalkAnimation(float partialTick) {
+        float f = Math.min(partialTick * 25.0F, 1.0F);
+        this.walkAnimation.update(f, 0.4F);
     }
 
     @Override
@@ -140,6 +179,10 @@ public class Austroraptor extends PrehistoricMob {
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (this.getShearedTicks() <= 0 && itemStack.is(Tags.Items.TOOLS_SHEAR)) {
+            if (this.isEepy()) {
+                this.setEepy(false);
+                this.setEepyCooldown(100);
+            }
             this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
             this.playSound(UP2SoundEvents.AUSTRORAPTOR_SCREAM.get(), 2.0F, this.getVoicePitch());
             this.gameEvent(GameEvent.SHEAR, player);
@@ -240,7 +283,7 @@ public class Austroraptor extends PrehistoricMob {
                     this.tickAttack(target);
                 } else {
                     this.austroraptor.getNavigation().moveTo(target, 1.8D);
-                    if (distance <= this.getAttackReachSqr(target)) {
+                    if (distance <= this.getAttackReachSqr(target) && austroraptor.attackCooldown == 0) {
                         this.austroraptor.setAttackState(1);
                     }
                 }
@@ -249,14 +292,18 @@ public class Austroraptor extends PrehistoricMob {
 
         private void tickAttack(LivingEntity target) {
             this.timer++;
-            if (timer == 1) austroraptor.setPose(UP2Poses.ATTACKING.get());
+            if (timer == 1) {
+                this.austroraptor.playSound(UP2SoundEvents.AUSTRORAPTOR_ATTACK.get(), 1.0F, austroraptor.getVoicePitch());
+                this.austroraptor.setPose(UP2Poses.ATTACKING.get());
+            }
             if (timer == 6) {
-                if (this.isInAttackRange(target, 1.5D)) {
+                if (this.isInAttackRange(target, 2.0D)) {
                     this.austroraptor.doHurtTarget(target);
                 }
             }
             if (timer > 10) {
                 this.timer = 0;
+                this.austroraptor.attackCooldown = 6;
                 this.austroraptor.setPose(Pose.STANDING);
                 this.austroraptor.setAttackState(0);
             }

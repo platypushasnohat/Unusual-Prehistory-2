@@ -169,11 +169,15 @@ public class AustroraptorModel extends UP2Model<Austroraptor> {
         float partialTicks = ageInTicks - entity.tickCount;
 
         if (!entity.isInWaterOrBubble()) {
-            if (entity.isRunning()) {
-                this.animateWalk(AustroraptorAnimations.RUN, limbSwing, limbSwingAmount, 1.0F, 2.5F);
-            } else {
-                this.animateWalk(AustroraptorAnimations.WALK, limbSwing, limbSwingAmount, 1.0F, 2.5F);
+            if (entity.onGround()) {
+                if (entity.isRunning()) {
+                    this.animateWalk(AustroraptorAnimations.RUN, limbSwing, limbSwingAmount, 1.0F, 2.5F);
+                } else {
+                    this.animateWalk(AustroraptorAnimations.WALK, limbSwing, limbSwingAmount, 1.0F, 2.5F);
+                }
             }
+        } else {
+            this.animateWalk(AustroraptorAnimations.SWIM, limbSwing, limbSwingAmount, 1.0F, 2.5F);
         }
 
 		this.animateIdleSmooth(entity.idleAnimationState, AustroraptorAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
@@ -183,6 +187,7 @@ public class AustroraptorModel extends UP2Model<Austroraptor> {
             this.animateSmooth(entity.attackAnimationState, AustroraptorAnimations.BITE_BLEND_RUN, ageInTicks, partialTicks);
         }
 		this.animateSmooth(entity.fallAnimationState, AustroraptorAnimations.JUMP, ageInTicks, partialTicks);
+        this.animateIdleSmooth(entity.swimAnimationState, AustroraptorAnimations.SWIM, ageInTicks, partialTicks, limbSwingAmount, 2.5F, 0.6F);
 
         if (young) {
             this.applyStatic(AustroraptorAnimations.BABY_TRANSFORM);
@@ -200,8 +205,8 @@ public class AustroraptorModel extends UP2Model<Austroraptor> {
 
         this.faceTarget(entity, netHeadYaw, headPitch, 2, neck1);
         float tailYaw = entity.getTailYaw(partialTicks);
-        this.tail1.yRot = Mth.lerp(0.25F, tail1.yRot, tailYaw * 0.2F);
-        this.tail2.yRot = Mth.lerp(0.25F, tail2.yRot, tailYaw * 0.15F);
+        this.tail1.yRot = Mth.lerp(0.25F, tail1.yRot, tailYaw * 0.15F);
+        this.tail2.yRot = Mth.lerp(0.25F, tail2.yRot, tailYaw * 0.1F);
 	}
 
 	@Override

@@ -309,6 +309,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.THYLACINE_RECIPE_MAPPINGS).add(THYLACINE_SPAWN_EGG.get(), STRIPED_PELT.get(), THYLACINE_EMBRYO.get());
         this.tag(UP2ItemTags.TUSOTEUTHIS_RECIPE_MAPPINGS).add(TUSOTEUTHIS_SPAWN_EGG.get(), SHIMMER_FOSSIL.get(), UP2Blocks.TUSOTEUTHIS_EGGS.asItem());
         this.tag(UP2ItemTags.WOOLLY_MAMMOTH_RECIPE_MAPPINGS).add(WOOLLY_MAMMOTH_SPAWN_EGG.get(), MOLAR_FOSSIL.get(), WOOLLY_MAMMOTH_EMBRYO.get());
+        this.tag(UP2ItemTags.PACHYRHINOSAURUS_RECIPE_MAPPINGS).add(PACHYRHINOSAURUS_SPAWN_EGG.get());
 
         this.tag(UP2ItemTags.PLANTS).add(
                 Blocks.SHORT_GRASS.asItem(),

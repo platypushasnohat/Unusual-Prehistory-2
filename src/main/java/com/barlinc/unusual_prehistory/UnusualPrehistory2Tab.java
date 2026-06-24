@@ -65,6 +65,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(METRIORHYNCHUS_SPAWN_EGG.get());
                         output.accept(ONCHOPRISTIS_SPAWN_EGG.get());
                         output.accept(PACHYCEPHALOSAURUS_SPAWN_EGG.get());
+                        output.accept(PACHYRHINOSAURUS_SPAWN_EGG.get());
                         output.accept(PRAEPUSA_SPAWN_EGG.get());
                         output.accept(PROGNATHODON_SPAWN_EGG.get());
                         output.accept(PSILOPTERUS_SPAWN_EGG.get());

@@ -119,10 +119,10 @@ dependencies {
     localRuntime "maven.modrinth:better-advancements:FjTYILOi"
     localRuntime "maven.modrinth:commandstructures:rTiLoxgs"
     localRuntime "maven.modrinth:just-enough-effect-descriptions-jeed:HpxNIA6x"
-    localRuntime "maven.modrinth:sodium:mc1.21.1-0.6.13-neoforge"
-    localRuntime "maven.modrinth:lithium:mc1.21.1-0.15.3-neoforge"
+//    localRuntime "maven.modrinth:sodium:mc1.21.1-0.6.13-neoforge"
+//    localRuntime "maven.modrinth:lithium:mc1.21.1-0.15.3-neoforge"
     localRuntime "maven.modrinth:architectury-api:ZxYGwlk0"
-    localRuntime "maven.modrinth:spark:v5qtqRQi"
+//    localRuntime "maven.modrinth:spark:v5qtqRQi"
 
 }
 
