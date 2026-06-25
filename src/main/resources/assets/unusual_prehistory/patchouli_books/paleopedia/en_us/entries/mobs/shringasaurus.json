@@ -1,0 +1,49 @@
+{  
+  "name": "Shringasaurus",  
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/shringasaurus.png",  
+  "category": "unusual_prehistory:mobs",  
+  "advancement": "unusual_prehistory:obtain_shringasaurus_egg",  
+  "turnin": "unusual_prehistory:revive_shringasaurus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/shringasaurus": 0
+  },
+  "pages": [  
+    {  
+      "type": "unusual_prehistory:mob_display",
+      "id": "shringasaurus",
+
+      "rarity": "unusual", 
+      "fossil_item": "minecraft:barrier",
+      "egg_item": "minecraft:barrier",
+      
+      "flavor_text": "horned-lizard",  
+      "image_tooltip": ""  
+    },  
+    {  
+      "id": "shringasaurus",
+      "type": "unusual_prehistory:mob_features",  
+  
+      "era_image": "mid_triassic",  
+      "temperament": "neutral",  
+      "clone_type": "nest_egg",  
+      "activity": "sleepless",
+      "diet": "herbivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+  
+      "feature_1.item": "",  
+      "feature_1.tooltip": "a herbivore with an extreme sweet tooth, where they only seeking sugary treats",  
+      "feature_1.title": "",  
+  
+      "feature_2.item": "",  
+      "feature_2.tooltip": "shringasaurus attracted to players holding sweet foods, approaching them to beg and even raiding chests to find sweets",  
+      "feature_2.title": "",  
+      
+      "feature_3.item": "",  
+      "feature_3.tooltip": "shringasaurus grow larger after few feedings, and become more aggresive in demands of sugary treats",  
+      "feature_3.title": ""
+    }  
+  ]  
+}

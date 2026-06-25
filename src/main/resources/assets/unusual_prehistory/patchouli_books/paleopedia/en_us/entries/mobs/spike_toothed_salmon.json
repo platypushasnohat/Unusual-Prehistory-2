@@ -1,0 +1,41 @@
+{
+  "name": "Spike-Toothed Salmon",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/spike_toothed_salmon.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_spike_toothed_salmon_roe",
+  "turnin": "unusual_prehistory:revive_spike_toothed_salmon",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/spike_toothed_salmon": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "spike_toothed_salmon",
+      
+      "rarity": "uncommon",
+      "fossil_item": "unusual_prehistory:rot_fossil",
+      "egg_item": "unusual_prehistory:spike_toothed_salmon_roe",
+
+      "flavor_text": "",
+      "image_tooltip": ""
+    },
+    {
+      "id": "spike_toothed_salmon",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "spike_toothed_salmon",
+      "temperament": "neutral",
+      "clone_type": "aquatic_egg",
+      "activity": "sleepless",
+      "diet": "piscivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:rotten_flesh",
+      "feature_1.tooltip": "spike toothed salmon always revived as an undead, which can be cured the same way with zombie villager",
+      "feature_1.title": "Back from the Dead"
+    }
+  ]
+}

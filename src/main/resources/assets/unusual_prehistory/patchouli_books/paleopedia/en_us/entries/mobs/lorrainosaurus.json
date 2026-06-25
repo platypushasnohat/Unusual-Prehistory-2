@@ -1,0 +1,42 @@
+{
+  "name": "Lorrainosaurus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/lorrainosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_lorrainosaurus_embryo",
+  "turnin": "unusual_prehistory:revive_lorrainosaurus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/lorrainosaurus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "lorrainosaurus",
+
+      "rarity": "rare",
+      "fossil_item": "unusual_prehistory:clamp_jaw_fossil",
+      "egg_item": "unusual_prehistory:lorrainosaurus_embryo",
+
+      "flavor_text": "Lorraine-lizard",
+      "image_tooltip": ""
+    },
+    {
+      "id": "lorrainosaurus",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "mid_jurassic",
+      "temperament": "hostile",
+      "clone_type": "embryo",
+      "activity": "sleepless",
+      "diet": "carnivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:water_bucket",
+      "feature_1.tooltip": "lorrainosaurus able to crawl on land to hunt and catch their prey before dragging them to underwater",
+      "feature_1.title": "Coast Terror"
+
+    }
+  ]
+}

@@ -67,8 +67,8 @@
       "tooltip": ["entity.unusual_prehistory.#id#", "§7#image_tooltip#"],
       "width": 85,
       "height": 85,
-      "x": 1,
-      "y": 10,
+      "x": 17,
+      "y": 26,
       "guard": "#variant_key->exists->inv",
       "advancement": "unusual_prehistory:revive_#id#",
       "negate_advancement": false

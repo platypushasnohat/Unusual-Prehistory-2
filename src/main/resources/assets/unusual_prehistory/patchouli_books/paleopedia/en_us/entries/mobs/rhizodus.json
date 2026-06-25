@@ -1,0 +1,45 @@
+{
+  "name": "Rhizodus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/rhizodus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_rhizodus_roe",
+  "turnin": "unusual_prehistory:revive_rhizodus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/rhizodus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "rhizodus",
+      
+      "rarity": "unusual",
+      "fossil_item": "minecraft:barrier",
+      "egg_item": "unusual_prehistory:rhizodus_roe",
+      
+      "flavor_text": "root-tooth",
+      "image_tooltip": ""
+    },
+    {
+      "type": "unusual_prehistory:mob_features",
+      "id": "rhizodus",
+
+      "era": "early_carboniferous",
+      "temperament": "hostile",
+      "clone_type": "aquatic_egg",
+      "activity": "sleepless",
+      "diet": "carnivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:coarse_dirt",
+      "feature_1.tooltip": "rhizodus attack anything smaller than them and can even chase them on land ",
+      "feature_1.title": "Swamp Thing",
+
+      "feature_2.item": "minecraft:redstone_block",
+      "feature_2.tooltip": "rhizodus large mouth possess an ability to create a vaccum that pulls any prey into their death",
+      "feature_2.title": "Whirpool"
+    }
+  ]
+}

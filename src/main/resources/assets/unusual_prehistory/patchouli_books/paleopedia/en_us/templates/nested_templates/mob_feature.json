@@ -31,19 +31,88 @@
       "color": "968351",
       "advancement": "unusual_prehistory:revive_#id#",
       "negate_advancement": false,
-      "guard": "#center_long_title->inv#"
+      "guard": "#center_long_title->exists->inv#"
     },
     {
       "type": "patchouli:text",
       "text": "#title#",
       "max_width": 80,
       "x": 32,
-      "y": 1,
+      "y": 0,
       "scale": 0.5,
       "color": "968351",
       "advancement": "unusual_prehistory:revive_#id#",
       "negate_advancement": false,
-      "guard": "#center_long_title#"
+      "guard": "#center_long_title#->exists"
+    },
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/feature_collectable.png",
+      "advancement": "unusual_prehistory:revive_#id#",
+      "texture_height": 128,
+      "texture_width": 128,
+      "width": 128,
+      "height": 16,
+      "x": 0,
+      "y": 0,
+      "guard": "#collectable#->exists"
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": [
+        "§7Can be scooped up and transported"
+      ],
+      "width": 128,
+      "height": 16,
+      "x": 0,
+      "y": 0,
+      "guard": "#collectable#->exists",
+      "advancement": "unusual_prehistory:revive_#id#"
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#collectable_item",
+      "framed": "true",
+      "x": 90,
+      "y": 0,
+      "advancement": "unusual_prehistory:revive_#id#",
+      "negate_advancement": false,
+      "guard": "#collectable#->exists"
+    },
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/feature_tameable.png",
+      "advancement": "unusual_prehistory:revive_#id#",
+      "texture_height": 128,
+      "texture_width": 128,
+      "width": 128,
+      "height": 16,
+      "x": 0,
+      "y": 0,
+      "guard": "#tameable#->exists"
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": [
+        "§7#tameable_tooltip#"
+      ],
+      "width": 128,
+      "height": 16,
+      "x": 0,
+      "y": 0,
+      "guard": "#tameable#->exists",
+      "advancement": "unusual_prehistory:revive_#id#"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "x#tameable_quantity#",
+      "max_width": 80,
+      "x": 32,
+      "y": 5,
+      "scale": 0.5,
+      "color": "e3d4ac",
+      "guard": "#tameable#->exists",
+      "advancement": "unusual_prehistory:revive_#id#"
     }
   ]
 }

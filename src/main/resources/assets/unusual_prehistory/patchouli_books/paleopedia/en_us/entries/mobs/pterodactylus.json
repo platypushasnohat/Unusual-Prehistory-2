@@ -1,0 +1,41 @@
+{
+  "name": "Pterodactylus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/pterodactylus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_pterodactylus_egg",
+  "turnin": "unusual_prehistory:revive_pterodactylus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/pterodactylus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "pterodactylus",
+      
+      "rarity": "common",
+      "fossil_item": "unusual_prehistory:wing_fossil",
+      "egg_item": "unusual_prehistory:pterodactylus_egg",
+
+      "flavor_text": "winged-finger",
+      "image_tooltip": "A small flying reptile, Pterodactylus is quite skittish and will roost beneath rocky overhangs and within caves, far from danger."
+    },
+    {
+      "id": "pterodactylus",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "late_jurassic",
+      "temperament": "passive",
+      "clone_type": "projectile_egg",
+      "activity": "sleepless",
+      "diet": "insectivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "unusual_prehistory:pterodactylus_pot",
+      "feature_1.tooltip": "Pterodactylus can be collected and transported using a §aFlower Pot§7",
+      "feature_1.title": "Portable Pterodactyl"
+    }
+  ]
+}

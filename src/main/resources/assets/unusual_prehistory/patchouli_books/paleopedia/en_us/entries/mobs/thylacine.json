@@ -1,0 +1,49 @@
+{
+  "name": "Thylacine",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/thylacine.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_thylacine_embryo",
+  "turnin": "unusual_prehistory:revive_thylacine",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/thylacine": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "thylacine",
+      
+      "rarity": "unusual",
+      "fossil_item": "unusual_prehistory:striped_pelt",
+      "egg_item": "unusual_prehistory:thylacine_embryo",
+
+      "flavor_text": "Tasmanian-tiger",
+      "image_tooltip": ""
+    },
+    {
+      "id": "thylacine",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "holocene",
+      "temperament": "neutral",
+      "clone_type": "embryo",
+      "activity": "diurnal",
+      "diet": "carnivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_3.item": "minecraft:chicken",
+      "feature_3.tooltip": "Thylacine can be tamed and breed with chicken",
+      "feature_3.title": "",
+
+      "feature_1.item": "unusual_prehistory:striped_pelt",
+      "feature_1.tooltip": "§7The artifact used to revive thylacine is found in §aWoodland Mansion§7",
+      "feature_1.title": "",
+
+      "feature_2.item": "minecraft:chest",
+      "feature_2.tooltip": "As a tame they can swallow a single mob completely, and chew them for a while",
+      "feature_2.title": "Chomper"
+    }
+  ]
+}

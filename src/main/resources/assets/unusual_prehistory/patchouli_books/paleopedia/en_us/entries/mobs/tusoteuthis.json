@@ -1,0 +1,45 @@
+{
+  "name": "Tusoteuthis",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/tusoteuthis.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_tusoteuthis_eggs",
+  "turnin": "unusual_prehistory:revive_tusoteuthis",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/tusoteuthis": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "tusoteuthis",
+      
+      "rarity": "rare",
+      "fossil_item": "minecraft:barrier",
+      "egg_item": "unusual_prehistory:tusoteuthis_eggs",
+
+      "flavor_text": "crushed-squid",
+      "image_tooltip": ""
+    },
+    {
+      "id": "tusoteuthis",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "late_cretaceous",
+      "temperament": "neutral",
+      "clone_type": "aquatic_egg",
+      "activity": "sleepless",
+      "diet": "carnivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_2.item": "",
+      "feature_2.tooltip": "Tusoteuthis will suck any smaller creature belows them to prey on them",
+      "feature_2.title": "Abduction",
+
+      "feature_1.item": "",
+      "feature_1.tooltip": "Tusoteuthis bioluminesence pattern can create a flashbang to blind their opponent",
+      "feature_1.title": "Think Fast Chucklenut"
+    }
+  ]
+}

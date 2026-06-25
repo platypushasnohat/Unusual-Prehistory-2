@@ -1,0 +1,49 @@
+{  
+  "name": "Woolly Mammoth",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/woolly_mammoth.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_mammoth_embryo",
+  "turnin": "unusual_prehistory:revive_mammoth",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/mammoth": 0
+  },
+  "pages": [  
+    {  
+      "type": "unusual_prehistory:mob_display",
+      "id": "woolly_mammoth",
+      
+      "rarity": "unusual",
+      "fossil_item": "unusual_prehistory:molar_fossil",
+      "egg_item": "unusual_prehistory:woolly_mammoth_embryo",
+      
+      "flavor_text": "",  
+      "image_tooltip": ""  
+    },  
+    {  
+      "id": "woolly_mammoth",
+      "type": "unusual_prehistory:mob_features",
+  
+      "era": "woolly_mammoth",
+      "temperament": "neutral",
+      "clone_type": "embryo",
+      "activity": "diurnal",
+      "diet": "herbivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:snowball",
+      "feature_1.tooltip": "Woolly Mammoth likes to throw snowball at player or spray it when angry",
+      "feature_1.title": "Snowball Fight!",
+
+      "feature_2.item": "minecraft:chest",
+      "feature_2.tooltip": "Woolly Mammoth can be equipped with chest to turn them into mobile storage",
+      "feature_2.title": "",
+
+      "feature_3.item": "minecraft:saddle",
+      "feature_3.tooltip": "Woolly Mammoth Alpha can be tamed and ridden to leads the herd",
+      "feature_3.title": "Send Me on My Way"
+    }  
+  ]  
+}
