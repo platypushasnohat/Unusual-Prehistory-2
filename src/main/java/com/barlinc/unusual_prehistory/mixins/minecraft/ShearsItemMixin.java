@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.mixins.minecraft;
 
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.barlinc.unusual_prehistory.tags.UP2BlockTags;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.item.component.Tool;

@@ -1,9 +1,9 @@
 package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.mob_effects.Dazzled;
-import com.barlinc.unusual_prehistory.entity.mob_effects.Paralysis;
-import com.barlinc.unusual_prehistory.entity.mob_effects.Tranquility;
+import com.barlinc.unusual_prehistory.potions.Dazzled;
+import com.barlinc.unusual_prehistory.potions.Paralysis;
+import com.barlinc.unusual_prehistory.potions.Tranquility;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.neoforged.neoforge.registries.DeferredHolder;

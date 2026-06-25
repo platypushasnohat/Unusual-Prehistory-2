@@ -1,15 +1,11 @@
 package com.barlinc.unusual_prehistory.registry;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.mob.update_1.Diplocaulus;
-import com.barlinc.unusual_prehistory.entity.mob.update_1.Dunkleosteus;
-import com.barlinc.unusual_prehistory.entity.mob.update_1.JawlessFish;
-import com.barlinc.unusual_prehistory.entity.mob.update_4.Coelacanthus;
-import com.barlinc.unusual_prehistory.entity.mob.update_4.LobeFinnedFish;
-import com.barlinc.unusual_prehistory.entity.mob.update_4.Pterodactylus;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.GastricBroodingFrog;
+import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Pterodactylus;
+import com.barlinc.unusual_prehistory.entity.mob.paleozoic.*;
+import com.barlinc.unusual_prehistory.entity.mob.recently_extinct.GastricBroodingFrog;
 import com.barlinc.unusual_prehistory.items.*;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BannerPatternTags;
+import com.barlinc.unusual_prehistory.tags.UP2BannerPatternTags;
 import com.barlinc.unusual_prehistory.utils.VariantHelper;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;

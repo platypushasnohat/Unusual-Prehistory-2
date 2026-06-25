@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.mixins.minecraft.client;
 
-import com.barlinc.unusual_prehistory.entity.mob.update_6.GastricBroodingFrog;
-import com.barlinc.unusual_prehistory.events.ModelRotationEvent;
+import com.barlinc.unusual_prehistory.entity.mob.recently_extinct.GastricBroodingFrog;
+import com.barlinc.unusual_prehistory.events.custom.ModelRotationEvent;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.EntityRenderer;

@@ -1,5 +1,6 @@
 package com.barlinc.unusual_prehistory;
 
+import com.barlinc.unusual_prehistory.client.ClientProxy;
 import com.barlinc.unusual_prehistory.datagen.client.UP2BlockstateProvider;
 import com.barlinc.unusual_prehistory.datagen.client.UP2ItemModelProvider;
 import com.barlinc.unusual_prehistory.datagen.client.UP2LanguageProvider;
@@ -10,8 +11,6 @@ import com.barlinc.unusual_prehistory.network.MountedEntityKeyPacket;
 import com.barlinc.unusual_prehistory.network.MultipartEntityPacket;
 import com.barlinc.unusual_prehistory.network.ParticlePacket;
 import com.barlinc.unusual_prehistory.registry.*;
-import com.barlinc.unusual_prehistory.utils.ClientProxy;
-import com.barlinc.unusual_prehistory.utils.CommonProxy;
 import com.barlinc.unusual_prehistory.utils.UP2LoadedMods;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.HolderLookup;

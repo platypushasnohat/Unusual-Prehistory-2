@@ -8,7 +8,7 @@ import com.barlinc.unusual_prehistory.entity.utils.PrehistoricMobInteractions;
 import com.barlinc.unusual_prehistory.entity.utils.PrehistoricRideableMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
-import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;

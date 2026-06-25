@@ -318,6 +318,11 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> WOOLLY_MAMMOTH_IDLE = registerSoundEvent("woolly_mammoth_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> WOOLLY_MAMMOTH_STEP = registerSoundEvent("woolly_mammoth_step");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> PACHYRHINOSAURUS_HURT = registerSoundEvent("pachyrhinosaurus_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> PACHYRHINOSAURUS_DEATH = registerSoundEvent("pachyrhinosaurus_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> PACHYRHINOSAURUS_IDLE = registerSoundEvent("pachyrhinosaurus_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> PACHYRHINOSAURUS_STEP = registerSoundEvent("pachyrhinosaurus_step");
+
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(final String soundName) {
         return SOUND_EVENTS.register(soundName, () -> SoundEvent.createVariableRangeEvent(UnusualPrehistory2.modPrefix(soundName)));
     }

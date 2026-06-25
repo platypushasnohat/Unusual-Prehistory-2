@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.blocks.plant;
 
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.barlinc.unusual_prehistory.tags.UP2BlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;

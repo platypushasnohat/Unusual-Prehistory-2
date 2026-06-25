@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.mixins.minecraft;
 
-import com.barlinc.unusual_prehistory.entity.mob.update_5.Desmatosuchus;
+import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Desmatosuchus;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.phys.EntityHitResult;

@@ -493,6 +493,11 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.WOOLLY_MAMMOTH_IDLE, "Woolly Mammoth trumpets");
         this.sound(UP2SoundEvents.WOOLLY_MAMMOTH_STEP, "Woolly Mammoth steps");
 
+        this.sound(UP2SoundEvents.PACHYRHINOSAURUS_HURT, "Pachyrhinosaurus hurts");
+        this.sound(UP2SoundEvents.PACHYRHINOSAURUS_DEATH, "Pachyrhinosaurus dies");
+        this.sound(UP2SoundEvents.PACHYRHINOSAURUS_IDLE, "Pachyrhinosaurus grumbles");
+        this.sound(UP2SoundEvents.PACHYRHINOSAURUS_STEP, "Pachyrhinosaurus steps");
+
         this.sound(UP2SoundEvents.PROGNATHODON_HURT, "Prognathodon hurts");
         this.sound(UP2SoundEvents.PROGNATHODON_DEATH, "Prognathodon dies");
         this.sound(UP2SoundEvents.PROGNATHODON_IDLE, "Prognathodon bellows");

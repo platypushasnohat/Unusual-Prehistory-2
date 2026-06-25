@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals.update_6;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.Lorrainosaurus;
+import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Lorrainosaurus;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.core.BlockPos;

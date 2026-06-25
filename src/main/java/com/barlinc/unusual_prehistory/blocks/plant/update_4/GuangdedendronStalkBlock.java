@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.blocks.plant.update_4;
 
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.barlinc.unusual_prehistory.tags.UP2BlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

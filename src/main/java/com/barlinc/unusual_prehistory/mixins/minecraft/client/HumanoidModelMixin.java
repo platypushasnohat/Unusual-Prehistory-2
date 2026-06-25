@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.mixins.minecraft.client;
 
-import com.barlinc.unusual_prehistory.events.PlayerPoseEvent;
+import com.barlinc.unusual_prehistory.events.custom.PlayerPoseEvent;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.RenderType;

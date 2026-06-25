@@ -1,8 +1,8 @@
 package com.barlinc.unusual_prehistory.mixins.minecraft.client;
 
-import com.barlinc.unusual_prehistory.entity.mob.update_4.Ulughbegsaurus;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.Ichthyosaurus;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.arthropleura.Arthropleura;
+import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Ichthyosaurus;
+import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Ulughbegsaurus;
+import com.barlinc.unusual_prehistory.entity.mob.paleozoic.arthropleura.Arthropleura;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;

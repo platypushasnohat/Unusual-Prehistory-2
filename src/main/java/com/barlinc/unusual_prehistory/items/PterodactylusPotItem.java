@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.items;
 
-import com.barlinc.unusual_prehistory.entity.mob.update_4.Pterodactylus;
+import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Pterodactylus;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;

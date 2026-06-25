@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.network;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.GiantCampanile;
+import com.barlinc.unusual_prehistory.entity.mob.cenozoic.GiantCampanile;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

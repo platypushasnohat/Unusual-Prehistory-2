@@ -6,7 +6,7 @@ import com.barlinc.unusual_prehistory.client.inventory.TransmogrifierMenu;
 import com.barlinc.unusual_prehistory.recipes.TransmogrificationRecipe;
 import com.barlinc.unusual_prehistory.registry.UP2BlockEntities;
 import com.barlinc.unusual_prehistory.registry.UP2Recipes;
-import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;

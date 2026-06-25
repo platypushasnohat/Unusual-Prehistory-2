@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.blocks.entity.EggBlockEntity;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2BlockEntities;
 import com.barlinc.unusual_prehistory.registry.UP2Particles;
-import com.barlinc.unusual_prehistory.registry.tags.UP2BlockTags;
+import com.barlinc.unusual_prehistory.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.utils.UP2ParticleUtils;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.advancements.CriteriaTriggers;

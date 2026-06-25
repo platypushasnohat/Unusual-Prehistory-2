@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.ai.goals.update_1;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
-import com.barlinc.unusual_prehistory.entity.mob.update_1.Megalania;
+import com.barlinc.unusual_prehistory.entity.mob.cenozoic.Megalania;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import net.minecraft.world.InteractionHand;

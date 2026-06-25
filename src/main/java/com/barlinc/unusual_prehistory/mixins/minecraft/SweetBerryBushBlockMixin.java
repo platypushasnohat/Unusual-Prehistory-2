@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.mixins.minecraft;
 
-import com.barlinc.unusual_prehistory.registry.tags.UP2EntityTags;
+import com.barlinc.unusual_prehistory.tags.UP2EntityTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.SweetBerryBushBlock;

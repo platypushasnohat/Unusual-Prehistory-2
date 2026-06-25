@@ -1230,6 +1230,24 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/step1")),
                 sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/step2"))
         );
+
+        this.sound(UP2SoundEvents.PACHYRHINOSAURUS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachyrhinosaurus/death1"))
+        );
+        this.sound(UP2SoundEvents.PACHYRHINOSAURUS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachyrhinosaurus/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachyrhinosaurus/hurt2"))
+        );
+        this.sound(UP2SoundEvents.PACHYRHINOSAURUS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachyrhinosaurus/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachyrhinosaurus/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachyrhinosaurus/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachyrhinosaurus/idle4"))
+        );
+        this.sound(UP2SoundEvents.PACHYRHINOSAURUS_STEP,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/step1")).pitch(1.05F),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/step2")).pitch(1.05F)
+        );
     }
 
     private void soundDefinition(Supplier<SoundEvent> soundEvent, String subtitle, SoundDefinition.Sound... sounds) {

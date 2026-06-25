@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.layers;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.registry.UP2MobEffects;
-import com.barlinc.unusual_prehistory.utils.ColorUtils;
+import com.barlinc.unusual_prehistory.utils.UP2ColorUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
@@ -30,7 +30,7 @@ public class UP2PotionEffectLayer<T extends LivingEntity, M extends EntityModel<
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (entity.hasEffect(UP2MobEffects.DAZZLED)) {
             VertexConsumer consumer = bufferSource.getBuffer(RenderType.entityTranslucentEmissive(DAZZLED));
-            this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), ColorUtils.packColor(1F, 1F, 1F, 1F));
+            this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), UP2ColorUtils.packColor(1F, 1F, 1F, 1F));
         }
     }
 }

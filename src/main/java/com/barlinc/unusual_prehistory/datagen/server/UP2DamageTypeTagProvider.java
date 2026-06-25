@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.datagen.server;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.registry.tags.UP2DamageTypeTags;
+import com.barlinc.unusual_prehistory.tags.UP2DamageTypeTags;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;

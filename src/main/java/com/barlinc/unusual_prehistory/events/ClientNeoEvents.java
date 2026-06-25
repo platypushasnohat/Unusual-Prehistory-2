@@ -1,12 +1,15 @@
 package com.barlinc.unusual_prehistory.events;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
+import com.barlinc.unusual_prehistory.client.ClientProxy;
 import com.barlinc.unusual_prehistory.client.renderer.entity.layers.CustomPlayerRidePose;
-import com.barlinc.unusual_prehistory.entity.mob.update_6.Ichthyosaurus;
+import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Ichthyosaurus;
+import com.barlinc.unusual_prehistory.events.custom.ModelRotationEvent;
+import com.barlinc.unusual_prehistory.events.custom.PlayerPoseEvent;
+import com.barlinc.unusual_prehistory.events.custom.ScreenShakeEvent;
 import com.barlinc.unusual_prehistory.mixins.minecraft.client.GameRendererAccessor;
 import com.barlinc.unusual_prehistory.registry.UP2EnumProxy;
 import com.barlinc.unusual_prehistory.registry.UP2MobEffects;
-import com.barlinc.unusual_prehistory.utils.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;

@@ -7,6 +7,8 @@ import net.minecraft.world.level.storage.loot.LootTable;
 
 public class UP2LootTables {
 
+    public static final ResourceKey<LootTable> AUSTRORAPTOR_SHEARING = createLootTableKey("entities/austroraptor_shearing");
+
     public static final ResourceKey<LootTable> DESMATOSUCHUS_MOSSY = createLootTableKey("entities/desmatosuchus_mossy");
     public static final ResourceKey<LootTable> DESMATOSUCHUS_MUDDY = createLootTableKey("entities/desmatosuchus_muddy");
     public static final ResourceKey<LootTable> DESMATOSUCHUS_SNOWY = createLootTableKey("entities/desmatosuchus_snowy");

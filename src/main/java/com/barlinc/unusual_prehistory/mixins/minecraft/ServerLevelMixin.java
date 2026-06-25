@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.mixins.minecraft;
 
-import com.barlinc.unusual_prehistory.entity.mob.update_6.Brontoscorpio;
+import com.barlinc.unusual_prehistory.entity.mob.paleozoic.Brontoscorpio;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.AABB;

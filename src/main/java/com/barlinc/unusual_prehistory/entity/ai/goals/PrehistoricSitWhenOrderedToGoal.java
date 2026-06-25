@@ -18,7 +18,7 @@ public class PrehistoricSitWhenOrderedToGoal extends Goal {
     public PrehistoricSitWhenOrderedToGoal(PrehistoricMob mob, boolean stopSittingInWater) {
         this.tamedMob = mob;
         this.stopSittingInWater = stopSittingInWater;
-        this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE, Flag.LOOK, Flag.TARGET));
+        this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE, Flag.LOOK));
     }
 
     @Override

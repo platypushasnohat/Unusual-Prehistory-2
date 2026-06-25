@@ -2326,6 +2326,41 @@
     ],
     "subtitle": "subtitles.pachycephalosaurus_warn"
   },
+  "pachyrhinosaurus_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/pachyrhinosaurus/death1"
+    ],
+    "subtitle": "subtitles.pachyrhinosaurus_death"
+  },
+  "pachyrhinosaurus_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/pachyrhinosaurus/hurt1",
+      "unusual_prehistory:entity/mob/pachyrhinosaurus/hurt2"
+    ],
+    "subtitle": "subtitles.pachyrhinosaurus_hurt"
+  },
+  "pachyrhinosaurus_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/pachyrhinosaurus/idle1",
+      "unusual_prehistory:entity/mob/pachyrhinosaurus/idle2",
+      "unusual_prehistory:entity/mob/pachyrhinosaurus/idle3",
+      "unusual_prehistory:entity/mob/pachyrhinosaurus/idle4"
+    ],
+    "subtitle": "subtitles.pachyrhinosaurus_idle"
+  },
+  "pachyrhinosaurus_step": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/woolly_mammoth/step1",
+        "pitch": 1.05
+      },
+      {
+        "name": "unusual_prehistory:entity/mob/woolly_mammoth/step2",
+        "pitch": 1.05
+      }
+    ],
+    "subtitle": "subtitles.pachyrhinosaurus_step"
+  },
   "praepusa_bounce": {
     "sounds": [
       "unusual_prehistory:entity/mob/praepusa/bounce1"

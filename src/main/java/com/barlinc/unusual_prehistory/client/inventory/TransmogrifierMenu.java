@@ -3,7 +3,7 @@ package com.barlinc.unusual_prehistory.client.inventory;
 import com.barlinc.unusual_prehistory.blocks.entity.TransmogrifierBlockEntity;
 import com.barlinc.unusual_prehistory.registry.UP2MenuTypes;
 import com.barlinc.unusual_prehistory.registry.UP2Recipes;
-import com.barlinc.unusual_prehistory.registry.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;

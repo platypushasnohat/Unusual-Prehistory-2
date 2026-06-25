@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.mixins.minecraft.client;
 
-import com.barlinc.unusual_prehistory.entity.mob.update_1.Majungasaurus;
+import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Majungasaurus;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;

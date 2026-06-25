@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.datagen.server;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.registry.tags.UP2GameEventTags;
+import com.barlinc.unusual_prehistory.tags.UP2GameEventTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.GameEventTagsProvider;
