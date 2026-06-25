@@ -1,7 +1,8 @@
 package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.HerdWanderGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
@@ -9,6 +10,7 @@ import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
@@ -36,11 +38,12 @@ public class Pachyrhinosaurus extends PrehistoricMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
-        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
+        this.goalSelector.addGoal(3, new HerdWanderGoal(this, 1.0D, 1.2D, 6));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new SleepingGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
     }
 
@@ -59,9 +62,17 @@ public class Pachyrhinosaurus extends PrehistoricMob {
             if (this.getNavigation().getPath() != null) {
                 this.getNavigation().stop();
             }
-            travelVec = travelVec.multiply(0.0, 1.0, 0.0);
+            travelVec = travelVec.multiply(0.0D, 1.0D, 0.0D);
         }
         super.travel(travelVec);
+    }
+
+    @Override
+    public double getFluidJumpThreshold() {
+        if (this.isInWater() && horizontalCollision) {
+            return super.getFluidJumpThreshold();
+        }
+        return 0.35D * this.getBbHeight();
     }
 
     @Override
@@ -70,13 +81,31 @@ public class Pachyrhinosaurus extends PrehistoricMob {
     }
 
     @Override
-    public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isEepy(), tickCount);
+    public Vec3 getEepyParticleVec() {
+        return new Vec3(0.0D, -0.2F * this.getBbHeight(), this.getBbWidth() * 1.12F).yRot(-yBodyRot * ((float) Math.PI / 180F));
     }
 
     @Override
-    public float getWalkAnimationSpeed() {
-        return this.isBaby() ? 6.0F : 10.0F;
+    public void setupAnimationStates() {
+        this.idleAnimationState.animateWhen(!this.isEepy() && !this.isInWaterOrBubble(), tickCount);
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), tickCount);
+        this.eepyAnimationState.animateWhen(this.isEepy(), tickCount);
+    }
+
+    @Override
+    public void calculateEntityAnimation(boolean includeHeight) {
+        float f = (float) Mth.length(this.getX() - xo, includeHeight ? this.getY() - yo : 0.0, this.getZ() - zo);
+        if (this.isBaby()) {
+            this.updateWalkAnimation(f * 0.5F);
+        } else {
+            this.updateWalkAnimation(f);
+        }
+    }
+
+    @Override
+    protected void updateWalkAnimation(float partialTick) {
+        float f = Math.min(partialTick * 25.0F, 1.0F);
+        this.walkAnimation.update(f, 0.4F);
     }
 
     @Nullable
