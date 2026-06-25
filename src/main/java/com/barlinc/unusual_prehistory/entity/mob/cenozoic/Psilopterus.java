@@ -225,8 +225,8 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     @Override
     public void afterLooting(BlockPos stealPos) {
         this.fleeFromPosition = Vec3.atCenterOf(stealPos);
-        this.fleeTicks = 30 + random.nextInt(30);
-        this.eatTicks = 70 + random.nextInt(70);
+        this.fleeTicks = 30 + this.getRandom().nextInt(30);
+        this.setEatTicks(70 + this.getRandom().nextInt(70));
     }
 
     @Override

@@ -101,7 +101,6 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     public final SmoothAnimationState scratch2AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState sandSnortAnimationState = new SmoothAnimationState(1.0F);
 
-    private final byte EAT = 73;
     private final byte SAND_SNORT = 74;
 
     private int sandSwimStartTicks = 0;
@@ -341,13 +340,12 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
             }
             return InteractionResult.SUCCESS;
         }
-        else if (!this.isTame() && itemStack.is(UP2ItemTags.TAMES_CONCAVENATOR) && eatTicks == 0) {
+        else if (!this.isTame() && itemStack.is(UP2ItemTags.TAMES_CONCAVENATOR) && this.getEatTicks() == 0) {
             if (!this.level().isClientSide) {
                 int attempts = this.getTameAttempts();
                 int remaining = 256 - attempts;
                 int consume = Math.min(itemStack.getCount(), remaining);
                 this.setTameAttempts(attempts + consume);
-                this.level().broadcastEntityEvent(this, EAT);
                 this.gameEvent(GameEvent.ENTITY_INTERACT);
                 this.playSound(this.getEatingSound(), 1.0F, 0.9F + this.getRandom().nextFloat() * 0.2F);
                 if (this.getNavigation().getPath() != null) {
@@ -367,7 +365,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
             } else {
                 this.spawnEatingParticles(itemStack);
             }
-            this.eatTicks = 30;
+            this.setEatTicks(30);
             return InteractionResult.SUCCESS;
         }
         else if (this.isTame() && itemStack.is(UP2ItemTags.ARMORS_CONCAVENATOR) && !this.hasArmor() && this.isOwnedBy(player)) {
@@ -613,6 +611,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         this.scratch1AnimationState.animateWhen(this.getIdleState() == 1 && !scratchAlt, this.tickCount);
         this.scratch2AnimationState.animateWhen(this.getIdleState() == 1 && scratchAlt, this.tickCount);
         this.sandSnortAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
+        this.eatAnimationState.animateWhen(this.getEatTicks() > 0, this.tickCount);
     }
 
     public boolean isSwitchingToSandSwim() {
@@ -679,10 +678,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     public void handleEntityEvent(byte id) {
-        if (id == EAT) {
-            this.eatAnimationState.start(this.tickCount);
-        }
-        else if (id == SAND_SNORT) {
+        if (id == SAND_SNORT) {
             this.spawnSandSnortParticles();
         }
         else {

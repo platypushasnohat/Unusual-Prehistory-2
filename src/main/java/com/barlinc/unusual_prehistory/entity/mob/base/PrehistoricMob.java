@@ -67,8 +67,6 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     protected static final EntityDataAccessor<Boolean> PACIFIED = SynchedEntityData.defineId(PrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     protected int eepyTicks;
-    @Deprecated
-    protected int eatTicks = 0;
 
     private float tailYaw;
     private float prevTailYaw;
@@ -211,7 +209,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
         switch (id) {
             case 10 -> this.spawnPacifyParticles();
             case 11 -> this.spawnHeart();
-            case 45 -> this.spawnEatParticles();
+            case 45 -> this.spawnEatParticlesFromMainhand();
             default -> super.handleEntityEvent(id);
         }
     }
@@ -229,12 +227,12 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
         }
     }
 
-    protected void spawnEatParticles() {
-        ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
-        if (!itemstack.isEmpty()) {
+    protected void spawnEatParticlesFromMainhand() {
+        ItemStack itemStack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+        if (!itemStack.isEmpty()) {
             for (int i = 0; i < 8; i++) {
                 Vec3 headPos = this.getEatParticlePos();
-                this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemstack), this.getX() + headPos.x, this.getY(0.5) + headPos.y, this.getZ() + headPos.z, (random.nextFloat() - 0.5F) * 0.1F, random.nextFloat() * 0.15F, (random.nextFloat() - 0.5F) * 0.1F);
+                this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemStack), this.getX() + headPos.x, this.getY(0.5) + headPos.y, this.getZ() + headPos.z, (random.nextFloat() - 0.5F) * 0.1F, random.nextFloat() * 0.15F, (random.nextFloat() - 0.5F) * 0.1F);
             }
         }
     }
