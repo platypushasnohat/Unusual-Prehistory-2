@@ -112,7 +112,8 @@
       "texture_width": 16,
       "texture_height": 16,
       "x": 3,
-      "y": -12
+      "y": -12,
+      "guard:": false
     },
     {
       "type": "patchouli:separator",

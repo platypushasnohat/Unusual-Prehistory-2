@@ -29,9 +29,10 @@
       "activity": "cathemeral",
       "diet": "carnivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": true,
+      "feature_1.item": "tag:unusual_prehistory:tames_megalania",
+      "feature_1.tameable": true,
+      "feature_1.tameable_tooltip": "Tamed Megalania can be commanded to attack",
+      "feature_1.tameable_quantity": "64",
 
       "feature_2.item": "minecraft:red_sand",
       "feature_2.tooltip": "Megalania are cold-blooded, and will become more active and hostile in warmer biomes",
@@ -39,11 +40,8 @@
 
       "feature_3.item": "minecraft:spider_eye",
       "feature_3.tooltip": "Megalania's bite is highly venomous",
-      "feature_3.title": "Vile Bite",
+      "feature_3.title": "Vile Bite"
 
-      "feature_1.item": "tag:unusual_prehistory:tames_megalania",
-      "feature_1.tooltip": "Megalania can be tamed using §aRotten Flesh§7; tamed Megalania can be commanded to attack",
-      "feature_1.title": "Unexpected Friend?"
     }
   ]
 }

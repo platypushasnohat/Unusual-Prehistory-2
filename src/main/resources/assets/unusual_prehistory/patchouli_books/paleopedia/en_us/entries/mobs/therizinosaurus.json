@@ -1,0 +1,41 @@
+{
+  "name": "Therizinosaurus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/therizinosaurus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_therizinosaurus_egg",
+  "turnin": "unusual_prehistory:revive_therizinosaurus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/therizinosaurus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "therizinosaurus",
+      
+      "rarity": "unusual",
+      "fossil_item": "unusual_prehistory:scythe_fossil",
+      "egg_item": "unusual_prehistory:therizinosaurus_egg",
+
+      "flavor_text": "scythe-lizard",
+      "image_tooltip": ""
+    },
+    {
+      "id": "therizinosaurus",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "late_cretaceous",
+      "temperament": "neutral",
+      "clone_type": "nest_egg",
+      "activity": "nocturnal",
+      "diet": "herbivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:skeleton_skull",
+      "feature_1.tooltip": "therizinosaurus are very territorial and will butcher any creatures that makes sudden movement or contact them.",
+      "feature_1.title": ""
+    }
+  ]
+}

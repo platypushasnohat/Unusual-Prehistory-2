@@ -1,0 +1,45 @@
+{
+  "name": "Telecrex",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/telecrex.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_telecrex_egg",
+  "turnin": "unusual_prehistory:revive_telecrex",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/telecrex": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "telecrex",
+      
+      "rarity": "uncommon",
+      "fossil_item": "unusual_prehistory:plumage_fossil",
+      "egg_item": "unusual_prehistory:telecrex_egg",
+
+      "flavor_text": "far-crake",
+      "image_tooltip": "A guineafowl with poor eyesight, Telecrex clumsily flees at the sight of any movement, often slamming into unseen obstacles."
+    },
+    {
+      "id": "telecrex",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "mid_paleogene",
+      "temperament": "passive",
+      "clone_type": "projectile_egg",
+      "activity": "cathemeral",
+      "diet": "omnivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:feather",
+      "feature_1.tooltip": "Telecrex are skittish birds, fleeing from any perceived threats, including players",
+      "feature_1.title": "Fight or Flight?",
+
+      "feature_2.item": "minecraft:glass",
+      "feature_2.tooltip": "Telecrex may fly face-first into obstacles",
+      "feature_2.title": "Faceplanting Fowl"
+    }
+  ]
+}

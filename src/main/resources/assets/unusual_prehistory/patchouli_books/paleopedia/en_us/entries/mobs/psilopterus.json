@@ -1,0 +1,63 @@
+{
+  "name": "Psilopterus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/psilopterus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_psilopterus_egg",
+  "turnin": "unusual_prehistory:revive_psilopterus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/psilopterus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "psilopterus",
+      
+      "rarity": "uncommon",
+      "fossil_item": "unusual_prehistory:crooked_beak_fossil",
+      "egg_item": "unusual_prehistory:psilopterus_egg",
+
+      "flavor_text": "bare-wing",
+      "image_tooltip": "A tall terror-bird with powerful legs, Psilopterus are social birds, following an alpha in group structures, and will descend upon foe or prey with a feathery barrage of kicks and swipes. "
+    },
+    {
+      "type": "unusual_prehistory:mob_features",
+      "id": "psilopterus",
+
+      "era": "psilopterus",
+      "temperament": "neutral",
+      "clone_type": "projectile_egg",
+      "activity": "diurnal",
+      "diet": "carnivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:feather",
+      "feature_1.tooltip": "Psilopterus hunt in packs led by an alpha, becoming more aggressive and bolder in larger groups",
+      "feature_1.title": "Crooked Gang",
+
+      "feature_2.item": "minecraft:lever,minecraft:oak_door,minecraft:oak_button",
+      "feature_2.tooltip": "Psilopterus can open doors and activate buttons and levers",
+      "feature_2.title": "Clever Girl...?",
+
+      "feature_3.item": "minecraft:chest",
+      "feature_3.tooltip": "Psilopterus steals food from chests",
+      "feature_3.title": "Raptor Robber"
+    },
+    {
+      "type": "unusual_prehistory:mob_features_extended",
+      "id": "psilopterus",
+
+      "feature_1.center_long_title": true,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+      "feature_4.center_long_title": false,
+
+
+      "feature_1.item": "minecraft:target",
+      "feature_1.tooltip": "Psilopterus is temperamental and lashes out by kicking small mobs",
+      "feature_1.title": "Strike!"
+    }
+  ]
+}

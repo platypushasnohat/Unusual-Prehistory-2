@@ -1,0 +1,45 @@
+{
+  "name": "Tartuosteus",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/tartuosteus.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_tartuosteus_roe",
+  "turnin": "unusual_prehistory:revive_tartuosteus",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/tartuosteus": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "tartuosteus",
+      
+      "rarity": "uncommon",
+      "fossil_item": "unusual_prehistory:mossy_fossil",
+      "egg_item": "unusual_prehistory:tartuosteus_roe",
+
+      "flavor_text": "Tartu-bone",
+      "image_tooltip": "A wide-winged jawless fish, the mossy Tartuosteus uses its branchials not only to cruise through the water but also to lift itself right out of it. "
+    },
+    {
+      "id": "tartuosteus",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "late_devonian",
+      "temperament": "passive",
+      "clone_type": "aquatic_egg",
+      "activity": "sleepless",
+      "diet": "herbivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_1.item": "minecraft:feather",
+      "feature_1.tooltip": "Tartuosteus occasionally launches itself out of the water",
+      "feature_1.title": "Flying Fish",
+
+      "feature_2.item": "tag:unusual_prehistory:tartuosteus_nibbling_blocks",
+      "feature_2.tooltip": "Like other jawless fish, Tartuosteus enjoy nibbling on moss",
+      "feature_2.title": "Eating Your Greens"
+    }
+  ]
+}

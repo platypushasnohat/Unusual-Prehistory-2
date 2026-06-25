@@ -1,0 +1,62 @@
+{
+  "name": "Talpanas",
+  "icon": "unusual_prehistory:textures/gui/paleopedia/icons/talpanas.png",
+  "category": "unusual_prehistory:mobs",
+  "advancement": "unusual_prehistory:obtain_talpanas_egg",
+  "turnin": "unusual_prehistory:revive_talpanas",
+  "extra_recipe_mappings": {
+    "tag:unusual_prehistory:recipe_mappings/talpanas": 0
+  },
+  "pages": [
+    {
+      "type": "unusual_prehistory:mob_display",
+      "id": "talpanas",
+      
+      "rarity": "unusual",
+      "fossil_item": "unusual_prehistory:aged_feather",
+      "egg_item": "unusual_prehistory:talpanas_egg",
+
+      "flavor_text": "mole-duck",
+      "image_tooltip": "A small cave-dwelling duck inhabiting tropical islands, Talpanas is unable to see, swim, or fly, unfortunately making it the perfect target for §kobfuscate§7, at the hands of whom it met its extinction."
+    },
+    {
+      "id": "talpanas",
+      "type": "unusual_prehistory:mob_features",
+
+      "era": "holocene",
+      "temperament": "passive",
+      "clone_type": "projectile_egg",
+      "activity": "cathemeral",
+      "diet": "herbivore",
+
+      "feature_1.center_long_title": false,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+
+      "feature_3.item": "minecraft:lava_bucket",
+      "feature_3.tooltip": "§7Talpanas' blindness makes them susceptible to walking into hazards, ensure enclosures are safe!",
+      "feature_3.title": "Workplace Hazards",
+
+      "feature_1.item": "unusual_prehistory:aged_feather",
+      "feature_1.tooltip": "§7The artifact used to revive Talpanas is found in §aWarm Ocean Ruins§7",
+      "feature_1.title": "Duck Island",
+
+      "feature_2.item": "minecraft:hanging_roots",
+      "feature_2.tooltip": "Being recently-extinct, Talpanas are able to breed after being fed §aHanging Roots§7",
+      "feature_2.title": "Subterraneous Snack"
+    },
+    {
+      "type": "unusual_prehistory:mob_features_extended",
+      "id": "talpanas",
+
+      "feature_1.center_long_title": true,
+      "feature_2.center_long_title": false,
+      "feature_3.center_long_title": false,
+      "feature_4.center_long_title": false,
+
+      "feature_1.item": "minecraft:torch",
+      "feature_1.tooltip": "§7What remains of their eyes are highly sensitive, Talpanas avoids both natural and player-placed light",
+      "feature_1.title": "Light at the End of the Tunnel"
+    }
+  ]
+}

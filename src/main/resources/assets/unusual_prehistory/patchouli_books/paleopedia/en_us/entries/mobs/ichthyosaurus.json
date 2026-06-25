@@ -3,7 +3,7 @@
   "icon": "unusual_prehistory:textures/gui/paleopedia/icons/ichthyosaurus.png",
   "category": "unusual_prehistory:mobs",
   "advancement": "unusual_prehistory:obtain_ichthyosaurus_embryo",
-  "turnin": "unusual_prehistory:revive_icthyosaurus",
+  "turnin": "unusual_prehistory:revive_ichthyosaurus",
   "extra_recipe_mappings": {
     "tag:unusual_prehistory:recipe_mappings/ichthyosaurus": 0
   },
