@@ -119,7 +119,7 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
         this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 1.7D, 10, 4, true));
         this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, Mob.class, 6.0F, 1.7D, true, this::avoidsMobs));
         this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, Player.class, 6.0F, 1.7D, true));
-        this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D, false) {
+        this.goalSelector.addGoal(4, new PrehistoricWanderGoal(this, 1.0D, false) {
             @Override
             public boolean canUse() {
                 return Kimmeridgebrachypteraeschnidium.this.isBaby() && super.canUse();

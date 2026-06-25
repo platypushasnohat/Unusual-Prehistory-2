@@ -2,15 +2,15 @@ package com.barlinc.unusual_prehistory.entity.ai.goals;
 
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
 
-public class SemiAquaticRandomStrollGoal extends PrehistoricRandomStrollGoal {
+public class SemiAquaticWanderGoal extends PrehistoricWanderGoal {
 
     protected final AmphibiousMob semiAquaticMob;
 
-    public SemiAquaticRandomStrollGoal(AmphibiousMob mob, double speedModifier) {
+    public SemiAquaticWanderGoal(AmphibiousMob mob, double speedModifier) {
         this(mob, speedModifier, 120);
     }
 
-    public SemiAquaticRandomStrollGoal(AmphibiousMob mob, double speedModifier, int interval) {
+    public SemiAquaticWanderGoal(AmphibiousMob mob, double speedModifier, int interval) {
         super(mob, speedModifier, interval, true);
         this.semiAquaticMob = mob;
     }

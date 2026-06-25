@@ -79,10 +79,10 @@ public class Austroraptor extends PrehistoricMob {
         this.goalSelector.addGoal(2, new AustroraptorAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(4, new SurfaceSwimGoal(this, 0.65D));
-        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1.0D, false));
+        this.goalSelector.addGoal(5, new PrehistoricWanderGoal(this, 1.0D, false));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(7, new SleepingGoal(this));
+        this.goalSelector.addGoal(7, new EepyGoal(this));
         // todo: probably make fishing more immersive (either spawn and eat a fish mob or fish item)
         this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 80, 1, true, 0.001F, this::canFish));
         this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 80, 2, true, 0.001F, this::canPreen));

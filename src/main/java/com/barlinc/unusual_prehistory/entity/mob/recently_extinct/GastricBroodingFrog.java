@@ -107,8 +107,8 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         this.goalSelector.addGoal(6, new LeaveWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LeapRandomlyGoal(this, 60, 7, 0.9F));
-        this.goalSelector.addGoal(8, new CustomizableRandomSwimGoal(this, 1.0D, 40));
-        this.goalSelector.addGoal(8, new SemiAquaticRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(8, new PrehistoricSwimGoal(this, 1.0D, 40));
+        this.goalSelector.addGoal(8, new SemiAquaticWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 10, 1, false, 0.001F, this::canPlayIdles));
@@ -235,9 +235,6 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
             return InteractionResult.SUCCESS;
         }
         else if (!this.isBaby() && !this.isTame() && this.getEatTicks() <= 0 && itemStack.is(UP2ItemTags.TAMES_GASTRIC_BROODING_FROG) ) {
-            if (this.getPose() == Pose.STANDING) {
-                this.setPose(UP2Poses.EATING.get());
-            }
             this.setEatTicks(10);
             if (!this.level().isClientSide) {
                 if (!player.getAbilities().instabuild) {
@@ -402,9 +399,6 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         if (attackCooldown > 0) {
             this.attackCooldown--;
         }
-        if (this.getEatTicks() <= 0 && this.getPose() == UP2Poses.EATING.get()) {
-            this.setPose(Pose.STANDING);
-        }
         if (this.getFrogletTime() > 0) {
             this.setFrogletTime(this.getFrogletTime() - 1);
         }
@@ -465,7 +459,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isSitting() && !this.wasLaunched() && !this.isPassenger(), tickCount);
         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isSitting() && !this.wasLaunched() && !this.isPassenger(), tickCount);
         this.leapAnimationState.animateWhen(this.isLeaping() && !this.wasLaunched(), tickCount);
-        this.eatAnimationState.animateWhen(this.getPose() == UP2Poses.EATING.get(), tickCount);
+        this.eatAnimationState.animateWhen(this.getEatTicks() > 0 || this.getPose() == UP2Poses.SPITTING.get(), tickCount);
         this.launchAnimationState.animateWhen(this.wasLaunched(), tickCount);
         this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), tickCount);
         this.sitAnimationState.animateWhen(this.isSitting() || this.isPassenger(), tickCount);
@@ -804,7 +798,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
             this.timer++;
             if (timer == 1) {
                 this.frog.playSound(UP2SoundEvents.GASTRIC_BROODING_FROG_TONGUE.get(), 1.0F, frog.getVoicePitch());
-                this.frog.setPose(UP2Poses.EATING.get());
+                this.frog.setPose(UP2Poses.SPITTING.get());
             }
             if (timer > 3 && timer < 10 && frog.canSwallowTarget(target)) {
                 target.setDeltaMovement(target.position().vectorTo(frog.position()).normalize().scale(0.75D));

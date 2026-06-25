@@ -8,19 +8,19 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
-public class PrehistoricRandomStrollGoal extends RandomStrollGoal {
+public class PrehistoricWanderGoal extends RandomStrollGoal {
 
     protected final boolean shouldAvoidWater;
 
-    public PrehistoricRandomStrollGoal(PathfinderMob mob, double speedModifier) {
+    public PrehistoricWanderGoal(PathfinderMob mob, double speedModifier) {
         this(mob, speedModifier, 120, true);
     }
 
-    public PrehistoricRandomStrollGoal(PathfinderMob mob, double speedModifier, boolean shouldAvoidWater) {
+    public PrehistoricWanderGoal(PathfinderMob mob, double speedModifier, boolean shouldAvoidWater) {
         this(mob, speedModifier, 120, shouldAvoidWater);
     }
 
-    public PrehistoricRandomStrollGoal(PathfinderMob mob, double speedModifier, int interval, boolean shouldAvoidWater) {
+    public PrehistoricWanderGoal(PathfinderMob mob, double speedModifier, int interval, boolean shouldAvoidWater) {
         super(mob, speedModifier, interval, true);
         this.shouldAvoidWater = shouldAvoidWater;
     }
@@ -28,7 +28,7 @@ public class PrehistoricRandomStrollGoal extends RandomStrollGoal {
     @Nullable
     @Override
     protected Vec3 getPosition() {
-        if (this.shouldAvoidWater) {
+        if (shouldAvoidWater) {
             Vec3 randomPos;
             if (mob.isInWater()) {
                 randomPos = LandRandomPos.getPos(mob, 30, 8);
@@ -37,7 +37,7 @@ public class PrehistoricRandomStrollGoal extends RandomStrollGoal {
             randomPos = mob.getRandom().nextFloat() > 0.001F ? LandRandomPos.getPos(mob, 10, 7) : DefaultRandomPos.getPos(mob, 10, 7);
             return randomPos;
         } else {
-            return DefaultRandomPos.getPos(this.mob, 10, 7);
+            return DefaultRandomPos.getPos(mob, 10, 7);
         }
     }
 }

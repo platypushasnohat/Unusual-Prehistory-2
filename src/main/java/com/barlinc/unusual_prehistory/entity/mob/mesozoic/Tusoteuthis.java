@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AmphibiousPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
@@ -77,7 +77,7 @@ public class Tusoteuthis extends PrehistoricAquaticMob {
         this.goalSelector.addGoal(1, new TusoteuthisPanicGoal(this));
         this.goalSelector.addGoal(2, new TusoteuthisAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 100, 7, 15));
+        this.goalSelector.addGoal(4, new PrehistoricSwimGoal(this, 1.0D, 100, 7, 15));
         this.targetSelector.addGoal(1, new TusoteuthisTargetUnderneathGoal<>(this, LivingEntity.class, this::canTargetEntitiesUnderneath));
         this.targetSelector.addGoal(2, new TusoteuthisTargetUnderneathGoal<>(this, Player.class, this::canTargetEntitiesUnderneath));
     }

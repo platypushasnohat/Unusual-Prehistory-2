@@ -75,10 +75,10 @@ public class Talpanas extends BreedableMob {
         this.goalSelector.addGoal(3, new TalpanasSeekShelterGoal(this));
         this.goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
-        this.goalSelector.addGoal(6, new PrehistoricRandomStrollGoal(this, 1.0D, false));
+        this.goalSelector.addGoal(6, new PrehistoricWanderGoal(this, 1.0D, false));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 3.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(8, new SleepingGoal(this));
+        this.goalSelector.addGoal(8, new EepyGoal(this));
         this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 40, 1, true, 0.005F, this::canPeckBlock));
     }
 

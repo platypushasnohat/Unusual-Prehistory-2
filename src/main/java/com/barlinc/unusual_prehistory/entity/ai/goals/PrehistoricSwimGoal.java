@@ -7,7 +7,7 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
-public class CustomizableRandomSwimGoal extends RandomStrollGoal {
+public class PrehistoricSwimGoal extends RandomStrollGoal {
 
     protected final PrehistoricMob prehistoricMob;
     private final int radius;
@@ -16,19 +16,19 @@ public class CustomizableRandomSwimGoal extends RandomStrollGoal {
     private final boolean hasProximity;
     protected Vec3 wantedPos;
 
-    public CustomizableRandomSwimGoal(PrehistoricMob prehistoricMob, double speedMultiplier, int interval, int radius, int height) {
+    public PrehistoricSwimGoal(PrehistoricMob prehistoricMob, double speedMultiplier, int interval, int radius, int height) {
         this(prehistoricMob, speedMultiplier, interval, radius, height, 0, false);
     }
 
-    public CustomizableRandomSwimGoal(PrehistoricMob prehistoricMob, double speedMultiplier, int interval) {
+    public PrehistoricSwimGoal(PrehistoricMob prehistoricMob, double speedMultiplier, int interval) {
         this(prehistoricMob, speedMultiplier, interval, 10, 7, 0, false);
     }
 
-    public CustomizableRandomSwimGoal(PrehistoricMob prehistoricMob, double speedMultiplier, int interval, int proximity) {
+    public PrehistoricSwimGoal(PrehistoricMob prehistoricMob, double speedMultiplier, int interval, int proximity) {
         this(prehistoricMob, speedMultiplier, interval, 10, 7, proximity, true);
     }
 
-    public CustomizableRandomSwimGoal(PrehistoricMob prehistoricMob, double speedMultiplier, int interval, int radius, int height, int proximity, boolean hasProximity) {
+    public PrehistoricSwimGoal(PrehistoricMob prehistoricMob, double speedMultiplier, int interval, int radius, int height, int proximity, boolean hasProximity) {
         super(prehistoricMob, speedMultiplier, interval);
         this.prehistoricMob = prehistoricMob;
         this.radius = radius;

@@ -86,7 +86,7 @@ public class Lorrainosaurus extends AmphibiousMob implements GrabbingMob {
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D, 16, 8));
         this.goalSelector.addGoal(2, new LorrainosaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 40, 30, 15, 3, true));
+        this.goalSelector.addGoal(4, new PrehistoricSwimGoal(this, 1.0D, 40, 30, 15, 3, true));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 60, 1, false, 0.001F, this::canPlayIdles));

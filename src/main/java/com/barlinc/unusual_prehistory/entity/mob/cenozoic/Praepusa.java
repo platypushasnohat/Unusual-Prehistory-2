@@ -26,17 +26,13 @@
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
  import net.minecraft.sounds.SoundSource;
- import net.minecraft.tags.FluidTags;
  import net.minecraft.world.InteractionHand;
  import net.minecraft.world.InteractionResult;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
  import net.minecraft.world.entity.ai.attributes.Attributes;
- import net.minecraft.world.entity.ai.goal.Goal;
- import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
- import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
- import net.minecraft.world.entity.ai.goal.TemptGoal;
+ import net.minecraft.world.entity.ai.goal.*;
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.animal.Bucketable;
  import net.minecraft.world.entity.player.Player;
@@ -49,7 +45,6 @@
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
 
- @SuppressWarnings("deprecation")
  public class Praepusa extends AmphibiousMob implements Bucketable {
 
      private static final EntityDataAccessor<Integer> MITOSIS_COOLDOWN = SynchedEntityData.defineId(Praepusa.class, EntityDataSerializers.INT);
@@ -89,25 +84,26 @@
 
      @Override
      protected void registerGoals() {
+         this.goalSelector.addGoal(0, new SurfaceSwimGoal(this, 0.1D) {
+             @Override
+             public boolean canUse() {
+                 return Praepusa.this.isEepy() && super.canUse();
+             }
+         });
+
          this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.6D, 10, 4, true));
          this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.8D, entity -> entity.getType().is(UP2EntityTags.PRAEPUSA_AVOIDS)));
          this.goalSelector.addGoal(3, new PraepusaAttackGoal(this));
          this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
          this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D));
          this.goalSelector.addGoal(5, new EnterWaterGoal(this, 1.0D));
-         this.goalSelector.addGoal(6, new SemiAquaticRandomStrollGoal(this, 1.0D));
-         this.goalSelector.addGoal(6, new CustomizableRandomSwimGoal(this, 1.0D, 50));
+         this.goalSelector.addGoal(6, new SemiAquaticWanderGoal(this, 1.0D));
+         this.goalSelector.addGoal(6, new PrehistoricSwimGoal(this, 1.0D, 50));
          this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-         this.goalSelector.addGoal(8, new WaterSleepingGoal(this));
+         this.goalSelector.addGoal(8, new EepyGoal(this, false));
          this.goalSelector.addGoal(9, new PraepusaLoafGoal(this));
-         this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 40, 2, true, 0.001F, this::canPlayIdles) {
-             @Override
-             public void start() {
-                 super.start();
-                 Praepusa.this.slapAlt = Praepusa.this.getRandom().nextBoolean();
-             }
-         });
+         this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 40, 2, true, 0.001F, this::canPlayIdles));
          this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 60, 3, true, 0.001F, this::canPlayIdles));
          this.targetSelector.addGoal(0, new PrehistoricNearestAttackableTargetGoal<>(this, LivingEntity.class, 500, true, true, this::canHuntFish));
      }
@@ -137,14 +133,7 @@
              }
              travelVec = travelVec.multiply(0.0, 1.0, 0.0);
          }
-         if (this.isEepy()) {
-             if (this.getFluidHeight(FluidTags.WATER) > this.getFluidJumpThreshold()) {
-                 this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
-             } else {
-                 this.setDeltaMovement(this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D));
-             }
-         }
-         if (this.isEffectiveAi() && this.isInWater()) {
+         if (this.isEffectiveAi() && this.isInWater() && !this.isEepy()) {
              UP2MobUtils.travelInWater(this, travelVec);
          }
          else {
@@ -153,8 +142,8 @@
      }
 
      @Override
-     public double getFluidJumpThreshold() {
-         return 0.25D * this.getBbHeight();
+     public boolean isEepyTime() {
+         return super.isEepyTime() && this.isInWater();
      }
 
      @Override
@@ -212,6 +201,10 @@
 
          if (!this.level().isClientSide && this.isAlive() && !this.isInWaterOrBubble()) {
              this.bounce();
+         }
+
+         if (this.isEepy() && this.isInWater()) {
+             this.setDeltaMovement(this.getDeltaMovement().multiply(1.0, 0.5, 1.0));
          }
      }
 
@@ -307,13 +300,18 @@
                  this.mitosisTicks = 40;
              }
          }
+         if (IDLE_STATE.equals(accessor)) {
+             if (this.getIdleState() == 2) {
+                 this.slapAlt = this.getRandom().nextBoolean();
+             }
+         }
          super.onSyncedDataUpdated(accessor);
      }
 
      public void handleEntityEvent(byte id) {
          switch (id) {
-             case 73 -> this.bounceAnimationState.start(this.tickCount);
-             case 74 -> this.bounceAnimationState.stop();
+             case 73 -> bounceAnimationState.start(this.tickCount);
+             case 74 -> bounceAnimationState.stop();
              default -> super.handleEntityEvent(id);
          }
      }
@@ -494,14 +492,13 @@
                      praepusa.setAttackState(1);
                  }
                  if (praepusa.getAttackState() == 1) {
-                     this.tickAttack();
+                     this.tickAttack(target);
                  }
              }
          }
 
-         protected void tickAttack() {
+         protected void tickAttack(LivingEntity target) {
              this.timer++;
-             LivingEntity target = praepusa.getTarget();
              if (timer == 1) praepusa.setPose(UP2Poses.ATTACKING.get());
              if (timer == 8) {
                  if (praepusa.distanceTo(target) < this.getAttackReachSqr(target)) {

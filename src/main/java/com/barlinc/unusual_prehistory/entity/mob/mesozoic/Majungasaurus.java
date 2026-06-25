@@ -78,12 +78,12 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.7D, 10, 4));
         this.goalSelector.addGoal(2, new MajungasaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
-        this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new PrehistoricWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(6, new MajungasaurusAvoidEntityGoal<>(this, Majungasaurus.class, this::avoidsParents));
         this.goalSelector.addGoal(6, new MajungasaurusAvoidEntityGoal<>(this, LivingEntity.class, entity -> entity.getType().is(UP2EntityTags.MAJUNGASAURUS_AVOIDS)));
-        this.goalSelector.addGoal(7, new SleepingGoal(this));
+        this.goalSelector.addGoal(7, new EepyGoal(this));
         this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 60, 1, false, 0.001F, this::canPlayIdles));
         this.goalSelector.addGoal(8, new IdleAnimationGoal(this, 80, 2, false, 0.001F, this::canPlayIdles));
         this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 80, 3, true, 0.001F, this::canPlayIdles) {

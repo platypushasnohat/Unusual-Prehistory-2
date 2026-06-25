@@ -73,7 +73,7 @@ public class KingLingcod extends AbstractLingcod {
         this.goalSelector.addGoal(2, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.5D, 6.0F, 3.0F));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TEMPTS_LINGCOD), false));
         this.goalSelector.addGoal(4, new KingLingcodAttackGoal(this));
-        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 150));
+        this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 150));
         this.goalSelector.addGoal(6, new PrehistoricFollowMobGoal(this, 10, 1.0F, 3.0F, 10.0F, this::canFollowBonded));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.targetSelector.addGoal(0, new BondedWithHurtByTargetGoal(this));

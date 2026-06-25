@@ -3,7 +3,7 @@ package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.EepyGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -52,7 +52,7 @@ public class Dromaeosaurus extends PrehistoricMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.0D));
-        this.goalSelector.addGoal(2, new SleepingGoal(this));
+        this.goalSelector.addGoal(2, new EepyGoal(this));
         this.goalSelector.addGoal(3, new DromaeosaurusLeapGoal(this));
         this.goalSelector.addGoal(4, new DromaeosaurusAttackGoal(this));
         this.goalSelector.addGoal(5, new OpenDoorGoal(this, false));

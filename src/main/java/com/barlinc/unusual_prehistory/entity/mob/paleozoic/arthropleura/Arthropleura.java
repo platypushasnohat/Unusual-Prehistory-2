@@ -3,7 +3,7 @@ package com.barlinc.unusual_prehistory.entity.mob.paleozoic.arthropleura;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.SaddlelessItemBasedSteering;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -97,7 +97,7 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
                 return !Arthropleura.this.hasRidingPlayer() && super.canContinueToUse();
             }
         });
-        this.goalSelector.addGoal(4, new ArthropleuraRandomStrollGoal(this));
+        this.goalSelector.addGoal(4, new ArthropleuraWanderGoal(this));
     }
 
     @Override
@@ -462,12 +462,12 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
         }
     }
 
-    public static class ArthropleuraRandomStrollGoal extends PrehistoricRandomStrollGoal {
+    public static class ArthropleuraWanderGoal extends PrehistoricWanderGoal {
 
         private final Arthropleura arthropleura;
         protected Vec3 wantedPos;
 
-        public ArthropleuraRandomStrollGoal(Arthropleura arthropleura) {
+        public ArthropleuraWanderGoal(Arthropleura arthropleura) {
             super(arthropleura, 1.0D, 80, true);
             this.arthropleura = arthropleura;
         }

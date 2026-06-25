@@ -69,12 +69,12 @@ public class Anurognathus extends PrehistoricFlyingMob implements VariantHolder<
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new FlyingPanicGoal(this, 1.8D));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_INSECTIVORE), true));
-        this.goalSelector.addGoal(3, new LandLockedRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new LandLockedWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new LandFromFlightGoal(this, 200));
         this.goalSelector.addGoal(5, new RandomFlightGoal(this, 1.0F, 7));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(7, new SleepingGoal(this));
+        this.goalSelector.addGoal(7, new EepyGoal(this));
     }
 
     @Override

@@ -101,10 +101,10 @@
          this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
          this.goalSelector.addGoal(1, new BrachiosaurusAttackGoal(this));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
-         this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D, false));
+         this.goalSelector.addGoal(3, new PrehistoricWanderGoal(this, 1.0D, false));
          this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-         this.goalSelector.addGoal(6, new SleepingGoal(this));
+         this.goalSelector.addGoal(6, new EepyGoal(this));
          this.goalSelector.addGoal(7, new IdleAnimationGoal(this, 60, 1, true, 0.001F) {
              @Override
              public void start() {

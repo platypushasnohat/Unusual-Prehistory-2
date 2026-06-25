@@ -408,6 +408,7 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
         return true;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isEepyTime() {
         return this.level().isNight();
     }

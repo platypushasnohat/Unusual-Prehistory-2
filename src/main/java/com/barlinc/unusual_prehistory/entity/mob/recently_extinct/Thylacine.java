@@ -89,11 +89,11 @@ public class Thylacine extends BreedableMob implements LeapingMob {
         this.goalSelector.addGoal(5, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.5D, 5.0F, 2.5F));
         this.goalSelector.addGoal(6, new ThylacineBreedGoal(this, 0.8D));
         this.goalSelector.addGoal(7, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TEMPTS_THYLACINE), false));
-        this.goalSelector.addGoal(8, new PrehistoricRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(8, new PrehistoricWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new FollowParentGoal(this, 1.0D));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(11, new SleepingGoal(this));
+        this.goalSelector.addGoal(11, new EepyGoal(this));
         this.goalSelector.addGoal(12, new IdleAnimationGoal(this, 40, 1, false, 0.001F, this::canPlayIdles));
         this.goalSelector.addGoal(12, new IdleAnimationGoal(this, 80, 2, true, 0.001F, this::canPlayIdles));
         this.targetSelector.addGoal(1, new PrehistoricOwnerHurtByTargetGoal(this));

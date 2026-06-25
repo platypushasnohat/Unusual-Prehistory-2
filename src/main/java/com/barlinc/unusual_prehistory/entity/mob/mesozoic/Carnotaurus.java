@@ -2,8 +2,8 @@ package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.EepyGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.CarnotaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
@@ -88,10 +88,10 @@ public class Carnotaurus extends PrehistoricMob implements VariantHolder<Carnota
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new CarnotaurusAttackGoal(this));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
-        this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new PrehistoricWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new SleepingGoal(this));
+        this.goalSelector.addGoal(5, new EepyGoal(this));
         this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 60, 1, false, 0.001F, this::canPlayIdles));
         this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 40, 2, false, 0.001F, this::canPlayIdles));
         this.goalSelector.addGoal(6, new IdleAnimationGoal(this, 80, 3, true, 0.001F, this::canPlayIdles) {

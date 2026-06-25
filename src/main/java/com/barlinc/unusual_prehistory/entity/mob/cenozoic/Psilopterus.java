@@ -94,11 +94,11 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
         this.goalSelector.addGoal(7, new LootChestGoal(this, 1, 8, 6));
         this.goalSelector.addGoal(8, new PressButtonGoal(this, 1, 6, 4));
         this.goalSelector.addGoal(8, new PullLeverGoal(this, 1, 6, 4));
-        this.goalSelector.addGoal(9, new PrehistoricRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(9, new PrehistoricWanderGoal(this, 1));
         this.goalSelector.addGoal(10, new FollowParentGoal(this, 1));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(12, new SleepingGoal(this));
+        this.goalSelector.addGoal(12, new EepyGoal(this));
         this.goalSelector.addGoal(13, new IdleAnimationGoal(this, 60, 1, true, 0.001F, this::canDig) {
             @Override
             public void tick() {

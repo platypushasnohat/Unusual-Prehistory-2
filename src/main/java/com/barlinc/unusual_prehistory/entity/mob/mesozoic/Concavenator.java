@@ -125,11 +125,11 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         this.goalSelector.addGoal(6, new ConcavenatorFollowOwnerGoal(this, 7.0F, 4.0F));
         this.goalSelector.addGoal(7, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TEMPTS_CONCAVENATOR), false));
         this.goalSelector.addGoal(8, new FollowParentGoal(this, 1.2D));
-        this.goalSelector.addGoal(9, new SandSwimmingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(10, new ConcavenatorRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(9, new SandSwimmingWanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(10, new ConcavenatorWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(12, new SleepingGoal(this));
+        this.goalSelector.addGoal(12, new EepyGoal(this));
         this.goalSelector.addGoal(13, new IdleAnimationGoal(this, 60, 1, true, 0.001F, this::canPlayIdles));
         this.goalSelector.addGoal(13, new IdleAnimationGoal(this, 30, 2, true, 0.001F, this::canPlayIdles) {
             @Override
@@ -901,11 +901,11 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     // Goals
-    private static class ConcavenatorRandomStrollGoal extends PrehistoricRandomStrollGoal {
+    private static class ConcavenatorWanderGoal extends PrehistoricWanderGoal {
 
         private final Concavenator concavenator;
 
-        public ConcavenatorRandomStrollGoal(Concavenator concavenator, double speedModifier) {
+        public ConcavenatorWanderGoal(Concavenator concavenator, double speedModifier) {
             super(concavenator, speedModifier, true);
             this.concavenator = concavenator;
         }
@@ -921,11 +921,11 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         }
     }
 
-    private static class SandSwimmingRandomStrollGoal extends PrehistoricRandomStrollGoal {
+    private static class SandSwimmingWanderGoal extends PrehistoricWanderGoal {
 
         private final Concavenator concavenator;
 
-        public SandSwimmingRandomStrollGoal(Concavenator concavenator, double speedModifier) {
+        public SandSwimmingWanderGoal(Concavenator concavenator, double speedModifier) {
             super(concavenator, speedModifier, 40, true);
             this.concavenator = concavenator;
         }

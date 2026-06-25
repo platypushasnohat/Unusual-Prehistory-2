@@ -55,7 +55,7 @@ public class Leptictidium extends PrehistoricMob {
         this.goalSelector.addGoal(4, new PrehistoricAvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_INSECTIVORE), false));
         this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
-        this.goalSelector.addGoal(7, new PrehistoricRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(7, new PrehistoricWanderGoal(this, 1));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 30, 1, true, 0.001F, this::canPlayIdles));
