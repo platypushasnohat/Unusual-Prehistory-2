@@ -212,6 +212,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.TUSOTEUTHIS.get(), TusoteuthisRenderer::new);
         event.registerEntityRenderer(UP2Entities.WOOLLY_MAMMOTH.get(), WoollyMammothRenderer::new);
         event.registerEntityRenderer(UP2Entities.PACHYRHINOSAURUS.get(), PachyrhinosaurusRenderer::new);
+        event.registerEntityRenderer(UP2Entities.HESPERORNIS.get(), HesperornisRenderer::new);
 
         event.registerEntityRenderer(UP2Entities.ANUROGNATHUS_EGG.get(), ThrownItemRenderer::new);
     }
@@ -318,7 +319,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.THYLACINE, ThylacineModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.TUSOTEUTHIS, TusoteuthisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.PACHYRHINOSAURUS, PachyrhinosaurusModel::createBodyLayer);
-
+        event.registerLayerDefinition(UP2ModelLayers.HESPERORNIS, HesperornisModel::createBodyLayer);
     }
 
     @SubscribeEvent

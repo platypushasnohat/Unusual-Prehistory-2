@@ -1321,6 +1321,48 @@
     ],
     "subtitle": "subtitles.grug_idle"
   },
+  "hesperornis_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/hesperornis/death1"
+    ],
+    "subtitle": "subtitles.hesperornis_death"
+  },
+  "hesperornis_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/hesperornis/hurt1",
+      "unusual_prehistory:entity/mob/hesperornis/hurt2"
+    ],
+    "subtitle": "subtitles.hesperornis_hurt"
+  },
+  "hesperornis_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/hesperornis/idle1",
+      "unusual_prehistory:entity/mob/hesperornis/idle2",
+      "unusual_prehistory:entity/mob/hesperornis/idle3"
+    ],
+    "subtitle": "subtitles.hesperornis_idle"
+  },
+  "hesperornis_step": {
+    "sounds": [
+      {
+        "name": "mob/frog/step1",
+        "pitch": 0.9
+      },
+      {
+        "name": "mob/frog/step2",
+        "pitch": 0.9
+      },
+      {
+        "name": "mob/frog/step3",
+        "pitch": 0.9
+      },
+      {
+        "name": "mob/frog/step4",
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.hesperornis_step"
+  },
   "hibbertopterus_death": {
     "sounds": [
       "unusual_prehistory:entity/mob/hibbertopterus/death1"
