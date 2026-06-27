@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-27T12:59:17.7766798	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-06-27T14:50:56.1238034	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/foods/fruit.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -85,6 +85,7 @@ e2542bcbc9b2d2a8c9e34485e4b1d0f30e670151 data/unusual_prehistory/tags/item/recip
 89a044b4065bc40e4d7222d1afbda49659bb6a5f data/unusual_prehistory/tags/item/recipe_mappings/austroraptor.json
 4ad3ba3fee30e0cd3a35914f2d27c8a9e4f6e978 data/unusual_prehistory/tags/item/recipe_mappings/brachiosaurus.json
 0d40e10dcd486d518d52787051286aa50401b3e0 data/unusual_prehistory/tags/item/recipe_mappings/brontoscorpio.json
+1257ae3be771aed624bfdb5d91fe36da59e35ec1 data/unusual_prehistory/tags/item/recipe_mappings/cameroceras.json
 385f2de9577e1dd85f99f5aaaa77ba34b0aa90d3 data/unusual_prehistory/tags/item/recipe_mappings/carnotaurus.json
 a1909921684068f34bfbdfca6d1e9f669f37e868 data/unusual_prehistory/tags/item/recipe_mappings/coelacanthus.json
 f3f5d718860dbbb48b52305445f6ef6d272f09b1 data/unusual_prehistory/tags/item/recipe_mappings/concavenator.json

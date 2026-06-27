@@ -214,6 +214,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.PACHYRHINOSAURUS.get(), PachyrhinosaurusRenderer::new);
         event.registerEntityRenderer(UP2Entities.HESPERORNIS.get(), HesperornisRenderer::new);
         event.registerEntityRenderer(UP2Entities.AQUILOLAMNA.get(), AquilolamnaRenderer::new);
+        event.registerEntityRenderer(UP2Entities.CAMEROCERAS.get(), CamerocerasRenderer::new);
 
         event.registerEntityRenderer(UP2Entities.ANUROGNATHUS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.AUSTRORAPTOR_EGG.get(), ThrownItemRenderer::new);
@@ -323,6 +324,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.PACHYRHINOSAURUS, PachyrhinosaurusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.HESPERORNIS, HesperornisModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.AQUILOLAMNA, AquilolamnaModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.CAMEROCERAS, CamerocerasModel::createBodyLayer);
     }
 
     @SubscribeEvent

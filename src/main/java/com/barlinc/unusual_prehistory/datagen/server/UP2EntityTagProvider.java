@@ -176,7 +176,8 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 BRONTOSCORPIO.get(),
                 RHIZODUS.get(),
                 ARTHROPLEURA.get(),
-                AMMONITE.get()
+                AMMONITE.get(),
+                CAMEROCERAS.get()
         );
 
         this.tag(UP2EntityTags.MESOZOIC_MOBS).add(

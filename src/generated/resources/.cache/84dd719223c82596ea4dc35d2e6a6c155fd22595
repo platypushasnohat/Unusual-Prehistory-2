@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-27T12:59:17.7766798	Item Models: unusual_prehistory
+// 1.21.1	2026-06-27T14:50:56.1040186	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -27,6 +27,7 @@ fec7cc2f856f81a4d6b619719b01454003b7689e assets/unusual_prehistory/models/item/b
 1da91eaf1978aefb2869d10cb884781abbc39511 assets/unusual_prehistory/models/item/brontoscorpio_embryo.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/brontoscorpio_spawn_egg.json
 42fa692b508971d0621b668f88bb4ece37cf47ae assets/unusual_prehistory/models/item/brown_mushroom_on_a_stick.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/cameroceras_spawn_egg.json
 356b7d412e6b27f6c72fa9413843715a14bc7e38 assets/unusual_prehistory/models/item/carnotaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/carnotaurus_spawn_egg.json
 0e5b9d2978b3eb0d3161b1a04d54938637fbfc39 assets/unusual_prehistory/models/item/cenozoic_banner_pattern.json
