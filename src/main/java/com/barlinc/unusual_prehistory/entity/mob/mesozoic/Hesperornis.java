@@ -59,7 +59,6 @@ public class Hesperornis extends AmphibiousMob implements VariantHolder<Hesperor
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.switchNavigator(true);
-        this.refreshDimensions();
     }
 
     public static AttributeSupplier.Builder createAttributes() {

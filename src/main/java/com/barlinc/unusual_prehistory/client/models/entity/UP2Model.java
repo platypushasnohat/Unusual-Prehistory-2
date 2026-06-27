@@ -44,9 +44,9 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
     @Override
     public void renderToBuffer(PoseStack poseStack, @NotNull VertexConsumer consumer, int packedLight, int packedOverlay, int color) {
         poseStack.pushPose();
-        if (this.young) {
-            poseStack.scale(this.youngScaleFactor, this.youngScaleFactor, this.youngScaleFactor);
-            poseStack.translate(0.0F, this.bodyYOffset / 16.0F, 0.0F);
+        if (young) {
+            poseStack.scale(youngScaleFactor, youngScaleFactor, youngScaleFactor);
+            poseStack.translate(0.0F, bodyYOffset / 16.0F, 0.0F);
         }
         this.root().render(poseStack, consumer, packedLight, packedOverlay, color);
         poseStack.popPose();
@@ -125,6 +125,7 @@ public abstract class UP2Model<E extends Entity> extends HierarchicalModel<E> {
         KeyframeAnimations.animate(this, definition, 0L, 1.0F, UP2Model.ANIMATION_VECTOR_CACHE);
     }
 
+    @Deprecated
     protected void animateHead(PrehistoricMob entity, ModelPart part, float netHeadYaw, float headPitch) {
         if (!entity.isEepy() && !entity.isSitting()) {
             part.xRot += headPitch * ((float) Math.PI / 180) / 2;

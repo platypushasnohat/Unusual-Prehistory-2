@@ -68,8 +68,8 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
 
     protected int eepyTicks;
 
-    private float tailYaw;
-    private float prevTailYaw;
+    protected float tailYaw;
+    protected float prevTailYaw;
 
     public final SmoothAnimationState idleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
@@ -333,15 +333,18 @@ public abstract class PrehistoricMob extends TamableAnimal implements Prehistori
     // Tail yaw
     public void tickTailYaw() {
         this.prevTailYaw = tailYaw;
-        this.tailYaw += (-(yBodyRot - yBodyRotO) - tailYaw) * 0.2F;
+        this.tailYaw += (-(yBodyRot - yBodyRotO) - tailYaw) * this.tailYawMultiplier();
+    }
+
+    protected float tailYawMultiplier() {
+        return 0.2F;
     }
 
     public float getTailYaw(float partialTicks) {
         if (this.isPassenger()) {
             return 0.0F;
-        } else {
-            return (prevTailYaw + (tailYaw - prevTailYaw) * partialTicks);
         }
+        return prevTailYaw + (tailYaw - prevTailYaw) * partialTicks;
     }
 
     // Animations

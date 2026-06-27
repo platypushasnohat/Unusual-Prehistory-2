@@ -168,11 +168,11 @@ public abstract class PrehistoricFlyingMob extends PrehistoricMob implements Fly
         this.entityData.set(FLYING, flying);
     }
 
-    public float getFlightPitch(float partialTick) {
-        return (prevFlightPitch + (flightPitch - prevFlightPitch) * partialTick);
+    public float getFlightPitch(float partialTicks) {
+        return (prevFlightPitch + (flightPitch - prevFlightPitch) * partialTicks);
     }
 
-    public float getFlightRoll(float partialTick) {
-        return (prevFlightRoll + (flightRoll - prevFlightRoll) * partialTick);
+    public float getFlightRoll(float partialTicks) {
+        return (prevFlightRoll + (flightRoll - prevFlightRoll) * partialTicks);
     }
 }

@@ -95,12 +95,6 @@ public abstract class PrehistoricAquaticMob extends PrehistoricMob {
         }
     }
 
-    @Override
-    public void setupAnimationStates() {
-        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
-    }
-
     public float flopChance() {
         return 1.0F;
     }

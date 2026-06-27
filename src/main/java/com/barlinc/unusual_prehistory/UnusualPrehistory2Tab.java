@@ -49,6 +49,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(AMMONITE_SPAWN_EGG.get());
                         output.accept(ANTARCTOPELTA_SPAWN_EGG.get());
                         output.accept(ANUROGNATHUS_SPAWN_EGG.get());
+                        output.accept(AQUILOLAMNA_SPAWN_EGG.get());
                         output.accept(AUSTRORAPTOR_SPAWN_EGG.get());
                         output.accept(BRACHIOSAURUS_SPAWN_EGG.get());
                         output.accept(CARNOTAURUS_SPAWN_EGG.get());

@@ -101,5 +101,6 @@ public class ModEvents {
         event.put(UP2Entities.WOOLLY_MAMMOTH.get(), WoollyMammoth.createAttributes().build());
         event.put(UP2Entities.PACHYRHINOSAURUS.get(), Pachyrhinosaurus.createAttributes().build());
         event.put(UP2Entities.HESPERORNIS.get(), Hesperornis.createAttributes().build());
+        event.put(UP2Entities.AQUILOLAMNA.get(), Aquilolamna.createAttributes().build());
     }
 }

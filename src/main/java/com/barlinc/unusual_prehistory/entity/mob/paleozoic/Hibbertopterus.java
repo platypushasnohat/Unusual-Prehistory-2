@@ -241,7 +241,6 @@
 
      @Override
      public void setupAnimationStates() {
-         super.setupAnimationStates();
          this.idleAnimationState.animateWhen(!this.isDancing(), this.tickCount);
          this.plowAnimationState.animateWhen(this.steering.isBoosting() && this.hasControllingPassenger(), this.tickCount);
          this.danceAnimationState.animateWhen(this.isDancing(), this.tickCount);

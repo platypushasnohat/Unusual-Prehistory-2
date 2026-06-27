@@ -14,20 +14,25 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class Pachyrhinosaurus extends PrehistoricMob {
 
@@ -173,7 +178,7 @@ public class Pachyrhinosaurus extends PrehistoricMob {
                 this.pachyrhinosaurus.getLookControl().setLookAt(target, 30.0F, 30.0F);
                 if (this.pachyrhinosaurus.getAttackState() == 1) {
                     this.pachyrhinosaurus.getNavigation().stop();
-                    this.tickAttack(target);
+                    this.tickAttack();
                 } else {
                     this.pachyrhinosaurus.getNavigation().moveTo(target, 1.85D);
                     if (distance <= this.getAttackReachSqr(target, 1.5D) && pachyrhinosaurus.attackCooldown == 0) {
@@ -183,29 +188,37 @@ public class Pachyrhinosaurus extends PrehistoricMob {
             }
         }
 
-        private void tickAttack(LivingEntity target) {
+        private void tickAttack() {
             this.timer++;
             if (timer == 1) {
                 this.pachyrhinosaurus.playSound(UP2SoundEvents.PACHYRHINOSAURUS_ATTACK.get(), 1.0F, pachyrhinosaurus.getVoicePitch());
                 this.pachyrhinosaurus.setPose(UP2Poses.ATTACKING.get());
             }
             if (timer == 10) {
-                if (this.isInAttackRange(target, 2.0D)) {
-                    this.pachyrhinosaurus.doHurtTarget(target);
-                    if (target.hurt(target.damageSources().mobAttack(pachyrhinosaurus), (float) pachyrhinosaurus.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
-                        this.pachyrhinosaurus.playSound(UP2SoundEvents.PACHYRHINOSAURUS_HEADBUTT.get(), 1.0F, pachyrhinosaurus.getVoicePitch());
-                    }
-                    if (pachyrhinosaurus.getRandom().nextFloat() <= 0.7F && target.isDamageSourceBlocked(pachyrhinosaurus.damageSources().mobAttack(pachyrhinosaurus)) && target instanceof Player player) {
-                        player.disableShield();
-                    }
-                    this.strongKnockback(target, 0.8D, 0.55D);
-                }
+                this.headbuttNearbyEntities();
             }
             if (timer > 15) {
                 this.timer = 0;
                 this.pachyrhinosaurus.attackCooldown = 10;
                 this.pachyrhinosaurus.setPose(Pose.STANDING);
                 this.pachyrhinosaurus.setAttackState(0);
+            }
+        }
+
+        private void headbuttNearbyEntities() {
+            AABB attackBox = pachyrhinosaurus.getBoundingBox().move(pachyrhinosaurus.getLookAngle().normalize().scale(1.5D)).inflate(2.25D);
+            List<LivingEntity> nearbyEntities = pachyrhinosaurus.level().getNearbyEntities(LivingEntity.class, TargetingConditions.forCombat(), pachyrhinosaurus, attackBox);
+            if (!nearbyEntities.isEmpty()) {
+                nearbyEntities.stream().filter(entity -> !(entity instanceof Pachyrhinosaurus)).limit(3).forEach(entity -> {
+                    if (entity.hurt(entity.damageSources().mobAttack(pachyrhinosaurus), (float) pachyrhinosaurus.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
+                        this.pachyrhinosaurus.playSound(UP2SoundEvents.PACHYRHINOSAURUS_HEADBUTT.get(), 1.0F, pachyrhinosaurus.getVoicePitch());
+                    }
+                    this.strongKnockback(entity, 0.8D, 0.55D);
+                    if (entity.isDamageSourceBlocked(pachyrhinosaurus.damageSources().mobAttack(pachyrhinosaurus)) && entity instanceof Player player) {
+                        player.disableShield();
+                    }
+                    this.pachyrhinosaurus.swing(InteractionHand.MAIN_HAND);
+                });
             }
         }
     }

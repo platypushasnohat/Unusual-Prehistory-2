@@ -151,6 +151,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> WOOLLY_MAMMOTH_RECIPE_MAPPINGS = modItemTag("recipe_mappings/woolly_mammoth");
     public static final TagKey<Item> PACHYRHINOSAURUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/pachyrhinosaurus");
     public static final TagKey<Item> HESPERORNIS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/hesperornis");
+    public static final TagKey<Item> AQUILOLAMNA_RECIPE_MAPPINGS = modItemTag("recipe_mappings/aquilolamna");
 
     public static final TagKey<Item> DIET_CARNIVORE = modItemTag("diet/carnivore");
     public static final TagKey<Item> DIET_HERBIVORE = modItemTag("diet/herbivore");
