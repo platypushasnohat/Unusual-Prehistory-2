@@ -66,7 +66,7 @@ public class HerdWanderGoal extends PrehistoricWanderGoal {
 
 			Vec3 herdCenter = new Vec3(herdX / herdSize, herdY / herdSize, herdZ / herdSize);
 			if (herdSize > 0) {
-				double scale = Math.max(1.0D, mob.getBbWidth() * 0.98D);
+				double scale = Math.max(1.0D, mob.getBbWidth() * 1.25D);
 				double scaleSquared = scale * scale;
 				double herdDistance = mob.distanceToSqr(herdCenter);
 				if (friendDistance > 9.0D * scaleSquared || herdDistance > 64.0D * scaleSquared) {

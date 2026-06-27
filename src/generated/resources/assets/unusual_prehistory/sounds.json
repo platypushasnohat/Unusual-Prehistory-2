@@ -2368,11 +2368,28 @@
     ],
     "subtitle": "subtitles.pachycephalosaurus_warn"
   },
+  "pachyrhinosaurus_attack": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/pachyrhinosaurus/attack1",
+      "unusual_prehistory:entity/mob/pachyrhinosaurus/attack2"
+    ],
+    "subtitle": "subtitles.pachyrhinosaurus_attack"
+  },
   "pachyrhinosaurus_death": {
     "sounds": [
       "unusual_prehistory:entity/mob/pachyrhinosaurus/death1"
     ],
     "subtitle": "subtitles.pachyrhinosaurus_death"
+  },
+  "pachyrhinosaurus_headbutt": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:entity/mob/carnotaurus/headbutt1",
+        "pitch": 0.95,
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.pachyrhinosaurus_headbutt"
   },
   "pachyrhinosaurus_hurt": {
     "sounds": [

@@ -1,9 +1,12 @@
 package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.EepyGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.HerdWanderGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
+import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
@@ -12,9 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -30,6 +31,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class Pachyrhinosaurus extends PrehistoricMob {
 
+    private int attackCooldown = 0;
+
+    public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
+
     public Pachyrhinosaurus(EntityType<? extends PrehistoricMob> entityType, Level level) {
         super(entityType, level);
     }
@@ -38,13 +43,14 @@ public class Pachyrhinosaurus extends PrehistoricMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
-        this.goalSelector.addGoal(3, new HerdWanderGoal(this, 1.0D, 1.2D, 6));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new EepyGoal(this));
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        this.goalSelector.addGoal(2, new PachyrhinosaurusAttackGoal(this));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
+        this.goalSelector.addGoal(4, new HerdWanderGoal(this, 1.0D, 1.2D, 6));
+        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new EepyGoal(this));
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this).setAlertOthers());
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -86,10 +92,21 @@ public class Pachyrhinosaurus extends PrehistoricMob {
     }
 
     @Override
+    public void tickCooldowns() {
+        super.tickCooldowns();
+        if (!this.level().isClientSide) {
+            if (attackCooldown > 0) {
+                this.attackCooldown--;
+            }
+        }
+    }
+
+    @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.isEepy() && !this.isInWaterOrBubble(), tickCount);
         this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), tickCount);
         this.eepyAnimationState.animateWhen(this.isEepy(), tickCount);
+        this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), tickCount);
     }
 
     @Override
@@ -135,5 +152,61 @@ public class Pachyrhinosaurus extends PrehistoricMob {
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
         this.playSound(UP2SoundEvents.PACHYRHINOSAURUS_STEP.get(), 0.2F, this.isBaby() ? 1.5F : 1.0F);
+    }
+
+    // Goals
+    private static class PachyrhinosaurusAttackGoal extends AttackGoal {
+
+        protected final Pachyrhinosaurus pachyrhinosaurus;
+
+        public PachyrhinosaurusAttackGoal(Pachyrhinosaurus pachyrhinosaurus) {
+            super(pachyrhinosaurus);
+            this.pachyrhinosaurus = pachyrhinosaurus;
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = pachyrhinosaurus.getTarget();
+            if (target != null) {
+                double distance = pachyrhinosaurus.distanceToSqr(target);
+                this.pachyrhinosaurus.lookAt(target, 30.0F, 30.0F);
+                this.pachyrhinosaurus.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                if (this.pachyrhinosaurus.getAttackState() == 1) {
+                    this.pachyrhinosaurus.getNavigation().stop();
+                    this.tickAttack(target);
+                } else {
+                    this.pachyrhinosaurus.getNavigation().moveTo(target, 1.85D);
+                    if (distance <= this.getAttackReachSqr(target, 1.5D) && pachyrhinosaurus.attackCooldown == 0) {
+                        this.pachyrhinosaurus.setAttackState(1);
+                    }
+                }
+            }
+        }
+
+        private void tickAttack(LivingEntity target) {
+            this.timer++;
+            if (timer == 1) {
+                this.pachyrhinosaurus.playSound(UP2SoundEvents.PACHYRHINOSAURUS_ATTACK.get(), 1.0F, pachyrhinosaurus.getVoicePitch());
+                this.pachyrhinosaurus.setPose(UP2Poses.ATTACKING.get());
+            }
+            if (timer == 10) {
+                if (this.isInAttackRange(target, 2.0D)) {
+                    this.pachyrhinosaurus.doHurtTarget(target);
+                    if (target.hurt(target.damageSources().mobAttack(pachyrhinosaurus), (float) pachyrhinosaurus.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
+                        this.pachyrhinosaurus.playSound(UP2SoundEvents.PACHYRHINOSAURUS_HEADBUTT.get(), 1.0F, pachyrhinosaurus.getVoicePitch());
+                    }
+                    if (pachyrhinosaurus.getRandom().nextFloat() <= 0.7F && target.isDamageSourceBlocked(pachyrhinosaurus.damageSources().mobAttack(pachyrhinosaurus)) && target instanceof Player player) {
+                        player.disableShield();
+                    }
+                    this.strongKnockback(target, 0.8D, 0.55D);
+                }
+            }
+            if (timer > 15) {
+                this.timer = 0;
+                this.pachyrhinosaurus.attackCooldown = 10;
+                this.pachyrhinosaurus.setPose(Pose.STANDING);
+                this.pachyrhinosaurus.setAttackState(0);
+            }
+        }
     }
 }

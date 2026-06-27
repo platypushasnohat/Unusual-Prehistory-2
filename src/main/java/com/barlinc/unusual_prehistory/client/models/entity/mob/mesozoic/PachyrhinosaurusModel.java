@@ -131,15 +131,16 @@ public class PachyrhinosaurusModel extends UP2Model<Pachyrhinosaurus> {
 
         if (!entity.isInWaterOrBubble()) {
             if (entity.isRunning()) {
-                this.animateWalk(PachyrhinosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.0F, 2.0F);
+                this.animateWalk(PachyrhinosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.0F, 2.5F);
             } else {
-                this.animateWalk(PachyrhinosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.0F, 2.0F);
+                this.animateWalk(PachyrhinosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 2.5F);
             }
         }
 
-        this.animateIdleSmooth(entity.idleAnimationState, PachyrhinosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.0F);
+        this.animateIdleSmooth(entity.idleAnimationState, PachyrhinosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
         this.animateSmooth(entity.swimAnimationState, PachyrhinosaurusAnimations.SWIM, ageInTicks, partialTicks);
         this.animateSmooth(entity.eepyAnimationState, PachyrhinosaurusAnimations.SLEEP, ageInTicks, partialTicks);
+        this.animateSmooth(entity.attackAnimationState, PachyrhinosaurusAnimations.ATTACK_BLEND, ageInTicks, partialTicks);
 
         if (this.young) {
             this.applyStatic(PachyrhinosaurusAnimations.BABY_TRANSFORM);
