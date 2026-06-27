@@ -250,6 +250,8 @@ public class UP2Items {
     public static final DeferredItem<Item> SNOW_SHOVEL_FOSSIL = registerFossilItem("snow_shovel"); // antarctopelta
     public static final DeferredItem<Item> SHORT_WING_FOSSIL = registerFossilItem("short_wing"); // anurognathus
     public static final DeferredItem<Item> FORCIPULE_FOSSIL = registerFossilItem("forcipule"); // arthropleura
+    public static final DeferredItem<Item> GRACILE_FOSSIL = registerFossilItem("gracile"); // austroraptor
+
     public static final DeferredItem<Item> THUNDEROUS_FOSSIL = registerFossilItem("thunderous"); // brontoscorpio
     public static final DeferredItem<Item> CONCAVE_FOSSIL = registerFossilItem("concave"); // concavenator
     public static final DeferredItem<Item> ROTUND_FOSSIL = registerFossilItem("rotund"); // cotylorhynchus
@@ -269,6 +271,7 @@ public class UP2Items {
     public static final DeferredItem<Item> MOLAR_FOSSIL = registerFossilItem("molar"); // woolly mammoth
 
     public static final DeferredItem<Item> ANUROGNATHUS_EGG = registerEggItem("anurognathus", UP2Entities.ANUROGNATHUS_EGG);
+    public static final DeferredItem<Item> AUSTRORAPTOR_EGG = registerEggItem("austroraptor", UP2Entities.AUSTRORAPTOR_EGG);
 
     public static final DeferredItem<Item> BRONTOSCORPIO_EMBRYO = registerEmbryoItem("brontoscorpio", UP2Entities.BRONTOSCORPIO);
     public static final DeferredItem<Item> CRYPTOCLIDUS_EMBRYO = registerEmbryoItem("cryptoclidus", UP2Entities.CRYPTOCLIDUS);

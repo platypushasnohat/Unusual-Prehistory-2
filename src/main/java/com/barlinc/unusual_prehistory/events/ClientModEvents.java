@@ -216,6 +216,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.AQUILOLAMNA.get(), AquilolamnaRenderer::new);
 
         event.registerEntityRenderer(UP2Entities.ANUROGNATHUS_EGG.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(UP2Entities.AUSTRORAPTOR_EGG.get(), ThrownItemRenderer::new);
     }
 
     @SubscribeEvent

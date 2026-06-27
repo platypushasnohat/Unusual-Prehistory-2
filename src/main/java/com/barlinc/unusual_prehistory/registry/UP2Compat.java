@@ -95,6 +95,7 @@ public class UP2Compat {
 
         // Update 6
         registerEggDispenserBehaviour(UP2Items.ANUROGNATHUS_EGG, UP2Entities.ANUROGNATHUS_EGG::get);
+        registerEggDispenserBehaviour(UP2Items.AUSTRORAPTOR_EGG, UP2Entities.AUSTRORAPTOR_EGG::get);
     }
 
     public static void registerEggDispenserBehaviour(Supplier<Item> itemSupplier, Supplier<EntityType<? extends ThrowableEgg>> entityTypeSupplier) {

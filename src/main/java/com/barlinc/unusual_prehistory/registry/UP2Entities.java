@@ -123,6 +123,7 @@ public class UP2Entities {
     public static final DeferredHolder<EntityType<?>, EntityType<WoollyMammoth>> WOOLLY_MAMMOTH = registerEntity("woolly_mammoth", WoollyMammoth::new, MobCategory.CREATURE, builder -> builder.sized(3.6F, 4.9F).eyeHeight(4.7F).clientTrackingRange(10));
 
     public static final DeferredHolder<EntityType<?>, EntityType<ThrowableEgg>> ANUROGNATHUS_EGG = registerEntity("anurognathus_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.ANUROGNATHUS_EGG, UP2Entities.ANUROGNATHUS::get), MobCategory.MISC, builder -> builder.sized(0.25F, 0.25F));
+    public static final DeferredHolder<EntityType<?>, EntityType<ThrowableEgg>> AUSTRORAPTOR_EGG = registerEntity("austroraptor_egg", (entityType, level) -> new ThrowableEgg(entityType, level , UP2Items.AUSTRORAPTOR_EGG, UP2Entities.AUSTRORAPTOR::get), MobCategory.MISC, builder -> builder.sized(0.25F, 0.25F));
 
     public static <E extends Entity> DeferredHolder<EntityType<?>, EntityType<E>> registerEntity(String name, EntityType.EntityFactory<E> factory, MobCategory entityClassification, Consumer<EntityType.Builder<E>> builderConsumer) {
         DeferredHolder<EntityType<?>, EntityType<E>> entity = registerEntityNoLang(name, factory, entityClassification, builderConsumer);

@@ -181,6 +181,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
                 SNOW_SHOVEL_FOSSIL,
                 SHORT_WING_FOSSIL,
                 FORCIPULE_FOSSIL,
+                GRACILE_FOSSIL,
                 THUNDEROUS_FOSSIL,
                 CONCAVE_FOSSIL,
                 ROTUND_FOSSIL,
@@ -201,6 +202,7 @@ public class UP2ItemModelProvider extends ItemModelProvider {
 
                 UP2Blocks.AMMONITE_EGGS,
                 ANUROGNATHUS_EGG,
+                AUSTRORAPTOR_EGG,
                 BRONTOSCORPIO_EMBRYO,
                 UP2Blocks.CONCAVENATOR_EGG,
                 UP2Blocks.GIANT_CAMPANILE_EGGS,

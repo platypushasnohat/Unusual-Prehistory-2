@@ -161,6 +161,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 COMBUSTIBLE_FOSSIL.get()
         );
         this.tag(UP2ItemTags.MESOZOIC_FOSSILS).add(
+                GRACILE_FOSSIL.get(),
                 SNOW_SHOVEL_FOSSIL.get(),
                 SHORT_WING_FOSSIL.get(),
                 IMPERVIOUS_FOSSIL.get(),
@@ -238,6 +239,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         );
         this.tag(UP2ItemTags.MESOZOIC_EGGS).add(
                 ANUROGNATHUS_EGG.get(),
+                AUSTRORAPTOR_EGG.get(),
                 UP2Blocks.BRACHIOSAURUS_EGG.asItem(),
                 UP2Blocks.CARNOTAURUS_EGG.asItem(),
                 UP2Blocks.DESMATOSUCHUS_EGG.asItem(),
@@ -288,7 +290,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.ANTARCTOPELTA_RECIPE_MAPPINGS).add(ANTARCTOPELTA_SPAWN_EGG.get(), SNOW_SHOVEL_FOSSIL.get());
         this.tag(UP2ItemTags.ANUROGNATHUS_RECIPE_MAPPINGS).add(ANUROGNATHUS_SPAWN_EGG.get(), SHORT_WING_FOSSIL.get(), ANUROGNATHUS_EGG.get());
         this.tag(UP2ItemTags.ARTHROPLEURA_RECIPE_MAPPINGS).add(ARTHROPLEURA_SPAWN_EGG.get(), FORCIPULE_FOSSIL.get());
-        this.tag(UP2ItemTags.AUSTRORAPTOR_RECIPE_MAPPINGS).add(AUSTRORAPTOR_SPAWN_EGG.get());
+        this.tag(UP2ItemTags.AUSTRORAPTOR_RECIPE_MAPPINGS).add(AUSTRORAPTOR_SPAWN_EGG.get(), GRACILE_FOSSIL.get(), AUSTRORAPTOR_EGG.get());
         this.tag(UP2ItemTags.BRONTOSCORPIO_RECIPE_MAPPINGS).add(BRONTOSCORPIO_SPAWN_EGG.get(), THUNDEROUS_FOSSIL.get(), BRONTOSCORPIO_EMBRYO.get());
         this.tag(UP2ItemTags.CONCAVENATOR_RECIPE_MAPPINGS).add(CONCAVENATOR_SPAWN_EGG.get(), CONCAVE_FOSSIL.get(), UP2Blocks.CONCAVENATOR_EGG.asItem());
         this.tag(UP2ItemTags.COTYLORHYNCHUS_RECIPE_MAPPINGS).add(COTYLORHYNCHUS_SPAWN_EGG.get(), ROTUND_FOSSIL.get(), UP2Blocks.COTYLORHYNCHUS_PLUSHIE.asItem());

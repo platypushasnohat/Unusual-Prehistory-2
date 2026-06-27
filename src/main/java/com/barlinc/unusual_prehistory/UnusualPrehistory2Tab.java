@@ -151,6 +151,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(SPIRAL_FOSSIL.get()); // ammonite
                         output.accept(SNOW_SHOVEL_FOSSIL.get()); // antarctopelta
                         output.accept(SHORT_WING_FOSSIL.get()); // anurognathus
+                        output.accept(GRACILE_FOSSIL.get()); // austroraptor
                         output.accept(ARM_FOSSIL.get()); // brachiosaurus
                         output.accept(FURY_FOSSIL.get()); // carnotaurus
                         output.accept(CONCAVE_FOSSIL.get()); // concavenator
@@ -238,6 +239,7 @@ public class UnusualPrehistory2Tab {
                         // Mesozoic
                         output.accept(UP2Blocks.AMMONITE_EGGS.get());
                         output.accept(ANUROGNATHUS_EGG.get());
+                        output.accept(AUSTRORAPTOR_EGG.get());
                         output.accept(UP2Blocks.BRACHIOSAURUS_EGG.get());
                         output.accept(UP2Blocks.CARNOTAURUS_EGG.get());
                         output.accept(UP2Blocks.CONCAVENATOR_EGG.get());

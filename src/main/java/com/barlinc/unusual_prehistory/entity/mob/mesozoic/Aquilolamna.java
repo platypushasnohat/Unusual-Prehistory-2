@@ -80,7 +80,7 @@ public class Aquilolamna extends PrehistoricAquaticMob implements Bucketable {
         super.tick();
 
         this.prevRoll = roll;
-        float threshold = 4.0F;
+        float threshold = 5.0F;
         boolean flag = false;
         if (this.isInWater() && yRotO - this.getYRot() > threshold) {
             this.roll += 1.5F;
@@ -98,7 +98,7 @@ public class Aquilolamna extends PrehistoricAquaticMob implements Bucketable {
                 this.roll = Math.min(roll + 1.5F, 0.0F);
             }
         }
-        this.roll = Mth.clamp(roll, -40.0F, 40.0F);
+        this.roll = Mth.clamp(roll, -35.0F, 35.0F);
     }
 
     @Override
