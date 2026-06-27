@@ -25,10 +25,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -77,6 +74,7 @@ public class Austroraptor extends AmphibiousMob {
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new SurfaceSwimGoal(this, 0.65D));
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(2, new AustroraptorAttackGoal(this));
@@ -112,7 +110,7 @@ public class Austroraptor extends AmphibiousMob {
     }
 
     public boolean canPreen(Entity entity) {
-        return !entity.isInWaterOrBubble() && ((Austroraptor) entity).getShearedTicks() <= 0;
+        return !entity.isInWaterOrBubble() && ((Austroraptor) entity).getShearedTicks() <= 0 && !((Austroraptor) entity).isBaby();
     }
 
     @Override
@@ -254,7 +252,7 @@ public class Austroraptor extends AmphibiousMob {
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (this.getShearedTicks() <= 0 && itemStack.is(Tags.Items.TOOLS_SHEAR)) {
+        if (!this.isBaby() && this.getShearedTicks() <= 0 && itemStack.is(Tags.Items.TOOLS_SHEAR)) {
             if (this.isEepy()) {
                 this.setEepy(false);
                 this.setEepyCooldown(100);

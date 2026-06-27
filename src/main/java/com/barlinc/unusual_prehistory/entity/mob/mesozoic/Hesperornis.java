@@ -14,12 +14,15 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -33,22 +36,21 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Hesperornis extends AmphibiousMob {
+public class Hesperornis extends AmphibiousMob implements VariantHolder<Hesperornis.HesperornisVariant> {
 
-    private static final EntityDataAccessor<Float> Z_ROT = SynchedEntityData.defineId(Hesperornis.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> Z_ROT_OLD = SynchedEntityData.defineId(Hesperornis.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Integer> SWIM_TYPE = SynchedEntityData.defineId(Hesperornis.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Hesperornis.class, EntityDataSerializers.INT);
+
+    private static final EntityDimensions SWIMMING_DIMENSIONS = EntityDimensions.scalable(0.8F, 1.1F).withEyeHeight(0.9F);
 
     private int attackCooldown = 0;
-    private float targetZRot;
-
-    private float swimYaw;
-    private float prevSwimYaw;
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
@@ -57,6 +59,7 @@ public class Hesperornis extends AmphibiousMob {
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
         this.switchNavigator(true);
+        this.refreshDimensions();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -69,7 +72,7 @@ public class Hesperornis extends AmphibiousMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.8D, 10, 8));
+        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D, 20, 8, true));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(4, new LeaveWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new EnterWaterGoal(this, 1.0D));
@@ -96,21 +99,43 @@ public class Hesperornis extends AmphibiousMob {
 
     protected void switchNavigator(boolean onLand) {
         if (onLand) {
+            this.refreshDimensions();
             this.moveControl = new PrehistoricMoveControl(this);
             this.lookControl = new PrehistoricLookControl(this);
             this.isLandNavigator = true;
         } else {
-            this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 6, 0.4F);
-            this.lookControl = new PrehistoricSwimmingLookControl(this, 4);
+            this.refreshDimensions();
+            this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.4F);
+            this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
             this.isLandNavigator = false;
         }
     }
 
-    public float getSwimYaw(float partialTicks) {
-        if (this.isPassenger()) {
-            return 0.0F;
-        } else {
-            return (prevSwimYaw + (swimYaw - prevSwimYaw) * partialTicks);
+    @Override
+    public int getMaxHeadXRot() {
+        return this.isInWater() ? 1 : super.getMaxHeadXRot();
+    }
+
+    @Override
+    public int getMaxHeadYRot() {
+        return this.isInWater() ? 1 : super.getMaxHeadYRot();
+    }
+
+    @Override
+    public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
+        if (this.isInWater()) {
+            return SWIMMING_DIMENSIONS.scale(this.getAgeScale());
+        }
+        return super.getDefaultDimensions(pose);
+    }
+
+    @Override
+    public void tickCooldowns() {
+        super.tickCooldowns();
+        if (!this.level().isClientSide) {
+            if (attackCooldown > 0) {
+                this.attackCooldown--;
+            }
         }
     }
 
@@ -125,18 +150,11 @@ public class Hesperornis extends AmphibiousMob {
             this.switchNavigator(true);
         }
 
-        if (!this.level().isClientSide && this.isAlive()) {
-            if (this.isInWaterOrBubble()) {
-                float yawDelta = Mth.wrapDegrees(this.getYRot() - yRotO);
-                this.targetZRot = Mth.clamp(-yawDelta * 2.5F, -45.0F, 45.0F);
-            } else {
-                this.targetZRot = 0.0F;
+        if (this.level().isClientSide) {
+            if (this.isInWater() && this.getDeltaMovement().lengthSqr() > 0.02D && this.getRandom().nextFloat() <= 0.33F) {
+                Vec3 viewVector = this.getViewVector(0.0F);
+                this.level().addParticle(ParticleTypes.BUBBLE, this.getRandomX(0.5D) - viewVector.x * 0.8D, this.getRandomY() - viewVector.y * 0.25D, this.getRandomZ(0.5D) - viewVector.z * 0.8D, 0.0D, 0.0D, 0.0D);
             }
-            this.setZWaterDirection(Mth.lerp(0.2F, this.getZWaterDirection(), targetZRot));
-        }
-
-        if (!this.level().isClientSide && this.isAlive() && this.isEffectiveAi()) {
-            this.setZWaterDirectionOld(this.getZWaterDirection());
         }
     }
 
@@ -148,13 +166,19 @@ public class Hesperornis extends AmphibiousMob {
     }
 
     @Override
-    public void tickCooldowns() {
-        super.tickCooldowns();
-        if (!this.level().isClientSide) {
-            if (attackCooldown > 0) {
-                this.attackCooldown--;
-            }
+    public void calculateEntityAnimation(boolean includeHeight) {
+        float f = (float) Mth.length(this.getX() - xo, this.isInWater() ? this.getY() - yo : 0.0, this.getZ() - zo);
+        if (this.isBaby()) {
+            this.updateWalkAnimation(f * 0.5F);
+        } else {
+            this.updateWalkAnimation(f);
         }
+    }
+
+    @Override
+    protected void updateWalkAnimation(float partialTick) {
+        float f = Math.min(partialTick * 25.0F, 1.0F);
+        this.walkAnimation.update(f, 0.4F);
     }
 
     @Override
@@ -165,22 +189,37 @@ public class Hesperornis extends AmphibiousMob {
     @Override
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(Z_ROT, 0.0F);
-        builder.define(Z_ROT_OLD, 0.0F);
+        builder.define(SWIM_TYPE, 0);
+        builder.define(VARIANT, 0);
     }
 
-    public float getZWaterDirection() {
-        return entityData.get(Z_ROT);
-    }
-    public void setZWaterDirection(float zRot) {
-        this.entityData.set(Z_ROT, zRot);
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("SwimType", this.getSwimType());
+        compoundTag.putInt("Variant", this.getVariant().getId());
     }
 
-    public float getZWaterDirectionOld() {
-        return entityData.get(Z_ROT_OLD);
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        this.setSwimType(compoundTag.getInt("SwimType"));
+        this.setVariant(HesperornisVariant.byId(compoundTag.getInt("Variant")));
     }
-    public void setZWaterDirectionOld(float zRot) {
-        this.entityData.set(Z_ROT_OLD, zRot);
+
+    public int getSwimType() {
+        return entityData.get(SWIM_TYPE);
+    }
+    public void setSwimType(int swimType) {
+        this.entityData.set(SWIM_TYPE, Mth.clamp(swimType, 0, 3));
+    }
+
+    @Override
+    public @NotNull HesperornisVariant getVariant() {
+        return HesperornisVariant.byId(entityData.get(VARIANT));
+    }
+    @Override
+    public void setVariant(HesperornisVariant variant) {
+        this.entityData.set(VARIANT, Mth.clamp(variant.getId(), 0, HesperornisVariant.values().length));
     }
 
     @Nullable
@@ -213,5 +252,35 @@ public class Hesperornis extends AmphibiousMob {
             return;
         }
         this.playSound(UP2SoundEvents.HESPERORNIS_STEP.get(), 0.25F, 1.0F);
+    }
+
+    public enum HesperornisVariant {
+        ORANGE(0),
+        RED(1);
+
+        private final int id;
+
+        HesperornisVariant(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return this.id;
+        }
+
+        public static HesperornisVariant byId(int id) {
+            if (id < 0 || id >= HesperornisVariant.values().length) {
+                id = 0;
+            }
+            return HesperornisVariant.values()[id];
+        }
+    }
+
+    @Override
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @javax.annotation.Nullable SpawnGroupData spawnData) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
+        this.setVariant(HesperornisVariant.byId(level.getRandom().nextInt(HesperornisVariant.values().length)));
+        this.setSwimType(level.getRandom().nextInt(4));
+        return spawnData;
     }
 }

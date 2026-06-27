@@ -3,11 +3,9 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.mesozoic.HesperornisAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Hesperornis;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -117,13 +115,14 @@ public class HesperornisModel extends UP2Model<Hesperornis> {
         float deg = ((float) Math.PI / 180);
 
         if (entity.isInWaterOrBubble()) {
-            switch (Math.floorMod(entity.getId(), 3)) {
+            switch (entity.getSwimType()) {
                 case 0 -> this.animateWalk(HesperornisAnimations.SWIM1, limbSwing, limbSwingAmount, 1, 2.5F);
                 case 1 -> this.animateWalk(HesperornisAnimations.SWIM2, limbSwing, limbSwingAmount, 1, 2.5F);
                 case 2 -> this.animateWalk(HesperornisAnimations.SWIM3, limbSwing, limbSwingAmount, 1, 2.5F);
+                case 3 -> this.animateWalk(HesperornisAnimations.SWIM4, limbSwing, limbSwingAmount, 1, 2.5F);
             }
         } else {
-            this.animateWalk(HesperornisAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 2.5F);
+            this.animateWalk(HesperornisAnimations.WALK, limbSwing, limbSwingAmount, 2, 2.5F);
         }
 
         this.animateIdleSmooth(entity.swimIdleAnimationState, HesperornisAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
@@ -131,11 +130,9 @@ public class HesperornisModel extends UP2Model<Hesperornis> {
 
         if (entity.isInWaterOrBubble()) {
             this.swim_control.xRot = headPitch * deg;
-            float zRot = Mth.lerp(partialTicks, entity.getZWaterDirectionOld(), entity.getZWaterDirection());
-            this.swim_control.zRot = zRot * Mth.DEG_TO_RAD;
         }
 
-        this.faceTarget(entity, netHeadYaw, headPitch, 3, neck);
+        this.faceTarget(entity, netHeadYaw, headPitch, 2, neck);
     }
 
     @Override

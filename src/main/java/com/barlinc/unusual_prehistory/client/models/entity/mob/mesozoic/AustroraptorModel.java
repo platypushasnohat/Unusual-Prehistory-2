@@ -182,7 +182,7 @@ public class AustroraptorModel extends UP2Model<Austroraptor> {
         }
 
 		this.animateIdleSmooth(entity.idleAnimationState, AustroraptorAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
-        this.animateIdleSmooth(entity.swimAnimationState, AustroraptorAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
+        this.animateIdleSmooth(entity.swimAnimationState, AustroraptorAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F, 1.8F);
 
         if (!entity.onGround() || entity.isInWaterOrBubble()) {
             this.animateSmooth(entity.attackAnimationState, AustroraptorAnimations.BITE_BLEND, ageInTicks, partialTicks);
