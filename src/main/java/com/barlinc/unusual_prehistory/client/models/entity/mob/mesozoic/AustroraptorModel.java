@@ -3,6 +3,7 @@ package com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic;
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.mesozoic.AustroraptorAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;
 import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Austroraptor;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -181,7 +182,7 @@ public class AustroraptorModel extends UP2Model<Austroraptor> {
         }
 
 		this.animateIdleSmooth(entity.idleAnimationState, AustroraptorAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
-        this.animateIdleSmooth(entity.swimAnimationState, AustroraptorAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
+        this.animateIdleSmooth(entity.swimAnimationState, AustroraptorAnimations.SWIM_IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F, 1.8F);
 
         if (!entity.onGround() || entity.isInWaterOrBubble()) {
             this.animateSmooth(entity.attackAnimationState, AustroraptorAnimations.BITE_BLEND, ageInTicks, partialTicks);
@@ -194,6 +195,7 @@ public class AustroraptorModel extends UP2Model<Austroraptor> {
         this.animateSmooth(entity.preen1AnimationState, AustroraptorAnimations.PREEN1, ageInTicks, partialTicks);
         this.animateSmooth(entity.preen2AnimationState, AustroraptorAnimations.PREEN2, ageInTicks, partialTicks);
         this.animateSmooth(entity.shakeAnimationState, AustroraptorAnimations.SHAKE_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.eatAnimationState, AustroraptorAnimations.EAT_BLEND, ageInTicks, partialTicks);
 
         if (young) {
             this.applyStatic(AustroraptorAnimations.BABY_TRANSFORM);
@@ -214,6 +216,16 @@ public class AustroraptorModel extends UP2Model<Austroraptor> {
         this.tail1.yRot = Mth.lerp(0.25F, tail1.yRot, tailYaw * 0.15F);
         this.tail2.yRot = Mth.lerp(0.25F, tail2.yRot, tailYaw * 0.1F);
 	}
+
+    public void translateToMouth(PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.body_main.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
+        this.neck1.translateAndRotate(poseStack);
+        this.neck2.translateAndRotate(poseStack);
+        this.head.translateAndRotate(poseStack);
+        this.jaw.translateAndRotate(poseStack);
+    }
 
 	@Override
 	public @NotNull ModelPart root() {

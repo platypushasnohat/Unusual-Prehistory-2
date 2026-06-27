@@ -2,11 +2,10 @@ package com.barlinc.unusual_prehistory.entity.mob.paleozoic;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
-import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -14,6 +13,7 @@ import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -97,7 +97,7 @@ public class Coelacanthus extends PrehistoricAquaticMob implements Bucketable, V
                 return super.canUse() && Coelacanthus.this.getCoelacanthusSize() <= 5;
             }
         });
-        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 40));
+        this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 40));
     }
 
     @Override

@@ -1248,6 +1248,32 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/step1")).pitch(1.05F),
                 sound(UnusualPrehistory2.modPrefix("entity/mob/woolly_mammoth/step2")).pitch(1.05F)
         );
+        this.sound(UP2SoundEvents.PACHYRHINOSAURUS_ATTACK,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachyrhinosaurus/attack1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/pachyrhinosaurus/attack2"))
+        );
+        this.sound(UP2SoundEvents.PACHYRHINOSAURUS_HEADBUTT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/carnotaurus/headbutt1")).pitch(0.95F).volume(0.8F)
+        );
+
+        this.sound(UP2SoundEvents.HESPERORNIS_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hesperornis/death1"))
+        );
+        this.sound(UP2SoundEvents.HESPERORNIS_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hesperornis/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hesperornis/hurt2"))
+        );
+        this.sound(UP2SoundEvents.HESPERORNIS_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hesperornis/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hesperornis/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/hesperornis/idle3"))
+        );
+        this.sound(UP2SoundEvents.HESPERORNIS_STEP,
+                sound("mob/frog/step1").pitch(0.9F),
+                sound("mob/frog/step2").pitch(0.9F),
+                sound("mob/frog/step3").pitch(0.9F),
+                sound("mob/frog/step4").pitch(0.9F)
+        );
     }
 
     private void soundDefinition(Supplier<SoundEvent> soundEvent, String subtitle, SoundDefinition.Sound... sounds) {

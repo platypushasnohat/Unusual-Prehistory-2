@@ -7,13 +7,13 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveC
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
-import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -63,8 +63,8 @@ public class Hynerpeton extends AmphibiousMob implements Bucketable {
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(3, new LeaveWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 80));
-        this.goalSelector.addGoal(5, new SemiAquaticRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 80));
+        this.goalSelector.addGoal(5, new SemiAquaticWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new HynerpetonBaskGoal(this));

@@ -2,7 +2,7 @@
 
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.EnterWaterGoal;
- import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
  import com.barlinc.unusual_prehistory.entity.ai.goals.RandomUnderwaterSitGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
@@ -85,7 +85,7 @@
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new EnterWaterGoal(this, 1.2D, 30, false));
          this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
-         this.goalSelector.addGoal(2, new PrehistoricRandomStrollGoal(this, 1.0D, false));
+         this.goalSelector.addGoal(2, new PrehistoricWanderGoal(this, 1.0D, false));
          this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(4, new RandomUnderwaterSitGoal(this));
      }
@@ -269,6 +269,7 @@
 
      @Override
      public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+         super.readAdditionalSaveData(compoundTag);
          this.setMoistness(compoundTag.getInt("Moistness"));
      }
 

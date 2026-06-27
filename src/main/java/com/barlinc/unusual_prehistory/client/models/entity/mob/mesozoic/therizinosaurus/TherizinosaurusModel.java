@@ -21,26 +21,28 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
     private final ModelPart body_adjust;
     private final ModelPart neck;
     private final ModelPart head;
+    private final ModelPart eye_left;
+    private final ModelPart eye_right;
     private final ModelPart jaw;
     private final ModelPart hair;
-    private final ModelPart left_arm;
-    private final ModelPart left_claw1;
-    private final ModelPart left_claw2;
-    private final ModelPart left_claw3;
-    private final ModelPart right_arm;
-    private final ModelPart right_claw1;
-    private final ModelPart right_claw2;
-    private final ModelPart right_claw3;
+    private final ModelPart arm_left;
+    private final ModelPart claw_left1;
+    private final ModelPart claw_left2;
+    private final ModelPart claw_left3;
+    private final ModelPart arm_right;
+    private final ModelPart claw_right1;
+    private final ModelPart claw_right2;
+    private final ModelPart claw_right3;
     private final ModelPart tail;
     private final ModelPart tail_adjust;
     private final ModelPart tail_poof;
     private final ModelPart leg_control;
-    private final ModelPart left_leg1;
-    private final ModelPart left_leg2;
-    private final ModelPart left_leg3;
-    private final ModelPart right_leg1;
-    private final ModelPart right_leg2;
-    private final ModelPart right_leg3;
+    private final ModelPart leg_left1;
+    private final ModelPart leg_left2;
+    private final ModelPart leg_left3;
+    private final ModelPart leg_right1;
+    private final ModelPart leg_right2;
+    private final ModelPart leg_right3;
 
 	public TherizinosaurusModel(ModelPart root) {
         super(1.0F, 0);
@@ -50,26 +52,28 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
         this.body_adjust = this.body.getChild("body_adjust");
         this.neck = this.body_adjust.getChild("neck");
         this.head = this.neck.getChild("head");
+        this.eye_left = this.head.getChild("eye_left");
+        this.eye_right = this.head.getChild("eye_right");
         this.jaw = this.head.getChild("jaw");
         this.hair = this.head.getChild("hair");
-        this.left_arm = this.body_adjust.getChild("left_arm");
-        this.left_claw1 = this.left_arm.getChild("left_claw1");
-        this.left_claw2 = this.left_arm.getChild("left_claw2");
-        this.left_claw3 = this.left_arm.getChild("left_claw3");
-        this.right_arm = this.body_adjust.getChild("right_arm");
-        this.right_claw1 = this.right_arm.getChild("right_claw1");
-        this.right_claw2 = this.right_arm.getChild("right_claw2");
-        this.right_claw3 = this.right_arm.getChild("right_claw3");
+        this.arm_left = this.body_adjust.getChild("arm_left");
+        this.claw_left1 = this.arm_left.getChild("claw_left1");
+        this.claw_left2 = this.arm_left.getChild("claw_left2");
+        this.claw_left3 = this.arm_left.getChild("claw_left3");
+        this.arm_right = this.body_adjust.getChild("arm_right");
+        this.claw_right1 = this.arm_right.getChild("claw_right1");
+        this.claw_right2 = this.arm_right.getChild("claw_right2");
+        this.claw_right3 = this.arm_right.getChild("claw_right3");
         this.tail = this.body_adjust.getChild("tail");
         this.tail_adjust = this.tail.getChild("tail_adjust");
         this.tail_poof = this.tail_adjust.getChild("tail_poof");
         this.leg_control = this.body_main.getChild("leg_control");
-        this.left_leg1 = this.leg_control.getChild("left_leg1");
-        this.left_leg2 = this.left_leg1.getChild("left_leg2");
-        this.left_leg3 = this.left_leg2.getChild("left_leg3");
-        this.right_leg1 = this.leg_control.getChild("right_leg1");
-        this.right_leg2 = this.right_leg1.getChild("right_leg2");
-        this.right_leg3 = this.right_leg2.getChild("right_leg3");
+        this.leg_left1 = this.leg_control.getChild("leg_left1");
+        this.leg_left2 = this.leg_left1.getChild("leg_left2");
+        this.leg_left3 = this.leg_left2.getChild("leg_left3");
+        this.leg_right1 = this.leg_control.getChild("leg_right1");
+        this.leg_right2 = this.leg_right1.getChild("leg_right2");
+        this.leg_right3 = this.leg_right2.getChild("leg_right3");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -94,34 +98,38 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
         PartDefinition head = neck.addOrReplaceChild("head", CubeListBuilder.create().texOffs(187, 55).addBox(-3.0F, -5.0F, -17.0F, 6.0F, 7.0F, 17.0F, new CubeDeformation(0.0F))
                 .texOffs(183, 79).addBox(-3.0F, 2.0F, -17.0F, 6.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -40.0F, -1.0F));
 
+        PartDefinition eye_left = head.addOrReplaceChild("eye_left", CubeListBuilder.create().texOffs(217, 68).addBox(-0.5F, -0.5F, -1.0F, 1.0F, 1.0F, 2.0F, new CubeDeformation(0.01F)), PartPose.offset(2.5F, -2.5F, -4.0F));
+
+        PartDefinition eye_right = head.addOrReplaceChild("eye_right", CubeListBuilder.create().texOffs(217, 68).mirror().addBox(-0.5F, -0.5F, -1.0F, 1.0F, 1.0F, 2.0F, new CubeDeformation(0.01F)).mirror(false), PartPose.offset(-2.5F, -2.5F, -4.0F));
+
         PartDefinition jaw = head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(243, 56).addBox(-2.0F, 0.0F, -13.0F, 5.0F, 3.0F, 15.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, 2.0F, -2.0F));
 
         PartDefinition hair = head.addOrReplaceChild("hair", CubeListBuilder.create().texOffs(241, 204).addBox(-5.0F, 0.0F, -5.5F, 10.0F, 14.0F, 11.0F, new CubeDeformation(0.01F)), PartPose.offset(0.0F, -5.0F, -4.5F));
 
-        PartDefinition left_arm = body_adjust.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(240, 229).addBox(0.0F, -4.0F, -4.0F, 6.0F, 8.0F, 12.0F, new CubeDeformation(0.0F))
+        PartDefinition arm_left = body_adjust.addOrReplaceChild("arm_left", CubeListBuilder.create().texOffs(240, 229).addBox(0.0F, -4.0F, -4.0F, 6.0F, 8.0F, 12.0F, new CubeDeformation(0.0F))
                 .texOffs(62, 229).addBox(0.0F, -4.0F, 8.0F, 6.0F, 26.0F, 8.0F, new CubeDeformation(0.0F))
-                .texOffs(90, 175).addBox(5.99F, -9.0F, -4.0F, 0.0F, 27.0F, 24.0F, new CubeDeformation(0.0025F)), PartPose.offsetAndRotation(14.5F, -35.0F, -9.0F, -1.5708F, 0.0F, 0.0F));
+                .texOffs(90, 175).addBox(5.99F, -9.0F, -4.0F, 0.0F, 27.0F, 24.0F, new CubeDeformation(0.02F)), PartPose.offsetAndRotation(14.5F, -35.0F, -9.0F, -1.5708F, 0.0F, 0.0F));
 
-        PartDefinition left_claw1 = left_arm.addOrReplaceChild("left_claw1", CubeListBuilder.create().texOffs(188, 244).addBox(-2.0F, 0.0F, -1.0F, 4.0F, 35.0F, 2.0F, new CubeDeformation(0.0F))
+        PartDefinition claw_left1 = arm_left.addOrReplaceChild("claw_left1", CubeListBuilder.create().texOffs(188, 244).addBox(-2.0F, 0.0F, -1.0F, 4.0F, 35.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(138, 199).addBox(-5.0F, 33.0F, -1.0F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, 22.0F, 9.0F, -0.1745F, 0.0F, 0.0F));
 
-        PartDefinition left_claw2 = left_arm.addOrReplaceChild("left_claw2", CubeListBuilder.create().texOffs(188, 244).addBox(-2.0F, 0.0F, -1.0F, 4.0F, 37.0F, 2.0F, new CubeDeformation(0.0F))
+        PartDefinition claw_left2 = arm_left.addOrReplaceChild("claw_left2", CubeListBuilder.create().texOffs(188, 244).addBox(-2.0F, 0.0F, -1.0F, 4.0F, 37.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(138, 199).addBox(-5.0F, 35.0F, -1.0F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, 22.0F, 12.0F, 0.0F, 0.0F, -0.0873F));
 
-        PartDefinition left_claw3 = left_arm.addOrReplaceChild("left_claw3", CubeListBuilder.create().texOffs(188, 244).addBox(-2.0F, 0.0F, -1.0F, 4.0F, 35.0F, 2.0F, new CubeDeformation(0.0F))
+        PartDefinition claw_left3 = arm_left.addOrReplaceChild("claw_left3", CubeListBuilder.create().texOffs(188, 244).addBox(-2.0F, 0.0F, -1.0F, 4.0F, 35.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(138, 199).addBox(-5.0F, 33.0F, -1.0F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, 22.0F, 15.0F, 0.1745F, 0.0F, 0.0F));
 
-        PartDefinition right_arm = body_adjust.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(240, 229).mirror().addBox(-6.0F, -4.0F, -4.0F, 6.0F, 8.0F, 12.0F, new CubeDeformation(0.0F)).mirror(false)
+        PartDefinition arm_right = body_adjust.addOrReplaceChild("arm_right", CubeListBuilder.create().texOffs(240, 229).mirror().addBox(-6.0F, -4.0F, -4.0F, 6.0F, 8.0F, 12.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(62, 229).mirror().addBox(-6.0F, -4.0F, 8.0F, 6.0F, 26.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false)
-                .texOffs(90, 175).mirror().addBox(-5.99F, -9.0F, -4.0F, 0.0F, 27.0F, 24.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offsetAndRotation(-14.5F, -35.0F, -9.0F, -1.5708F, 0.0F, 0.0F));
+                .texOffs(90, 175).mirror().addBox(-5.99F, -9.0F, -4.0F, 0.0F, 27.0F, 24.0F, new CubeDeformation(0.02F)).mirror(false), PartPose.offsetAndRotation(-14.5F, -35.0F, -9.0F, -1.5708F, 0.0F, 0.0F));
 
-        PartDefinition right_claw1 = right_arm.addOrReplaceChild("right_claw1", CubeListBuilder.create().texOffs(188, 244).mirror().addBox(-2.0F, 0.0F, -1.0F, 4.0F, 35.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
+        PartDefinition claw_right1 = arm_right.addOrReplaceChild("claw_right1", CubeListBuilder.create().texOffs(188, 244).mirror().addBox(-2.0F, 0.0F, -1.0F, 4.0F, 35.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(138, 199).mirror().addBox(2.0F, 33.0F, -1.0F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-4.0F, 22.0F, 9.0F, -0.1745F, 0.0F, 0.0F));
 
-        PartDefinition right_claw2 = right_arm.addOrReplaceChild("right_claw2", CubeListBuilder.create().texOffs(188, 244).mirror().addBox(-2.0F, 0.0F, -1.0F, 4.0F, 37.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
+        PartDefinition claw_right2 = arm_right.addOrReplaceChild("claw_right2", CubeListBuilder.create().texOffs(188, 244).mirror().addBox(-2.0F, 0.0F, -1.0F, 4.0F, 37.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(138, 199).mirror().addBox(2.0F, 35.0F, -1.0F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-4.0F, 22.0F, 12.0F, 0.0F, 0.0F, 0.0873F));
 
-        PartDefinition right_claw3 = right_arm.addOrReplaceChild("right_claw3", CubeListBuilder.create().texOffs(188, 244).mirror().addBox(-2.0F, 0.0F, -1.0F, 4.0F, 35.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
+        PartDefinition claw_right3 = arm_right.addOrReplaceChild("claw_right3", CubeListBuilder.create().texOffs(188, 244).mirror().addBox(-2.0F, 0.0F, -1.0F, 4.0F, 35.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(138, 199).mirror().addBox(2.0F, 33.0F, -1.0F, 3.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-4.0F, 22.0F, 15.0F, 0.1745F, 0.0F, 0.0F));
 
         PartDefinition tail = body_adjust.addOrReplaceChild("tail", CubeListBuilder.create(), PartPose.offset(0.0F, 3.5F, 16.0F));
@@ -132,12 +140,12 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
 
         PartDefinition leg_control = body_main.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition left_leg1 = leg_control.addOrReplaceChild("left_leg1", CubeListBuilder.create().texOffs(183, 0).addBox(-7.0F, -9.0F, -12.0F, 14.0F, 24.0F, 24.0F, new CubeDeformation(0.0F))
-                .texOffs(188, 204).addBox(6.99F, 5.0F, -12.0F, 0.0F, 14.0F, 26.0F, new CubeDeformation(0.0025F)), PartPose.offset(12.5F, 0.0F, 0.0F));
+        PartDefinition leg_left1 = leg_control.addOrReplaceChild("leg_left1", CubeListBuilder.create().texOffs(183, 0).addBox(-7.0F, -9.0F, -12.0F, 14.0F, 24.0F, 24.0F, new CubeDeformation(0.0F))
+                .texOffs(188, 204).addBox(6.99F, 5.0F, -12.0F, 0.0F, 14.0F, 26.0F, new CubeDeformation(0.02F)), PartPose.offset(12.5F, 0.0F, 0.0F));
 
-        PartDefinition left_leg2 = left_leg1.addOrReplaceChild("left_leg2", CubeListBuilder.create().texOffs(90, 226).addBox(-5.0F, -5.0F, -5.0F, 10.0F, 27.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 13.0F, 12.0F));
+        PartDefinition leg_left2 = leg_left1.addOrReplaceChild("leg_left2", CubeListBuilder.create().texOffs(90, 226).addBox(-5.0F, -5.0F, -5.0F, 10.0F, 27.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 13.0F, 12.0F));
 
-        PartDefinition left_leg3 = left_leg2.addOrReplaceChild("left_leg3", CubeListBuilder.create().texOffs(0, 229).addBox(-7.0F, 0.0F, -9.0F, 14.0F, 4.0F, 17.0F, new CubeDeformation(0.0F))
+        PartDefinition leg_left3 = leg_left2.addOrReplaceChild("leg_left3", CubeListBuilder.create().texOffs(0, 229).addBox(-7.0F, 0.0F, -9.0F, 14.0F, 4.0F, 17.0F, new CubeDeformation(0.0F))
                 .texOffs(138, 188).addBox(3.0F, 0.0F, -15.0F, 4.0F, 3.0F, 6.0F, new CubeDeformation(0.0F))
                 .texOffs(132, 179).addBox(3.0F, 3.0F, -15.0F, 4.0F, 1.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(132, 179).addBox(-7.0F, 3.0F, -15.0F, 4.0F, 1.0F, 2.0F, new CubeDeformation(0.0F))
@@ -145,12 +153,12 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
                 .texOffs(138, 175).addBox(-2.0F, 0.0F, -17.0F, 4.0F, 3.0F, 8.0F, new CubeDeformation(0.0F))
                 .texOffs(131, 175).addBox(-2.0F, 3.0F, -17.0F, 4.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 20.0F, 0.0F));
 
-        PartDefinition right_leg1 = leg_control.addOrReplaceChild("right_leg1", CubeListBuilder.create().texOffs(183, 0).mirror().addBox(-7.0F, -9.0F, -12.0F, 14.0F, 24.0F, 24.0F, new CubeDeformation(0.0F)).mirror(false)
-                .texOffs(188, 204).mirror().addBox(-6.99F, 5.0F, -12.0F, 0.0F, 14.0F, 26.0F, new CubeDeformation(0.0025F)).mirror(false), PartPose.offset(-12.5F, 0.0F, 0.0F));
+        PartDefinition leg_right1 = leg_control.addOrReplaceChild("leg_right1", CubeListBuilder.create().texOffs(183, 0).mirror().addBox(-7.0F, -9.0F, -12.0F, 14.0F, 24.0F, 24.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(188, 204).mirror().addBox(-6.99F, 5.0F, -12.0F, 0.0F, 14.0F, 26.0F, new CubeDeformation(0.02F)).mirror(false), PartPose.offset(-12.5F, 0.0F, 0.0F));
 
-        PartDefinition right_leg2 = right_leg1.addOrReplaceChild("right_leg2", CubeListBuilder.create().texOffs(90, 226).mirror().addBox(-5.0F, -5.0F, -5.0F, 10.0F, 27.0F, 10.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 13.0F, 12.0F));
+        PartDefinition leg_right2 = leg_right1.addOrReplaceChild("leg_right2", CubeListBuilder.create().texOffs(90, 226).mirror().addBox(-5.0F, -5.0F, -5.0F, 10.0F, 27.0F, 10.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(0.0F, 13.0F, 12.0F));
 
-        PartDefinition right_leg3 = right_leg2.addOrReplaceChild("right_leg3", CubeListBuilder.create().texOffs(0, 229).mirror().addBox(-7.0F, 0.0F, -9.0F, 14.0F, 4.0F, 17.0F, new CubeDeformation(0.0F)).mirror(false)
+        PartDefinition leg_right3 = leg_right2.addOrReplaceChild("leg_right3", CubeListBuilder.create().texOffs(0, 229).mirror().addBox(-7.0F, 0.0F, -9.0F, 14.0F, 4.0F, 17.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(138, 188).mirror().addBox(-7.0F, 0.0F, -15.0F, 4.0F, 3.0F, 6.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(132, 179).mirror().addBox(-7.0F, 3.0F, -15.0F, 4.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(132, 179).mirror().addBox(3.0F, 3.0F, -15.0F, 4.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false)
@@ -166,22 +174,23 @@ public class TherizinosaurusModel extends UP2Model<Therizinosaurus> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
 
-        if (entity.getPose() != UP2Poses.ATTACKING.get() && !entity.isEepy() && !entity.isInWaterOrBubble()) {
+        if (entity.getPose() != UP2Poses.ATTACKING.get() && entity.getPose() != UP2Poses.WARNING.get() && !entity.isEepy() && !entity.isInWaterOrBubble()) {
             if (entity.isRunning()) {
                 this.animateWalk(TherizinosaurusAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
             } else {
-                this.animateWalk(TherizinosaurusAnimations.WALK, limbSwing, limbSwingAmount, 1.5F, 3);
+                this.animateWalk(TherizinosaurusAnimations.WALK_UNSHAVED, limbSwing, limbSwingAmount, 1.5F, 3);
             }
         }
 
 		this.animateIdleSmooth(entity.idleAnimationState, TherizinosaurusAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 3);
         this.animateSmooth(entity.attack1AnimationState, TherizinosaurusAnimations.SLASH1, ageInTicks, partialTicks);
         this.animateSmooth(entity.attack2AnimationState, TherizinosaurusAnimations.SLASH2, ageInTicks, partialTicks);
-        this.animateSmooth(entity.roarAnimationState, TherizinosaurusAnimations.AGGRO_ROAR_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.roarAnimationState, TherizinosaurusAnimations.AGGRO_START_BLEND, ageInTicks, partialTicks);
         this.animateSmooth(entity.eepyAnimationState, TherizinosaurusAnimations.SLEEP, ageInTicks, partialTicks);
         this.animateSmooth(entity.swimAnimationState, TherizinosaurusAnimations.SWIM, ageInTicks, partialTicks);
         this.animateSmooth(entity.shakeAnimationState, TherizinosaurusAnimations.IDLE_SHAKE_BLEND, ageInTicks, partialTicks);
         this.animateSmooth(entity.stretchAnimationState, TherizinosaurusAnimations.IDLE_STRETCH_BLEND, ageInTicks, partialTicks);
+        this.animateSmooth(entity.angryAnimationState, TherizinosaurusAnimations.AGGRO_BLEND, ageInTicks, partialTicks);
 
         this.faceTarget(entity, netHeadYaw, headPitch, 2, head, neck);
 	}

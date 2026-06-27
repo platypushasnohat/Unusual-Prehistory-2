@@ -7,13 +7,13 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveC
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
-import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -66,8 +66,8 @@ public class Cryptoclidus extends AmphibiousMob {
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(4, new CryptoclidusLeaveWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new CryptoclidusEnterWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new SemiAquaticRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 50, 30, 15, 3, true));
+        this.goalSelector.addGoal(5, new SemiAquaticWanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 50, 30, 15, 3, true));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));

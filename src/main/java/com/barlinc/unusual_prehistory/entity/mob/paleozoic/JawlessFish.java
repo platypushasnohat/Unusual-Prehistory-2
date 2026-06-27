@@ -3,17 +3,17 @@ package com.barlinc.unusual_prehistory.entity.mob.paleozoic;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AquaticNibbleBlockGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.FollowVariantLeaderGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
-import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -68,7 +68,7 @@ public class JawlessFish extends SchoolingAquaticMob implements Bucketable, Vari
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 2.0D, 2.0D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
         this.goalSelector.addGoal(4, new AquaticNibbleBlockGoal(this, UP2BlockTags.JAWLESS_FISH_FOOD_BLOCKS));
-        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 20, 10, 7));
+        this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 20, 10, 7));
         this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this));
     }
 

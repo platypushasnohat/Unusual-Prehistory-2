@@ -89,12 +89,15 @@ public class PraepusaModel extends UP2Model<Praepusa> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
 
-        if (entity.isInWaterOrBubble()) {
-            if (entity.isRunning()) this.animateWalk(PraepusaAnimations.SWIM_FAST, limbSwing, limbSwingAmount, 1.5F, 3);
-            else this.animateWalk(PraepusaAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
-        } else {
-            if (entity.isRunning()) this.animateWalk(PraepusaAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
-            else this.animateWalk(PraepusaAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+        if (!entity.isEepy()) {
+            if (entity.isInWaterOrBubble()) {
+                if (entity.isRunning())
+                    this.animateWalk(PraepusaAnimations.SWIM_FAST, limbSwing, limbSwingAmount, 1.5F, 3);
+                else this.animateWalk(PraepusaAnimations.SWIM, limbSwing, limbSwingAmount, 2, 4);
+            } else {
+                if (entity.isRunning()) this.animateWalk(PraepusaAnimations.RUN, limbSwing, limbSwingAmount, 1.5F, 3);
+                else this.animateWalk(PraepusaAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+            }
         }
 
 		this.animateIdleSmooth(entity.idleAnimationState, PraepusaAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);

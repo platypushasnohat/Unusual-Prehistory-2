@@ -2,6 +2,7 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob.mesozoic;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.AustroraptorModel;
+import com.barlinc.unusual_prehistory.client.renderer.entity.mob.mesozoic.layers.AustroraptorHeldItemLayer;
 import com.barlinc.unusual_prehistory.entity.mob.mesozoic.Austroraptor;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -18,6 +19,7 @@ public class AustroraptorRenderer extends MobRenderer<Austroraptor, Austroraptor
 
     public AustroraptorRenderer(EntityRendererProvider.Context context) {
         super(context, new AustroraptorModel(context.bakeLayer(UP2ModelLayers.AUSTRORAPTOR)), 0.5F);
+        this.addLayer(new AustroraptorHeldItemLayer(this));
     }
 
     @Override

@@ -6,12 +6,12 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
-import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -99,7 +99,7 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
             }
         });
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
-        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 10, 16, 8, 3, true));
+        this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 10, 16, 8, 3, true));
         this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 50, false, false, this::canAttackEverything));

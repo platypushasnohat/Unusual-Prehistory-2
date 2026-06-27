@@ -6,12 +6,12 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothFlyingNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.WallAttachingFlyingMob;
-import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -119,7 +119,7 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
         this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 1.7D, 10, 4, true));
         this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, Mob.class, 6.0F, 1.7D, true, this::avoidsMobs));
         this.goalSelector.addGoal(3, new PrehistoricAvoidEntityGoal<>(this, Player.class, 6.0F, 1.7D, true));
-        this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1.0D, false) {
+        this.goalSelector.addGoal(4, new PrehistoricWanderGoal(this, 1.0D, false) {
             @Override
             public boolean canUse() {
                 return Kimmeridgebrachypteraeschnidium.this.isBaby() && super.canUse();

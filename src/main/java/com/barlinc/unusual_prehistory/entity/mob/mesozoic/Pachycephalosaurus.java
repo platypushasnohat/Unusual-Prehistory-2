@@ -1,9 +1,9 @@
 package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.EepyGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.SleepingGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PachycephalosaurusAttackGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -73,11 +73,11 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
         });
         this.goalSelector.addGoal(2, new PachycephalosaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
-        this.goalSelector.addGoal(4, new PrehistoricRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(4, new PrehistoricWanderGoal(this, 1));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(7, new SleepingGoal(this));
+        this.goalSelector.addGoal(7, new EepyGoal(this));
 //        this.goalSelector.addGoal(8, new PachycephalosaurusGrazeGoal(this));
 //        this.goalSelector.addGoal(8, new PachycephalosaurusHuffGoal(this));
         this.targetSelector.addGoal(0, new PachycephalosaurusHurtByTargetGoal(this, Pachycephalosaurus.class));

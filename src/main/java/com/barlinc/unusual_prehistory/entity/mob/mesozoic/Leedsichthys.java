@@ -2,17 +2,17 @@ package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricPartEntity;
-import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -82,7 +82,7 @@ public class Leedsichthys extends PrehistoricAquaticMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D, 16, 8));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
-        this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1.0D, 60, 35, 15, 3, true));
+        this.goalSelector.addGoal(3, new PrehistoricSwimGoal(this, 1.0D, 60, 35, 15, 3, true));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new IdleAnimationGoal(this, 160, 1, false, 0.001F, this::canPlayIdles));
         this.goalSelector.addGoal(5, new IdleAnimationGoal(this, 160, 2, false, 0.001F, this::canPlayIdles));

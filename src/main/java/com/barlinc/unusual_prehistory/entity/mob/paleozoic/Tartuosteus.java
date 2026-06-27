@@ -5,7 +5,6 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveC
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
-import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.PlushableMob;
 import com.barlinc.unusual_prehistory.registry.UP2Blocks;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -13,6 +12,7 @@ import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.tags.UP2BlockTags;
 import com.barlinc.unusual_prehistory.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -61,7 +61,7 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob, Va
         this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, entity -> entity.getType().is(UP2EntityTags.TARTUOSTEUS_AVOIDS)));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
         this.goalSelector.addGoal(4, new AquaticNibbleBlockGoal(this, 30, 800, UP2BlockTags.TARTUOSTEUS_FOOD_BLOCKS, 1.0D));
-        this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(6, new TartuosteusGlideGoal(this));
     }
 

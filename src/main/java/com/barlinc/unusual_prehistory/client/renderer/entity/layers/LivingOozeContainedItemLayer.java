@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.renderer.entity.mob.layers;
+package com.barlinc.unusual_prehistory.client.renderer.entity.layers;
 
 import com.barlinc.unusual_prehistory.client.models.entity.mob.LivingOozeModel;
 import com.barlinc.unusual_prehistory.client.renderer.entity.mob.LivingOozeRenderer;

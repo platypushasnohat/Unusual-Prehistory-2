@@ -7,7 +7,6 @@
  import com.barlinc.unusual_prehistory.entity.ai.goals.*;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
- import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
  import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
  import com.barlinc.unusual_prehistory.registry.UP2Entities;
  import com.barlinc.unusual_prehistory.registry.UP2Items;
@@ -15,6 +14,7 @@
  import com.barlinc.unusual_prehistory.tags.UP2BlockTags;
  import com.barlinc.unusual_prehistory.tags.UP2EntityTags;
  import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
+ import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
  import net.minecraft.core.BlockPos;
  import net.minecraft.core.component.DataComponents;
  import net.minecraft.core.particles.BlockParticleOption;
@@ -86,8 +86,8 @@
          this.goalSelector.addGoal(3, new LeaveWaterGoal(this, 1.0D));
          this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D));
          this.goalSelector.addGoal(4, new DiplocaulusSlideGoal(this, 2.0D));
-         this.goalSelector.addGoal(5, new CustomizableRandomSwimGoal(this, 1.0D, 80));
-         this.goalSelector.addGoal(5, new SemiAquaticRandomStrollGoal(this, 1.0D) {
+         this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 80));
+         this.goalSelector.addGoal(5, new SemiAquaticWanderGoal(this, 1.0D) {
              @Override
              public boolean canUse() {
                  return super.canUse() && !Diplocaulus.this.isSliding();

@@ -78,11 +78,11 @@ public class Kentrosaurus extends PrehistoricMob implements PlushableMob {
         this.goalSelector.addGoal(2, new KentrosaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new KentrosaurusFollowThornsGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
-        this.goalSelector.addGoal(5, new PrehistoricRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new PrehistoricWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new PrehistoricFollowParentGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(8, new SleepingGoal(this));
+        this.goalSelector.addGoal(8, new EepyGoal(this));
         this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 40, 1, true, 0.001F, this::canGraze));
         this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 40, 2, false, 0.001F, this::canPlayIdles));
         this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 80, 3, false, 0.001F, this::canPlayIdles));

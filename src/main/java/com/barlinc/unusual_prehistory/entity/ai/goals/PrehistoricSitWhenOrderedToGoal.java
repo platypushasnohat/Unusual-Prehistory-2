@@ -28,18 +28,18 @@ public class PrehistoricSitWhenOrderedToGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!this.tamedMob.isTame()) {
+        if (!tamedMob.isTame()) {
             return false;
-        } else if (this.tamedMob.isInWaterOrBubble() && this.stopSittingInWater) {
+        } else if (tamedMob.isInWaterOrBubble() && stopSittingInWater) {
             return false;
-        } else if (!this.tamedMob.onGround() && !this.tamedMob.isInWaterOrBubble()) {
+        } else if (!tamedMob.onGround() && !tamedMob.isInWaterOrBubble()) {
             return false;
         } else {
-            LivingEntity livingentity = this.tamedMob.getOwner();
+            LivingEntity livingentity = tamedMob.getOwner();
             if (livingentity == null) {
                 return true;
             } else {
-                return (!(this.tamedMob.distanceToSqr(livingentity) < 144.0D) || livingentity.getLastHurtByMob() == null) && this.tamedMob.isOrderedToSit();
+                return (!(tamedMob.distanceToSqr(livingentity) < 144.0D) || livingentity.getLastHurtByMob() == null) && tamedMob.isOrderedToSit();
             }
         }
     }

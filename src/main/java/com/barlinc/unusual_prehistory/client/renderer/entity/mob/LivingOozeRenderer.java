@@ -2,8 +2,8 @@ package com.barlinc.unusual_prehistory.client.renderer.entity.mob;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.client.models.entity.mob.LivingOozeModel;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.layers.LivingOozeContainedItemLayer;
-import com.barlinc.unusual_prehistory.client.renderer.entity.mob.layers.LivingOozeOuterLayer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.layers.LivingOozeContainedItemLayer;
+import com.barlinc.unusual_prehistory.client.renderer.entity.layers.LivingOozeOuterLayer;
 import com.barlinc.unusual_prehistory.entity.mob.LivingOoze;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.RenderType;

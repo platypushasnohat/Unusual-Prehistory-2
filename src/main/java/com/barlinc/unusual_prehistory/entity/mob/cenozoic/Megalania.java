@@ -8,13 +8,13 @@ import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_1.MegalaniaAttackGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
-import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
+import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -71,7 +71,7 @@ public class Megalania extends AmphibiousMob {
     public float prevTempProgress = 0F;
 
     @Nullable
-    private PrehistoricRandomStrollGoal randomStrollGoal;
+    private PrehistoricWanderGoal randomStrollGoal;
 
     public int attackCooldown = 0;
     public int talWhipCooldown = 150;
@@ -93,18 +93,18 @@ public class Megalania extends AmphibiousMob {
 
     @Override
     protected void registerGoals() {
-        this.randomStrollGoal = new SemiAquaticRandomStrollGoal(this, 1.0D);
+        this.randomStrollGoal = new SemiAquaticWanderGoal(this, 1.0D);
         this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this, false));
         this.goalSelector.addGoal(1, new MegalaniaAttackGoal(this));
         this.goalSelector.addGoal(2, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.8D, 7.0F, 4.0F, false));
         this.goalSelector.addGoal(3, new LargeBabyPanicGoal(this, 1.6D, 10, 4));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 3000));
-        this.goalSelector.addGoal(6, new CustomizableRandomSwimGoal(this, 1.0D, 50, 10, 5));
+        this.goalSelector.addGoal(6, new PrehistoricSwimGoal(this, 1.0D, 50, 10, 5));
         this.goalSelector.addGoal(6, this.randomStrollGoal);
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(8, new SleepingGoal(this));
+        this.goalSelector.addGoal(8, new EepyGoal(this));
         this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 20, 1, false, 0.01F));
         this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 80, 2, true, 0.001F, this::canRoar) {
             @Override

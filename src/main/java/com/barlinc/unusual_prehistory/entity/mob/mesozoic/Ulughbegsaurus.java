@@ -88,10 +88,10 @@ public class Ulughbegsaurus extends PrehistoricMob implements KeybindUsingMount,
         this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.7D, 7.0F, 4.0F));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.1D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
         this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
-        this.goalSelector.addGoal(7, new PrehistoricRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new PrehistoricWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(9, new SleepingGoal(this));
+        this.goalSelector.addGoal(9, new EepyGoal(this));
         this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 20, 1, false, 0.001F));
         this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 80, 2, false, 0.001F, this::canShake));
         this.goalSelector.addGoal(10, new IdleAnimationGoal(this, 60, 3, false, 0.001F, this::canYawn));

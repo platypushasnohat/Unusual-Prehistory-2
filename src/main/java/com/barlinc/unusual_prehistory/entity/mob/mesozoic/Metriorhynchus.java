@@ -93,8 +93,8 @@
          this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.5D, 7.0F, 4.0F));
          this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
          this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D, 3000, false));
-         this.goalSelector.addGoal(7, new CustomizableRandomSwimGoal(this, 1.0D, 20, 3));
-         this.goalSelector.addGoal(7, new SemiAquaticRandomStrollGoal(this, 1.0D));
+         this.goalSelector.addGoal(7, new PrehistoricSwimGoal(this, 1.0D, 20, 3));
+         this.goalSelector.addGoal(7, new SemiAquaticWanderGoal(this, 1.0D));
          this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
          this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
          this.goalSelector.addGoal(9, new IdleAnimationGoal(this, 40, 1, false, 0.001F) {

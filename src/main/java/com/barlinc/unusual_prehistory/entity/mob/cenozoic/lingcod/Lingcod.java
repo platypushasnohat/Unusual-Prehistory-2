@@ -50,7 +50,7 @@ public class Lingcod extends AbstractLingcod {
         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TEMPTS_LINGCOD), false));
         this.goalSelector.addGoal(3, new LingcodAttackGoal(this));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1.0D, 150));
+        this.goalSelector.addGoal(4, new PrehistoricSwimGoal(this, 1.0D, 150));
         this.goalSelector.addGoal(5, new PrehistoricFollowMobGoal(this, 30, 1.0F, 3.0F, 10.0F, (mob) -> mob instanceof KingLingcod));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));

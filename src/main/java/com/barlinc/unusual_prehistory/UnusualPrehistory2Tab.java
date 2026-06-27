@@ -56,6 +56,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(CRYPTOCLIDUS_SPAWN_EGG.get());
                         output.accept(DESMATOSUCHUS_SPAWN_EGG.get());
                         output.accept(DROMAEOSAURUS_SPAWN_EGG.get());
+                        output.accept(HESPERORNIS_SPAWN_EGG.get());
                         output.accept(ICHTHYOSAURUS_SPAWN_EGG.get());
                         output.accept(KAPROSUCHUS_SPAWN_EGG.get());
                         output.accept(KENTROSAURUS_SPAWN_EGG.get());

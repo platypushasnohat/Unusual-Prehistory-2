@@ -101,7 +101,6 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     public final SmoothAnimationState scratch2AnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState sandSnortAnimationState = new SmoothAnimationState(1.0F);
 
-    private final byte EAT = 73;
     private final byte SAND_SNORT = 74;
 
     private int sandSwimStartTicks = 0;
@@ -125,11 +124,11 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         this.goalSelector.addGoal(6, new ConcavenatorFollowOwnerGoal(this, 7.0F, 4.0F));
         this.goalSelector.addGoal(7, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TEMPTS_CONCAVENATOR), false));
         this.goalSelector.addGoal(8, new FollowParentGoal(this, 1.2D));
-        this.goalSelector.addGoal(9, new SandSwimmingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(10, new ConcavenatorRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(9, new SandSwimmingWanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(10, new ConcavenatorWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(12, new SleepingGoal(this));
+        this.goalSelector.addGoal(12, new EepyGoal(this));
         this.goalSelector.addGoal(13, new IdleAnimationGoal(this, 60, 1, true, 0.001F, this::canPlayIdles));
         this.goalSelector.addGoal(13, new IdleAnimationGoal(this, 30, 2, true, 0.001F, this::canPlayIdles) {
             @Override
@@ -341,13 +340,12 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
             }
             return InteractionResult.SUCCESS;
         }
-        else if (!this.isTame() && itemStack.is(UP2ItemTags.TAMES_CONCAVENATOR) && eatTicks == 0) {
+        else if (!this.isTame() && itemStack.is(UP2ItemTags.TAMES_CONCAVENATOR) && this.getEatTicks() == 0) {
             if (!this.level().isClientSide) {
                 int attempts = this.getTameAttempts();
                 int remaining = 256 - attempts;
                 int consume = Math.min(itemStack.getCount(), remaining);
                 this.setTameAttempts(attempts + consume);
-                this.level().broadcastEntityEvent(this, EAT);
                 this.gameEvent(GameEvent.ENTITY_INTERACT);
                 this.playSound(this.getEatingSound(), 1.0F, 0.9F + this.getRandom().nextFloat() * 0.2F);
                 if (this.getNavigation().getPath() != null) {
@@ -367,7 +365,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
             } else {
                 this.spawnEatingParticles(itemStack);
             }
-            this.eatTicks = 30;
+            this.setEatTicks(30);
             return InteractionResult.SUCCESS;
         }
         else if (this.isTame() && itemStack.is(UP2ItemTags.ARMORS_CONCAVENATOR) && !this.hasArmor() && this.isOwnedBy(player)) {
@@ -613,6 +611,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         this.scratch1AnimationState.animateWhen(this.getIdleState() == 1 && !scratchAlt, this.tickCount);
         this.scratch2AnimationState.animateWhen(this.getIdleState() == 1 && scratchAlt, this.tickCount);
         this.sandSnortAnimationState.animateWhen(this.getIdleState() == 2, this.tickCount);
+        this.eatAnimationState.animateWhen(this.getEatTicks() > 0, this.tickCount);
     }
 
     public boolean isSwitchingToSandSwim() {
@@ -679,10 +678,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     public void handleEntityEvent(byte id) {
-        if (id == EAT) {
-            this.eatAnimationState.start(this.tickCount);
-        }
-        else if (id == SAND_SNORT) {
+        if (id == SAND_SNORT) {
             this.spawnSandSnortParticles();
         }
         else {
@@ -901,11 +897,11 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
     }
 
     // Goals
-    private static class ConcavenatorRandomStrollGoal extends PrehistoricRandomStrollGoal {
+    private static class ConcavenatorWanderGoal extends PrehistoricWanderGoal {
 
         private final Concavenator concavenator;
 
-        public ConcavenatorRandomStrollGoal(Concavenator concavenator, double speedModifier) {
+        public ConcavenatorWanderGoal(Concavenator concavenator, double speedModifier) {
             super(concavenator, speedModifier, true);
             this.concavenator = concavenator;
         }
@@ -921,11 +917,11 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         }
     }
 
-    private static class SandSwimmingRandomStrollGoal extends PrehistoricRandomStrollGoal {
+    private static class SandSwimmingWanderGoal extends PrehistoricWanderGoal {
 
         private final Concavenator concavenator;
 
-        public SandSwimmingRandomStrollGoal(Concavenator concavenator, double speedModifier) {
+        public SandSwimmingWanderGoal(Concavenator concavenator, double speedModifier) {
             super(concavenator, speedModifier, 40, true);
             this.concavenator = concavenator;
         }

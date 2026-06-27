@@ -106,6 +106,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation TUSOTEUTHIS = mainLayer("tusoteuthis");
     public static final ModelLayerLocation WOOLLY_MAMMOTH = mainLayer("woolly_mammoth");
     public static final ModelLayerLocation PACHYRHINOSAURUS = mainLayer("pachyrhinosaurus");
+    public static final ModelLayerLocation HESPERORNIS = mainLayer("hesperornis");
 
     @SuppressWarnings("SameParameterValue")
     private static ModelLayerLocation registerLayer(String id, String name) {

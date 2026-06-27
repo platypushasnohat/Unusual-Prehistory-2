@@ -2,7 +2,7 @@
 
  import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
  import com.barlinc.unusual_prehistory.entity.ai.goals.AmphibiousPanicGoal;
- import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+ import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
  import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
  import com.barlinc.unusual_prehistory.entity.mob.base.AmphibiousMob;
  import com.barlinc.unusual_prehistory.entity.utils.*;
@@ -86,7 +86,7 @@
      protected void registerGoals() {
          this.goalSelector.addGoal(1, new AmphibiousPanicGoal(this, 1.8D));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_DETRITIVORE), false));
-         this.goalSelector.addGoal(3, new PrehistoricRandomStrollGoal(this, 1.0D, false));
+         this.goalSelector.addGoal(3, new PrehistoricWanderGoal(this, 1.0D, false));
          this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
          this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
      }

@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.entity.mob;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AttackGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricRandomStrollGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
@@ -52,7 +52,7 @@ public class Grug extends PrehistoricMob implements LeapingMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new GrugAttackGoal(this));
-        this.goalSelector.addGoal(2, new PrehistoricRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(2, new PrehistoricWanderGoal(this, 1));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 20.0F));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
