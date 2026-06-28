@@ -535,6 +535,12 @@ public class UP2LanguageProvider extends LanguageProvider {
         this.sound(UP2SoundEvents.TUSOTEUTHIS_FLASH, "Tusoteuthis flashes");
         this.sound(UP2SoundEvents.TUSOTEUTHIS_ABDUCT, "Tusoteuthis abducts");
 
+        this.sound(UP2SoundEvents.DIRE_WOLF_HURT, "Dire Wolf hurts");
+        this.sound(UP2SoundEvents.DIRE_WOLF_DEATH, "Dire Wolf dies");
+        this.sound(UP2SoundEvents.DIRE_WOLF_IDLE, "Dire Wolf barks");
+        this.sound(UP2SoundEvents.DIRE_WOLF_STEP, "Dire Wolf steps");
+        this.sound(UP2SoundEvents.DIRE_WOLF_GROWL, "Dire Wolf growls");
+
         this.translateBannerPattern("prognathodon");
 
         this.addItem(UP2Items.HYNERPETON_BUCKET, "Bucket of Hynerpeton");

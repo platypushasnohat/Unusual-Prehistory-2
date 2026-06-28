@@ -225,7 +225,8 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 GASTRIC_BROODING_FROG.get(),
                 GIANT_CAMPANILE.get(),
                 THYLACINE.get(),
-                KING_LINGCOD.get()
+                KING_LINGCOD.get(),
+                DIRE_WOLF.get()
         );
 
         // Update 6

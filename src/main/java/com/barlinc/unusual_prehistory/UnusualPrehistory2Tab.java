@@ -81,6 +81,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(ULUGHBEGSAURUS_SPAWN_EGG.get());
 
                         // Cenozoic
+                        output.accept(DIRE_WOLF_SPAWN_EGG.get());
                         output.accept(GIANT_CAMPANILE_SPAWN_EGG.get());
                         output.accept(KING_LINGCOD_SPAWN_EGG.get());
                         output.accept(LEPTICTIDIUM_SPAWN_EGG.get());

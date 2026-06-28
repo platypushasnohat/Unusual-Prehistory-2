@@ -155,6 +155,7 @@ public class UP2ItemTags {
     public static final TagKey<Item> CAMEROCERAS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/cameroceras");
     public static final TagKey<Item> BANANOGMIUS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/bananogmius");
     public static final TagKey<Item> COELOPHYSIS_RECIPE_MAPPINGS = modItemTag("recipe_mappings/coelophysis");
+    public static final TagKey<Item> DIRE_WOLF_RECIPE_MAPPINGS = modItemTag("recipe_mappings/dire_wolf");
 
     public static final TagKey<Item> DIET_CARNIVORE = modItemTag("diet/carnivore");
     public static final TagKey<Item> DIET_HERBIVORE = modItemTag("diet/herbivore");
