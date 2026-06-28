@@ -29,10 +29,6 @@
       "activity": "sleepless",
       "diet": "carnivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-
       "feature_1.item": "minecraft:coarse_dirt",
       "feature_1.tooltip": "rhizodus attack anything smaller than them and can even chase them on land ",
       "feature_1.title": "Swamp Thing",

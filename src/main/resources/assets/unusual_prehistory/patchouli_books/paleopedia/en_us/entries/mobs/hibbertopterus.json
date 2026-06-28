@@ -29,9 +29,7 @@
       "activity": "sleepless",
       "diet": "detritivore",
 
-      "feature_1.center_long_title": false,
       "feature_2.center_long_title": true,
-      "feature_3.center_long_title": false,
 
       "feature_1.item": "minecraft:water_bucket",
       "feature_1.tooltip": "Hibbertopterus’ home is the water, but it can survive indefinitely on land—the only thing it cannot do yet is fly",

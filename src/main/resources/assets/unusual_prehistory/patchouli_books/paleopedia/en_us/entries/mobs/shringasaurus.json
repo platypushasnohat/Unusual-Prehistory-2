@@ -28,10 +28,6 @@
       "clone_type": "nest_egg",  
       "activity": "sleepless",
       "diet": "herbivore",
-
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
   
       "feature_1.item": "",  
       "feature_1.tooltip": "a herbivore with an extreme sweet tooth, where they only seeking sugary treats",  

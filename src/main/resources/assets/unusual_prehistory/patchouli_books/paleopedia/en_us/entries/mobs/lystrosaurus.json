@@ -29,10 +29,6 @@
       "activity": "diurnal",
       "diet": "omnivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-
       "feature_1.item": "minecraft:nether_star",
       "feature_1.tooltip": "§7Lystrosaurus are near-indestructable, being completely immune to many types of damage, and become incredibly skittish when injured",
       "feature_1.title": "INVINCIBLE!"

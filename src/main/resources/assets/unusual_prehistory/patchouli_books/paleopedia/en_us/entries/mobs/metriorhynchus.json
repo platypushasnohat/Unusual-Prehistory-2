@@ -29,14 +29,12 @@
       "activity": "sleepless",
       "diet": "piscivore",
 
-      "feature_1.center_long_title": false,
       "feature_2.center_long_title": true,
-      "feature_3.center_long_title": false,
-
 
       "feature_1.item": "tag:unusual_prehistory:tames_metriorhynchus",
-      "feature_1.tooltip": "Metriorhynchus can be tamed using §aTropical Fish§7; tamed Metriorhynchus can be commanded to attack",
-      "feature_1.title": "Amphibious Ally",
+      "feature_1.tameable": true,
+      "feature_1.tameable_tooltip": "Tamed Metriorhynchus can be commanded to attack",
+      "feature_1.tameable_quantity": "??",
 
       "feature_2.item": "minecraft:sand",
       "feature_2.tooltip": "Metriorhynchus is capable of pursuing their prey on land too, just lacking the agility they possess in the water",

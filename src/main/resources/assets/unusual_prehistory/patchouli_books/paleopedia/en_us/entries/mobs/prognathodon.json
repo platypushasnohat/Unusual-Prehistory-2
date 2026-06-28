@@ -29,10 +29,6 @@
       "activity": "sleepless",
       "diet": "carnivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-
       "feature_1.item": "minecraft:sand",
       "feature_1.tooltip": "Prognathodon is highly territorial and will brawl with nearby Prognathodon, even when §apacified§7",
       "feature_1.title": "Turf War"

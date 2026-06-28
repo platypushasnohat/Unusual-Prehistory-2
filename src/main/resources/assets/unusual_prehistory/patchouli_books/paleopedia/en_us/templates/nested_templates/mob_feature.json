@@ -113,6 +113,65 @@
       "color": "e3d4ac",
       "guard": "#tameable#->exists",
       "advancement": "unusual_prehistory:revive_#id#"
+    },
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/feature_breedable.png",
+      "advancement": "unusual_prehistory:revive_#id#",
+      "texture_height": 128,
+      "texture_width": 128,
+      "width": 128,
+      "height": 16,
+      "x": 0,
+      "y": 0,
+      "guard": "#breedable#->exists"
+    },
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/icons/#id#.png",
+      "advancement": "unusual_prehistory:revive_#id#",
+      "texture_height": 16,
+      "texture_width": 16,
+      "width": 16,
+      "height": 16,
+      "x": 91,
+      "y": -5,
+      "scale": 1.5,
+      "guard": "#breedable#->exists"
+    },
+    {
+      "type": "patchouli:image",
+      "image": "unusual_prehistory:textures/gui/paleopedia/icons/#id#.png",
+      "advancement": "unusual_prehistory:revive_#id#",
+      "texture_height": 16,
+      "texture_width": -16,
+      "width": 16,
+      "height": 16,
+      "x": 3,
+      "y": -5,
+      "scale": 1.5,
+      "guard": "#breedable#->exists"
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#breedable_item",
+      "framed": "true",
+      "x": 51,
+      "y": 0,
+      "advancement": "unusual_prehistory:revive_#id#",
+      "guard": "#breedable#->exists"
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": [
+        "§7Can be bred"
+      ],
+      "width": 128,
+      "height": 16,
+      "x": 0,
+      "y": 0,
+      "guard": "#breedable#->exists",
+      "advancement": "unusual_prehistory:revive_#id#"
     }
   ]
 }

@@ -29,10 +29,6 @@
       "activity": "sleepless",
       "diet": "insectivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-
       "feature_1.item": "minecraft:spider_eye",
       "feature_1.tooltip": "Leptictidium preys on all arthropods",
       "feature_1.title": "Pest Control",

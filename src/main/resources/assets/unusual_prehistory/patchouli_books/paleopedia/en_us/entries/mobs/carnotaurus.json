@@ -29,10 +29,6 @@
       "activity": "diurnal",
       "diet": "carnivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-
       "feature_1.item": "minecraft:skeleton_skull",
       "feature_1.title": "Furious",
       "feature_1.tooltip": "Carnotaurus charges at anything it attacks, ramming them with its horns",
