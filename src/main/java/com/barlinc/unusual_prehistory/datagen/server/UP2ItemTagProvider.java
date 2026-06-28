@@ -318,6 +318,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.AQUILOLAMNA_RECIPE_MAPPINGS).add(AQUILOLAMNA_SPAWN_EGG.get());
         this.tag(UP2ItemTags.CAMEROCERAS_RECIPE_MAPPINGS).add(CAMEROCERAS_SPAWN_EGG.get(), ROCKET_FOSSIL.get(), UP2Blocks.CAMEROCERAS_EGGS.asItem());
         this.tag(UP2ItemTags.BANANOGMIUS_RECIPE_MAPPINGS).add(BANANOGMIUS_SPAWN_EGG.get());
+        this.tag(UP2ItemTags.COELOPHYSIS_RECIPE_MAPPINGS).add(COELOPHYSIS_SPAWN_EGG.get());
 
         this.tag(UP2ItemTags.PLANTS).add(
                 Blocks.SHORT_GRASS.asItem(),

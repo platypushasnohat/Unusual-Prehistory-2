@@ -110,6 +110,7 @@ public class UP2ModelLayers {
     public static final ModelLayerLocation AQUILOLAMNA = mainLayer("aquilolamna");
     public static final ModelLayerLocation CAMEROCERAS = mainLayer("cameroceras");
     public static final ModelLayerLocation BANANOGMIUS = mainLayer("bananogmius");
+    public static final ModelLayerLocation COELOPHYSIS = mainLayer("coelophysis");
 
     @SuppressWarnings("SameParameterValue")
     private static ModelLayerLocation registerLayer(String id, String name) {

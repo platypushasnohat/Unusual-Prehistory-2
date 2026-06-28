@@ -105,7 +105,7 @@ public class Bananogmius extends PrehistoricAquaticMob {
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble(), tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), tickCount);
         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), tickCount);
         this.attackAnimationState.animateWhen(this.getPose() == UP2Poses.ATTACKING.get(), tickCount);
     }

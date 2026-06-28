@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-27T21:18:41.8638976	Item Models: unusual_prehistory
+// 1.21.1	2026-06-27T22:11:44.1929214	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -38,6 +38,7 @@ a021da830d5218240f30f52c0aaf638b02edd132 assets/unusual_prehistory/models/item/c
 594f200c66345ecb74b7c76b2f3e281f95e08642 assets/unusual_prehistory/models/item/clamp_jaw_fossil.json
 37d5895d5027d27e428436de32c1ba6579c9e6d2 assets/unusual_prehistory/models/item/coelacanthus_roe.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/coelacanthus_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/coelophysis_spawn_egg.json
 7803867d0b80fc539b5d0f7cceb1d05f97bd4d0b assets/unusual_prehistory/models/item/combustible_fossil.json
 b134d43a7dbd2d9d568012f6eea252d28290d0fb assets/unusual_prehistory/models/item/concavenator_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/concavenator_spawn_egg.json
