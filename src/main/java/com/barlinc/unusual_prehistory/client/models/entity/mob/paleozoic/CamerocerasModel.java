@@ -63,9 +63,9 @@ public class CamerocerasModel extends UP2Model<Cameroceras> {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
-        PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 17.5F, 0.0F));
+        PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        PartDefinition swim_control = root.addOrReplaceChild("swim_control", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition swim_control = root.addOrReplaceChild("swim_control", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, -6.5F, 0.0F, 1.5708F, 0.0F, 0.0F));
 
         PartDefinition body = swim_control.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
@@ -88,23 +88,23 @@ public class CamerocerasModel extends UP2Model<Cameroceras> {
 
         PartDefinition jaw = beak.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(71, 83).addBox(-1.5F, 0.0F, -2.9F, 3.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition umbrella = head.addOrReplaceChild("umbrella", CubeListBuilder.create().texOffs(182, 131).addBox(-11.0F, -11.0F, 0.0F, 22.0F, 22.0F, 0.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, 0.0F, -11.1F));
+        PartDefinition umbrella = head.addOrReplaceChild("umbrella", CubeListBuilder.create().texOffs(98, 0).addBox(-11.0F, -11.0F, 0.0F, 22.0F, 22.0F, 0.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, 0.0F, -11.1F));
 
-        PartDefinition arms_upper = umbrella.addOrReplaceChild("arms_upper", CubeListBuilder.create().texOffs(160, 235).addBox(-11.0F, 0.0F, -9.0F, 22.0F, 0.0F, 9.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, -11.0F, 0.0F));
+        PartDefinition arms_upper = umbrella.addOrReplaceChild("arms_upper", CubeListBuilder.create().texOffs(89, 23).addBox(-11.0F, 0.0F, -9.0F, 22.0F, 0.0F, 9.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, -11.0F, 0.0F));
 
-        PartDefinition tentacles_upper = arms_upper.addOrReplaceChild("tentacles_upper", CubeListBuilder.create().texOffs(126, 188).mirror().addBox(-12.0F, 0.0F, -7.0F, 24.0F, 0.0F, 7.0F, new CubeDeformation(0.02F)).mirror(false), PartPose.offset(0.0F, 0.0F, -9.0F));
+        PartDefinition tentacles_upper = arms_upper.addOrReplaceChild("tentacles_upper", CubeListBuilder.create().texOffs(104, 103).mirror().addBox(-12.0F, 0.0F, -7.0F, 24.0F, 0.0F, 7.0F, new CubeDeformation(0.02F)).mirror(false), PartPose.offset(0.0F, 0.0F, -9.0F));
 
-        PartDefinition arms_left = umbrella.addOrReplaceChild("arms_left", CubeListBuilder.create().texOffs(208, 187).addBox(0.0F, -11.0F, -9.0F, 0.0F, 22.0F, 9.0F, new CubeDeformation(0.02F)), PartPose.offset(11.0F, 0.0F, 0.0F));
+        PartDefinition arms_left = umbrella.addOrReplaceChild("arms_left", CubeListBuilder.create().texOffs(143, -9).addBox(0.0F, -11.0F, -9.0F, 0.0F, 22.0F, 9.0F, new CubeDeformation(0.02F)), PartPose.offset(11.0F, 0.0F, 0.0F));
 
-        PartDefinition tentacles_left = arms_left.addOrReplaceChild("tentacles_left", CubeListBuilder.create().texOffs(73, 183).addBox(0.0F, -12.0F, -7.0F, 0.0F, 24.0F, 7.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, 0.0F, -9.0F));
+        PartDefinition tentacles_left = arms_left.addOrReplaceChild("tentacles_left", CubeListBuilder.create().texOffs(42, 124).addBox(0.0F, -12.0F, -7.0F, 0.0F, 24.0F, 7.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, 0.0F, -9.0F));
 
-        PartDefinition arms_right = umbrella.addOrReplaceChild("arms_right", CubeListBuilder.create().texOffs(7, 187).mirror().addBox(0.0F, -11.0F, -9.0F, 0.0F, 22.0F, 9.0F, new CubeDeformation(0.02F)).mirror(false), PartPose.offset(-11.0F, 0.0F, 0.0F));
+        PartDefinition arms_right = umbrella.addOrReplaceChild("arms_right", CubeListBuilder.create().texOffs(162, -9).mirror().addBox(0.0F, -11.0F, -9.0F, 0.0F, 22.0F, 9.0F, new CubeDeformation(0.02F)).mirror(false), PartPose.offset(-11.0F, 0.0F, 0.0F));
 
-        PartDefinition tentacles_right = arms_right.addOrReplaceChild("tentacles_right", CubeListBuilder.create().texOffs(73, 183).mirror().addBox(0.0F, -12.0F, -7.0F, 0.0F, 24.0F, 7.0F, new CubeDeformation(0.02F)).mirror(false), PartPose.offset(0.0F, 0.0F, -9.0F));
+        PartDefinition tentacles_right = arms_right.addOrReplaceChild("tentacles_right", CubeListBuilder.create().texOffs(42, 124).mirror().addBox(0.0F, -12.0F, -7.0F, 0.0F, 24.0F, 7.0F, new CubeDeformation(0.02F)).mirror(false), PartPose.offset(0.0F, 0.0F, -9.0F));
 
-        PartDefinition arms_bottom = umbrella.addOrReplaceChild("arms_bottom", CubeListBuilder.create().texOffs(83, 233).addBox(-11.0F, 0.0F, -9.0F, 22.0F, 0.0F, 9.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, 11.0F, 0.0F));
+        PartDefinition arms_bottom = umbrella.addOrReplaceChild("arms_bottom", CubeListBuilder.create().texOffs(89, 33).addBox(-11.0F, 0.0F, -9.0F, 22.0F, 0.0F, 9.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, 11.0F, 0.0F));
 
-        PartDefinition tentacles_bottom = arms_bottom.addOrReplaceChild("tentacles_bottom", CubeListBuilder.create().texOffs(126, 188).addBox(-12.0F, 0.0F, -7.0F, 24.0F, 0.0F, 7.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, 0.0F, -9.0F));
+        PartDefinition tentacles_bottom = arms_bottom.addOrReplaceChild("tentacles_bottom", CubeListBuilder.create().texOffs(104, 103).addBox(-12.0F, 0.0F, -7.0F, 24.0F, 0.0F, 7.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, 0.0F, -9.0F));
 
         return LayerDefinition.create(meshdefinition, 256, 256);
     }
@@ -117,15 +117,15 @@ public class CamerocerasModel extends UP2Model<Cameroceras> {
         if (!entity.isRocketing()) {
             if (entity.isInWaterOrBubble()) {
                 if (entity.isCrawling()) {
-                    this.animateWalk(CamerocerasAnimations.CRAWL_WALK, limbSwing, limbSwingAmount, 1, 4);
+                    this.animateWalk(CamerocerasAnimations.CRAWL_WALK, limbSwing, limbSwingAmount, 1.5F, 2.5F);
                 } else {
-                    this.animateWalk(CamerocerasAnimations.SWIM, limbSwing, limbSwingAmount, 1, 4);
+                    this.animateWalk(CamerocerasAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 2.5F);
                 }
             }
         }
 
-        this.animateIdleSmooth(entity.swimIdleAnimationState, CamerocerasAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
-        this.animateIdleSmooth(entity.crawlIdleAnimationState, CamerocerasAnimations.CRAWL_IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, CamerocerasAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
+        this.animateIdleSmooth(entity.crawlIdleAnimationState, CamerocerasAnimations.CRAWL_IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
         this.animateSmooth(entity.attackAnimationState, CamerocerasAnimations.ATTACK_BLEND, ageInTicks, partialTicks);
         this.animateSmooth(entity.eyeAnimationState, CamerocerasAnimations.EYE_OVERLAY, ageInTicks, partialTicks);
         this.animateSmooth(entity.rocketAnimationState, CamerocerasAnimations.ROCKET, ageInTicks, partialTicks);

@@ -1274,6 +1274,33 @@ public class UP2SoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("mob/frog/step3").pitch(0.9F),
                 sound("mob/frog/step4").pitch(0.9F)
         );
+
+        this.sound(UP2SoundEvents.DIRE_WOLF_DEATH,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dire_wolf/death1"))
+        );
+        this.sound(UP2SoundEvents.DIRE_WOLF_HURT,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dire_wolf/hurt1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dire_wolf/hurt2"))
+        );
+        this.sound(UP2SoundEvents.DIRE_WOLF_IDLE,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dire_wolf/idle1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dire_wolf/idle2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dire_wolf/idle3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dire_wolf/idle4"))
+        );
+        this.sound(UP2SoundEvents.DIRE_WOLF_GROWL,
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dire_wolf/growl1")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dire_wolf/growl2")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dire_wolf/growl3")),
+                sound(UnusualPrehistory2.modPrefix("entity/mob/dire_wolf/growl4"))
+        );
+        this.sound(UP2SoundEvents.DIRE_WOLF_STEP,
+                sound("mob/wolf/step1").pitch(0.9F),
+                sound("mob/wolf/step2").pitch(0.9F),
+                sound("mob/wolf/step3").pitch(0.9F),
+                sound("mob/wolf/step4").pitch(0.9F),
+                sound("mob/wolf/step5").pitch(0.9F)
+        );
     }
 
     private void soundDefinition(Supplier<SoundEvent> soundEvent, String subtitle, SoundDefinition.Sound... sounds) {

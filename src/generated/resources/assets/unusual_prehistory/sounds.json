@@ -941,6 +941,62 @@
     ],
     "subtitle": "subtitles.diplocaulus_step"
   },
+  "dire_wolf_death": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/dire_wolf/death1"
+    ],
+    "subtitle": "subtitles.dire_wolf_death"
+  },
+  "dire_wolf_growl": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/dire_wolf/growl1",
+      "unusual_prehistory:entity/mob/dire_wolf/growl2",
+      "unusual_prehistory:entity/mob/dire_wolf/growl3",
+      "unusual_prehistory:entity/mob/dire_wolf/growl4"
+    ],
+    "subtitle": "subtitles.dire_wolf_growl"
+  },
+  "dire_wolf_hurt": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/dire_wolf/hurt1",
+      "unusual_prehistory:entity/mob/dire_wolf/hurt2"
+    ],
+    "subtitle": "subtitles.dire_wolf_hurt"
+  },
+  "dire_wolf_idle": {
+    "sounds": [
+      "unusual_prehistory:entity/mob/dire_wolf/idle1",
+      "unusual_prehistory:entity/mob/dire_wolf/idle2",
+      "unusual_prehistory:entity/mob/dire_wolf/idle3",
+      "unusual_prehistory:entity/mob/dire_wolf/idle4"
+    ],
+    "subtitle": "subtitles.dire_wolf_idle"
+  },
+  "dire_wolf_step": {
+    "sounds": [
+      {
+        "name": "mob/wolf/step1",
+        "pitch": 0.9
+      },
+      {
+        "name": "mob/wolf/step2",
+        "pitch": 0.9
+      },
+      {
+        "name": "mob/wolf/step3",
+        "pitch": 0.9
+      },
+      {
+        "name": "mob/wolf/step4",
+        "pitch": 0.9
+      },
+      {
+        "name": "mob/wolf/step5",
+        "pitch": 0.9
+      }
+    ],
+    "subtitle": "subtitles.dire_wolf_step"
+  },
   "doomsurf_disc": {
     "sounds": [
       {

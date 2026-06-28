@@ -3,6 +3,8 @@ package com.barlinc.unusual_prehistory.entity.mob.paleozoic;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
+import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothGroundNavigation;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
@@ -12,6 +14,7 @@ import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -26,6 +29,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -39,11 +43,12 @@ import java.util.EnumSet;
 public class Cameroceras extends PrehistoricAquaticMob {
 
     private static final EntityDataAccessor<Boolean> CRAWLING = SynchedEntityData.defineId(Cameroceras.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> CRAWLING_COOLDOWN = SynchedEntityData.defineId(Cameroceras.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> CRAWL_COOLDOWN = SynchedEntityData.defineId(Cameroceras.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> ROCKETING = SynchedEntityData.defineId(Cameroceras.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> ROCKET_COOLDOWN = SynchedEntityData.defineId(Cameroceras.class, EntityDataSerializers.INT);
 
     private int attackCooldown = 0;
+    public boolean isCrawlNavigator;
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState eyeAnimationState = new SmoothAnimationState();
@@ -54,7 +59,7 @@ public class Cameroceras extends PrehistoricAquaticMob {
     public Cameroceras(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
         super(entityType, level);
         this.switchNavigator(false);
-        this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.4F);
+        this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.325F);
         this.lookControl = new PrehistoricSwimmingLookControl(this, 20);
     }
 
@@ -76,12 +81,39 @@ public class Cameroceras extends PrehistoricAquaticMob {
         this.goalSelector.addGoal(4, new CamerocerasSwimGoal(this));
     }
 
+    protected void switchNavigator(boolean crawling) {
+        this.getNavigation().stop();
+        if (crawling) {
+            this.navigation = new SmoothGroundNavigation(this, this.level());
+            this.isCrawlNavigator = true;
+        } else {
+            this.navigation = new SmoothAmphibiousNavigation(this, this.level());
+            this.isCrawlNavigator = false;
+        }
+    }
+
     @Override
     public void travel(@NotNull Vec3 travelVector) {
+        if (this.refuseToMove()) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            travelVector = travelVector.multiply(0.0, 1.0, 0.0);
+        }
         if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9F));
+            if (this.isCrawling()) {
+                this.moveRelative(this.getSpeed(), travelVector);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                if (this.getNavigation().isDone()) {
+                    this.setDeltaMovement(this.getDeltaMovement().multiply(0.0D, 1.0D, 0.0D));
+                } else {
+                    this.setDeltaMovement(this.getDeltaMovement().scale(0.85D));
+                }
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.06D, 0.0D));
+            }
+            else {
+                UP2MobUtils.travelInWater(this, travelVector);
+            }
         } else {
             super.travel(travelVector);
         }
@@ -89,22 +121,20 @@ public class Cameroceras extends PrehistoricAquaticMob {
 
     @Override
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+        if (this.isCrawling()) {
+            return level.getFluidState(pos.above()).is(FluidTags.WATER) ? 10.0F : super.getWalkTargetValue(pos, level);
+        }
         return UP2MobUtils.getDepthPathfindingFavor(pos, level);
     }
 
     @Override
     public boolean isPushable() {
-        return this.isBaby();
+        return this.isBaby() || (!this.isInWaterOrBubble() && !this.isRocketing());
     }
 
     @Override
     public boolean shouldFlop() {
         return false;
-    }
-
-    @Override
-    protected boolean shouldUseShallowNavigation() {
-        return true;
     }
 
     @Override
@@ -116,7 +146,7 @@ public class Cameroceras extends PrehistoricAquaticMob {
                 this.hurt(this.damageSources().drown(), 2.0F);
             }
         } else {
-            this.setAirSupply(800);
+            this.setAirSupply(1000);
         }
     }
 
@@ -128,33 +158,34 @@ public class Cameroceras extends PrehistoricAquaticMob {
     @Override
     public void tick() {
         super.tick();
-        if (!this.level().isClientSide) {
-            if (this.isInWater()) {
-                if (this.getCrawlingCooldown() > 0) {
-                    this.setCrawlingCooldown(this.getCrawlingCooldown() - 1);
-                }
-                if (this.getCrawlingCooldown() == 0 && this.getRandom().nextFloat() < 0.02F) {
-                    boolean currentlyWalking = this.isCrawling();
-                    this.setCrawling(!currentlyWalking);
-                    this.setCrawlingCooldown(this.getRandom().nextInt(800) + 800);
-                    this.getNavigation().stop();
-                }
-                if (this.isCrawling() && this.getCrawlingCooldown() > 20) {
-                    this.addDeltaMovement(new Vec3(0.0D, -0.08D, 0.0D));
-                } else {
-                    this.addDeltaMovement(new Vec3(0.0D, 0.002D, 0.0D));
-                }
+        if (this.isCrawling() && !isCrawlNavigator) {
+            this.switchNavigator(true);
+        }
+        if (!this.isCrawling() && isCrawlNavigator) {
+            this.switchNavigator(false);
+        }
 
-                if (this.isCrawling()) {
-                    if (this.getRocketCooldown() > 0) {
-                        this.setRocketCooldown(this.getRocketCooldown() - 1);
-                    }
+        if (this.isInWater()) {
+            if (this.getCrawlCooldown() > 0) {
+                this.setCrawlCooldown(this.getCrawlCooldown() - 1);
+            }
+            if (this.getCrawlCooldown() == 0 && this.getRandom().nextFloat() < 0.02F) {
+                this.setCrawling(!this.isCrawling());
+                this.setCrawlCooldown(this.getRandom().nextInt(800) + 800);
+                this.getNavigation().stop();
+            }
+
+            if (this.isCrawling()) {
+                if (this.getRocketCooldown() > 0) {
+                    this.setRocketCooldown(this.getRocketCooldown() - 1);
                 }
             }
-        } else {
+        }
+
+        if (this.level().isClientSide) {
             if (this.isRocketing() && !this.isInWaterOrBubble() && this.getDeltaMovement().y > 0) {
                 for (int i = 0; i < 4; i++) {
-                    this.level().addParticle(ParticleTypes.POOF, this.getRandomX(0.25D), this.getY() - 0.1D, this.getRandomZ(0.25D), 0.0D, -2.5D, 0.0D);
+                    this.level().addParticle(ParticleTypes.POOF, this.getRandomX(0.2D), this.getY() - (0.3D * this.getRandom().nextDouble()), this.getRandomZ(0.2D), 0.0D, -2.5D, 0.0D);
                 }
             }
         }
@@ -173,13 +204,23 @@ public class Cameroceras extends PrehistoricAquaticMob {
 
     @Override
     public void calculateEntityAnimation(boolean includeHeight) {
-        float pos = (float) Mth.length(this.getX() - xo, this.isCrawling() ? 0 : this.getY() - yo, this.getZ() - zo);
-        float speed = Math.min(pos * 20.0F, 1.0F);
+        float f = (float) Mth.length(this.getX() - xo, this.isCrawling() ? 0.0D : this.getY() - yo, this.getZ() - zo);
         if (this.isBaby()) {
-            this.walkAnimation.update(speed * 0.5F, 0.4F);
+            this.updateWalkAnimation(f * 0.5F);
         } else {
-            this.walkAnimation.update(speed, 0.4F);
+            this.updateWalkAnimation(f);
         }
+    }
+
+    @Override
+    protected void updateWalkAnimation(float partialTicks) {
+        float speed;
+        if (this.isCrawling() && this.getDeltaMovement().horizontalDistanceSqr() < 1.0E-4D) {
+            speed = 0.0F;
+        } else {
+            speed = Math.min(partialTicks * 22.5F, 1.0F);
+        }
+        this.walkAnimation.update(speed, 0.4F);
     }
 
     @Override
@@ -191,9 +232,25 @@ public class Cameroceras extends PrehistoricAquaticMob {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(CRAWLING, false);
-        builder.define(CRAWLING_COOLDOWN, 10);
+        builder.define(CRAWL_COOLDOWN, 800 + this.getRandom().nextInt(800));
         builder.define(ROCKETING, false);
-        builder.define(ROCKET_COOLDOWN, 100 + this.getRandom().nextInt(100));
+        builder.define(ROCKET_COOLDOWN, 1200 + this.getRandom().nextInt(1200));
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putBoolean("Crawling", this.isCrawling());
+        compoundTag.putInt("CrawlCooldown", this.getCrawlCooldown());
+        compoundTag.putInt("RocketCooldown", this.getRocketCooldown());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setCrawling(compoundTag.getBoolean("Crawling"));
+        this.setCrawlCooldown(compoundTag.getInt("CrawlCooldown"));
+        this.setRocketCooldown(compoundTag.getInt("RocketCooldown"));
     }
 
     public boolean isCrawling() {
@@ -202,11 +259,11 @@ public class Cameroceras extends PrehistoricAquaticMob {
     public void setCrawling(boolean crawling) {
         this.entityData.set(CRAWLING, crawling);
     }
-    public int getCrawlingCooldown() {
-        return entityData.get(CRAWLING_COOLDOWN);
+    public int getCrawlCooldown() {
+        return entityData.get(CRAWL_COOLDOWN);
     }
-    public void setCrawlingCooldown(int cooldown) {
-        this.entityData.set(CRAWLING_COOLDOWN, cooldown);
+    public void setCrawlCooldown(int cooldown) {
+        this.entityData.set(CRAWL_COOLDOWN, cooldown);
     }
 
     public boolean isRocketing() {
@@ -343,18 +400,18 @@ public class Cameroceras extends PrehistoricAquaticMob {
         protected final Cameroceras cameroceras;
 
         public CamerocerasSwimGoal(Cameroceras cameroceras) {
-            super(cameroceras, 1.0D, 100, 15, 12);
+            super(cameroceras, 1.0D, 120, 15, 7);
             this.cameroceras = cameroceras;
         }
 
         @Override
         public boolean canUse() {
-            return cameroceras.isInWaterOrBubble() && !cameroceras.onGround() && !cameroceras.isCrawling() && super.canUse();
+            return cameroceras.isInWaterOrBubble() && !cameroceras.isCrawling() && super.canUse();
         }
 
         @Override
         public boolean canContinueToUse() {
-            return cameroceras.isInWaterOrBubble() && !cameroceras.onGround() && super.canContinueToUse();
+            return cameroceras.isInWaterOrBubble() && !cameroceras.isCrawling() && super.canContinueToUse();
         }
     }
 
@@ -369,12 +426,27 @@ public class Cameroceras extends PrehistoricAquaticMob {
 
         @Override
         public boolean canUse() {
-            return cameroceras.isInWaterOrBubble() && cameroceras.onGround() && super.canUse();
+            return cameroceras.isInWaterOrBubble() && cameroceras.isCrawling() && super.canUse();
         }
 
         @Override
         public boolean canContinueToUse() {
-            return cameroceras.isInWaterOrBubble() && cameroceras.onGround() && super.canContinueToUse();
+            return cameroceras.isInWaterOrBubble() && cameroceras.isCrawling() && super.canContinueToUse();
+        }
+
+        @Override
+        @Nullable
+        protected Vec3 getPosition() {
+            for (int i = 0; i < 8; i++) {
+                Vec3 pos = DefaultRandomPos.getPos(cameroceras, 10, 7);
+                if (pos != null) {
+                    BlockPos blockPos = BlockPos.containing(pos);
+                    if (cameroceras.level().getFluidState(blockPos).is(FluidTags.WATER)) {
+                        return pos;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

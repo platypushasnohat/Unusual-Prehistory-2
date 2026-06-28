@@ -122,7 +122,7 @@ public class Bananogmius extends PrehistoricAquaticMob {
 
     @Override
     protected void updateWalkAnimation(float partialTick) {
-        float f = Math.min(partialTick * 25.0F, 1.0F);
+        float f = Math.min(partialTick * 35.0F, 1.0F);
         this.walkAnimation.update(f, 0.4F);
     }
 

@@ -330,6 +330,12 @@ public class UP2SoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> HESPERORNIS_IDLE = registerSoundEvent("hesperornis_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> HESPERORNIS_STEP = registerSoundEvent("hesperornis_step");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> DIRE_WOLF_HURT = registerSoundEvent("dire_wolf_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> DIRE_WOLF_DEATH = registerSoundEvent("dire_wolf_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> DIRE_WOLF_IDLE = registerSoundEvent("dire_wolf_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> DIRE_WOLF_GROWL = registerSoundEvent("dire_wolf_growl");
+    public static final DeferredHolder<SoundEvent, SoundEvent> DIRE_WOLF_STEP = registerSoundEvent("dire_wolf_step");
+
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(final String soundName) {
         return SOUND_EVENTS.register(soundName, () -> SoundEvent.createVariableRangeEvent(UnusualPrehistory2.modPrefix(soundName)));
     }

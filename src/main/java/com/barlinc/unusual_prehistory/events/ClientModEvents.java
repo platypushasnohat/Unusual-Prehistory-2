@@ -217,6 +217,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(UP2Entities.CAMEROCERAS.get(), CamerocerasRenderer::new);
         event.registerEntityRenderer(UP2Entities.BANANOGMIUS.get(), BananogmiusRenderer::new);
         event.registerEntityRenderer(UP2Entities.COELOPHYSIS.get(), CoelophysisRenderer::new);
+        event.registerEntityRenderer(UP2Entities.DIRE_WOLF.get(), DireWolfRenderer::new);
 
         event.registerEntityRenderer(UP2Entities.ANUROGNATHUS_EGG.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UP2Entities.AUSTRORAPTOR_EGG.get(), ThrownItemRenderer::new);
@@ -329,6 +330,7 @@ public class ClientModEvents {
         event.registerLayerDefinition(UP2ModelLayers.CAMEROCERAS, CamerocerasModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.BANANOGMIUS, BananogmiusModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.COELOPHYSIS, CoelophysisModel::createBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.DIRE_WOLF, DireWolfModel::createBodyLayer);
     }
 
     @SubscribeEvent
