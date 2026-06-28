@@ -103,5 +103,6 @@ public class ModEvents {
         event.put(UP2Entities.HESPERORNIS.get(), Hesperornis.createAttributes().build());
         event.put(UP2Entities.AQUILOLAMNA.get(), Aquilolamna.createAttributes().build());
         event.put(UP2Entities.CAMEROCERAS.get(), Cameroceras.createAttributes().build());
+        event.put(UP2Entities.BANANOGMIUS.get(), Bananogmius.createAttributes().build());
     }
 }

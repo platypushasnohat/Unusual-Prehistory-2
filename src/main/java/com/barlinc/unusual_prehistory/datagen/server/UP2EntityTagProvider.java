@@ -209,7 +209,8 @@ public class UP2EntityTagProvider extends EntityTypeTagsProvider {
                 AUSTRORAPTOR.get(),
                 PACHYRHINOSAURUS.get(),
                 HESPERORNIS.get(),
-                AQUILOLAMNA.get()
+                AQUILOLAMNA.get(),
+                BANANOGMIUS.get()
         );
 
         this.tag(UP2EntityTags.CENOZOIC_MOBS).add(
