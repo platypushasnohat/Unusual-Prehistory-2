@@ -5,7 +5,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.AquaticLeapGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.IdleAnimationGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargeBabyPanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricBabyPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.barlinc.unusual_prehistory.entity.ai.navigation.SmoothWaterBoundNavigation;
@@ -105,7 +105,7 @@ public class Aegirocassis extends PrehistoricAquaticMob implements Bucketable, L
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 2.0D, 10, 4));
+        this.goalSelector.addGoal(0, new PrehistoricBabyPanicGoal(this, 2.0D, 10, 4));
         this.goalSelector.addGoal(1, new AegirocassisTryToFlyGoal(this));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(4, new PrehistoricSwimGoal(this, 1, 40, 30, 15, 3, true));

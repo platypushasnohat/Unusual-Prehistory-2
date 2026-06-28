@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricFlyingMob;
 import net.minecraft.world.entity.ai.util.HoverRandomPos;
 import net.minecraft.world.phys.Vec3;
 
-public class FlyingPanicGoal extends LargePanicGoal {
+public class FlyingPanicGoal extends PrehistoricPanicGoal {
 
     protected final PrehistoricFlyingMob flyingMob;
 

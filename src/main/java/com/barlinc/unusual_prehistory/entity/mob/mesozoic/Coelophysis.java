@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.EepyGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
@@ -41,7 +41,7 @@ public class Coelophysis extends PrehistoricMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.0D));
+        this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 1.0D));
         this.goalSelector.addGoal(2, new EepyGoal(this));
         this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
         this.goalSelector.addGoal(7, new PrehistoricWanderGoal(this, 1.0D));

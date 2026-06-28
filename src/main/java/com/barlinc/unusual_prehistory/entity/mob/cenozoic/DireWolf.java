@@ -43,7 +43,7 @@ public class DireWolf extends PrehistoricMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.8D));
+        this.goalSelector.addGoal(1, new PrehistoricBabyPanicGoal(this, 1.8D));
         this.goalSelector.addGoal(2, new EepyGoal(this));
         this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
         this.goalSelector.addGoal(7, new PrehistoricWanderGoal(this, 1.0D));

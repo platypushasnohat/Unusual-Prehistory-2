@@ -71,7 +71,7 @@ public class Hesperornis extends AmphibiousMob implements VariantHolder<Hesperor
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D, 20, 8, true));
+        this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 1.5D, 20, 8, true));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(4, new LeaveWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new EnterWaterGoal(this, 1.0D));

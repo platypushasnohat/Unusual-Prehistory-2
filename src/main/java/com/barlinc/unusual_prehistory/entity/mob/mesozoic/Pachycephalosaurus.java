@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.EepyGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricNearestAttackableTargetGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.update_4.PachycephalosaurusAttackGoal;
@@ -65,7 +65,7 @@ public class Pachycephalosaurus extends PrehistoricMob implements VariantHolder<
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.7D) {
+        this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 1.7D) {
             @Override
             public boolean canUse() {
                 return super.canUse() && Pachycephalosaurus.this.isBaby() || Pachycephalosaurus.this.getHealth() <= Pachycephalosaurus.this.getMaxHealth() * 0.5F;

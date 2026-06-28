@@ -80,7 +80,7 @@
 
      @Override
      protected void registerGoals() {
-         this.goalSelector.addGoal(0, new LargePanicGoal(this, 1.6D, 10, 4, true));
+         this.goalSelector.addGoal(0, new PrehistoricPanicGoal(this, 1.6D, 10, 4, true));
          this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 10.0F, 1.6D, true, entity -> entity.getType().is(UP2EntityTags.DIPLOCAULUS_AVOIDS)));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
          this.goalSelector.addGoal(3, new LeaveWaterGoal(this, 1.0D));

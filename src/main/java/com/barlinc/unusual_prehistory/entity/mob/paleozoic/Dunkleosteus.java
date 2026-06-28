@@ -72,7 +72,7 @@ public class Dunkleosteus extends PrehistoricAquaticMob implements Bucketable, V
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
+        this.goalSelector.addGoal(1, new PrehistoricBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(2, new DunkleosteusAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(4, new PrehistoricSwimGoal(this, 1.0D, 30, 10, 7, 3, true));

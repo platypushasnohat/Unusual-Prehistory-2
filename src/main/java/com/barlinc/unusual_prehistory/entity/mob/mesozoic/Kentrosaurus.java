@@ -69,7 +69,7 @@ public class Kentrosaurus extends PrehistoricMob implements PlushableMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 10, 4) {
+        this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 2.0D, 10, 4) {
             @Override
             protected boolean shouldPanic() {
                 return super.shouldPanic() && (Kentrosaurus.this.getHealth() <= Kentrosaurus.this.getMaxHealth() * 0.4F || Kentrosaurus.this.isBaby());

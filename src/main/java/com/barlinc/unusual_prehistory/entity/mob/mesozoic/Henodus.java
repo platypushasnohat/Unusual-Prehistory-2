@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.entity.mob.paleozoic;
+package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
@@ -11,7 +11,6 @@ import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2Items;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
-import com.barlinc.unusual_prehistory.tags.UP2EntityTags;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
 import com.barlinc.unusual_prehistory.utils.UP2MobUtils;
 import net.minecraft.core.BlockPos;
@@ -22,10 +21,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -43,38 +39,34 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Hynerpeton extends AmphibiousMob implements Bucketable {
+public class Henodus extends AmphibiousMob implements Bucketable {
 
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState bask1AnimationState = new SmoothAnimationState();
-    public final SmoothAnimationState bask2AnimationState = new SmoothAnimationState();
 
-    private boolean baskAlt = false;
-
-    public Hynerpeton(EntityType<? extends AmphibiousMob> entityType, Level level) {
+    public Henodus(EntityType<? extends Henodus> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.switchNavigator(false);
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new PrehistoricPanicGoal(this, 1.6D, 10, 4, true));
-        this.goalSelector.addGoal(1, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 10.0F, 1.6D, true, entity -> entity.getType().is(UP2EntityTags.DIPLOCAULUS_AVOIDS)));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
-        this.goalSelector.addGoal(3, new LeaveWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new EnterWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 80));
-        this.goalSelector.addGoal(5, new SemiAquaticWanderGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(7, new HynerpetonBaskGoal(this));
+        this.goalSelector.addGoal(0, new AmphibiousPanicGoal(this, 1.5D, 14, 7, true));
+        this.goalSelector.addGoal(1, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
+        this.goalSelector.addGoal(2, new LeaveWaterGoal(this, 1.0D));
+        this.goalSelector.addGoal(2, new EnterWaterGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new PrehistoricSwimGoal(this, 1.0D, 120));
+        this.goalSelector.addGoal(3, new SemiAquaticWanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.24F)
-                .add(Attributes.STEP_HEIGHT, 1.1D);
+                .add(Attributes.MOVEMENT_SPEED, 0.15F)
+                .add(Attributes.STEP_HEIGHT, 1.2D)
+                .add(Attributes.ARMOR, 10.0D);
     }
 
     @Override
@@ -88,7 +80,7 @@ public class Hynerpeton extends AmphibiousMob implements Bucketable {
             this.lookControl = new PrehistoricLookControl(this);
             this.isLandNavigator = true;
         } else {
-            this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.3F);
+            this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.25F);
             this.lookControl = new PrehistoricSwimmingLookControl(this, 10);
             this.isLandNavigator = false;
         }
@@ -116,32 +108,35 @@ public class Hynerpeton extends AmphibiousMob implements Bucketable {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(UP2ItemTags.DIET_PISCIVORE);
+        return stack.is(UP2ItemTags.DIET_HERBIVORE);
     }
 
     @Override
-    public boolean refuseToLook() {
-        return this.isEepy();
+    public boolean canCollideWith(@NotNull Entity entity) {
+        return super.canCollideWith(entity) && !(entity instanceof Henodus);
+    }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return this.isAlive() && !this.isInWaterOrBubble();
     }
 
     @Override
     public void tick() {
         super.tick();
         final boolean ground = !this.isInWaterOrBubble();
-        if (!ground && this.isLandNavigator) {
+        if (!ground && isLandNavigator) {
             this.switchNavigator(false);
         }
-        if (ground && !this.isLandNavigator) {
+        if (ground && !isLandNavigator) {
             this.switchNavigator(true);
         }
     }
 
     @Override
     public void setupAnimationStates() {
-        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isSitting(), this.tickCount);
-        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isSitting(), this.tickCount);
-        this.bask1AnimationState.animateWhen(this.isSitting() && !baskAlt, this.tickCount);
-        this.bask2AnimationState.animateWhen(this.isSitting() && baskAlt, this.tickCount);
+        this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isSitting(), tickCount);
+        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble() && !this.isSitting(), tickCount);
     }
 
     @Override
@@ -181,7 +176,7 @@ public class Hynerpeton extends AmphibiousMob implements Bucketable {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob mob) {
-        return UP2Entities.HYNERPETON.get().create(level);
+        return UP2Entities.HENODUS.get().create(level);
     }
 
     @Override
@@ -205,27 +200,5 @@ public class Hynerpeton extends AmphibiousMob implements Bucketable {
     @Override
     protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
         this.playSound(UP2SoundEvents.HYNERPETON_STEP.get(), 0.15F, 1.0F);
-    }
-
-    @Override
-    public int getAmbientSoundInterval() {
-        return 200;
-    }
-
-    // Goals
-    private static class HynerpetonBaskGoal extends RandomSitGoal {
-
-        private final Hynerpeton hynerpeton;
-
-        public HynerpetonBaskGoal(Hynerpeton hynerpeton) {
-            super(hynerpeton);
-            this.hynerpeton = hynerpeton;
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            this.hynerpeton.baskAlt = hynerpeton.getRandom().nextBoolean();
-        }
     }
 }

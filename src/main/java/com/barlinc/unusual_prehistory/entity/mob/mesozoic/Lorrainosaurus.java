@@ -83,7 +83,7 @@ public class Lorrainosaurus extends AmphibiousMob implements GrabbingMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new EnterWaterGoal(this, 1.0D, 100, true));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D, 16, 8));
+        this.goalSelector.addGoal(1, new PrehistoricBabyPanicGoal(this, 2.0D, 16, 8));
         this.goalSelector.addGoal(2, new LorrainosaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
         this.goalSelector.addGoal(4, new PrehistoricSwimGoal(this, 1.0D, 40, 30, 15, 3, true));

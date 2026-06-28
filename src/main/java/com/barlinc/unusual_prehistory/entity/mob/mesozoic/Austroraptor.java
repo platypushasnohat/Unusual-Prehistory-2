@@ -76,7 +76,7 @@ public class Austroraptor extends AmphibiousMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new SurfaceSwimGoal(this, 0.65D));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(1, new PrehistoricBabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(2, new AustroraptorAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(4, new AustroraptorFishGoal(this));

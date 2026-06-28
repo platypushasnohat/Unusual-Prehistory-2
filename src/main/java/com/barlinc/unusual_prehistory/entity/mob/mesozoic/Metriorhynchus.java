@@ -87,7 +87,7 @@
      @Override
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this, false));
-         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 2.0D, 10, 4));
+         this.goalSelector.addGoal(1, new PrehistoricBabyPanicGoal(this, 2.0D, 10, 4));
          this.goalSelector.addGoal(2, new AquaticLeapGoal(this, 10, 0.9D, 0.7D));
          this.goalSelector.addGoal(3, new MetriorhynchusAttackGoal(this));
          this.goalSelector.addGoal(4, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.5D, 7.0F, 4.0F));

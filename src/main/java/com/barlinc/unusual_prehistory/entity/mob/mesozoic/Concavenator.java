@@ -118,7 +118,7 @@ public class Concavenator extends PrehistoricMob implements PackAnimal {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PrehistoricSitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(2, new ConcavenatorAvoidEntityGoal<>(this, LivingEntity.class, 10.0F, entity -> entity.getType().is(UP2EntityTags.CONCAVENATOR_AVOIDS)));
-        this.goalSelector.addGoal(3, new LargeBabyPanicGoal(this, 1.6D, 10, 4));
+        this.goalSelector.addGoal(3, new PrehistoricBabyPanicGoal(this, 1.6D, 10, 4));
         this.goalSelector.addGoal(4, new JoinPackGoal(this, 60, 5));
         this.goalSelector.addGoal(5, new ConcavenatorAttackGoal(this));
         this.goalSelector.addGoal(6, new ConcavenatorFollowOwnerGoal(this, 7.0F, 4.0F));

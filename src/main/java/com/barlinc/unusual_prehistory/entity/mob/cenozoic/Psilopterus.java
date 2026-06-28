@@ -85,7 +85,7 @@ public class Psilopterus extends PrehistoricMob implements PackAnimal, ButtonPre
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.7D, 10, 4));
+        this.goalSelector.addGoal(1, new PrehistoricBabyPanicGoal(this, 1.7D, 10, 4));
         this.goalSelector.addGoal(2, new JoinPackGoal(this, 60, 5));
         this.goalSelector.addGoal(3, new PsilopterusAttackGoal(this));
         this.goalSelector.addGoal(4, new PsilopterusFleeGoal(this));

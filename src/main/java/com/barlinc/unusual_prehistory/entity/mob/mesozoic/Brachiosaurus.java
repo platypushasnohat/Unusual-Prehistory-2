@@ -98,7 +98,7 @@
 
      @Override
      protected void registerGoals() {
-         this.goalSelector.addGoal(0, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
+         this.goalSelector.addGoal(0, new PrehistoricBabyPanicGoal(this, 1.8D, 10, 4));
          this.goalSelector.addGoal(1, new BrachiosaurusAttackGoal(this));
          this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
          this.goalSelector.addGoal(3, new PrehistoricWanderGoal(this, 1.0D, false));

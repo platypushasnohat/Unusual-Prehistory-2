@@ -56,7 +56,7 @@ public class Cameroceras extends PrehistoricAquaticMob {
     public final SmoothAnimationState parachuteAnimationState = new SmoothAnimationState(0.25F);
     public final SmoothAnimationState crawlIdleAnimationState = new SmoothAnimationState();
 
-    public Cameroceras(EntityType<? extends PrehistoricAquaticMob> entityType, Level level) {
+    public Cameroceras(EntityType<? extends Cameroceras> entityType, Level level) {
         super(entityType, level);
         this.switchNavigator(false);
         this.moveControl = new PrehistoricSwimmingMoveControl(this, 85, 10, 0.325F);

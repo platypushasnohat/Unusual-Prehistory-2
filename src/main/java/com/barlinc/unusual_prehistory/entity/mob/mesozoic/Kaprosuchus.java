@@ -77,7 +77,7 @@
      @Override
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this, false));
-         this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.8D, 10, 4));
+         this.goalSelector.addGoal(1, new PrehistoricBabyPanicGoal(this, 1.8D, 10, 4));
          this.goalSelector.addGoal(2, new KaprosuchusAttackGoal(this));
          this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.9D, 5.0F, 2.0F, false));
          this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_OMNIVORE), false));

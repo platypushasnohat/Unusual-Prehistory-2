@@ -80,7 +80,7 @@ public class Thylacine extends BreedableMob implements LeapingMob {
         this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 10.0F,1.5D, entity -> entity.getType().is(UP2EntityTags.THYLACINE_AVOIDS)));
         this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, Player.class, 10.0F, 1.5D, this::avoidsPlayers));
         this.goalSelector.addGoal(3, new ThylacineAttackGoal(this));
-        this.goalSelector.addGoal(4, new LargePanicGoal(this, 1.5D, 10, 4) {
+        this.goalSelector.addGoal(4, new PrehistoricPanicGoal(this, 1.5D, 10, 4) {
             @Override
             public boolean canUse() {
                 return (Thylacine.this.isBaby() || Thylacine.this.getChewTime() > 0) && super.canUse();

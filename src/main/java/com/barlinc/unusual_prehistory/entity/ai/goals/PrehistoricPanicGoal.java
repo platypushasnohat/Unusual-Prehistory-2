@@ -10,22 +10,24 @@ import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.phys.Vec3;
 
-public class LargePanicGoal extends PanicGoal {
+import javax.annotation.Nullable;
+
+public class PrehistoricPanicGoal extends PanicGoal {
 
     protected final PrehistoricMob prehistoricMob;
     protected final int radius;
     protected final int height;
     protected final boolean shouldEscapeToWater;
 
-    public LargePanicGoal(PrehistoricMob mob, double speedModifier) {
+    public PrehistoricPanicGoal(PrehistoricMob mob, double speedModifier) {
         this(mob, speedModifier, 10, 4, false);
     }
 
-    public LargePanicGoal(PrehistoricMob mob, double speedModifier, int radius, int height) {
+    public PrehistoricPanicGoal(PrehistoricMob mob, double speedModifier, int radius, int height) {
         this(mob, speedModifier, radius, height, false);
     }
 
-    public LargePanicGoal(PrehistoricMob mob, double speedModifier, int radius, int height, boolean shouldEscapeToWater) {
+    public PrehistoricPanicGoal(PrehistoricMob mob, double speedModifier, int radius, int height, boolean shouldEscapeToWater) {
         super(mob, speedModifier);
         this.prehistoricMob = mob;
         this.radius = radius;
@@ -51,7 +53,7 @@ public class LargePanicGoal extends PanicGoal {
             return false;
         } else {
             if (mob.isOnFire() || (shouldEscapeToWater && !mob.isInWaterOrBubble())) {
-                BlockPos blockpos = this.lookForWater(mob.level(), mob, radius);
+                BlockPos blockpos = this.lookForWater(mob.level(), mob, 10);
                 if (blockpos != null) {
                     this.posX = blockpos.getX();
                     this.posY = blockpos.getY();
@@ -69,9 +71,6 @@ public class LargePanicGoal extends PanicGoal {
         if (prehistoricMob.getLastHurtByMob() != null) {
             vec3 = LandRandomPos.getPosAway(prehistoricMob, radius, height, prehistoricMob.getLastHurtByMob().position());
         }
-        if (vec3 != null) {
-            this.prehistoricMob.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, speedModifier);
-        }
         if (vec3 == null) {
             return false;
         } else {
@@ -82,13 +81,11 @@ public class LargePanicGoal extends PanicGoal {
         }
     }
 
+    @Nullable
     @Override
     protected BlockPos lookForWater(BlockGetter level, Entity entity, int range) {
-        BlockPos entityPos = entity.blockPosition();
-        if (!level.getBlockState(entityPos).getCollisionShape(level, entityPos).isEmpty()) {
-            return null;
-        }
-        return BlockPos.findClosestMatch(entityPos, range + 6, height, (pos) -> level.getFluidState(pos).is(FluidTags.WATER)).orElse(null);
+        BlockPos blockpos = entity.blockPosition();
+        return !level.getBlockState(blockpos).getCollisionShape(level, blockpos).isEmpty() ? null : BlockPos.findClosestMatch(entity.blockPosition(), range, 6, (pos) -> level.getFluidState(pos).is(FluidTags.WATER)).orElse(null);
     }
 }
 

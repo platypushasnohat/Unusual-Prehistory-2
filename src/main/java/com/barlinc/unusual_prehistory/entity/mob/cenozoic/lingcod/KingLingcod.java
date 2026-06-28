@@ -69,7 +69,7 @@ public class KingLingcod extends AbstractLingcod {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this, false));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
+        this.goalSelector.addGoal(1, new PrehistoricBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(2, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.5D, 6.0F, 3.0F));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TEMPTS_LINGCOD), false));
         this.goalSelector.addGoal(4, new KingLingcodAttackGoal(this));

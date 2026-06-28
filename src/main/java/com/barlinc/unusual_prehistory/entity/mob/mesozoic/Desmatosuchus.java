@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.EepyGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.RandomSitGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
@@ -76,7 +76,7 @@ public class Desmatosuchus extends PrehistoricMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 10, 4));
+        this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 2.0D, 10, 4));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_OMNIVORE), false));
         this.goalSelector.addGoal(3, new PrehistoricWanderGoal(this, 1));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1));

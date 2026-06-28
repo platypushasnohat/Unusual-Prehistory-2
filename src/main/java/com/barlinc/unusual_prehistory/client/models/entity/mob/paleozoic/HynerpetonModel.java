@@ -1,4 +1,4 @@
-package com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic;
+package com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic;
 
 import com.barlinc.unusual_prehistory.client.animations.entity.mob.paleozoic.HynerpetonAnimations;
 import com.barlinc.unusual_prehistory.client.models.entity.UP2Model;

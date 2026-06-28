@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.entity.mob.paleozoic;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricAvoidEntityGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricSwimGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
@@ -77,7 +77,7 @@ public class Coelacanthus extends PrehistoricAquaticMob implements Bucketable, V
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.8D, 10, 7) {
+        this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 1.8D, 10, 7) {
             @Override
             public boolean canUse() {
                 return super.canUse() && Coelacanthus.this.getCoelacanthusSize() <= 5;

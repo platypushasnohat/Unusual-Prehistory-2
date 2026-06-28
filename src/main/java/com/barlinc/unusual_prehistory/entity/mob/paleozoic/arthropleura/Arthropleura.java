@@ -2,7 +2,7 @@ package com.barlinc.unusual_prehistory.entity.mob.paleozoic.arthropleura;
 
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricLookControl;
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricMoveControl;
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import com.barlinc.unusual_prehistory.entity.utils.SaddlelessItemBasedSteering;
@@ -75,7 +75,7 @@ public class Arthropleura extends PrehistoricMob implements ItemSteerable, Varia
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new ArthropleuraRidingGoal(this));
-        this.goalSelector.addGoal(2, new LargePanicGoal(this, 1.5D, 20, 4) {
+        this.goalSelector.addGoal(2, new PrehistoricPanicGoal(this, 1.5D, 20, 4) {
             @Override
             public boolean canUse() {
                 return !Arthropleura.this.hasRidingPlayer() && super.canUse();

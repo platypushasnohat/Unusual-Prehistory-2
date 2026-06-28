@@ -94,7 +94,7 @@
              }
          });
 
-         this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.6D, 10, 4, true));
+         this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 1.6D, 10, 4, true));
          this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.8D, entity -> entity.getType().is(UP2EntityTags.PRAEPUSA_AVOIDS)));
          this.goalSelector.addGoal(3, new PraepusaAttackGoal(this));
          this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));

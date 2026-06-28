@@ -50,7 +50,7 @@ public class Leptictidium extends PrehistoricMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new LeptictidiumAttackGoal(this));
         this.goalSelector.addGoal(2, new LeptictidiumRunLikeCrazyGoal(this));
-        this.goalSelector.addGoal(3, new LargePanicGoal(this, 1.6D, 10, 4));
+        this.goalSelector.addGoal(3, new PrehistoricPanicGoal(this, 1.6D, 10, 4));
         this.goalSelector.addGoal(4, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.6D, entity -> entity.getType().is(UP2EntityTags.LEPTICTIDIUM_AVOIDS)));
         this.goalSelector.addGoal(4, new PrehistoricAvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_INSECTIVORE), false));

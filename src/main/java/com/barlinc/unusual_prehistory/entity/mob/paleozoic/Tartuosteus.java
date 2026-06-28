@@ -57,7 +57,7 @@ public class Tartuosteus extends PrehistoricAquaticMob implements LeapingMob, Va
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D, 10, 7));
+        this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 2.0D, 10, 7));
         this.goalSelector.addGoal(2, new PrehistoricAvoidEntityGoal<>(this, LivingEntity.class, 6.0F, 2.0D, entity -> entity.getType().is(UP2EntityTags.TARTUOSTEUS_AVOIDS)));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
         this.goalSelector.addGoal(4, new AquaticNibbleBlockGoal(this, 30, 800, UP2BlockTags.TARTUOSTEUS_FOOD_BLOCKS, 1.0D));

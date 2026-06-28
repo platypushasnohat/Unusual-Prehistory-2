@@ -47,7 +47,7 @@ public class Lingcod extends AbstractLingcod {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
+        this.goalSelector.addGoal(1, new PrehistoricBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.TEMPTS_LINGCOD), false));
         this.goalSelector.addGoal(3, new LingcodAttackGoal(this));
         this.goalSelector.addGoal(4, new PrehistoricSwimGoal(this, 1.0D, 150));

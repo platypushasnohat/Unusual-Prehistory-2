@@ -232,6 +232,7 @@ public class UP2Items {
     public static final DeferredItem<Item> DIRE_WOLF_SPAWN_EGG = registerSpawnEggItem("dire_wolf", UP2Entities.DIRE_WOLF, 0xede1d9, 0x7b2929);
     public static final DeferredItem<Item> GASTRIC_BROODING_FROG_SPAWN_EGG = registerSpawnEggItemNoLang("gastric_brooding_frog", UP2Entities.GASTRIC_BROODING_FROG, 0x5e3825, 0xe4b64d);
     public static final DeferredItem<Item> GIANT_CAMPANILE_SPAWN_EGG = registerSpawnEggItem("giant_campanile", UP2Entities.GIANT_CAMPANILE, 0x854048, 0x5e1717);
+    public static final DeferredItem<Item> HENODUS_SPAWN_EGG = registerSpawnEggItem("henodus", UP2Entities.HENODUS, 0x7f4617, 0xb2d746);
     public static final DeferredItem<Item> HESPERORNIS_SPAWN_EGG = registerSpawnEggItem("hesperornis", UP2Entities.HESPERORNIS, 0x24274c, 0xf09f57);
     public static final DeferredItem<Item> HYNERPETON_SPAWN_EGG = registerSpawnEggItem("hynerpeton", UP2Entities.HYNERPETON, 0x292623, 0xefa32b);
     public static final DeferredItem<Item> ICHTHYOSAURUS_SPAWN_EGG = registerSpawnEggItem("ichthyosaurus", UP2Entities.ICHTHYOSAURUS, 0x4e5761, 0xd2c629);

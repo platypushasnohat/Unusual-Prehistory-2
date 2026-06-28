@@ -96,7 +96,7 @@ public class Rhizodus extends AmphibiousMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new EnterWaterGoal(this, 1.0D, 100, true));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 10, 4));
+        this.goalSelector.addGoal(1, new PrehistoricBabyPanicGoal(this, 1.5D, 10, 4));
         this.goalSelector.addGoal(2, new RhizodusAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
         this.goalSelector.addGoal(4, new SemiAquaticWanderGoal(this, 1.0D));

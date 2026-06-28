@@ -55,7 +55,7 @@ public class Bananogmius extends PrehistoricAquaticMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 1.5D, 20, 8, true));
+        this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 1.5D, 20, 8, true));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 10, 30, 15));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));

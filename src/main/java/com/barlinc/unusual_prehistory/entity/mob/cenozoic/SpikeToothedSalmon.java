@@ -85,7 +85,7 @@ public class SpikeToothedSalmon extends SchoolingAquaticMob implements LeapingMo
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.5D, 12, 6) {
+        this.goalSelector.addGoal(1, new PrehistoricBabyPanicGoal(this, 1.5D, 12, 6) {
             @Override
             public boolean canUse() {
                 return !SpikeToothedSalmon.this.isZombie() && super.canUse();

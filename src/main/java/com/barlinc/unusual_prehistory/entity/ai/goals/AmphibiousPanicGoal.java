@@ -4,7 +4,7 @@ import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.phys.Vec3;
 
-public class AmphibiousPanicGoal extends LargePanicGoal {
+public class AmphibiousPanicGoal extends PrehistoricPanicGoal {
 
     public AmphibiousPanicGoal(PrehistoricMob mob, double speedModifier) {
         this(mob, speedModifier, 10, 4, true);
@@ -23,9 +23,6 @@ public class AmphibiousPanicGoal extends LargePanicGoal {
         Vec3 vec3 = DefaultRandomPos.getPos(prehistoricMob, radius, height);
         if (prehistoricMob.getLastHurtByMob() != null) {
             vec3 = DefaultRandomPos.getPosAway(prehistoricMob, radius, height, prehistoricMob.getLastHurtByMob().position());
-        }
-        if (vec3 != null) {
-            this.prehistoricMob.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, speedModifier);
         }
         if (vec3 == null) {
             return false;

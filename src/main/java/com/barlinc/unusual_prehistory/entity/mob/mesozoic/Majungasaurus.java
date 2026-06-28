@@ -75,7 +75,7 @@ public class Majungasaurus extends PrehistoricMob implements VariantHolder<Majun
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargeBabyPanicGoal(this, 1.7D, 10, 4));
+        this.goalSelector.addGoal(1, new PrehistoricBabyPanicGoal(this, 1.7D, 10, 4));
         this.goalSelector.addGoal(2, new MajungasaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
         this.goalSelector.addGoal(4, new PrehistoricWanderGoal(this, 1.0D));

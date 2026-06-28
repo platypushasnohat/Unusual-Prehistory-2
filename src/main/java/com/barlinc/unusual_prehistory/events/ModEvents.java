@@ -106,5 +106,6 @@ public class ModEvents {
         event.put(UP2Entities.BANANOGMIUS.get(), Bananogmius.createAttributes().build());
         event.put(UP2Entities.COELOPHYSIS.get(), Coelophysis.createAttributes().build());
         event.put(UP2Entities.DIRE_WOLF.get(), DireWolf.createAttributes().build());
+        event.put(UP2Entities.HENODUS.get(), Henodus.createAttributes().build());
     }
 }

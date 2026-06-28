@@ -97,7 +97,7 @@ public class Megalania extends AmphibiousMob {
         this.goalSelector.addGoal(0, new PrehistoricSitWhenOrderedToGoal(this, false));
         this.goalSelector.addGoal(1, new MegalaniaAttackGoal(this));
         this.goalSelector.addGoal(2, new PrehistoricFollowOwnerGoal(this, 1.2D, 1.8D, 7.0F, 4.0F, false));
-        this.goalSelector.addGoal(3, new LargeBabyPanicGoal(this, 1.6D, 10, 4));
+        this.goalSelector.addGoal(3, new PrehistoricBabyPanicGoal(this, 1.6D, 10, 4));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_CARNIVORE), false));
         this.goalSelector.addGoal(5, new LeaveWaterGoal(this, 1.0D, 3000));
         this.goalSelector.addGoal(6, new PrehistoricSwimGoal(this, 1.0D, 50, 10, 5));

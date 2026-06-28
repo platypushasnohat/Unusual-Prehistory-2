@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.client.renderer.entity.mob.paleozoic;
 
 import com.barlinc.unusual_prehistory.UnusualPrehistory2;
-import com.barlinc.unusual_prehistory.client.models.entity.mob.mesozoic.HynerpetonModel;
+import com.barlinc.unusual_prehistory.client.models.entity.mob.paleozoic.HynerpetonModel;
 import com.barlinc.unusual_prehistory.entity.mob.paleozoic.Hynerpeton;
 import com.barlinc.unusual_prehistory.registry.UP2ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

@@ -1,6 +1,6 @@
 package com.barlinc.unusual_prehistory.entity.mob;
 
-import com.barlinc.unusual_prehistory.entity.ai.goals.LargePanicGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.BreedableMob;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -55,7 +55,7 @@ public class Unicorn extends BreedableMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new LargePanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_HERBIVORE), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1));
