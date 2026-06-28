@@ -114,23 +114,22 @@ public class CamerocerasModel extends UP2Model<Cameroceras> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         float partialTicks = ageInTicks - entity.tickCount;
 
-        if (entity.isInWaterOrBubble()) {
-            if (entity.isCrawling()) {
-                this.animateWalk(CamerocerasAnimations.CRAWL_WALK, limbSwing, limbSwingAmount, 1, 4);
-            }
-            else {
-                this.animateWalk(CamerocerasAnimations.SWIM, limbSwing, limbSwingAmount, 1, 4);
+        if (!entity.isRocketing()) {
+            if (entity.isInWaterOrBubble()) {
+                if (entity.isCrawling()) {
+                    this.animateWalk(CamerocerasAnimations.CRAWL_WALK, limbSwing, limbSwingAmount, 1, 4);
+                } else {
+                    this.animateWalk(CamerocerasAnimations.SWIM, limbSwing, limbSwingAmount, 1, 4);
+                }
             }
         }
 
-        if (entity.isCrawling()) {
-            this.animateIdleSmooth(entity.swimIdleAnimationState, CamerocerasAnimations.CRAWL_IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
-        } else {
-            this.animateIdleSmooth(entity.swimIdleAnimationState, CamerocerasAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
-        }
-
+        this.animateIdleSmooth(entity.swimIdleAnimationState, CamerocerasAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
+        this.animateIdleSmooth(entity.crawlIdleAnimationState, CamerocerasAnimations.CRAWL_IDLE, ageInTicks, partialTicks, limbSwingAmount, 4);
         this.animateSmooth(entity.attackAnimationState, CamerocerasAnimations.ATTACK_BLEND, ageInTicks, partialTicks);
         this.animateSmooth(entity.eyeAnimationState, CamerocerasAnimations.EYE_OVERLAY, ageInTicks, partialTicks);
+        this.animateSmooth(entity.rocketAnimationState, CamerocerasAnimations.ROCKET, ageInTicks, partialTicks);
+        this.animateSmooth(entity.parachuteAnimationState, CamerocerasAnimations.PARACHUTE, ageInTicks, partialTicks);
 
         if ((entity.getId() & 1) == 0) {
             this.animateSmooth(entity.flopAnimationState, CamerocerasAnimations.BEACHED1, ageInTicks, partialTicks);

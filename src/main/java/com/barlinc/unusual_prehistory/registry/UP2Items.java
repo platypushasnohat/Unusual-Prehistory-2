@@ -252,8 +252,8 @@ public class UP2Items {
     public static final DeferredItem<Item> SHORT_WING_FOSSIL = registerFossilItem("short_wing"); // anurognathus
     public static final DeferredItem<Item> FORCIPULE_FOSSIL = registerFossilItem("forcipule"); // arthropleura
     public static final DeferredItem<Item> GRACILE_FOSSIL = registerFossilItem("gracile"); // austroraptor
-
     public static final DeferredItem<Item> THUNDEROUS_FOSSIL = registerFossilItem("thunderous"); // brontoscorpio
+    public static final DeferredItem<Item> ROCKET_FOSSIL = registerFossilItem("rocket"); // cameroceras
     public static final DeferredItem<Item> CONCAVE_FOSSIL = registerFossilItem("concave"); // concavenator
     public static final DeferredItem<Item> ROTUND_FOSSIL = registerFossilItem("rotund"); // cotylorhynchus
     public static final DeferredItem<Item> CRYPTIC_FOSSIL = registerFossilItem("cryptic"); // cryptoclidus

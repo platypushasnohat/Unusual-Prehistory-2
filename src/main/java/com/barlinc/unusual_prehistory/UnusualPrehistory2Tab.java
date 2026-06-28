@@ -136,6 +136,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(BRISTLE_FOSSIL.get()); // aegirocassis
                         output.accept(FORCIPULE_FOSSIL.get()); // arthropleura
                         output.accept(THUNDEROUS_FOSSIL.get()); // brontoscorpio
+                        output.accept(ROCKET_FOSSIL.get()); // cameroceras
                         output.accept(GLUTTONOUS_FOSSIL.get()); // coelacanthus
                         output.accept(ROTUND_FOSSIL.get()); // cotylorhynchus
                         output.accept(BOOMERANG_FOSSIL.get()); // diplocaulus
@@ -226,6 +227,7 @@ public class UnusualPrehistory2Tab {
                         // Paleozoic
                         output.accept(UP2Blocks.AEGIROCASSIS_EGGS.get());
                         output.accept(BRONTOSCORPIO_EMBRYO.get());
+                        output.accept(UP2Blocks.CAMEROCERAS_EGGS.get());
                         output.accept(UP2Blocks.COELACANTHUS_ROE.get());
                         output.accept(UP2Blocks.DIPLOCAULUS_EGGS.get());
                         output.accept(UP2Blocks.DUNKLEOSTEUS_SAC.get());

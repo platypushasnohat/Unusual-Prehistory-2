@@ -156,6 +156,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 IMPERVIOUS_FOSSIL.get(),
                 ROTUND_FOSSIL.get(),
                 THUNDEROUS_FOSSIL.get(),
+                ROCKET_FOSSIL.get(),
                 FORCIPULE_FOSSIL.get(),
                 SUCTION_FOSSIL.get(),
                 COMBUSTIBLE_FOSSIL.get()
@@ -235,7 +236,8 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
                 BRONTOSCORPIO_EMBRYO.get(),
                 UP2Blocks.HYNERPETON_EGGS.asItem(),
                 UP2Blocks.RHIZODUS_ROE.asItem(),
-                UP2Blocks.AMMONITE_EGGS.asItem()
+                UP2Blocks.AMMONITE_EGGS.asItem(),
+                UP2Blocks.CAMEROCERAS_EGGS.asItem()
         );
         this.tag(UP2ItemTags.MESOZOIC_EGGS).add(
                 ANUROGNATHUS_EGG.get(),
@@ -314,7 +316,7 @@ public class UP2ItemTagProvider extends ItemTagsProvider {
         this.tag(UP2ItemTags.PACHYRHINOSAURUS_RECIPE_MAPPINGS).add(PACHYRHINOSAURUS_SPAWN_EGG.get());
         this.tag(UP2ItemTags.HESPERORNIS_RECIPE_MAPPINGS).add(HESPERORNIS_SPAWN_EGG.get());
         this.tag(UP2ItemTags.AQUILOLAMNA_RECIPE_MAPPINGS).add(AQUILOLAMNA_SPAWN_EGG.get());
-        this.tag(UP2ItemTags.CAMEROCERAS_RECIPE_MAPPINGS).add(CAMEROCERAS_SPAWN_EGG.get());
+        this.tag(UP2ItemTags.CAMEROCERAS_RECIPE_MAPPINGS).add(CAMEROCERAS_SPAWN_EGG.get(), ROCKET_FOSSIL.get(), UP2Blocks.CAMEROCERAS_EGGS.asItem());
 
         this.tag(UP2ItemTags.PLANTS).add(
                 Blocks.SHORT_GRASS.asItem(),

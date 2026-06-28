@@ -272,6 +272,7 @@ public class UP2LootTableProvider extends LootTableProvider {
             this.dropSelf(SPIKE_TOOTHED_SALMON_ROE.get());
             this.dropSelf(THERIZINOSAURUS_EGG.get());
             this.dropSelf(TUSOTEUTHIS_EGGS.get());
+            this.dropSelf(CAMEROCERAS_EGGS.get());
 
             this.dropSelf(BRACHIOSAURUS_PLUSHIE.get());
             this.dropSelf(CARNOTAURUS_PLUSHIE.get());

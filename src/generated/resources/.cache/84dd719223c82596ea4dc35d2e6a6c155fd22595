@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-27T14:50:56.1040186	Item Models: unusual_prehistory
+// 1.21.1	2026-06-27T19:26:20.3179519	Item Models: unusual_prehistory
 71c4c6c72e1628d57d5b1cc0be26a93e73a2caf9 assets/unusual_prehistory/models/item/aegirocassis_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/aegirocassis_spawn_egg.json
 88fbd41573b28bb142e65f4b4246203d1770a3fe assets/unusual_prehistory/models/item/aethophyllum.json
@@ -27,6 +27,7 @@ fec7cc2f856f81a4d6b619719b01454003b7689e assets/unusual_prehistory/models/item/b
 1da91eaf1978aefb2869d10cb884781abbc39511 assets/unusual_prehistory/models/item/brontoscorpio_embryo.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/brontoscorpio_spawn_egg.json
 42fa692b508971d0621b668f88bb4ece37cf47ae assets/unusual_prehistory/models/item/brown_mushroom_on_a_stick.json
+a021da830d5218240f30f52c0aaf638b02edd132 assets/unusual_prehistory/models/item/cameroceras_eggs.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/cameroceras_spawn_egg.json
 356b7d412e6b27f6c72fa9413843715a14bc7e38 assets/unusual_prehistory/models/item/carnotaurus_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/carnotaurus_spawn_egg.json
@@ -203,6 +204,7 @@ a2ed6d64e535c970cd515025be236edc87fd3513 assets/unusual_prehistory/models/item/p
 e7a945291047943937e99a76bbcff9026ac08077 assets/unusual_prehistory/models/item/quillwort_fossil.json
 3909a6864c98aed829ce11f6753d1716ef6e8771 assets/unusual_prehistory/models/item/rhizodus_roe.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusual_prehistory/models/item/rhizodus_spawn_egg.json
+af1f0892cc6e9d24d2920dcc3cff732d8f606803 assets/unusual_prehistory/models/item/rocket_fossil.json
 b16911e9855039cde84b2489d3b9679f7ced9912 assets/unusual_prehistory/models/item/rotund_fossil.json
 1b11321ec774a46997302746b5be6e593354cc23 assets/unusual_prehistory/models/item/rot_fossil.json
 328583d318f2e629cbd8f359126154aec0f02d7c assets/unusual_prehistory/models/item/rugose_fossil.json

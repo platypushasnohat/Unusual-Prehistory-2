@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-14T11:08:21.8046767	Loot Tables
+// 1.21.1	2026-06-27T19:26:20.3246114	Loot Tables
 a8b8087aaf83961dd5b1aa40214588f3427fd9da data/unusual_prehistory/loot_table/blocks/aegirocassis_eggs.json
 0faf1bb4e2d155e8c124ced8904e28d4a35a8032 data/unusual_prehistory/loot_table/blocks/aethophyllum.json
 0333dfd698d0c6f42428b2d13c80d21b0e51fb41 data/unusual_prehistory/loot_table/blocks/ammonite_eggs.json
@@ -12,6 +12,7 @@ a8b8087aaf83961dd5b1aa40214588f3427fd9da data/unusual_prehistory/loot_table/bloc
 c69c37d082cd059e0bf3f7ae6b2945771950b233 data/unusual_prehistory/loot_table/blocks/brachyphyllum.json
 7d5081a13070f790ecbfb4b2d1b35d8b7374acf0 data/unusual_prehistory/loot_table/blocks/brown_reinforced_glass.json
 0ea148d457d40d39512d01a3bc3ce22333b0c77d data/unusual_prehistory/loot_table/blocks/calamophyton.json
+66bca44377b0e536db649c9bbc8457e78820cd71 data/unusual_prehistory/loot_table/blocks/cameroceras_eggs.json
 3736089b07160088be30a66183f50386b2abe653 data/unusual_prehistory/loot_table/blocks/carnotaurus_egg.json
 ee5e8078461e46e592d5d129a5327c10fca53b3c data/unusual_prehistory/loot_table/blocks/carnotaurus_plushie.json
 b5bebaaa146c63aafdeb60c2e02a1dd69232814e data/unusual_prehistory/loot_table/blocks/cladophlebis.json

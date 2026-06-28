@@ -83,6 +83,7 @@ public class UP2RecipeProvider extends RecipeProvider {
         transmogrification(output, UP2Items.SHIMMER_FOSSIL, TUSOTEUTHIS_EGGS, 1200, 1.0F);
         transmogrification(output, UP2Items.STRIPED_PELT, UP2Items.THYLACINE_EMBRYO, 1200, 1.0F);
         transmogrification(output, UP2Items.MOLAR_FOSSIL, UP2Items.WOOLLY_MAMMOTH_EMBRYO, 2400, 1.5F);
+        transmogrification(output, UP2Items.ROCKET_FOSSIL, CAMEROCERAS_EGGS, 1200, 1.0F);
     }
 
     protected static void transmogrification(RecipeOutput output, ItemLike inputItem, ItemLike resultItem, int processingTime, float experience) {
