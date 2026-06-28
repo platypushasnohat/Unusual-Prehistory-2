@@ -33,15 +33,15 @@
       "feature_2.center_long_title": true,
       "feature_3.center_long_title": true,
 
-      "feature_1.item": "unusual_prehistory:dunkleosteus_bucket[minecraft:bucket_entity_data={BucketVariantTag:0}],unusual_prehistory:dunkleosteus_bucket[minecraft:bucket_entity_data={BucketVariantTag:1}],unusual_prehistory:dunkleosteus_bucket[minecraft:bucket_entity_data={BucketVariantTag:2}]",
-      "feature_1.tooltip": "Dunkleosteus can be collected and transported using a §aWater Bucket§7",
-      "feature_1.title": "Gonna Need a Bigger Bucket",
+      "feature_1.item": "minecraft:water_bucket",
+      "feature_1.collectable": true,
+      "feature_1.collectable_item": "unusual_prehistory:dunkleosteus_bucket[minecraft:bucket_entity_data={Variant:0}],unusual_prehistory:dunkleosteus_bucket[minecraft:bucket_entity_data={Variant:1}],unusual_prehistory:dunkleosteus_bucket[minecraft:bucket_entity_data={Variant:2}]",
 
       "feature_2.item": "minecraft:prismarine",
       "feature_2.tooltip": "Dunkleosteus' armour-piercing jaws are particularly threatening to guardians, who deeply fear these creatures",
       "feature_2.title": "Crushing Crunch",
 
-      "feature_3.item": "tag:forge:heads",
+      "feature_3.item": "tag:minecraft:skulls",
       "feature_3.tooltip": "Dunkleosteus' guillotine jaws can sever the heads right off their victims",
       "feature_3.title": "Off With Their Heads!"
     },
@@ -50,9 +50,6 @@
       "id": "dunkleosteus",
 
       "feature_1.center_long_title": true,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-      "feature_4.center_long_title": false,
 
       "feature_1.item": "minecraft:deepslate",
       "feature_1.tooltip": "Dunkleosteus hatch-size increases with depth underwater",

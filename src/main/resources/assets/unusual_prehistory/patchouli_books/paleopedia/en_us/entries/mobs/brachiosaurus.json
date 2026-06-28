@@ -29,9 +29,6 @@
       "activity": "diurnal",
       "diet": "herbivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
 
       "feature_1.item": "minecraft:seagrass",
       "feature_1.tooltip": "Brachiosaurus is able to wade effortlessly through deep water to cool off",

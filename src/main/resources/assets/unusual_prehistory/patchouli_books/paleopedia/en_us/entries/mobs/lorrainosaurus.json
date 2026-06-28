@@ -29,10 +29,6 @@
       "activity": "sleepless",
       "diet": "carnivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-
       "feature_1.item": "minecraft:water_bucket",
       "feature_1.tooltip": "lorrainosaurus able to crawl on land to hunt and catch their prey before dragging them to underwater",
       "feature_1.title": "Coast Terror"

@@ -29,10 +29,6 @@
       "activity": "diurnal",
       "diet": "carnivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-
       "feature_1.item": "minecraft:red_bed",
       "feature_1.tooltip": "§7Dromaeosaurus is hyperactive and will continuously run and jump around - however, it will instantly fall asleep as night falls",
       "feature_1.title": "Dino-Run!",

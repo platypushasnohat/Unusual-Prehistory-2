@@ -29,13 +29,10 @@
       "activity": "diurnal",
       "diet": "carnivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-
       "feature_1.item": "tag:unusual_prehistory:tames_ulughbegsaurus",
-      "feature_1.tooltip": "Ulughbegsaurus can be tamed using various meats; tamed Ulughbegsaurus can be ridden and are able to jump up to 3 blocks forward",
-      "feature_1.title": "Liftoff",
+      "feature_1.tameable": true,
+      "feature_1.tameable_tooltip": "Tamed Ulughbegsaurus can be ridden and are able to jump up to 3 blocks forward",
+      "feature_1.tameable_quantity": "??",
 
       "feature_2.item": "tag:forge:dyes",
       "feature_2.tooltip": "Ulughbegsaurus' pattern color can be changed using dye",

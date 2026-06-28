@@ -29,12 +29,10 @@
       "activity": "sleepless",
       "diet": "piscivore",
 
-      "feature_1.center_long_title": false,
       "feature_2.center_long_title": true,
-      "feature_3.center_long_title": false,
 
-      "feature_1.item": "tag:unusual_prehistory:tames_ichthyosaurus",
-      "feature_1.tooltip": "Ichthyosaurus can be tamed using §aBucket of Cod§7; and act as underwater mount that able to perform dash",
+      "feature_1.item": "minecraft:cod_bucket",
+      "feature_1.tooltip": "Ichthyosaurus can be ??? §aBucket of Cod§7; and act as underwater mount that able to perform dash",
       "feature_1.title": "DPV",
 
       "feature_2.item": "minecraft:seagrass",

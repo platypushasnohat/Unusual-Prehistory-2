@@ -29,10 +29,6 @@
       "activity": "diurnal",
       "diet": "carnivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-
       "feature_3.item": "minecraft:chicken",
       "feature_3.tooltip": "Thylacine can be tamed and breed with chicken",
       "feature_3.title": "",

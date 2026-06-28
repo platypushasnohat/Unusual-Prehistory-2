@@ -29,12 +29,9 @@
       "activity": "sleepless",
       "diet": "piscivore",
 
-      "feature_1.center_long_title": true,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-
-      "feature_1.item": "unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={BucketVariantTag:0}],unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={BucketVariantTag:1}],unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={BucketVariantTag:2}],unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={BucketVariantTag:3}]",
-      "feature_1.special_feature": "collectable",
+      "feature_1.item": "minecraft:water_bucket",
+      "feature_1.collectable": true,
+      "feature_1.collectable_item": "unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={Variant:0}],unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={Variant:1}],unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={Variant:2}],unusual_prehistory:diplocaulus_bucket[minecraft:bucket_entity_data={Variant:3}]",
 
       "feature_2.item": "tag:unusual_prehistory:diplocaulus_sliding_blocks",
       "feature_2.tooltip": "Diplocaulus loves to slide around on various slippery blocks",

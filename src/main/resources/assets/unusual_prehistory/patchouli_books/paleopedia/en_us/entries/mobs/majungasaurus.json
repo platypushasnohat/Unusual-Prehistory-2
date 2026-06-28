@@ -30,8 +30,6 @@
       "diet": "carnivore",
 
       "feature_1.center_long_title": true,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
 
       "feature_1.item": "minecraft:glass",
       "feature_1.tooltip": "Majungasaurus is equipped with skin like a chameleon, using it to camouflage from prey or larger predators",

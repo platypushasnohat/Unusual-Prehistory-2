@@ -29,17 +29,13 @@
       "activity": "sleepless",
       "diet": "piscivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-
       "feature_2.item": "minecraft:cactus",
       "feature_2.tooltip": "Stethacanthus is covered in spines, messing with them results in much pain",
       "feature_2.title": "Watch your fingers!",
 
-      "feature_1.item": "unusual_prehistory:stethacanthus_bucket",
-      "feature_1.tooltip": "Stethacanthus can be collected and transported using a §aWater Bucket§7",
-      "feature_1.title": "Buckets of Bites"
+      "feature_1.collectable_item": "unusual_prehistory:stethacanthus_bucket",
+      "feature_1.collectable": true,
+      "feature_1.item": "minecraft:water_bucket"
     }
   ]
 }

@@ -29,9 +29,7 @@
       "activity": "diurnal",
       "diet": "herbivore",
 
-      "feature_1.center_long_title": false,
       "feature_2.center_long_title": true,
-      "feature_3.center_long_title": false,
 
       "feature_1.item": "tag:unusual_prehistory:guarded_by_kentrosaurus",
       "feature_1.tooltip": "Kentrosaurus is protective of prickly blocks near it, and will attack players who break them",

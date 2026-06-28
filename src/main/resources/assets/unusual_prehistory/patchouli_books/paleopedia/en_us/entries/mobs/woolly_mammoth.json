@@ -29,10 +29,6 @@
       "activity": "diurnal",
       "diet": "herbivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-
       "feature_1.item": "minecraft:snowball",
       "feature_1.tooltip": "Woolly Mammoth likes to throw snowball at player or spray it when angry",
       "feature_1.title": "Snowball Fight!",

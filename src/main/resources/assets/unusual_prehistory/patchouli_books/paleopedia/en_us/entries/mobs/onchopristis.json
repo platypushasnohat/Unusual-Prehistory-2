@@ -30,16 +30,18 @@
       "diet": "piscivore",
 
       "feature_1.center_long_title": true,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
 
-      "feature_1.item": "minecraft:coarse_dirt",
-      "feature_1.tooltip": "§7Onchopristis dwell at the bottom of water bodies and often bury themselves in the sediment",
-      "feature_1.title": "Scales in the Soil",
+      "feature_1.collectable_item": "unusual_prehistory:onchopristis_bucket",
+      "feature_1.item": "minecraft:water_bucket",
+      "feature_1.collectable": true,
 
-      "feature_2.item": "minecraft:redstone_block",
-      "feature_2.tooltip": "§7If stepped on while buried, Onchopristis will spring into a toothy attack",
-      "feature_2.title": "I Saw That!"
+      "feature_2.item": "minecraft:coarse_dirt",
+      "feature_2.tooltip": "§7Onchopristis dwell at the bottom of water bodies and often bury themselves in the sediment",
+      "feature_2.title": "Scales in the Soil",
+
+      "feature_3.item": "minecraft:redstone_block",
+      "feature_3.tooltip": "§7If stepped on while buried, Onchopristis will spring into a toothy attack",
+      "feature_3.title": "I Saw That!"
     }
   ]
 }

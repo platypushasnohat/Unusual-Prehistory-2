@@ -29,10 +29,6 @@
       "activity": "sleepless",
       "diet": "carnivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-
       "feature_2.item": "",
       "feature_2.tooltip": "Tusoteuthis will suck any smaller creature belows them to prey on them",
       "feature_2.title": "Abduction",

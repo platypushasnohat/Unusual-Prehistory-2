@@ -29,10 +29,6 @@
       "activity": "diurnal",
       "diet": "carnivore",
 
-      "feature_1.center_long_title": false,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-
       "feature_1.item": "minecraft:feather",
       "feature_1.tooltip": "Psilopterus hunt in packs led by an alpha, becoming more aggressive and bolder in larger groups",
       "feature_1.title": "Crooked Gang",
@@ -50,10 +46,6 @@
       "id": "psilopterus",
 
       "feature_1.center_long_title": true,
-      "feature_2.center_long_title": false,
-      "feature_3.center_long_title": false,
-      "feature_4.center_long_title": false,
-
 
       "feature_1.item": "minecraft:target",
       "feature_1.tooltip": "Psilopterus is temperamental and lashes out by kicking small mobs",
