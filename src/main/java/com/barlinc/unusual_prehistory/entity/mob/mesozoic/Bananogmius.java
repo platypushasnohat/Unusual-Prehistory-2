@@ -4,6 +4,7 @@ import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingLookC
 import com.barlinc.unusual_prehistory.entity.ai.control.PrehistoricSwimmingMoveControl;
 import com.barlinc.unusual_prehistory.entity.ai.goals.*;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricAquaticMob;
+import com.barlinc.unusual_prehistory.entity.mob.base.SchoolingAquaticMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.entity.utils.UP2Poses;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
@@ -35,7 +36,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Bananogmius extends PrehistoricAquaticMob {
+public class Bananogmius extends SchoolingAquaticMob {
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
 
@@ -58,8 +59,7 @@ public class Bananogmius extends PrehistoricAquaticMob {
         this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 1.5D, 20, 8, true));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_PISCIVORE), false));
         this.goalSelector.addGoal(5, new PrehistoricSwimGoal(this, 1.0D, 10, 30, 15));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
     }
 
@@ -70,6 +70,11 @@ public class Bananogmius extends PrehistoricAquaticMob {
         } else {
             super.travel(travelVector);
         }
+    }
+
+    @Override
+    public int getMaxSchoolSize() {
+        return 20;
     }
 
     @Override

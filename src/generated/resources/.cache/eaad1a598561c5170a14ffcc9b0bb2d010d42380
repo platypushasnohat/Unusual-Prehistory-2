@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-28T15:11:10.7922248	Tags for minecraft:item mod id unusual_prehistory
+// 1.21.1	2026-06-28T18:24:55.4498231	Tags for minecraft:item mod id unusual_prehistory
 380b1989d836a56d20467ee5b555d32bf817947f data/c/tags/item/foods/fruit.json
 1036e19c4c117e7bae908a8e0bee0b2bbdf45da6 data/c/tags/item/fruits/ginkgo.json
 a462aa44c522ac8f4f8df387fa33068c401bdc45 data/c/tags/item/glass_blocks.json
@@ -128,6 +128,7 @@ ddabb4f7aec47602b7dcf079d13342c2b011aae0 data/unusual_prehistory/tags/item/recip
 860daf9b3b1657d372c114ca2f4c444424e14483 data/unusual_prehistory/tags/item/recipe_mappings/psilopterus.json
 a83531177048bee715678d62c5372b226d67b116 data/unusual_prehistory/tags/item/recipe_mappings/pterodactylus.json
 db266218cc6308302a885c1ee5d1c1444822c577 data/unusual_prehistory/tags/item/recipe_mappings/rhizodus.json
+c53e39cda658422ca44e9b14e691bf56c54637b2 data/unusual_prehistory/tags/item/recipe_mappings/saltopus.json
 2949fc0d4fdc6645046e1262f903e3929543231f data/unusual_prehistory/tags/item/recipe_mappings/shringasaurus.json
 523c4934b57545e1618e62b09272a1c5d12fde1e data/unusual_prehistory/tags/item/recipe_mappings/spike_toothed_salmon.json
 d17b53c6da87a7ea1b3870e87b381c5f04eb8d1a data/unusual_prehistory/tags/item/recipe_mappings/stethacanthus.json

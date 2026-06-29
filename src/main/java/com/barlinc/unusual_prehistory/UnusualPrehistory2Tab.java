@@ -76,6 +76,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(PACHYRHINOSAURUS_SPAWN_EGG.get());
                         output.accept(PROGNATHODON_SPAWN_EGG.get());
                         output.accept(PTERODACTYLUS_SPAWN_EGG.get());
+                        output.accept(SALTOPUS_SPAWN_EGG.get());
                         output.accept(SHRINGASAURUS_SPAWN_EGG.get());
                         output.accept(THERIZINOSAURUS_SPAWN_EGG.get());
                         output.accept(TUSOTEUTHIS_SPAWN_EGG.get());
