@@ -8,6 +8,7 @@
     "minecraft.CarvedPumpkinBlockMixin",
     "minecraft.EntityMixin",
     "minecraft.EvokerMixin",
+    "minecraft.LandRandomPosMixin",
     "minecraft.LivingEntityMixin",
     "minecraft.MobMixin",
     "minecraft.PoseMixin",
