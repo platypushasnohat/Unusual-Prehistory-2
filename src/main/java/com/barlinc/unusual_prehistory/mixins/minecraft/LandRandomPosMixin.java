@@ -19,15 +19,14 @@ public class LandRandomPosMixin {
 		// Should fix MC-265474 https://bugs.mojang.com/browse/MC/issues/MC-265474
 		// (might be a fair bit more expensive though and there is probably a better way, but this works for now)
 		if (mob instanceof PrehistoricMob prehistoricMob) {
-			MutableBlockPos pos = blockPos.mutable();
+			MutableBlockPos mutable = blockPos.mutable();
 			for (int i = 0; i < radius; i++) {
-				if (!GoalUtils.isNotStable(prehistoricMob.getNavigation(), pos)) {
-					return pos;
+				if (!GoalUtils.isNotStable(prehistoricMob.getNavigation(), mutable)) {
+					return mutable;
 				}
-				pos.move(0, -1, 0);
+				mutable.move(0, -1, 0);
 			}
-			return blockPos;
 		}
-		return blockPos1;
+		return blockPos;
 	}
 }

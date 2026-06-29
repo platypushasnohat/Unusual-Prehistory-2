@@ -41,9 +41,9 @@ public class SmoothGroundNavigation extends GroundPathNavigation implements Exte
     protected void followThePath() {
         final Vec3 safeSurfacePos = this.getTempMobPos();
         final int shortcutNode = this.getClosestVerticalTraversal(Mth.floor(safeSurfacePos.y));
-        this.maxDistanceToWaypoint = mob.getBbWidth() > 0.75F ? mob.getBbWidth() / 2F : 0.75F - mob.getBbWidth() / 2F;
+        this.maxDistanceToWaypoint = mob.getBbWidth() > 0.75F ? mob.getBbWidth() / 2.0F : 0.75F - mob.getBbWidth() / 2.0F;
         if (!this.attemptShortcut(shortcutNode, safeSurfacePos)) {
-            if (this.isCloseToNextNode(0.5f) || this.isAboutToTraverseVertically() && this.isCloseToNextNode(getMaxDistanceToWaypoint())) {
+            if (this.isCloseToNextNode(0.5F) || this.isAboutToTraverseVertically() && this.isCloseToNextNode(getMaxDistanceToWaypoint())) {
                 this.path.advance();
             }
         }
