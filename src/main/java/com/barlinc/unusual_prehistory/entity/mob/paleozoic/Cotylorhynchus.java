@@ -62,8 +62,8 @@ public class Cotylorhynchus extends PrehistoricMob implements PlushableMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 2.0D, 10, 4));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UP2ItemTags.DIET_FRUGIVORE), false));
-        this.goalSelector.addGoal(5, new PrehistoricWanderGoal(this, 1));
-        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1));
+        this.goalSelector.addGoal(5, new PrehistoricWanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new EepyGoal(this));

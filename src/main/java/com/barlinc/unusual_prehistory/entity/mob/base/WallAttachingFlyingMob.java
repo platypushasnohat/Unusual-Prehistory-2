@@ -1,7 +1,7 @@
 package com.barlinc.unusual_prehistory.entity.mob.base;
 
 import com.barlinc.unusual_prehistory.entity.ai.goals.LandFromFlightGoal;
-import com.barlinc.unusual_prehistory.entity.ai.goals.RandomFlightGoal;
+import com.barlinc.unusual_prehistory.entity.ai.goals.FlyingWanderGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -191,11 +191,11 @@ public abstract class WallAttachingFlyingMob extends PrehistoricFlyingMob {
     }
 
     // Goals
-    public static class AttachingRandomFlightGoal extends RandomFlightGoal {
+    public static class AttachingFlyingWanderGoal extends FlyingWanderGoal {
 
         protected final WallAttachingFlyingMob flyingMob;
 
-        public AttachingRandomFlightGoal(WallAttachingFlyingMob flyingMob, float speedModifier, int flightHeight) {
+        public AttachingFlyingWanderGoal(WallAttachingFlyingMob flyingMob, float speedModifier, int flightHeight) {
             super(flyingMob, speedModifier, flightHeight);
             this.flyingMob = flyingMob;
         }

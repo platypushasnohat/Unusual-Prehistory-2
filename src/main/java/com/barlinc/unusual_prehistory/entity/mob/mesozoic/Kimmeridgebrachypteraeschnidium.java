@@ -583,7 +583,7 @@ public class Kimmeridgebrachypteraeschnidium extends WallAttachingFlyingMob impl
     }
 
     // Goals
-    private static class KimmeridgebrachypteraeschnidiumFlightGoal extends AttachingRandomFlightGoal {
+    private static class KimmeridgebrachypteraeschnidiumFlightGoal extends AttachingFlyingWanderGoal {
 
         private final Kimmeridgebrachypteraeschnidium dragonfly;
 

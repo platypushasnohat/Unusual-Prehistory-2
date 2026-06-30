@@ -82,7 +82,6 @@ public class HerdWanderGoal extends PrehistoricWanderGoal {
 				}
 			}
 		}
-
 		return super.getPosition();
 	}
 }

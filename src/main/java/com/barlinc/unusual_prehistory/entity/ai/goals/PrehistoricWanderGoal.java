@@ -32,12 +32,12 @@ public class PrehistoricWanderGoal extends RandomStrollGoal {
             Vec3 randomPos;
             if (mob.isInWater()) {
                 randomPos = LandRandomPos.getPos(mob, 30, 8);
-                return randomPos == null ? LandRandomPos.getPos(mob, 10, 7) : randomPos;
+                return randomPos == null ? LandRandomPos.getPos(mob, 18, 7) : randomPos;
             }
-            randomPos = mob.getRandom().nextFloat() > 0.001F ? LandRandomPos.getPos(mob, 10, 7) : DefaultRandomPos.getPos(mob, 10, 7);
+            randomPos = mob.getRandom().nextFloat() > 0.001F ? LandRandomPos.getPos(mob, 18, 7) : DefaultRandomPos.getPos(mob, 18, 7);
             return randomPos;
         } else {
-            return DefaultRandomPos.getPos(mob, 10, 7);
+            return DefaultRandomPos.getPos(mob, 18, 7);
         }
     }
 }

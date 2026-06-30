@@ -11,7 +11,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
-public class RandomFlightGoal extends Goal {
+public class FlyingWanderGoal extends Goal {
 
     protected final PrehistoricFlyingMob mob;
     protected final double speedModifier;
@@ -21,7 +21,7 @@ public class RandomFlightGoal extends Goal {
     protected double y;
     protected double z;
 
-    public RandomFlightGoal(PrehistoricFlyingMob mob, double speedModifier, int flightHeight) {
+    public FlyingWanderGoal(PrehistoricFlyingMob mob, double speedModifier, int flightHeight) {
         this.setFlags(EnumSet.of(Flag.MOVE));
         this.flightHeight = flightHeight;
         this.speedModifier = speedModifier;
