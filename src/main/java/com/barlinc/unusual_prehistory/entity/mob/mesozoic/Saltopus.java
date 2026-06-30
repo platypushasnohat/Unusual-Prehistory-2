@@ -65,7 +65,7 @@ public class Saltopus extends PrehistoricMob implements LeapingMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 2.2D));
         this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(UP2ItemTags.DIET_INSECTIVORE), false));
-        this.goalSelector.addGoal(5, new RandomLeapGoal(this, 80, 20, 1.15F));
+        this.goalSelector.addGoal(5, new RandomLeapGoal(this, 80, 16, 1.0F));
         this.goalSelector.addGoal(7, new PrehistoricWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));

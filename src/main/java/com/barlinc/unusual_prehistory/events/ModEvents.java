@@ -108,5 +108,6 @@ public class ModEvents {
         event.put(UP2Entities.DIRE_WOLF.get(), DireWolf.createAttributes().build());
         event.put(UP2Entities.HENODUS.get(), Henodus.createAttributes().build());
         event.put(UP2Entities.SALTOPUS.get(), Saltopus.createAttributes().build());
+        event.put(UP2Entities.DIICTODON.get(), Diictodon.createAttributes().build());
     }
 }

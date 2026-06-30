@@ -36,6 +36,7 @@ public class UnusualPrehistory2Tab {
                         output.accept(CAMEROCERAS_SPAWN_EGG.get());
                         output.accept(COELACANTHUS_SPAWN_EGG.get());
                         output.accept(COTYLORHYNCHUS_SPAWN_EGG.get());
+                        output.accept(DIICTODON_SPAWN_EGG.get());
                         output.accept(DIPLOCAULUS_SPAWN_EGG.get());
                         output.accept(DUNKLEOSTEUS_SPAWN_EGG.get());
                         output.accept(HIBBERTOPTERUS_SPAWN_EGG.get());
