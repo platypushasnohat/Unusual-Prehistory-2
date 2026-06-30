@@ -1,15 +1,22 @@
 package com.barlinc.unusual_prehistory.entity.mob.mesozoic;
 
+import com.barlinc.unusual_prehistory.entity.ai.goals.RandomLeapGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricPanicGoal;
 import com.barlinc.unusual_prehistory.entity.ai.goals.PrehistoricWanderGoal;
 import com.barlinc.unusual_prehistory.entity.mob.base.PrehistoricMob;
+import com.barlinc.unusual_prehistory.entity.utils.LeapingMob;
 import com.barlinc.unusual_prehistory.entity.utils.SmoothAnimationState;
 import com.barlinc.unusual_prehistory.registry.UP2Entities;
 import com.barlinc.unusual_prehistory.registry.UP2SoundEvents;
 import com.barlinc.unusual_prehistory.tags.UP2ItemTags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -27,12 +34,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class Saltopus extends PrehistoricMob {
+public class Saltopus extends PrehistoricMob implements LeapingMob {
+
+    private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Saltopus.class, EntityDataSerializers.BOOLEAN);
 
     private int jumpTicks;
     private int jumpDuration;
@@ -41,6 +51,7 @@ public class Saltopus extends PrehistoricMob {
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
     public final SmoothAnimationState jumpAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState leapAnimationState = new SmoothAnimationState();
 
     public Saltopus(EntityType<? extends Saltopus> entityType, Level level) {
         super(entityType, level);
@@ -54,6 +65,7 @@ public class Saltopus extends PrehistoricMob {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PrehistoricPanicGoal(this, 2.2D));
         this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, Ingredient.of(UP2ItemTags.DIET_INSECTIVORE), false));
+        this.goalSelector.addGoal(5, new RandomLeapGoal(this, 80, 20, 1.15F));
         this.goalSelector.addGoal(7, new PrehistoricWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -87,15 +99,15 @@ public class Saltopus extends PrehistoricMob {
     protected float getJumpPower() {
         float power;
         if (horizontalCollision || this.getMoveControl().hasWanted() && this.isYRequiringJump(this.getMoveControl().getWantedY())) {
-            power = 0.6F;
+            power = 0.7F;
         }
         else {
             Path path = this.getNavigation().getPath();
             if (path != null && !path.isDone() && this.isYRequiringJump(path.getNextEntityPos(this.self()).y)) {
-                power = 0.6F;
+                power = 0.7F;
             }
             else {
-                power = 0.3F;
+                power = 0.4F;
             }
         }
         return this.getJumpPower(power / 0.42F);
@@ -108,7 +120,7 @@ public class Saltopus extends PrehistoricMob {
         if (speedModifier > 0.0D) {
             double horizontalDistanceSqr = this.getDeltaMovement().horizontalDistanceSqr();
             if (horizontalDistanceSqr < 0.01D) {
-                this.moveRelative(0.15F, new Vec3(0.0D, 0.0D, 1.0D));
+                this.moveRelative(0.4F, new Vec3(0.0D, 0.0D, 1.0D));
             }
         }
 
@@ -154,9 +166,9 @@ public class Saltopus extends PrehistoricMob {
 
     private void setLandingDelay() {
         if (this.getMoveControl().getSpeedModifier() < 2.0D) {
-            this.jumpDelayTicks = 6;
+            this.jumpDelayTicks = 9;
         } else {
-            this.jumpDelayTicks = 3;
+            this.jumpDelayTicks = 5;
         }
     }
 
@@ -207,14 +219,45 @@ public class Saltopus extends PrehistoricMob {
     }
 
     @Override
+    protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
+        return 0;
+    }
+
+    @Override
+    public boolean canTrample(@NotNull BlockState state, @NotNull BlockPos pos, float fallDistance) {
+        return false;
+    }
+
+    @SuppressWarnings("SuspiciousNameCombination")
+    @Override
     public void tick() {
         super.tick();
+        if (this.isLeaping() && (this.onGround() || this.isInFluidType())) {
+            if (this.onGround() && !this.level().isClientSide) {
+                this.level().playSound(null, this, UP2SoundEvents.GASTRIC_BROODING_FROG_STEP.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+            }
+            this.setLeaping(false);
+        }
+
+        if (this.isLeaping()) {
+            Vec3 motion = this.getDeltaMovement();
+            if (motion.horizontalDistanceSqr() > 1.0E-6D) {
+                float yaw = -((float) Mth.atan2(motion.x, motion.z)) * Mth.RAD_TO_DEG;
+                this.setYRot(yaw);
+                this.setYHeadRot(yaw);
+                this.setYBodyRot(yaw);
+                this.yRotO = yaw;
+                this.yHeadRotO = yaw;
+                this.yBodyRotO = yaw;
+            }
+        }
     }
 
     @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(this.onGround(), tickCount);
-        this.jumpAnimationState.animateWhen(!this.onGround(), tickCount);
+        this.jumpAnimationState.animateWhen(!this.onGround() && !this.isLeaping(), tickCount);
+        this.leapAnimationState.animateWhen(!this.onGround() && this.isLeaping(), tickCount);
     }
 
     @Override
@@ -234,6 +277,21 @@ public class Saltopus extends PrehistoricMob {
             vec3 = vec3.multiply(0.0, 1.0, 0.0);
         }
         super.travel(vec3);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(LEAPING, false);
+    }
+
+    @Override
+    public void setLeaping(boolean leaping) {
+        this.entityData.set(LEAPING, leaping);
+    }
+    @Override
+    public boolean isLeaping() {
+        return entityData.get(LEAPING);
     }
 
     @Nullable

@@ -106,7 +106,7 @@ public class GastricBroodingFrog extends AmphibiousMob implements Bucketable, Le
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.3D, Ingredient.of(UP2ItemTags.TEMPTS_GASTRIC_BROODING_FROG), false));
         this.goalSelector.addGoal(6, new LeaveWaterGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new EnterWaterGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new LeapRandomlyGoal(this, 60, 7, 0.9F));
+        this.goalSelector.addGoal(7, new RandomLeapGoal(this, 60, 7, 0.9F));
         this.goalSelector.addGoal(8, new PrehistoricSwimGoal(this, 1.0D, 40));
         this.goalSelector.addGoal(8, new SemiAquaticWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));

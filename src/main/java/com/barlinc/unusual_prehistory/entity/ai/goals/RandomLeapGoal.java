@@ -11,7 +11,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
-public class LeapRandomlyGoal extends Goal {
+public class RandomLeapGoal extends Goal {
 
     protected final PrehistoricMob mob;
     protected final int chance;
@@ -19,8 +19,8 @@ public class LeapRandomlyGoal extends Goal {
     protected final float verticalStrength;
     protected Vec3 leapPos = null;
 
-    public LeapRandomlyGoal(PrehistoricMob mob, int chance, int maxLeapDistance, float verticalStrength) {
-        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+    public RandomLeapGoal(PrehistoricMob mob, int chance, int maxLeapDistance, float verticalStrength) {
+        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         this.mob = mob;
         this.chance = chance;
         this.maxLeapDistance = maxLeapDistance;
@@ -37,7 +37,8 @@ public class LeapRandomlyGoal extends Goal {
             Vec3 deltaMovement = mob.getDeltaMovement();
             Vec3 vec3 = new Vec3(leapPos.x - mob.getX(), 0.0D, leapPos.z - mob.getZ());
             if (vec3.lengthSqr() > 1.0E-7D) {
-                vec3 = vec3.normalize().scale(0.9D).add(deltaMovement.scale(0.8D));
+                double horizontalSpeed = Math.max(0.9D, vec3.length() * 0.15D);
+                vec3 = vec3.normalize().scale(horizontalSpeed).add(deltaMovement.scale(0.2D));
             }
             if (mob instanceof LeapingMob leapingMob) {
                 leapingMob.onLeap();
@@ -64,8 +65,8 @@ public class LeapRandomlyGoal extends Goal {
             return false;
         }
         else if (mob.getRandom().nextInt(chance) == 0 && mob.onGround() && mob.getNavigation().isDone()) {
-            Vec3 found = LandRandomPos.getPos(mob, maxLeapDistance, maxLeapDistance);
-            if (found != null && mob.distanceToSqr(found) < maxLeapDistance * maxLeapDistance && this.hasLineOfSightBlock(found)){
+            Vec3 found = this.findLeapPos();
+            if (found != null) {
                 this.leapPos = found;
                 return true;
             }
@@ -76,6 +77,14 @@ public class LeapRandomlyGoal extends Goal {
     @Override
     public boolean canContinueToUse() {
         return leapPos != null && mob.distanceToSqr(leapPos) < maxLeapDistance * maxLeapDistance && this.hasLineOfSightBlock(leapPos);
+    }
+
+    protected Vec3 findLeapPos() {
+        Vec3 found = LandRandomPos.getPos(mob, maxLeapDistance, maxLeapDistance);
+        if (found != null && mob.distanceToSqr(found) < maxLeapDistance * maxLeapDistance && this.hasLineOfSightBlock(found)) {
+            return found;
+        }
+        return null;
     }
 
     protected boolean hasLineOfSightBlock(Vec3 blockVec) {
