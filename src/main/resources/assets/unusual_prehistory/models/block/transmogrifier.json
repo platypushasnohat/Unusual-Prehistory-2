@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "down": "unusual_prehistory:block/transmogrifier_bottom",
+    "east": "unusual_prehistory:block/transmogrifier_left",
+    "north": "unusual_prehistory:block/transmogrifier_front",
+    "particle": "unusual_prehistory:block/transmogrifier_front",
+    "south": "unusual_prehistory:block/transmogrifier_back",
+    "up": "unusual_prehistory:block/transmogrifier_top",
+    "west": "unusual_prehistory:block/transmogrifier_right"
+  }
+}

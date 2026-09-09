@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "vertical_direction=up": {
+      "model": "unusual_prehistory:block/fossilized_bone_spike"
+    },
+    "vertical_direction=down": {
+      "model": "unusual_prehistory:block/fossilized_bone_spike",
+      "x": 180
+    }
+  }
+}
