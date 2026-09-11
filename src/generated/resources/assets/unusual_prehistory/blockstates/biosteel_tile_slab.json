@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "unusual_prehistory:block/biosteel_tile_slab"
+    },
+    "type=double": {
+      "model": "unusual_prehistory:block/biosteel_tiles"
+    },
+    "type=top": {
+      "model": "unusual_prehistory:block/biosteel_tile_slab_top"
+    }
+  }
+}

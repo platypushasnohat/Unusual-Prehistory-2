@@ -21,5 +21,11 @@ public class UP2BlockStateProvider extends SinewBlockStateProvider {
         this.block(UP2Blocks.COBBLED_FOSSILIZED_BONE);
         this.stairsBlock(UP2Blocks.COBBLED_FOSSILIZED_BONE.get(), UP2Blocks.COBBLED_FOSSILIZED_BONE_STAIRS.get());
         this.slabBlock(UP2Blocks.COBBLED_FOSSILIZED_BONE.get(), UP2Blocks.COBBLED_FOSSILIZED_BONE_SLAB.get());
+
+        this.block(UP2Blocks.BIOSTEEL_BLOCK);
+        this.block(UP2Blocks.BIOSTEEL_LATTICE);
+        this.block(UP2Blocks.BIOSTEEL_TILES);
+        this.stairsBlock(UP2Blocks.BIOSTEEL_TILES.get(), UP2Blocks.BIOSTEEL_TILE_STAIRS.get());
+        this.slabBlock(UP2Blocks.BIOSTEEL_TILES.get(), UP2Blocks.BIOSTEEL_TILE_SLAB.get());
     }
 }

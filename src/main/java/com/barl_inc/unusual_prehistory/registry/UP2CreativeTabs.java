@@ -28,6 +28,12 @@ public class UP2CreativeTabs {
                         output.accept(UP2Blocks.COBBLED_FOSSILIZED_BONE.get());
                         output.accept(UP2Blocks.COBBLED_FOSSILIZED_BONE_STAIRS.get());
                         output.accept(UP2Blocks.COBBLED_FOSSILIZED_BONE_SLAB.get());
+
+                        output.accept(UP2Blocks.BIOSTEEL_BLOCK.get());
+                        output.accept(UP2Blocks.BIOSTEEL_TILES.get());
+                        output.accept(UP2Blocks.BIOSTEEL_TILE_STAIRS.get());
+                        output.accept(UP2Blocks.BIOSTEEL_TILE_SLAB.get());
+                        output.accept(UP2Blocks.BIOSTEEL_LATTICE.get());
                     })
                     .build());
 }

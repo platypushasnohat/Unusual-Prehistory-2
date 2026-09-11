@@ -1,4 +1,9 @@
 {
+  "block.unusual_prehistory.biosteel_block": "Biosteel Block",
+  "block.unusual_prehistory.biosteel_lattice": "Biosteel Lattice",
+  "block.unusual_prehistory.biosteel_tile_slab": "Biosteel Tile Slab",
+  "block.unusual_prehistory.biosteel_tile_stairs": "Biosteel Tile Stairs",
+  "block.unusual_prehistory.biosteel_tiles": "Biosteel Tiles",
   "block.unusual_prehistory.cobbled_fossilized_bone": "Cobbled Fossilized Bone",
   "block.unusual_prehistory.cobbled_fossilized_bone_slab": "Cobbled Fossilized Bone Slab",
   "block.unusual_prehistory.cobbled_fossilized_bone_stairs": "Cobbled Fossilized Bone Stairs",

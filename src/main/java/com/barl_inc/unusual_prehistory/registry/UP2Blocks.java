@@ -37,6 +37,12 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> COBBLED_FOSSILIZED_BONE_STAIRS = registerBlock("cobbled_fossilized_bone_stairs", () -> new StairBlock(COBBLED_FOSSILIZED_BONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(COBBLED_FOSSILIZED_BONE.get())));
     public static final DeferredBlock<Block> COBBLED_FOSSILIZED_BONE_SLAB = registerBlock("cobbled_fossilized_bone_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(COBBLED_FOSSILIZED_BONE.get())));
 
+    public static final DeferredBlock<Block> BIOSTEEL_BLOCK = registerBlock("biosteel_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL)));
+    public static final DeferredBlock<Block> BIOSTEEL_LATTICE = registerBlock("biosteel_lattice", () -> new Block(BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get())));
+    public static final DeferredBlock<Block> BIOSTEEL_TILES = registerBlock("biosteel_tiles", () -> new Block(BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get())));
+    public static final DeferredBlock<Block> BIOSTEEL_TILE_STAIRS = registerBlock("biosteel_tile_stairs", () -> new StairBlock(BIOSTEEL_BLOCK.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get())));
+    public static final DeferredBlock<Block> BIOSTEEL_TILE_SLAB = registerBlock("biosteel_tile_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get())));
+
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
