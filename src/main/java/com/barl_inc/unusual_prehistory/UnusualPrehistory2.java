@@ -1,5 +1,10 @@
 package com.barl_inc.unusual_prehistory;
 
+import com.barl_inc.unusual_prehistory.datagen.client.UP2BlockStateProvider;
+import com.barl_inc.unusual_prehistory.datagen.client.UP2LanguageProvider;
+import com.barl_inc.unusual_prehistory.registry.UP2Blocks;
+import com.barl_inc.unusual_prehistory.registry.UP2CreativeTabs;
+import com.barl_inc.unusual_prehistory.registry.UP2Items;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -23,6 +28,9 @@ public class UnusualPrehistory2 {
     }
 
     public UnusualPrehistory2(IEventBus modEventBus, ModContainer modContainer) {
+        UP2Items.ITEMS.register(modEventBus);
+        UP2Blocks.BLOCKS.register(modEventBus);
+        UP2CreativeTabs.CREATIVE_MODE_TAB.register(modEventBus);
         modEventBus.addListener(this::dataSetup);
     }
 
@@ -34,5 +42,8 @@ public class UnusualPrehistory2 {
 
         boolean server = event.includeServer();
         boolean client = event.includeClient();
+
+        generator.addProvider(client, new UP2BlockStateProvider(output, helper));
+        generator.addProvider(client, new UP2LanguageProvider(output));
     }
 }

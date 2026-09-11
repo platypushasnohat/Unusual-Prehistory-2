@@ -1,0 +1,25 @@
+package com.barl_inc.unusual_prehistory.datagen.client;
+
+import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
+import com.barl_inc.unusual_prehistory.registry.UP2Blocks;
+import com.platypushasnohat.sinew.datagen.client.SinewBlockStateProvider;
+import net.minecraft.data.PackOutput;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+
+public class UP2BlockStateProvider extends SinewBlockStateProvider {
+
+    public UP2BlockStateProvider(PackOutput output, ExistingFileHelper helper) {
+        super(output, UnusualPrehistory2.MOD_ID, helper);
+    }
+
+    @Override
+    protected void registerStatesAndModels() {
+        this.axisBlock(UP2Blocks.FOSSILIZED_BONE_BLOCK);
+        this.axisBlock(UP2Blocks.FOSSILIZED_BONE_VERTEBRA, UnusualPrehistory2.location("block/fossilized_bone_vertebra"), UnusualPrehistory2.location("block/fossilized_bone_block_top"));
+        this.axisBlock(UP2Blocks.FOSSILIZED_BONE_BARK, UnusualPrehistory2.location("block/fossilized_bone_block"), UnusualPrehistory2.location("block/fossilized_bone_block"));
+
+        this.block(UP2Blocks.COBBLED_FOSSILIZED_BONE);
+        this.stairsBlock(UP2Blocks.COBBLED_FOSSILIZED_BONE.get(), UP2Blocks.COBBLED_FOSSILIZED_BONE_STAIRS.get());
+        this.slabBlock(UP2Blocks.COBBLED_FOSSILIZED_BONE.get(), UP2Blocks.COBBLED_FOSSILIZED_BONE_SLAB.get());
+    }
+}
