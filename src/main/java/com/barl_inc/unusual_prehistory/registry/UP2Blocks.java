@@ -51,6 +51,7 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> BIOSTEEL_TILES = registerBlock("biosteel_tiles", () -> new Block(BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get())));
     public static final DeferredBlock<Block> BIOSTEEL_TILE_STAIRS = registerBlock("biosteel_tile_stairs", () -> new StairBlock(BIOSTEEL_BLOCK.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get())));
     public static final DeferredBlock<Block> BIOSTEEL_TILE_SLAB = registerBlock("biosteel_tile_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get())));
+
     public static final DeferredBlock<Block> TRANSMOGRIFIER = registerBlock("transmogrifier", () -> new TransmogrifierBlock(BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get()).lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 7 : 0)));
 
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
