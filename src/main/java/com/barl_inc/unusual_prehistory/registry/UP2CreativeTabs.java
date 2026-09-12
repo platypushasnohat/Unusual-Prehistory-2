@@ -29,11 +29,21 @@ public class UP2CreativeTabs {
                         output.accept(UP2Blocks.COBBLED_FOSSILIZED_BONE_STAIRS.get());
                         output.accept(UP2Blocks.COBBLED_FOSSILIZED_BONE_SLAB.get());
 
+                        output.accept(UP2Blocks.DIRT_MATRIX.get());
+                        output.accept(UP2Blocks.COMMON_FOSSIL_BED.get());
+                        output.accept(UP2Blocks.UNCOMMON_FOSSIL_BED.get());
+                        output.accept(UP2Blocks.RARE_FOSSIL_BED.get());
+                        output.accept(UP2Blocks.UNUSUAL_FOSSIL_BED.get());
+
                         output.accept(UP2Blocks.BIOSTEEL_BLOCK.get());
                         output.accept(UP2Blocks.BIOSTEEL_TILES.get());
                         output.accept(UP2Blocks.BIOSTEEL_TILE_STAIRS.get());
                         output.accept(UP2Blocks.BIOSTEEL_TILE_SLAB.get());
                         output.accept(UP2Blocks.BIOSTEEL_LATTICE.get());
+
+                        output.accept(UP2Items.ORGANIC_OOZE.get());
+                        output.accept(UP2Blocks.TRANSMOGRIFIER.get());
+
                     })
                     .build());
 }

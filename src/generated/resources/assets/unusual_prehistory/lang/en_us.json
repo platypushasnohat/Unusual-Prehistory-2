@@ -7,6 +7,9 @@
   "block.unusual_prehistory.cobbled_fossilized_bone": "Cobbled Fossilized Bone",
   "block.unusual_prehistory.cobbled_fossilized_bone_slab": "Cobbled Fossilized Bone Slab",
   "block.unusual_prehistory.cobbled_fossilized_bone_stairs": "Cobbled Fossilized Bone Stairs",
+  "block.unusual_prehistory.common_fossil_bed": "Fossil Bed",
+  "block.unusual_prehistory.common_fossil_bed.desc": "Common",
+  "block.unusual_prehistory.dirt_matrix": "Dirt Matrix",
   "block.unusual_prehistory.fossilized_bone_bark": "Fossilized Bone Bark",
   "block.unusual_prehistory.fossilized_bone_block": "Fossilized Bone Block",
   "block.unusual_prehistory.fossilized_bone_rod": "Fossilized Bone Rod",
@@ -16,5 +19,14 @@
   "block.unusual_prehistory.fossilized_skull": "Fossilized Skull",
   "block.unusual_prehistory.fossilized_skull_lantern": "Fossilized Skull Lantern",
   "block.unusual_prehistory.fossilized_skull_soul_lantern": "Fossilized Skull Soul Lantern",
-  "creative_tab.unusual_prehistory": "Unusual Prehistory 2"
+  "block.unusual_prehistory.rare_fossil_bed": "Fossil Bed",
+  "block.unusual_prehistory.rare_fossil_bed.desc": "Rare",
+  "block.unusual_prehistory.transmogrifier": "Transmogrifier",
+  "block.unusual_prehistory.uncommon_fossil_bed": "Fossil Bed",
+  "block.unusual_prehistory.uncommon_fossil_bed.desc": "Uncommon",
+  "block.unusual_prehistory.unusual_fossil_bed": "Fossil Bed",
+  "block.unusual_prehistory.unusual_fossil_bed.desc": "Unusual",
+  "creative_tab.unusual_prehistory": "Unusual Prehistory 2",
+  "item.unusual_prehistory.organic_ooze": "Organic Ooze",
+  "subtitles.unusual_prehistory.transmogrifier_processing": "Transmogrifier processes"
 }

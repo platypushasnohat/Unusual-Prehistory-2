@@ -27,5 +27,10 @@ public class UP2BlockStateProvider extends SinewBlockStateProvider {
         this.block(UP2Blocks.BIOSTEEL_TILES);
         this.stairsBlock(UP2Blocks.BIOSTEEL_TILES.get(), UP2Blocks.BIOSTEEL_TILE_STAIRS.get());
         this.slabBlock(UP2Blocks.BIOSTEEL_TILES.get(), UP2Blocks.BIOSTEEL_TILE_SLAB.get());
+
+        this.block(UP2Blocks.COMMON_FOSSIL_BED);
+        this.block(UP2Blocks.UNCOMMON_FOSSIL_BED);
+        this.block(UP2Blocks.RARE_FOSSIL_BED);
+        this.block(UP2Blocks.UNUSUAL_FOSSIL_BED);
     }
 }
