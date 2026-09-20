@@ -30,5 +30,9 @@
   "entity.unusual_prehistory.leedsichthys": "Leedsichthys",
   "item.unusual_prehistory.leedsichthys_spawn_egg": "Leedsichthys Spawn Egg",
   "item.unusual_prehistory.organic_ooze": "Organic Ooze",
+  "subtitles.unusual_prehistory.leedsichthys_death": "Leedsichthys dies",
+  "subtitles.unusual_prehistory.leedsichthys_hurt": "Leedsichthys hurts",
+  "subtitles.unusual_prehistory.leedsichthys_idle": "Leedsichthys bellows",
+  "subtitles.unusual_prehistory.leedsichthys_swim": "Leedsichthys swims",
   "subtitles.unusual_prehistory.transmogrifier_processing": "Transmogrifier processes"
 }

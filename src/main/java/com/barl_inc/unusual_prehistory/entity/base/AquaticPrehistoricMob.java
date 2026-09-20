@@ -3,7 +3,6 @@ package com.barl_inc.unusual_prehistory.entity.base;
 import com.platypushasnohat.sinew.client.animation.SmoothAnimationState;
 import com.platypushasnohat.sinew.entity.ai.navigation.SmoothAmphibiousNavigation;
 import com.platypushasnohat.sinew.entity.ai.navigation.SmoothWaterNavigation;
-import com.platypushasnohat.sinew.entity.utils.BodyChainMob;
 import com.platypushasnohat.sinew.utils.SinewSoundUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -11,7 +10,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -26,11 +24,6 @@ public abstract class AquaticPrehistoricMob extends PrehistoricMob {
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(AquaticPrehistoricMob.class, EntityDataSerializers.BOOLEAN);
 
     public boolean shallowWater;
-
-    public float swimPitch;
-    public float prevSwimPitch;
-    public float swimRoll;
-    public float prevSwimRoll;
 
     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
@@ -116,15 +109,6 @@ public abstract class AquaticPrehistoricMob extends PrehistoricMob {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        if (this.level().isClientSide) {
-            this.updateSwimRoll();
-            this.updateSwimPitch();
-        }
-    }
-
-    @Override
     public void aiStep() {
         super.aiStep();
         this.tickFlopping();
@@ -172,62 +156,5 @@ public abstract class AquaticPrehistoricMob extends PrehistoricMob {
             }
             this.playSound(this.getFlopSound(), this.getSoundVolume(), SinewSoundUtils.randomizePitch(this));
         }
-    }
-
-    public void updateSwimRoll() {
-        this.prevSwimRoll = this.swimRoll;
-        if (this.isInWater()) {
-            float turn = Mth.degreesDifference(this.getYRot(), this.yRotO);
-            if (Math.abs(turn) > 1.0F) {
-                if (Math.abs(this.swimRoll) < this.getRollClamp()) {
-                    this.swimRoll -= Math.signum(turn);
-                }
-            } else if (this.swimRoll != 0.0F) {
-                float sign = Math.signum(this.swimRoll);
-                this.swimRoll -= sign * 0.9F;
-                if (this.swimRoll * sign < 0.0F) {
-                    this.swimRoll = 0.0F;
-                }
-            }
-        } else {
-            this.swimRoll = 0.0F;
-        }
-    }
-
-    public void updateSwimPitch() {
-        this.prevSwimPitch = this.swimPitch;
-        float target = 0.0F;
-        if (this.isInWater() || this.isLeaping()) {
-            double dx = this.getX() - this.xo;
-            double dy = this.getY() - this.yo;
-            double dz = this.getZ() - this.zo;
-            double horizontal = Math.sqrt(dx * dx + dz * dz);
-            double speed = Math.sqrt(horizontal * horizontal + dy * dy);
-            float speedFactor = (float) Mth.clamp((speed - 0.01D) / (0.05D - 0.01D), 0.0D, 1.0D);
-            if (speedFactor > 0.0F) {
-                float angle = (float) (-(Mth.atan2(dy, horizontal) * (180.0D / Math.PI)));
-                target = Mth.clamp(angle, -this.getPitchClamp(), this.getPitchClamp()) * speedFactor;
-            }
-        }
-        this.swimPitch += (target - this.swimPitch) * 0.2F;
-        if (this instanceof BodyChainMob bodyChainMob) {
-            bodyChainMob.getBodyChain().tick(this.yBodyRot, this.swimPitch, target);
-        }
-    }
-
-    public float getPitchClamp() {
-        return 85.0F;
-    }
-
-    public float getRollClamp() {
-        return 30.0F;
-    }
-
-    public float getSwimPitch(float partialTicks) {
-        return Mth.lerp(partialTicks, this.prevSwimPitch, this.swimPitch);
-    }
-
-    public float getSwimRoll(float partialTicks) {
-        return Mth.lerp(partialTicks, this.prevSwimRoll, this.swimRoll);
     }
 }

@@ -2,21 +2,27 @@ package com.barl_inc.unusual_prehistory.entity.cliff_fossil;
 
 import com.barl_inc.unusual_prehistory.entity.base.AquaticPrehistoricMob;
 import com.barl_inc.unusual_prehistory.registry.UP2Entities;
+import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
+import com.platypushasnohat.sinew.entity.ai.control.SwimmingMoveControl;
 import com.platypushasnohat.sinew.entity.ai.goal.SwimWanderGoal;
 import com.platypushasnohat.sinew.entity.utils.BodyChain;
 import com.platypushasnohat.sinew.entity.utils.BodyChainMob;
 import com.platypushasnohat.sinew.entity.utils.SinewPartEntity;
+import com.platypushasnohat.sinew.entity.utils.SinewPathfindingUtils;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.entity.PartEntity;
@@ -37,16 +43,19 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob 
 
     private boolean wasPreviouslyBaby;
 
-    private final BodyChain bodyChain = new BodyChain(new float[]{0.8F, 0.4F}, new float[]{0.2F, 0.1F});
+    public final BodyChain bodyChain = new BodyChain(0.15F, 5.0F, 30.0F, 0.06F, new float[]{0.1F, 0.14F, 0.2F}, new float[]{0.1F, 0.1F, 0.13F});
+
+    public float prevSwimPitch;
+    public float swimPitch;
 
     public Leedsichthys(EntityType<? extends Leedsichthys> entityType, Level level) {
         super(entityType, level);
         this.switchShallowNavigation(false);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 25, 4, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 4);
-        this.headPart = new SinewPartEntity<>(this, 4.5F, 4.5F);
-        this.tailPart1 = new SinewPartEntity<>(this, 4.5F, 4.5F);
-        this.tailPart2 = new SinewPartEntity<>(this, 4.5F, 4.5F);
+        this.moveControl = new SwimmingMoveControl(this, 45, 4, 0.02F);
+        this.lookControl = new SmoothSwimmingLookControl(this, 5);
+        this.headPart = new SinewPartEntity<>(this, 4.5F, 4.25F);
+        this.tailPart1 = new SinewPartEntity<>(this, 4.5F, 4.25F);
+        this.tailPart2 = new SinewPartEntity<>(this, 4.5F, 4.25F);
         this.allParts = new SinewPartEntity[]{this.headPart, this.tailPart1, this.tailPart2};
     }
 
@@ -78,9 +87,9 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob 
 
         Vec3 center = this.position().add(0, this.getBbHeight() * 0.5F, 0);
         float offset = 4.55F;
-        this.headPart.setPosCenteredY(SinewPartEntity.rotateOffsetVec(new Vec3(0, 0, offset), this.getXRot() * 0.33F, this.getYRot()).add(center));
-        this.tailPart1.setPosCenteredY(SinewPartEntity.rotateOffsetVec(new Vec3(0, 0, -offset), this.getXRot() * 0.33F, this.getYRot()).add(center));
-        this.tailPart2.setPosCenteredY(SinewPartEntity.rotateOffsetVec(new Vec3(0, 0, -offset), this.getXRot() * 0.33F, this.getYRot()).add(this.tailPart1.centeredPosition()));
+        this.headPart.setPosCenteredY(SinewPartEntity.rotateOffsetVec(new Vec3(0, 0, offset), this.getXRot() * 0.5F, this.getYRot()).add(center));
+        this.tailPart1.setPosCenteredY(SinewPartEntity.rotateOffsetVec(new Vec3(0, 0, -offset), this.getXRot() * 0.5F, this.getYRot()).add(center));
+        this.tailPart2.setPosCenteredY(SinewPartEntity.rotateOffsetVec(new Vec3(0, 0, -offset), this.getXRot() * 0.5F, this.getYRot()).add(this.tailPart1.centeredPosition()));
 
         for (int l = 0; l < this.allParts.length; l++) {
             this.allParts[l].xo = vec3s[l].x;
@@ -90,6 +99,18 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob 
             this.allParts[l].yOld = vec3s[l].y;
             this.allParts[l].zOld = vec3s[l].z;
         }
+    }
+
+    public float getSwimPitch(float partialTicks) {
+        return Mth.lerp(partialTicks, this.prevSwimPitch, this.swimPitch);
+    }
+
+    @Override
+    public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+        if (this.getRandom().nextFloat() < 0.23F) {
+            return SinewPathfindingUtils.getDepthPathfindingFavor(pos, level);
+        }
+        return super.getWalkTargetValue(pos, level);
     }
 
     @Override
@@ -113,16 +134,6 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob 
     }
 
     @Override
-    public float getPitchClamp() {
-        return 25.0F;
-    }
-
-    @Override
-    public float getRollClamp() {
-        return 7.5F;
-    }
-
-    @Override
     public void tick() {
         if (!this.isBaby()) {
             this.tickMultipart();
@@ -132,6 +143,18 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob 
             }
         }
         super.tick();
+
+        this.prevSwimPitch = this.swimPitch;
+        float targetPitch = 0.0F;
+        Vec3 movement = this.getDeltaMovement();
+        boolean grounded = this.onGround() || this.verticalCollisionBelow;
+        if (!grounded && movement.horizontalDistanceSqr() > 1.0E-7 && (this.isInWater() || movement.lengthSqr() > 0.03D)) {
+            targetPitch = -((float) (Mth.atan2(movement.y, movement.horizontalDistance()) * Mth.RAD_TO_DEG));
+            targetPitch = Mth.clamp(targetPitch, -40.0F, 40.0F);
+        }
+        this.swimPitch += (targetPitch - this.swimPitch) * (grounded ? 0.25F : 0.07F);
+        this.bodyChain.tick(this.yBodyRot, this.swimPitch, targetPitch);
+
         if (this.wasPreviouslyBaby != this.isBaby()) {
             this.wasPreviouslyBaby = this.isBaby();
             this.refreshDimensions();
@@ -209,5 +232,44 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob 
     @Override
     public AABB getBoundingBoxForCulling() {
         return this.getBoundingBox().inflate(5);
+    }
+
+    @Override
+    public float getSoundVolume() {
+        return this.isBaby() ? 1.0F : 3.0F;
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return UP2SoundEvents.LEEDSICHTHYS_IDLE.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return UP2SoundEvents.LEEDSICHTHYS_DEATH.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return UP2SoundEvents.LEEDSICHTHYS_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getSwimSound() {
+        if (this.isBaby()) {
+            return super.getSwimSound();
+        }
+        return UP2SoundEvents.LEEDSICHTHYS_SWIM.get();
+    }
+
+    @Override
+    protected void playSwimSound(float volume) {
+        if (this.isBaby()) {
+            super.playSwimSound(volume);
+        } else {
+            if (this.getRandom().nextFloat() < 0.13F) {
+                super.playSwimSound(volume);
+            }
+        }
     }
 }

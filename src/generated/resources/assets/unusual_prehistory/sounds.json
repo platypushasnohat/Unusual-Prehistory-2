@@ -1,4 +1,39 @@
 {
+  "leedsichthys_death": {
+    "sounds": [
+      "unusual_prehistory:mob/leedsichthys/death"
+    ],
+    "subtitle": "subtitles.unusual_prehistory.leedsichthys_death"
+  },
+  "leedsichthys_hurt": {
+    "sounds": [
+      {
+        "name": "unusual_prehistory:mob/leedsichthys/hurt1",
+        "volume": 0.5
+      },
+      {
+        "name": "unusual_prehistory:mob/leedsichthys/hurt2",
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.unusual_prehistory.leedsichthys_hurt"
+  },
+  "leedsichthys_idle": {
+    "sounds": [
+      "unusual_prehistory:mob/leedsichthys/idle1",
+      "unusual_prehistory:mob/leedsichthys/idle2",
+      "unusual_prehistory:mob/leedsichthys/idle3"
+    ],
+    "subtitle": "subtitles.unusual_prehistory.leedsichthys_idle"
+  },
+  "leedsichthys_swim": {
+    "sounds": [
+      "unusual_prehistory:mob/leedsichthys/swim1",
+      "unusual_prehistory:mob/leedsichthys/swim2",
+      "unusual_prehistory:mob/leedsichthys/swim3"
+    ],
+    "subtitle": "subtitles.unusual_prehistory.leedsichthys_swim"
+  },
   "transmogrifier_processing": {
     "sounds": [
       "unusual_prehistory:block/transmogrifier/processing"

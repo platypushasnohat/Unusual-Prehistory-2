@@ -50,10 +50,9 @@ public class LeedsichthysModel extends SinewEntityModel<Leedsichthys> {
             }
         }
 
-        this.swim_control.xRot += entity.getSwimPitch(partialTicks) * Mth.DEG_TO_RAD;
-        this.swim_control.zRot += -entity.getSwimRoll(partialTicks) * Mth.DEG_TO_RAD;
-        this.bendPart(this.tail1, entity, 0, partialTicks);
-        this.bendPart(this.tail2, entity, 1, partialTicks);
+        this.rotatePart(this.swim_control, entity.getSwimPitch(partialTicks) * Mth.DEG_TO_RAD, 0.0F, entity.bodyChain.getRoll(partialTicks) * Mth.DEG_TO_RAD);
+        this.bendPart(this.tail1, entity, 1, partialTicks);
+        this.bendPart(this.tail2, entity, 2, partialTicks);
     }
 
     public static LayerDefinition createBodyLayer() {

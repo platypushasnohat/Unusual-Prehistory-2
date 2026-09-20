@@ -12,6 +12,11 @@ public class UP2SoundEvents {
 
     public static final DeferredHolder<SoundEvent, SoundEvent> TRANSMOGRIFIER_PROCESSING = registerSoundEvent("transmogrifier_processing");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> LEEDSICHTHYS_HURT = registerSoundEvent("leedsichthys_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> LEEDSICHTHYS_DEATH = registerSoundEvent("leedsichthys_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> LEEDSICHTHYS_IDLE = registerSoundEvent("leedsichthys_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> LEEDSICHTHYS_SWIM = registerSoundEvent("leedsichthys_swim");
+
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(final String soundName) {
         return SOUND_EVENT.register(soundName, () -> SoundEvent.createVariableRangeEvent(UnusualPrehistory2.location(soundName)));
     }

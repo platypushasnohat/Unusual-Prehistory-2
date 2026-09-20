@@ -20,6 +20,11 @@ public class UP2LanguageProvider extends SinewLanguageProvider {
 
         this.addSound(UP2SoundEvents.TRANSMOGRIFIER_PROCESSING, "Transmogrifier processes");
 
+        this.addSound(UP2SoundEvents.LEEDSICHTHYS_HURT, "Leedsichthys hurts");
+        this.addSound(UP2SoundEvents.LEEDSICHTHYS_DEATH, "Leedsichthys dies");
+        this.addSound(UP2SoundEvents.LEEDSICHTHYS_IDLE, "Leedsichthys bellows");
+        this.addSound(UP2SoundEvents.LEEDSICHTHYS_SWIM, "Leedsichthys swims");
+
         this.addBlock(UP2Blocks.COMMON_FOSSIL_BED, "Fossil Bed");
         this.add("block.unusual_prehistory.common_fossil_bed.desc", "Common");
         this.addBlock(UP2Blocks.UNCOMMON_FOSSIL_BED, "Fossil Bed");

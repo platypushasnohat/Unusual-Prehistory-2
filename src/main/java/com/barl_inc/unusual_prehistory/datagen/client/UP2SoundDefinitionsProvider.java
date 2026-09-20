@@ -17,5 +17,23 @@ public class UP2SoundDefinitionsProvider extends SinewSoundDefinitionsProvider {
         this.registerSound(UP2SoundEvents.TRANSMOGRIFIER_PROCESSING,
                 sound(UnusualPrehistory2.location("block/transmogrifier/processing"))
         );
+
+        this.registerSound(UP2SoundEvents.LEEDSICHTHYS_HURT,
+                sound(UnusualPrehistory2.location("mob/leedsichthys/hurt1")).volume(0.5F),
+                sound(UnusualPrehistory2.location("mob/leedsichthys/hurt2")).volume(0.5F)
+        );
+        this.registerSound(UP2SoundEvents.LEEDSICHTHYS_DEATH,
+                sound(UnusualPrehistory2.location("mob/leedsichthys/death"))
+        );
+        this.registerSound(UP2SoundEvents.LEEDSICHTHYS_IDLE,
+                sound(UnusualPrehistory2.location("mob/leedsichthys/idle1")),
+                sound(UnusualPrehistory2.location("mob/leedsichthys/idle2")),
+                sound(UnusualPrehistory2.location("mob/leedsichthys/idle3"))
+        );
+        this.registerSound(UP2SoundEvents.LEEDSICHTHYS_SWIM,
+                sound(UnusualPrehistory2.location("mob/leedsichthys/swim1")),
+                sound(UnusualPrehistory2.location("mob/leedsichthys/swim2")),
+                sound(UnusualPrehistory2.location("mob/leedsichthys/swim3"))
+        );
     }
 }

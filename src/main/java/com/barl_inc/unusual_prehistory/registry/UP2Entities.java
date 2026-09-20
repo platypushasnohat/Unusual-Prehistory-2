@@ -19,7 +19,7 @@ public class UP2Entities {
 
     public static List<DeferredHolder<EntityType<?>, ? extends EntityType<?>>> ENTITY_TRANSLATIONS = new ArrayList<>();
 
-    public static final DeferredHolder<EntityType<?>, EntityType<Leedsichthys>> LEEDSICHTHYS = registerEntity("leedsichthys", Leedsichthys::new, MobCategory.WATER_CREATURE, builder -> builder.sized(4.5F, 4.5F).eyeHeight(1.95F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<Leedsichthys>> LEEDSICHTHYS = registerEntity("leedsichthys", Leedsichthys::new, MobCategory.WATER_CREATURE, builder -> builder.sized(4.5F, 4.25F).eyeHeight(1.9F).clientTrackingRange(10));
 
     public static <E extends Entity> DeferredHolder<EntityType<?>, EntityType<E>> registerEntity(String name, EntityType.EntityFactory<E> factory, MobCategory entityClassification, Consumer<EntityType.Builder<E>> builderConsumer) {
         DeferredHolder<EntityType<?>, EntityType<E>> entity = registerEntityNoLang(name, factory, entityClassification, builderConsumer);
