@@ -44,6 +44,8 @@ public class UP2CreativeTabs {
                         output.accept(UP2Items.ORGANIC_OOZE.get());
                         output.accept(UP2Blocks.TRANSMOGRIFIER.get());
 
+                        output.accept(UP2Items.LEEDSICHTHYS_SPAWN_EGG.get());
+
                     })
                     .build());
 }

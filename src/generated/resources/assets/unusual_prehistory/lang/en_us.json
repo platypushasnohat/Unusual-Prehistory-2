@@ -27,6 +27,8 @@
   "block.unusual_prehistory.unusual_fossil_bed": "Fossil Bed",
   "block.unusual_prehistory.unusual_fossil_bed.desc": "Unusual",
   "creative_tab.unusual_prehistory": "Unusual Prehistory 2",
+  "entity.unusual_prehistory.leedsichthys": "Leedsichthys",
+  "item.unusual_prehistory.leedsichthys_spawn_egg": "Leedsichthys Spawn Egg",
   "item.unusual_prehistory.organic_ooze": "Organic Ooze",
   "subtitles.unusual_prehistory.transmogrifier_processing": "Transmogrifier processes"
 }

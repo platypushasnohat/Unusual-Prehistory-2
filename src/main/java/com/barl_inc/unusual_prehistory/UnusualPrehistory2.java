@@ -37,12 +37,14 @@ public class UnusualPrehistory2 {
         UP2Items.ITEMS.register(modEventBus);
         UP2Blocks.BLOCKS.register(modEventBus);
         UP2BlockEntityTypes.BLOCK_ENTITY_TYPES.register(modEventBus);
+        UP2Entities.ENTITY_TYPES.register(modEventBus);
         UP2Menus.MENU.register(modEventBus);
         UP2RecipeTypes.RECIPE_TYPES.register(modEventBus);
         UP2RecipeTypes.RECIPE_SERIALIZERS.register(modEventBus);
         UP2SoundEvents.SOUND_EVENT.register(modEventBus);
         UP2ParticleTypes.PARTICLE_TYPES.register(modEventBus);
         UP2CreativeTabs.CREATIVE_MODE_TAB.register(modEventBus);
+
         modEventBus.addListener(this::dataSetup);
     }
 
