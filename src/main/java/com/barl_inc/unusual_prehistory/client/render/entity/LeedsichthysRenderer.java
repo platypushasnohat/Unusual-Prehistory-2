@@ -2,16 +2,16 @@ package com.barl_inc.unusual_prehistory.client.render.entity;
 
 import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.client.model.LeedsichthysModel;
+import com.barl_inc.unusual_prehistory.client.render.entity.layer.LeedsichthysRiderLayer;
 import com.barl_inc.unusual_prehistory.entity.cliff_fossil.Leedsichthys;
 import com.barl_inc.unusual_prehistory.registry.UP2ModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.platypushasnohat.sinew.client.model.entity.SinewEntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
-public class LeedsichthysRenderer extends MobRenderer<Leedsichthys, SinewEntityModel<Leedsichthys>> {
+public class LeedsichthysRenderer extends MobRenderer<Leedsichthys, LeedsichthysModel> {
 
     private static final ResourceLocation TEXTURE_LOCATION = UnusualPrehistory2.location("textures/entity/leedsichthys/leedsichthys.png");
     private static final ResourceLocation BABY_TEXTURE_LOCATION = UnusualPrehistory2.location("textures/entity/leedsichthys/leedsichthys_baby.png");
@@ -23,6 +23,7 @@ public class LeedsichthysRenderer extends MobRenderer<Leedsichthys, SinewEntityM
         super(context, new LeedsichthysModel(context.bakeLayer(UP2ModelLayers.LEEDSICHTHYS)), 1.0F);
         this.adultModel = new LeedsichthysModel(context.bakeLayer(UP2ModelLayers.LEEDSICHTHYS));
         this.babyModel = new LeedsichthysModel(context.bakeLayer(UP2ModelLayers.LEEDSICHTHYS_BABY));
+        this.addLayer(new LeedsichthysRiderLayer(this));
     }
 
     @Override

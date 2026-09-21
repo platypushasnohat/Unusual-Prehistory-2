@@ -2,6 +2,7 @@ package com.barl_inc.unusual_prehistory.client.model;
 
 import com.barl_inc.unusual_prehistory.client.model.animation.LeedsichthysAnimations;
 import com.barl_inc.unusual_prehistory.entity.cliff_fossil.Leedsichthys;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.platypushasnohat.sinew.client.model.entity.SinewEntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -13,6 +14,7 @@ public class LeedsichthysModel extends SinewEntityModel<Leedsichthys> {
 
     private final ModelPart root;
     private final ModelPart swim_control;
+    private final ModelPart body;
     private final ModelPart tail1;
     private final ModelPart tail2;
 
@@ -20,7 +22,7 @@ public class LeedsichthysModel extends SinewEntityModel<Leedsichthys> {
         super(RenderType::entityCutoutNoCull);
         this.root = root.getChild("root");
         this.swim_control = this.root.getChild("swim_control");
-        ModelPart body = this.swim_control.getChild("body");
+        this.body = this.swim_control.getChild("body");
         this.tail1 = body.getChild("tail1");
         this.tail2 = this.tail1.getChild("tail2");
     }
@@ -53,6 +55,12 @@ public class LeedsichthysModel extends SinewEntityModel<Leedsichthys> {
         this.rotatePart(this.swim_control, entity.getSwimPitch(partialTicks) * Mth.DEG_TO_RAD, 0.0F, entity.bodyChain.getRoll(partialTicks) * Mth.DEG_TO_RAD);
         this.bendPart(this.tail1, entity, 1, partialTicks);
         this.bendPart(this.tail2, entity, 2, partialTicks);
+    }
+
+    public void translateRiderToBody(PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.swim_control.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
     }
 
     public static LayerDefinition createBodyLayer() {

@@ -20,9 +20,18 @@
   },
   "leedsichthys_idle": {
     "sounds": [
-      "unusual_prehistory:mob/leedsichthys/idle1",
-      "unusual_prehistory:mob/leedsichthys/idle2",
-      "unusual_prehistory:mob/leedsichthys/idle3"
+      {
+        "name": "unusual_prehistory:mob/leedsichthys/idle1",
+        "volume": 0.6
+      },
+      {
+        "name": "unusual_prehistory:mob/leedsichthys/idle2",
+        "volume": 0.6
+      },
+      {
+        "name": "unusual_prehistory:mob/leedsichthys/idle3",
+        "volume": 0.6
+      }
     ],
     "subtitle": "subtitles.unusual_prehistory.leedsichthys_idle"
   },

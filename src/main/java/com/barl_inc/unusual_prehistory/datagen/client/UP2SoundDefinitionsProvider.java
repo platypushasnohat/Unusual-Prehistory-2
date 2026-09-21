@@ -26,9 +26,9 @@ public class UP2SoundDefinitionsProvider extends SinewSoundDefinitionsProvider {
                 sound(UnusualPrehistory2.location("mob/leedsichthys/death"))
         );
         this.registerSound(UP2SoundEvents.LEEDSICHTHYS_IDLE,
-                sound(UnusualPrehistory2.location("mob/leedsichthys/idle1")),
-                sound(UnusualPrehistory2.location("mob/leedsichthys/idle2")),
-                sound(UnusualPrehistory2.location("mob/leedsichthys/idle3"))
+                sound(UnusualPrehistory2.location("mob/leedsichthys/idle1")).volume(0.6F),
+                sound(UnusualPrehistory2.location("mob/leedsichthys/idle2")).volume(0.6F),
+                sound(UnusualPrehistory2.location("mob/leedsichthys/idle3")).volume(0.6F)
         );
         this.registerSound(UP2SoundEvents.LEEDSICHTHYS_SWIM,
                 sound(UnusualPrehistory2.location("mob/leedsichthys/swim1")),

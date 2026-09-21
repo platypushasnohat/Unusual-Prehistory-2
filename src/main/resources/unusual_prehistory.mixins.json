@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "unusual_prehistory.refmap.json",
   "mixins": [],
-  "client": [],
+  "client": [
+    "client.CameraMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   },

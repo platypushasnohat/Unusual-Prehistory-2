@@ -3,34 +3,39 @@ package com.barl_inc.unusual_prehistory.entity.cliff_fossil;
 import com.barl_inc.unusual_prehistory.entity.base.AquaticPrehistoricMob;
 import com.barl_inc.unusual_prehistory.registry.UP2Entities;
 import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
+import com.platypushasnohat.sinew.Sinew;
 import com.platypushasnohat.sinew.entity.ai.control.SwimmingMoveControl;
 import com.platypushasnohat.sinew.entity.ai.goal.SwimWanderGoal;
-import com.platypushasnohat.sinew.entity.utils.BodyChain;
-import com.platypushasnohat.sinew.entity.utils.BodyChainMob;
-import com.platypushasnohat.sinew.entity.utils.SinewPartEntity;
-import com.platypushasnohat.sinew.entity.utils.SinewPathfindingUtils;
+import com.platypushasnohat.sinew.entity.utils.*;
+import com.platypushasnohat.sinew.network.MountedEntityKeyPacket;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.entity.PartEntity;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
 
-public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob {
+public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob, KeybindUsingMount {
 
     private final SinewPartEntity<Leedsichthys> headPart;
     private final SinewPartEntity<Leedsichthys> tailPart1;
@@ -47,6 +52,9 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob 
 
     public float prevSwimPitch;
     public float swimPitch;
+
+    private int controlUpTicks = 0;
+    private int controlDownTicks = 0;
 
     public Leedsichthys(EntityType<? extends Leedsichthys> entityType, Level level) {
         super(entityType, level);
@@ -68,7 +76,31 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob 
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new SwimWanderGoal(this, 1.0D, 60, 30, 15, 2, 100));
+    }
+
+    @Override
+    public void travel(Vec3 travelVector) {
+        if (this.isOrderedToSit() && !this.isControlledByLocalInstance()) {
+            if (this.getNavigation().getPath() != null) {
+                this.getNavigation().stop();
+            }
+            travelVector = Vec3.ZERO;
+        }
+        if (this.isControlledByLocalInstance() && this.getControllingPassenger() instanceof Player player && this.isInWater()) {
+            this.moveRelative(this.getRiddenSpeed(player), travelVector);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            this.calculateEntityAnimation(false);
+            if (this.controlDownTicks > 0 && !this.onGround()) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0F, -0.02D, 0.0F));
+            } else if (this.controlUpTicks > 0 && this.getFluidTypeHeight(NeoForgeMod.WATER_TYPE.value()) > 4.1F) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0F, 0.02D, 0.0F));
+            }
+        } else {
+            super.travel(travelVector);
+        }
     }
 
     private void tickMultipart() {
@@ -87,9 +119,10 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob 
 
         Vec3 center = this.position().add(0, this.getBbHeight() * 0.5F, 0);
         float offset = 4.55F;
-        this.headPart.setPosCenteredY(SinewPartEntity.rotateOffsetVec(new Vec3(0, 0, offset), this.getXRot() * 0.5F, this.getYRot()).add(center));
-        this.tailPart1.setPosCenteredY(SinewPartEntity.rotateOffsetVec(new Vec3(0, 0, -offset), this.getXRot() * 0.5F, this.getYRot()).add(center));
-        this.tailPart2.setPosCenteredY(SinewPartEntity.rotateOffsetVec(new Vec3(0, 0, -offset), this.getXRot() * 0.5F, this.getYRot()).add(this.tailPart1.centeredPosition()));
+        float yaw = this.bodyChain.getRenderYaw();
+        this.headPart.setPosCenteredY(SinewPartEntity.rotateOffsetVec(new Vec3(0, 0, offset), this.swimPitch, yaw).add(center));
+        this.tailPart1.setPosCenteredY(SinewPartEntity.rotateOffsetVec(new Vec3(0, 0, -offset), this.swimPitch, yaw).add(center));
+        this.tailPart2.setPosCenteredY(SinewPartEntity.rotateOffsetVec(new Vec3(0, 0, -offset), this.swimPitch, yaw).add(this.tailPart1.centeredPosition()));
 
         for (int l = 0; l < this.allParts.length; l++) {
             this.allParts[l].xo = vec3s[l].x;
@@ -111,6 +144,82 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob 
             return SinewPathfindingUtils.getDepthPathfindingFavor(pos, level);
         }
         return super.getWalkTargetValue(pos, level);
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (!this.isBaby()) {
+            if (this.isTame()) {
+                if (player.getItemInHand(hand).isEmpty()) {
+                    if (player.isShiftKeyDown()) {
+                        if (this.getCommand() != COMMAND_SIT) {
+                            this.setCommand(COMMAND_SIT);
+                        } else {
+                            this.setCommand(COMMAND_WANDER);
+                        }
+                        this.setOrderedToSit(this.getCommand() == COMMAND_SIT);
+                        player.displayClientMessage(Component.translatable("entity.sinew.all.command_" + this.getCommand(), this.getName()), true);
+                    } else {
+                        player.startRiding(this);
+                    }
+                    return InteractionResult.sidedSuccess(this.level().isClientSide);
+                }
+            } else {
+                if (!this.level().isClientSide && itemStack.is(Items.COD)) {
+                    itemStack.consume(1, player);
+                    this.tryToTame(player);
+                    return InteractionResult.SUCCESS;
+                }
+            }
+        }
+        return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return this.isAlive() && this.isTame() && !this.hasControllingPassenger() && this.getCommand() == COMMAND_SIT;
+    }
+
+    @Override
+    @Nullable
+    public LivingEntity getControllingPassenger() {
+        Entity entity = this.getFirstPassenger();
+        if (entity instanceof Player player) {
+            return player;
+        }
+        return null;
+    }
+
+    @Override
+    protected boolean canAddPassenger(Entity passenger) {
+        return this.getPassengers().size() <= 4;
+    }
+
+    @Override
+    protected void tickRidden(Player player, Vec3 travelVector) {
+        super.tickRidden(player, travelVector);
+        this.yRotO = this.getYRot();
+        this.yBodyRot = this.getYRot();
+        this.yHeadRot = this.getYRot();
+    }
+
+    @Override
+    protected Vec3 getRiddenInput(Player player, Vec3 travelVector) {
+        if (player.xxa != 0) {
+            float turn = -Math.signum(player.xxa);
+            this.setYRot(this.getYRot() + turn * 4.0F);
+        }
+        float z = player.zza;
+        if (z <= 0.0F) {
+            z *= 0.2F;
+        }
+        return new Vec3(0.0F, 0.0F, z);
+    }
+
+    @Override
+    protected float getRiddenSpeed(Player player) {
+        return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.05F;
     }
 
     @Override
@@ -148,7 +257,7 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob 
         float targetPitch = 0.0F;
         Vec3 movement = this.getDeltaMovement();
         boolean grounded = this.onGround() || this.verticalCollisionBelow;
-        if (!grounded && movement.horizontalDistanceSqr() > 1.0E-7 && (this.isInWater() || movement.lengthSqr() > 0.03D)) {
+        if (!grounded && (movement.horizontalDistanceSqr() > 1.0E-7D || this.hasControllingPassenger()) && (this.isInWater() || movement.lengthSqr() > 0.03D)) {
             targetPitch = -((float) (Mth.atan2(movement.y, movement.horizontalDistance()) * Mth.RAD_TO_DEG));
             targetPitch = Mth.clamp(targetPitch, -40.0F, 40.0F);
         }
@@ -160,6 +269,40 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob 
             this.refreshDimensions();
             for (SinewPartEntity<?> part : this.allParts) {
                 part.refreshDimensions();
+            }
+        }
+
+        if (this.hasControllingPassenger()) {
+            if (this.controlDownTicks > 0 && !this.onGround()) {
+                this.controlDownTicks--;
+            } else if (this.controlUpTicks > 0 && this.getFluidTypeHeight(NeoForgeMod.WATER_TYPE.value()) > 4.1F) {
+                this.controlUpTicks--;
+            }
+        }
+
+        if (this.level().isClientSide) {
+            Player player = Sinew.PROXY.getClientSidePlayer();
+            if (player != null && player.isPassengerOfSameVehicle(this) && this.getControllingPassenger() == player) {
+                if (Sinew.PROXY.isKeyDown(0) && this.controlUpTicks < 2) {
+                    PacketDistributor.sendToServer(new MountedEntityKeyPacket(this.getId(), player.getId(), 0));
+                    this.controlUpTicks = 10;
+                }
+                if (Sinew.PROXY.isKeyDown(1) && this.controlDownTicks < 2) {
+                    PacketDistributor.sendToServer(new MountedEntityKeyPacket(this.getId(), player.getId(), 1));
+                    this.controlDownTicks = 10;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onKeyPacket(Entity keyPresser, int type) {
+        if (keyPresser.isPassengerOfSameVehicle(this) && this.getControllingPassenger() == keyPresser) {
+            if (type == 0) {
+                this.controlUpTicks = 10;
+            }
+            if (type == 1) {
+                this.controlDownTicks = 10;
             }
         }
     }
@@ -240,6 +383,16 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob 
     }
 
     @Override
+    public int getAmbientSoundInterval() {
+        return 180;
+    }
+
+    @Override
+    public boolean canPlayAmbientSound() {
+        return !this.isOrderedToSit();
+    }
+
+    @Override
     protected SoundEvent getAmbientSound() {
         return UP2SoundEvents.LEEDSICHTHYS_IDLE.get();
     }
@@ -267,8 +420,8 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob 
         if (this.isBaby()) {
             super.playSwimSound(volume);
         } else {
-            if (this.getRandom().nextFloat() < 0.13F) {
-                super.playSwimSound(volume);
+            if (this.getRandom().nextFloat() < 0.2F) {
+                super.playSwimSound(0.4F);
             }
         }
     }
