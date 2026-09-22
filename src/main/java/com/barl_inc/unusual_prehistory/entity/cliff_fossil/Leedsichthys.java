@@ -1,6 +1,7 @@
 package com.barl_inc.unusual_prehistory.entity.cliff_fossil;
 
 import com.barl_inc.unusual_prehistory.entity.base.AquaticPrehistoricMob;
+import com.barl_inc.unusual_prehistory.registry.UP2Blocks;
 import com.barl_inc.unusual_prehistory.registry.UP2Entities;
 import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
 import com.platypushasnohat.sinew.Sinew;
@@ -13,6 +14,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -23,14 +26,17 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -178,7 +184,16 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (!this.isBaby()) {
-            if (this.isTame() && this.getOwner() == player && player.getItemInHand(hand).isEmpty()) {
+            if (itemStack.is(Tags.Items.TOOLS_SHEAR)) {
+                this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
+                this.gameEvent(GameEvent.SHEAR, player);
+                if (!player.addItem(new ItemStack(UP2Blocks.LEEDSICHTHYS_CHUNK.get()))) {
+                    player.spawnAtLocation(UP2Blocks.LEEDSICHTHYS_CHUNK.get());
+                }
+                itemStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+                return InteractionResult.SUCCESS;
+            }
+            else if (this.isTame() && this.getOwner() == player) {
                 if (player.isShiftKeyDown()) {
                     if (!this.getPassengers().isEmpty()) {
                         this.removePassengers();
@@ -194,8 +209,9 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
                 else if (this.isInWaterOrBubble()) {
                     player.startRiding(this);
                 }
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
-            } else {
+                return InteractionResult.SUCCESS;
+            }
+            else {
                 if (!this.level().isClientSide && itemStack.is(ItemTags.FISHES)) {
                     this.tryToTame(player, itemStack, 512, itemStack.getCount());
                     return InteractionResult.SUCCESS;
@@ -384,7 +400,7 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
             boolean flag = !this.level().isClientSide && !(this.getControllingPassenger() instanceof Player) && this.getCommand() == COMMAND_SIT;
             for (Entity passenger : list) {
                 if (!passenger.hasPassenger(this)) {
-                    if (flag && this.canAddPassenger(passenger) && !passenger.isPassenger() && passenger instanceof LivingEntity && !(passenger instanceof Leedsichthys) && !(passenger instanceof WaterAnimal) && !(passenger instanceof Player)) {
+                    if (flag && this.canAddPassenger(passenger) && !passenger.isPassenger() && passenger instanceof LivingEntity && !(passenger instanceof AquaticPrehistoricMob) && !(passenger instanceof WaterAnimal) && !(passenger instanceof Drowned) && !(passenger instanceof Player)) {
                         passenger.startRiding(this);
                     }
                 }

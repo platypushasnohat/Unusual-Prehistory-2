@@ -46,6 +46,8 @@ public class UP2CreativeTabs {
 
                         output.accept(UP2Items.LEEDSICHTHYS_SPAWN_EGG.get());
 
+                        output.accept(UP2Blocks.LEEDSICHTHYS_CHUNK.get());
+
                     })
                     .build());
 }
