@@ -15,7 +15,7 @@ public class UP2SoundDefinitionsProvider extends SinewSoundDefinitionsProvider {
     @Override
     public void registerSounds() {
         this.registerSound(UP2SoundEvents.TRANSMOGRIFIER_PROCESSING,
-                sound(UnusualPrehistory2.location("block/transmogrifier/processing"))
+                sound(UnusualPrehistory2.location("block/transmogrifier/processing")).attenuationDistance(8)
         );
 
         this.registerSound(UP2SoundEvents.LEEDSICHTHYS_HURT,

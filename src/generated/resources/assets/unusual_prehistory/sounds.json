@@ -45,7 +45,10 @@
   },
   "transmogrifier_processing": {
     "sounds": [
-      "unusual_prehistory:block/transmogrifier/processing"
+      {
+        "attenuation_distance": 8,
+        "name": "unusual_prehistory:block/transmogrifier/processing"
+      }
     ],
     "subtitle": "subtitles.unusual_prehistory.transmogrifier_processing"
   }

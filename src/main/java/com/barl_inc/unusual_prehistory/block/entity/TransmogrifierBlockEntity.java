@@ -27,12 +27,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.inventory.StackedContentsCompatible;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
@@ -48,7 +46,6 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
     private static final int[] SLOTS_FOR_DOWN = new int[]{2, 1};
     private static final int[] SLOTS_FOR_SIDES = new int[]{1};
 
-    private final RecipeType<? extends TransmogrificationRecipe> recipeType;
     protected NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
     
     private int activeTime;
@@ -62,7 +59,6 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
             return switch (i) {
                 case 0 -> {
                     if (TransmogrifierBlockEntity.this.activeDuration > Short.MAX_VALUE) {
-                        // Neo: preserve activeTime / activeDuration ratio on the client as data slots are synced as shorts.
                         yield Mth.floor(((double) TransmogrifierBlockEntity.this.activeTime / TransmogrifierBlockEntity.this.activeDuration) * Short.MAX_VALUE);
                     }
                     yield TransmogrifierBlockEntity.this.activeTime;
@@ -103,7 +99,6 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
     public TransmogrifierBlockEntity(BlockPos pos, BlockState blockState) {
         super(UP2BlockEntityTypes.TRANSMOGRIFIER_BLOCK_ENTITY.get(), pos, blockState);
         this.quickCheck = RecipeManager.createCheck(UP2RecipeTypes.TRANSMOGRIFICATION.get());
-        this.recipeType = UP2RecipeTypes.TRANSMOGRIFICATION.get();
     }
 
     @Override
@@ -137,9 +132,9 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
         this.processingProgress = compoundTag.getInt("ProcessingTime");
         this.processingTotalTime = compoundTag.getInt("ProcessingTimeTotal");
         this.activeDuration = this.getFuelDuration(this.items.get(1));
-        CompoundTag compoundtag = compoundTag.getCompound("RecipesUsed");
-        for (String key : compoundtag.getAllKeys()) {
-            this.recipesUsed.put(ResourceLocation.parse(key), compoundtag.getInt(key));
+        CompoundTag usedTag = compoundTag.getCompound("RecipesUsed");
+        for (String key : usedTag.getAllKeys()) {
+            this.recipesUsed.put(ResourceLocation.parse(key), usedTag.getInt(key));
         }
     }
 
@@ -150,9 +145,9 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
         compoundTag.putInt("ProcessingTime", this.processingProgress);
         compoundTag.putInt("ProcessingTimeTotal", this.processingTotalTime);
         ContainerHelper.saveAllItems(compoundTag, this.items, provider);
-        CompoundTag compoundtag = new CompoundTag();
-        this.recipesUsed.forEach((location, i) -> compoundtag.putInt(location.toString(), i));
-        compoundTag.put("RecipesUsed", compoundtag);
+        CompoundTag usedTag = new CompoundTag();
+        this.recipesUsed.forEach((location, count) -> usedTag.putInt(location.toString(), count));
+        compoundTag.put("RecipesUsed", usedTag);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, TransmogrifierBlockEntity blockEntity) {
@@ -165,54 +160,52 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
 
         if (!level.isClientSide) {
 
-            boolean flag = blockEntity.isActive();
-            boolean flag1 = false;
+            boolean isActive = blockEntity.isActive();
+            boolean flag = false;
 
             if (blockEntity.isActive()) {
                 blockEntity.activeTime--;
             }
 
-            ItemStack itemstack = blockEntity.items.get(1);
-            ItemStack itemstack1 = blockEntity.items.get(0);
-            boolean flag2 = !itemstack1.isEmpty();
-            boolean flag3 = !itemstack.isEmpty();
+            ItemStack fuel = blockEntity.items.get(1);
+            ItemStack input = blockEntity.items.get(0);
+            boolean hasInput = !input.isEmpty();
+            boolean hasFuel = !fuel.isEmpty();
 
-            if (blockEntity.isActive() || flag3 && flag2) {
-                RecipeHolder<? extends TransmogrificationRecipe> recipeholder;
-                if (flag2) {
-                    recipeholder = blockEntity.quickCheck.getRecipeFor(new SingleRecipeInput(itemstack1), level).orElse(null);
+            if (blockEntity.isActive() || hasFuel && hasInput) {
+                RecipeHolder<? extends TransmogrificationRecipe> recipeHolder;
+                if (hasInput) {
+                    recipeHolder = blockEntity.quickCheck.getRecipeFor(new SingleRecipeInput(input), level).orElse(null);
                 } else {
-                    recipeholder = null;
+                    recipeHolder = null;
                 }
 
-                int i = blockEntity.getMaxStackSize();
-                if (!blockEntity.isActive() && canBurn(level.registryAccess(), recipeholder, blockEntity.items, i, blockEntity)) {
-                    blockEntity.activeTime = blockEntity.getFuelDuration(itemstack);
+                int maxStackSize = blockEntity.getMaxStackSize();
+                if (!blockEntity.isActive() && canBurn(level.registryAccess(), recipeHolder, blockEntity.items, maxStackSize, blockEntity)) {
+                    blockEntity.activeTime = blockEntity.getFuelDuration(fuel);
                     blockEntity.activeDuration = blockEntity.activeTime;
                     if (blockEntity.isActive()) {
-                        flag1 = true;
-                        if (itemstack.hasCraftingRemainingItem())
-                            blockEntity.items.set(1, itemstack.getCraftingRemainingItem());
-                        else if (flag3) {
-                            Item item = itemstack.getItem();
-                            itemstack.shrink(1);
-                            if (itemstack.isEmpty()) {
-                                blockEntity.items.set(1, itemstack.getCraftingRemainingItem());
+                        flag = true;
+                        if (fuel.hasCraftingRemainingItem())
+                            blockEntity.items.set(1, fuel.getCraftingRemainingItem());
+                        else if (hasFuel) {
+                            fuel.shrink(1);
+                            if (fuel.isEmpty()) {
+                                blockEntity.items.set(1, fuel.getCraftingRemainingItem());
                             }
                         }
                     }
                 }
 
-                if (blockEntity.isActive() && canBurn(level.registryAccess(), recipeholder, blockEntity.items, i, blockEntity)) {
+                if (blockEntity.isActive() && canBurn(level.registryAccess(), recipeHolder, blockEntity.items, maxStackSize, blockEntity)) {
                     blockEntity.processingProgress++;
                     if (blockEntity.processingProgress == blockEntity.processingTotalTime) {
                         blockEntity.processingProgress = 0;
                         blockEntity.processingTotalTime = getTotalProcessingTime(level, blockEntity);
-                        if (burnFuel(level.registryAccess(), recipeholder, blockEntity.items, i, blockEntity)) {
-                            blockEntity.setRecipeUsed(recipeholder);
+                        if (burnFuel(level.registryAccess(), recipeHolder, blockEntity.items, maxStackSize, blockEntity)) {
+                            blockEntity.setRecipeUsed(recipeHolder);
                         }
-
-                        flag1 = true;
+                        flag = true;
                     }
                 } else {
                     blockEntity.processingProgress = 0;
@@ -221,13 +214,13 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
                 blockEntity.processingProgress = Mth.clamp(blockEntity.processingProgress - 2, 0, blockEntity.processingTotalTime);
             }
 
-            if (flag != blockEntity.isActive()) {
-                flag1 = true;
+            if (isActive != blockEntity.isActive()) {
+                flag = true;
                 state = state.setValue(TransmogrifierBlock.LIT, blockEntity.isActive());
                 level.setBlock(pos, state, 3);
             }
 
-            if (flag1) {
+            if (flag) {
                 setChanged(level, pos, state);
             }
         }
@@ -235,18 +228,17 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
 
     private static boolean canBurn(RegistryAccess registryAccess, @Nullable RecipeHolder<? extends TransmogrificationRecipe> recipe, NonNullList<ItemStack> inventory, int maxStackSize, TransmogrifierBlockEntity transmogrifier) {
         if (!inventory.get(0).isEmpty() && recipe != null) {
-            ItemStack itemstack = recipe.value().assemble(new SingleRecipeInput(transmogrifier.getItem(0)), registryAccess);
-            if (itemstack.isEmpty()) {
+            ItemStack input = recipe.value().assemble(new SingleRecipeInput(transmogrifier.getItem(0)), registryAccess);
+            if (input.isEmpty()) {
                 return false;
             } else {
-                ItemStack itemstack1 = inventory.get(2);
-                if (itemstack1.isEmpty()) {
+                ItemStack output = inventory.get(2);
+                if (output.isEmpty()) {
                     return true;
-                } else if (!ItemStack.isSameItemSameComponents(itemstack1, itemstack)) {
+                } else if (!ItemStack.isSameItemSameComponents(output, input)) {
                     return false;
                 } else {
-                    // Neo fix: make transmogrifier respect stack sizes in transmogrifier recipes
-                    return itemstack1.getCount() + itemstack.getCount() <= maxStackSize && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize() || itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize(); // Neo fix: make transmogrifier respect stack sizes in transmogrifier recipes
+                    return output.getCount() + input.getCount() <= maxStackSize && output.getCount() + input.getCount() <= output.getMaxStackSize() || output.getCount() + input.getCount() <= input.getMaxStackSize(); // Neo fix: make transmogrifier respect stack sizes in transmogrifier recipes
                 }
             }
         } else {
@@ -256,15 +248,15 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
 
     private static boolean burnFuel(RegistryAccess registryAccess, @Nullable RecipeHolder<? extends TransmogrificationRecipe> recipe, NonNullList<ItemStack> inventory, int maxStackSize, TransmogrifierBlockEntity transmogrifier) {
         if (recipe != null && canBurn(registryAccess, recipe, inventory, maxStackSize, transmogrifier)) {
-            ItemStack itemstack = inventory.get(0);
-            ItemStack itemstack1 = recipe.value().assemble(new SingleRecipeInput(transmogrifier.getItem(0)), registryAccess);
-            ItemStack itemstack2 = inventory.get(2);
-            if (itemstack2.isEmpty()) {
-                inventory.set(2, itemstack1.copy());
-            } else if (ItemStack.isSameItemSameComponents(itemstack2, itemstack1)) {
-                itemstack2.grow(itemstack1.getCount());
+            ItemStack input = inventory.get(0);
+            ItemStack assembled = recipe.value().assemble(new SingleRecipeInput(transmogrifier.getItem(0)), registryAccess);
+            ItemStack output = inventory.get(2);
+            if (output.isEmpty()) {
+                inventory.set(2, assembled.copy());
+            } else if (ItemStack.isSameItemSameComponents(output, assembled)) {
+                output.grow(assembled.getCount());
             }
-            itemstack.shrink(1);
+            input.shrink(1);
             return true;
         } else {
             return false;
@@ -272,16 +264,12 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
     }
 
     protected int getFuelDuration(ItemStack fuel) {
-        return fuel.is(UP2ItemTags.TRANSMOGRIFIER_FUEL) ? 960 : 0;
-    }
-
-    public static boolean isFuel(ItemStack stack) {
-        return stack.is(UP2ItemTags.TRANSMOGRIFIER_FUEL);
+        return fuel.is(UP2ItemTags.TRANSMOGRIFIER_FUEL) ? 1200 : 0;
     }
 
     private static int getTotalProcessingTime(Level level, TransmogrifierBlockEntity blockEntity) {
-        SingleRecipeInput singlerecipeinput = new SingleRecipeInput(blockEntity.getItem(0));
-        return blockEntity.quickCheck.getRecipeFor(singlerecipeinput, level).map(holder -> holder.value().processingTime()).orElse(1200);
+        SingleRecipeInput input = new SingleRecipeInput(blockEntity.getItem(0));
+        return blockEntity.quickCheck.getRecipeFor(input, level).map(holder -> holder.value().processingTime()).orElse(1200);
     }
 
     @Override
@@ -338,16 +326,15 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
         } else if (index != 1) {
             return true;
         } else {
-            ItemStack itemstack = this.items.get(1);
-            return stack.is(UP2ItemTags.TRANSMOGRIFIER_FUEL) || stack.is(Items.BUCKET) && !itemstack.is(Items.BUCKET);
+            ItemStack fuel = this.items.get(1);
+            return stack.is(UP2ItemTags.TRANSMOGRIFIER_FUEL) || stack.is(Items.BUCKET) && !fuel.is(Items.BUCKET);
         }
     }
 
     @Override
     public void setRecipeUsed(@Nullable RecipeHolder<?> recipe) {
         if (recipe != null) {
-            ResourceLocation resourcelocation = recipe.id();
-            this.recipesUsed.addTo(resourcelocation, 1);
+            this.recipesUsed.addTo(recipe.id(), 1);
         }
     }
 
@@ -387,7 +374,7 @@ public class TransmogrifierBlockEntity extends BaseContainerBlockEntity implemen
         int expTotal = Mth.floor((float) craftedAmount * experience);
         float expFraction = Mth.frac((float) craftedAmount * experience);
         if (expFraction != 0.0F && Math.random() < (double) expFraction) {
-            ++expTotal;
+            expTotal++;
         }
         ExperienceOrb.award(level, popVec, expTotal);
     }

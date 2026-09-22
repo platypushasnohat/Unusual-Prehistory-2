@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "unusual_prehistory:fossilized_bone_block"
+    }
+  },
+  "result": {
+    "id": "unusual_prehistory:fossilized_bone_vertebra",
+    "count": 4
+  }
+}

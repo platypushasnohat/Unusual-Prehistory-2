@@ -33,5 +33,10 @@ public class UP2LanguageProvider extends SinewLanguageProvider {
         this.add("block.unusual_prehistory.rare_fossil_bed.desc", "Rare");
         this.addBlock(UP2Blocks.UNUSUAL_FOSSIL_BED, "Fossil Bed");
         this.add("block.unusual_prehistory.unusual_fossil_bed.desc", "Unusual");
+
+        this.add("unusual_prehistory.jei.transmogrification", "Transmogrification");
+        this.add("unusual_prehistory.jade.egg_block.hatch_time", "Hatch time: %s");
+        this.add("config.jade.plugin_unusual_prehistory.transmogrifier", "Transmogrifier Contents");
+        this.add("config.jade.plugin_unusual_prehistory.egg_block", "Egg Block Info");
     }
 }

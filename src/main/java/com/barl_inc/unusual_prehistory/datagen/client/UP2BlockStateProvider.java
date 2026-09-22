@@ -18,10 +18,6 @@ public class UP2BlockStateProvider extends SinewBlockStateProvider {
         this.axisBlock(UP2Blocks.FOSSILIZED_BONE_VERTEBRA, UnusualPrehistory2.location("block/fossilized_bone_vertebra"), UnusualPrehistory2.location("block/fossilized_bone_block_top"));
         this.axisBlock(UP2Blocks.FOSSILIZED_BONE_BARK, UnusualPrehistory2.location("block/fossilized_bone_block"), UnusualPrehistory2.location("block/fossilized_bone_block"));
 
-        this.block(UP2Blocks.COBBLED_FOSSILIZED_BONE);
-        this.stairsBlock(UP2Blocks.COBBLED_FOSSILIZED_BONE.get(), UP2Blocks.COBBLED_FOSSILIZED_BONE_STAIRS.get());
-        this.slabBlock(UP2Blocks.COBBLED_FOSSILIZED_BONE.get(), UP2Blocks.COBBLED_FOSSILIZED_BONE_SLAB.get());
-
         this.block(UP2Blocks.BIOSTEEL_BLOCK);
         this.block(UP2Blocks.BIOSTEEL_LATTICE);
         this.block(UP2Blocks.BIOSTEEL_TILES);

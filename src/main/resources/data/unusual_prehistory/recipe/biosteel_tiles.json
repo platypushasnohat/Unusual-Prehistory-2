@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "unusual_prehistory:biosteel_block"
+    }
+  },
+  "result": {
+    "id": "unusual_prehistory:biosteel_tiles",
+    "count": 4
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "unusual_prehistory:fossilized_skull"
+    },
+    {
+      "item": "minecraft:lantern"
+    }
+  ],
+  "result": {
+    "id": "unusual_prehistory:fossilized_skull_lamp",
+    "count": 1
+  }
+}

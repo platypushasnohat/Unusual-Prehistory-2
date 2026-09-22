@@ -153,6 +153,9 @@ public abstract class AquaticPrehistoricMob extends PrehistoricMob {
             this.setDeltaMovement(this.getDeltaMovement().add((this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.2F, 0.5D, (this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.2F));
             if (this.getRandom().nextFloat() < 0.25F) {
                 this.setYRot(this.getRandom().nextFloat() * 360.0F);
+                this.yRotO = this.getYRot();
+                this.yBodyRot = this.getYRot();
+                this.yHeadRot = this.getYRot();
             }
             this.playSound(this.getFlopSound(), this.getSoundVolume(), SinewSoundUtils.randomizePitch(this));
         }

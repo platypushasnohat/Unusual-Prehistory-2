@@ -21,6 +21,8 @@ public class UP2Items {
 
     public static final DeferredItem<Item> LEEDSICHTHYS_SPAWN_EGG = registerSpawnEggItem("leedsichthys", UP2Entities.LEEDSICHTHYS, 0x15161d, 0xe8e8e8);
 
+    public static final DeferredItem<Item> GARGANTUAN_FOSSIL = registerItem("gargantuan_fossil", () -> new Item(new Item.Properties()));
+
     private static <I extends Item> DeferredItem<I> registerItem(String name, Supplier<? extends I> supplier) {
         DeferredItem<I> item = ITEMS.register(name, supplier);
         ITEM_TRANSLATIONS.add(item);

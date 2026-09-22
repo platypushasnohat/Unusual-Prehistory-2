@@ -20,7 +20,7 @@ public class LeedsichthysRenderer extends MobRenderer<Leedsichthys, Leedsichthys
     private final LeedsichthysModel babyModel;
 
     public LeedsichthysRenderer(EntityRendererProvider.Context context) {
-        super(context, new LeedsichthysModel(context.bakeLayer(UP2ModelLayers.LEEDSICHTHYS)), 1.0F);
+        super(context, new LeedsichthysModel(context.bakeLayer(UP2ModelLayers.LEEDSICHTHYS)), 4.0F);
         this.adultModel = new LeedsichthysModel(context.bakeLayer(UP2ModelLayers.LEEDSICHTHYS));
         this.babyModel = new LeedsichthysModel(context.bakeLayer(UP2ModelLayers.LEEDSICHTHYS_BABY));
         this.addLayer(new LeedsichthysRiderLayer(this));

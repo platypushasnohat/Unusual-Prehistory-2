@@ -388,9 +388,11 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
             }
         }
 
-        this.addPassengers(this);
-        for (SinewPartEntity<?> part : this.allParts) {
-            this.addPassengers(part);
+        if (!this.isBaby()) {
+            this.addPassengers(this);
+            for (SinewPartEntity<?> part : this.allParts) {
+                this.addPassengers(part);
+            }
         }
     }
 
@@ -452,7 +454,7 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
 
     @Override
     public boolean shouldFlop() {
-        return false;
+        return this.isBaby();
     }
 
     @Override
@@ -476,7 +478,7 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
 
     @Override
     public boolean isFood(ItemStack itemStack) {
-        return false;
+        return itemStack.is(ItemTags.FISHES);
     }
 
     @Override

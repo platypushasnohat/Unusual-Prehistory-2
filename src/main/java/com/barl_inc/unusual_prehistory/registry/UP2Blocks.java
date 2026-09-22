@@ -5,6 +5,7 @@ import com.barl_inc.unusual_prehistory.block.*;
 import com.barl_inc.unusual_prehistory.item.FossilBedBlockItem;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
@@ -22,22 +23,21 @@ import java.util.function.Supplier;
 public class UP2Blocks {
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(UnusualPrehistory2.MOD_ID);
+
     public static List<DeferredBlock<? extends Block>> BLOCK_TRANSLATIONS = new ArrayList<>();
     public static List<Supplier<? extends Block>> EGG_BLOCKS = new ArrayList<>();
+
+    public static final BlockBehaviour.Properties WATER_EGG_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instabreak().noOcclusion().noCollission().sound(SoundType.FROGSPAWN);
 
     public static final DeferredBlock<Block> FOSSILIZED_BONE_BLOCK = registerBlock("fossilized_bone_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.XYLOPHONE).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.DRIPSTONE_BLOCK)));
     public static final DeferredBlock<Block> FOSSILIZED_BONE_BARK = registerBlock("fossilized_bone_bark", () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get())));
     public static final DeferredBlock<Block> FOSSILIZED_BONE_VERTEBRA = registerBlock("fossilized_bone_vertebra", () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get())));
     public static final DeferredBlock<Block> FOSSILIZED_SKULL = registerBlock("fossilized_skull", () -> new FossilizedSkullBlock(BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get())));
-    public static final DeferredBlock<Block> FOSSILIZED_SKULL_LANTERN = registerBlock("fossilized_skull_lantern", () -> new FossilizedSkullBlock(BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get()).lightLevel((state) -> 15)));
-    public static final DeferredBlock<Block> FOSSILIZED_SKULL_SOUL_LANTERN = registerBlock("fossilized_skull_soul_lantern", () -> new FossilizedSkullBlock(BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get()).lightLevel((state) -> 10)));
+    public static final DeferredBlock<Block> FOSSILIZED_SKULL_LAMP = registerBlock("fossilized_skull_lamp", () -> new FossilizedSkullBlock(BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get()).lightLevel((state) -> 15)));
+    public static final DeferredBlock<Block> FOSSILIZED_SKULL_SOUL_LAMP = registerBlock("fossilized_skull_soul_lamp", () -> new FossilizedSkullBlock(BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get()).lightLevel((state) -> 10)));
     public static final DeferredBlock<Block> FOSSILIZED_BONE_ROD = registerBlock("fossilized_bone_rod", () -> new FossilizedBoneRodBlock(BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get())));
     public static final DeferredBlock<Block> FOSSILIZED_BONE_SPIKE = registerBlock("fossilized_bone_spike", () -> new FossilizedBoneSpikeBlock(BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get()).noOcclusion()));
     public static final DeferredBlock<Block> FOSSILIZED_BONE_ROW = registerBlock("fossilized_bone_row", () -> new FossilizedBoneRowBlock(BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get()).noOcclusion()));
-
-    public static final DeferredBlock<Block> COBBLED_FOSSILIZED_BONE = registerBlock("cobbled_fossilized_bone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get())));
-    public static final DeferredBlock<Block> COBBLED_FOSSILIZED_BONE_STAIRS = registerBlock("cobbled_fossilized_bone_stairs", () -> new StairBlock(COBBLED_FOSSILIZED_BONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(COBBLED_FOSSILIZED_BONE.get())));
-    public static final DeferredBlock<Block> COBBLED_FOSSILIZED_BONE_SLAB = registerBlock("cobbled_fossilized_bone_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(COBBLED_FOSSILIZED_BONE.get())));
 
     public static final DeferredBlock<Block> DIRT_MATRIX = registerBlock("dirt_matrix", () -> new MatrixBlock(Blocks.DIRT, SoundEvents.BRUSH_GENERIC, SoundEvents.GRAVEL_BREAK, BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
 
@@ -46,7 +46,7 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> RARE_FOSSIL_BED = registerFossilBedBlock("rare_fossil_bed", FossilBedBlockItem.FossilBedRarity.RARE, () -> new FossilBedBlock(UniformInt.of(2, 5), BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get())));
     public static final DeferredBlock<Block> UNUSUAL_FOSSIL_BED = registerFossilBedBlock("unusual_fossil_bed", FossilBedBlockItem.FossilBedRarity.UNUSUAL, () -> new FossilBedBlock(UniformInt.of(3, 7), BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get())));
 
-    public static final DeferredBlock<Block> BIOSTEEL_BLOCK = registerBlock("biosteel_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL)));
+    public static final DeferredBlock<Block> BIOSTEEL_BLOCK = registerBlock("biosteel_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops().strength(3.0F, 6.0F).sound(SoundType.COPPER)));
     public static final DeferredBlock<Block> BIOSTEEL_LATTICE = registerBlock("biosteel_lattice", () -> new Block(BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get())));
     public static final DeferredBlock<Block> BIOSTEEL_TILES = registerBlock("biosteel_tiles", () -> new Block(BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get())));
     public static final DeferredBlock<Block> BIOSTEEL_TILE_STAIRS = registerBlock("biosteel_tile_stairs", () -> new StairBlock(BIOSTEEL_BLOCK.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get())));
@@ -54,7 +54,9 @@ public class UP2Blocks {
 
     public static final DeferredBlock<Block> TRANSMOGRIFIER = registerBlock("transmogrifier", () -> new TransmogrifierBlock(BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get()).lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 7 : 0)));
 
-    public static final DeferredBlock<Block> LEEDSICHTHYS_CHUNK = registerBlock("leedsichthys_chunk", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).instrument(NoteBlockInstrument.HARP).strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
+    public static final DeferredBlock<Block> LEEDSICHTHYS_CHUNK = registerEdibleBlock("leedsichthys_chunk", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).instrument(NoteBlockInstrument.HARP).strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)), UP2FoodProperties.LEEDSICHTHYS_CHUNK);
+
+    public static final DeferredBlock<Block> LEEDSICHTHYS_ROE = registerEggBlock("leedsichthys_roe", () -> new UnderwaterEggBlock(WATER_EGG_PROPERTIES, UP2Entities.LEEDSICHTHYS::get, 1));
 
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
@@ -69,9 +71,24 @@ public class UP2Blocks {
         return block;
     }
 
+    private static <B extends Block> DeferredBlock<B> registerEggBlock(String name, Supplier<B> supplier) {
+        DeferredBlock<B> block = BLOCKS.register(name, supplier);
+        UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        BLOCK_TRANSLATIONS.add(block);
+        EGG_BLOCKS.add(block);
+        return block;
+    }
+
     private static <B extends Block> DeferredBlock<B> registerFossilBedBlock(String name, FossilBedBlockItem.FossilBedRarity rarity, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new FossilBedBlockItem(block.get(), new Item.Properties(), rarity));
+        return block;
+    }
+
+    private static <B extends Block> DeferredBlock<B> registerEdibleBlock(String name, Supplier<? extends B> supplier, FoodProperties foodProperties) {
+        DeferredBlock<B> block = BLOCKS.register(name, supplier);
+        UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().food(foodProperties)));
+        BLOCK_TRANSLATIONS.add(block);
         return block;
     }
 }

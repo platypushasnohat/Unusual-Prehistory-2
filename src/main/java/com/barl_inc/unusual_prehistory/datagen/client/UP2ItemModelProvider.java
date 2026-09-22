@@ -1,6 +1,7 @@
 package com.barl_inc.unusual_prehistory.datagen.client;
 
 import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
+import com.barl_inc.unusual_prehistory.registry.UP2Blocks;
 import com.barl_inc.unusual_prehistory.registry.UP2Items;
 import com.platypushasnohat.sinew.datagen.client.SinewItemModelProvider;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,7 +19,9 @@ public class UP2ItemModelProvider extends SinewItemModelProvider {
     @Override
     protected void registerModels() {
         this.generatedItem(
-                UP2Items.ORGANIC_OOZE
+                UP2Items.ORGANIC_OOZE,
+                UP2Items.GARGANTUAN_FOSSIL,
+                UP2Blocks.LEEDSICHTHYS_ROE
         );
 
         for (Item item : BuiltInRegistries.ITEM) {

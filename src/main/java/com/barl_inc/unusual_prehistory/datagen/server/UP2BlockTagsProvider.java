@@ -26,15 +26,11 @@ public class UP2BlockTagsProvider extends BlockTagsProvider {
                 FOSSILIZED_BONE_BARK.get(),
                 FOSSILIZED_BONE_VERTEBRA.get(),
                 FOSSILIZED_SKULL.get(),
-                FOSSILIZED_SKULL_LANTERN.get(),
-                FOSSILIZED_SKULL_SOUL_LANTERN.get(),
+                FOSSILIZED_SKULL_LAMP.get(),
+                FOSSILIZED_SKULL_SOUL_LAMP.get(),
                 FOSSILIZED_BONE_ROD.get(),
                 FOSSILIZED_BONE_SPIKE.get(),
                 FOSSILIZED_BONE_ROW.get(),
-
-                COBBLED_FOSSILIZED_BONE.get(),
-                COBBLED_FOSSILIZED_BONE_SLAB.get(),
-                COBBLED_FOSSILIZED_BONE_STAIRS.get(),
 
                 COMMON_FOSSIL_BED.get(),
                 UNCOMMON_FOSSIL_BED.get(),
