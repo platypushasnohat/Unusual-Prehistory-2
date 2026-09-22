@@ -9,6 +9,8 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import org.joml.Vector4f;
 
 public class LeedsichthysModel extends SinewEntityModel<Leedsichthys> {
 
@@ -52,15 +54,21 @@ public class LeedsichthysModel extends SinewEntityModel<Leedsichthys> {
             }
         }
 
-        this.rotatePart(this.swim_control, entity.getSwimPitch(partialTicks) * Mth.DEG_TO_RAD, 0.0F, entity.bodyChain.getRoll(partialTicks) * Mth.DEG_TO_RAD);
+        this.rotatePart(this.swim_control, entity.getSwimPitch(partialTicks) * Mth.DEG_TO_RAD, 0.0F, entity.getRoll(partialTicks) * Mth.DEG_TO_RAD);
         this.bendPart(this.tail1, entity, 1, partialTicks);
         this.bendPart(this.tail2, entity, 2, partialTicks);
     }
 
-    public void translateRiderToBody(PoseStack poseStack) {
-        this.root.translateAndRotate(poseStack);
+    public Vec3 getRiderPosition(Vec3 offset) {
+        PoseStack poseStack = new PoseStack();
+        poseStack.pushPose();
         this.swim_control.translateAndRotate(poseStack);
         this.body.translateAndRotate(poseStack);
+        Vector4f offsetVec = new Vector4f((float) offset.x, (float) offset.y, (float) offset.z, 1.0F);
+        offsetVec.mul(poseStack.last().pose());
+        Vec3 position = new Vec3(offsetVec.x(), offsetVec.y(), offsetVec.z());
+        poseStack.popPose();
+        return position;
     }
 
     public static LayerDefinition createBodyLayer() {

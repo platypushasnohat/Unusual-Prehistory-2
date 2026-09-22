@@ -6,12 +6,14 @@ import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
 import com.platypushasnohat.sinew.Sinew;
 import com.platypushasnohat.sinew.entity.ai.control.SwimmingMoveControl;
 import com.platypushasnohat.sinew.entity.ai.goal.SwimWanderGoal;
+import com.platypushasnohat.sinew.entity.ai.goal.TamedSitGoal;
 import com.platypushasnohat.sinew.entity.utils.*;
 import com.platypushasnohat.sinew.network.MountedEntityKeyPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -20,12 +22,12 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
@@ -34,6 +36,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.List;
 
 public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob, KeybindUsingMount {
 
@@ -48,10 +51,10 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
 
     private boolean wasPreviouslyBaby;
 
-    public final BodyChain bodyChain = new BodyChain(0.15F, 5.0F, 30.0F, 0.06F, new float[]{0.1F, 0.14F, 0.2F}, new float[]{0.1F, 0.1F, 0.13F});
+    private final BodyChain bodyChain = new BodyChain(0.15F, 5.0F, 30.0F, 0.06F, new float[]{0.1F, 0.14F, 0.2F}, new float[]{0.1F, 0.1F, 0.13F});
 
-    public float prevSwimPitch;
-    public float swimPitch;
+    private float prevSwimPitch;
+    private float swimPitch;
 
     private int controlUpTicks = 0;
     private int controlDownTicks = 0;
@@ -76,30 +79,34 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(1, new SwimWanderGoal(this, 1.0D, 60, 30, 15, 2, 100));
+        this.goalSelector.addGoal(0, new TamedSitGoal(this));
+        this.goalSelector.addGoal(1, new SwimWanderGoal(this, 1.0D, 60, 30, 15, 3, 100));
     }
 
     @Override
     public void travel(Vec3 travelVector) {
-        if (this.isOrderedToSit() && !this.isControlledByLocalInstance()) {
+        if (this.getCommand() == COMMAND_SIT && !this.isControlledByLocalInstance()) {
             if (this.getNavigation().getPath() != null) {
                 this.getNavigation().stop();
             }
             travelVector = Vec3.ZERO;
         }
-        if (this.isControlledByLocalInstance() && this.getControllingPassenger() instanceof Player player && this.isInWater()) {
-            this.moveRelative(this.getRiddenSpeed(player), travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-            this.calculateEntityAnimation(false);
-            if (this.controlDownTicks > 0 && !this.onGround()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0F, -0.02D, 0.0F));
-            } else if (this.controlUpTicks > 0 && this.getFluidTypeHeight(NeoForgeMod.WATER_TYPE.value()) > 4.1F) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0F, 0.02D, 0.0F));
-            }
+        if (this.isControlledByLocalInstance() && this.getControllingPassenger() instanceof Player player && this.isInWaterOrBubble()) {
+            this.travelRidden(travelVector, player);
         } else {
             super.travel(travelVector);
+        }
+    }
+
+    private void travelRidden(Vec3 travelVector, Player player) {
+        this.moveRelative(this.getRiddenSpeed(player), travelVector);
+        this.move(MoverType.SELF, this.getDeltaMovement());
+        this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+        this.calculateEntityAnimation(false);
+        if (this.controlDownTicks > 0 && !this.onGround()) {
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0F, -0.02D, 0.0F));
+        } else if (this.controlUpTicks > 0 && this.getFluidTypeHeight(NeoForgeMod.WATER_TYPE.value()) > 4.0D) {
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0F, 0.02D, 0.0F));
         }
     }
 
@@ -146,29 +153,51 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
         return super.getWalkTargetValue(pos, level);
     }
 
+    private void yeetPassenger(Entity passenger) {
+        if (passenger instanceof LivingEntity living) {
+            double x = (living.getRandom().nextDouble() - 0.5D) * 0.5D;
+            double y = 0.25D + living.getRandom().nextDouble() * 0.25D;
+            double z = (living.getRandom().nextDouble() - 0.5D) * 0.5D;
+            living.hasImpulse = true;
+            living.setDeltaMovement(living.getDeltaMovement().add(x, y, z));
+        }
+    }
+
+    private void removePassengers() {
+        for (Entity passenger : this.getPassengers()) {
+            if (this.getControllingPassenger() != passenger) {
+                passenger.stopRiding();
+                if (!this.level().isClientSide) {
+                    this.yeetPassenger(passenger);
+                }
+            }
+        }
+    }
+
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (!this.isBaby()) {
-            if (this.isTame()) {
-                if (player.getItemInHand(hand).isEmpty()) {
-                    if (player.isShiftKeyDown()) {
+            if (this.isTame() && this.getOwner() == player && player.getItemInHand(hand).isEmpty()) {
+                if (player.isShiftKeyDown()) {
+                    if (!this.getPassengers().isEmpty()) {
+                        this.removePassengers();
+                    } else {
                         if (this.getCommand() != COMMAND_SIT) {
                             this.setCommand(COMMAND_SIT);
                         } else {
                             this.setCommand(COMMAND_WANDER);
                         }
-                        this.setOrderedToSit(this.getCommand() == COMMAND_SIT);
                         player.displayClientMessage(Component.translatable("entity.sinew.all.command_" + this.getCommand(), this.getName()), true);
-                    } else {
-                        player.startRiding(this);
                     }
-                    return InteractionResult.sidedSuccess(this.level().isClientSide);
                 }
+                else if (this.isInWaterOrBubble()) {
+                    player.startRiding(this);
+                }
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
             } else {
-                if (!this.level().isClientSide && itemStack.is(Items.COD)) {
-                    itemStack.consume(1, player);
-                    this.tryToTame(player);
+                if (!this.level().isClientSide && itemStack.is(ItemTags.FISHES)) {
+                    this.tryToTame(player, itemStack, 512, itemStack.getCount());
                     return InteractionResult.SUCCESS;
                 }
             }
@@ -193,7 +222,7 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
 
     @Override
     protected boolean canAddPassenger(Entity passenger) {
-        return this.getPassengers().size() <= 4;
+        return this.getPassengers().size() < 4;
     }
 
     @Override
@@ -223,6 +252,42 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
     }
 
     @Override
+    public void positionRider(Entity passenger, MoveFunction moveFunction) {
+        if (this.isPassengerOfSameVehicle(passenger) && passenger instanceof LivingEntity living && !this.touchingUnloadedChunk()) {
+            living.setAirSupply(Math.min(living.getAirSupply() + 2, living.getMaxAirSupply()));
+            super.positionRider(passenger, moveFunction);
+        } else {
+            super.positionRider(passenger, moveFunction);
+        }
+    }
+
+    @Override
+    public Vec3 getPassengerAttachmentPoint(Entity entity, EntityDimensions dimensions, float partialTicks) {
+        int index = Math.max(this.getPassengers().indexOf(entity), 0);
+        float offsetZ = 0.0F;
+        float offsetX = 0.0F;
+        switch (index) {
+            case 0 -> {
+                offsetX = 1.0F;
+                offsetZ = 1.0F;
+            }
+            case 1 -> {
+                offsetX = -1.0F;
+                offsetZ = 1.0F;
+            }
+            case 2 -> {
+                offsetX = 1.0F;
+                offsetZ = -1.0F;
+            }
+            case 3 -> {
+                offsetX = -1.0F;
+                offsetZ = -1.0F;
+            }
+        }
+        return super.getPassengerAttachmentPoint(entity, dimensions, partialTicks).add(new Vec3(offsetX, 0.0F, offsetZ).yRot(-this.getYRot() * Mth.DEG_TO_RAD));
+    }
+
+    @Override
     public BodyChain getBodyChain() {
         return this.bodyChain;
     }
@@ -240,6 +305,19 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
     @Override
     public float getSegmentPitchOffset(int index, float partialTicks) {
         return this.bodyChain.getSegmentPitchOffset(index, partialTicks, this.getSwimPitch(partialTicks));
+    }
+
+    public float getRoll(float partialTicks) {
+        return this.bodyChain.getRoll(partialTicks);
+    }
+
+    @Override
+    public void baseTick() {
+        super.baseTick();
+
+        if (!this.level().isClientSide && ((!this.isInWaterOrBubble() && this.onGround() && this.isVehicle()) || (this.isVehicle() && this.isBaby()))) {
+            this.ejectPassengers();
+        }
     }
 
     @Override
@@ -275,7 +353,7 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
         if (this.hasControllingPassenger()) {
             if (this.controlDownTicks > 0 && !this.onGround()) {
                 this.controlDownTicks--;
-            } else if (this.controlUpTicks > 0 && this.getFluidTypeHeight(NeoForgeMod.WATER_TYPE.value()) > 4.1F) {
+            } else if (this.controlUpTicks > 0 && this.getFluidTypeHeight(NeoForgeMod.WATER_TYPE.value()) > 4.0D) {
                 this.controlUpTicks--;
             }
         }
@@ -290,6 +368,25 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
                 if (Sinew.PROXY.isKeyDown(1) && this.controlDownTicks < 2) {
                     PacketDistributor.sendToServer(new MountedEntityKeyPacket(this.getId(), player.getId(), 1));
                     this.controlDownTicks = 10;
+                }
+            }
+        }
+
+        this.addPassengers(this);
+        for (SinewPartEntity<?> part : this.allParts) {
+            this.addPassengers(part);
+        }
+    }
+
+    private void addPassengers(Entity entity) {
+        List<Entity> list = this.level().getEntities(this, entity.getBoundingBox().inflate(0.2F, -0.01F, 0.2F), EntitySelector.pushableBy(this));
+        if (!list.isEmpty()) {
+            boolean flag = !this.level().isClientSide && !(this.getControllingPassenger() instanceof Player) && this.getCommand() == COMMAND_SIT;
+            for (Entity passenger : list) {
+                if (!passenger.hasPassenger(this)) {
+                    if (flag && this.canAddPassenger(passenger) && !passenger.isPassenger() && passenger instanceof LivingEntity && !(passenger instanceof Leedsichthys) && !(passenger instanceof WaterAnimal) && !(passenger instanceof Player)) {
+                        passenger.startRiding(this);
+                    }
                 }
             }
         }
@@ -389,7 +486,7 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
 
     @Override
     public boolean canPlayAmbientSound() {
-        return !this.isOrderedToSit();
+        return this.getCommand() != COMMAND_SIT;
     }
 
     @Override
@@ -424,5 +521,9 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
                 super.playSwimSound(0.4F);
             }
         }
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
     }
 }
