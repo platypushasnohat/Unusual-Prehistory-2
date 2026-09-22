@@ -25,7 +25,7 @@ public class LeedsichthysModel extends SinewEntityModel<Leedsichthys> {
         this.root = root.getChild("root");
         this.swim_control = this.root.getChild("swim_control");
         this.body = this.swim_control.getChild("body");
-        this.tail1 = body.getChild("tail1");
+        this.tail1 = this.body.getChild("tail1");
         this.tail2 = this.tail1.getChild("tail2");
     }
 
@@ -66,7 +66,7 @@ public class LeedsichthysModel extends SinewEntityModel<Leedsichthys> {
         this.body.translateAndRotate(poseStack);
         Vector4f offsetVec = new Vector4f((float) offset.x, (float) offset.y, (float) offset.z, 1.0F);
         offsetVec.mul(poseStack.last().pose());
-        Vec3 position = new Vec3(offsetVec.x(), offsetVec.y(), offsetVec.z());
+        Vec3 position = new Vec3(offsetVec.x, offsetVec.y, offsetVec.z);
         poseStack.popPose();
         return position;
     }

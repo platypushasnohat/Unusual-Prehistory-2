@@ -53,11 +53,16 @@ public class LeedsichthysRiderLayer extends RiderLayer<Leedsichthys, Leedsichthy
                         offsetZ = 1.0F;
                     }
                 }
-                float offsetY = passenger instanceof Player ? 0.5F : 0.0F;
-                poseStack.translate(ridePos.x + offsetX, ridePos.y + offsetY, ridePos.z +offsetZ);
-                poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
+                float offsetY = passenger instanceof Player ? 0.6F : 0.0F;
+                float pitch = entity.getSwimPitch(partialTicks);
+                if (index > 1) {
+                    pitch *= -1;
+                }
+                poseStack.translate(ridePos.x + offsetX, ridePos.y + offsetY + (pitch * 0.02F), ridePos.z + offsetZ);
+                poseStack.mulPose(Axis.XP.rotationDegrees(180.0F + entity.getSwimPitch(partialTicks)));
                 poseStack.mulPose(Axis.YN.rotationDegrees(360.0F - bodyYaw));
-                renderPassenger(passenger, 0, 0, 0, 0, partialTicks, poseStack, bufferSource, packedLight);
+                passenger.setYBodyRot(entity.getYRot());
+                renderPassenger(passenger, 0.0F, partialTicks, poseStack, bufferSource, packedLight);
                 poseStack.popPose();
                 Sinew.PROXY.blockRenderingEntity(passenger.getUUID());
             }
