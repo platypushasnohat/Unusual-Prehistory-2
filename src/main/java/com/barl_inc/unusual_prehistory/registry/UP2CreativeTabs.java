@@ -47,8 +47,6 @@ public class UP2CreativeTabs {
                         output.accept(UP2Items.GARGANTUAN_FOSSIL.get());
                         output.accept(UP2Blocks.LEEDSICHTHYS_ROE.get());
 
-                        output.accept(UP2Blocks.LEEDSICHTHYS_CHUNK.get());
-
                     })
                     .build());
 }

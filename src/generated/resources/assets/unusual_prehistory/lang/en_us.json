@@ -16,7 +16,6 @@
   "block.unusual_prehistory.fossilized_skull": "Fossilized Skull",
   "block.unusual_prehistory.fossilized_skull_lamp": "Fossilized Skull Lamp",
   "block.unusual_prehistory.fossilized_skull_soul_lamp": "Fossilized Skull Soul Lamp",
-  "block.unusual_prehistory.leedsichthys_chunk": "Leedsichthys Chunk",
   "block.unusual_prehistory.leedsichthys_roe": "Leedsichthys Roe",
   "block.unusual_prehistory.rare_fossil_bed": "Fossil Bed",
   "block.unusual_prehistory.rare_fossil_bed.desc": "Rare",
@@ -37,6 +36,7 @@
   "subtitles.unusual_prehistory.leedsichthys_idle": "Leedsichthys bellows",
   "subtitles.unusual_prehistory.leedsichthys_swim": "Leedsichthys swims",
   "subtitles.unusual_prehistory.transmogrifier_processing": "Transmogrifier processes",
+  "tag.item.unusual_prehistory.transmogrifier_fuel": "Transmogrifier Fuel",
   "unusual_prehistory.jade.egg_block.hatch_time": "Hatch time: %s",
   "unusual_prehistory.jei.transmogrification": "Transmogrification"
 }

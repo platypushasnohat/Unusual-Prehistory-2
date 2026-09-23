@@ -2,6 +2,7 @@ package com.barl_inc.unusual_prehistory.datagen.client;
 
 import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
 import com.barl_inc.unusual_prehistory.registry.*;
+import com.barl_inc.unusual_prehistory.tags.UP2ItemTags;
 import com.platypushasnohat.sinew.datagen.client.SinewLanguageProvider;
 import net.minecraft.data.PackOutput;
 
@@ -38,5 +39,7 @@ public class UP2LanguageProvider extends SinewLanguageProvider {
         this.add("unusual_prehistory.jade.egg_block.hatch_time", "Hatch time: %s");
         this.add("config.jade.plugin_unusual_prehistory.transmogrifier", "Transmogrifier Contents");
         this.add("config.jade.plugin_unusual_prehistory.egg_block", "Egg Block Info");
+
+        this.addTag(() -> UP2ItemTags.TRANSMOGRIFIER_FUEL, "Transmogrifier Fuel");
     }
 }

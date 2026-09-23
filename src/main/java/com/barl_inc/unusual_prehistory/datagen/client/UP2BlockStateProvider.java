@@ -28,7 +28,5 @@ public class UP2BlockStateProvider extends SinewBlockStateProvider {
         this.block(UP2Blocks.UNCOMMON_FOSSIL_BED);
         this.block(UP2Blocks.RARE_FOSSIL_BED);
         this.block(UP2Blocks.UNUSUAL_FOSSIL_BED);
-
-        this.block(UP2Blocks.LEEDSICHTHYS_CHUNK);
     }
 }

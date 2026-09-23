@@ -49,9 +49,5 @@ public class UP2BlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
                 DIRT_MATRIX.get()
         );
-
-        this.tag(BlockTags.MINEABLE_WITH_AXE).add(
-                LEEDSICHTHYS_CHUNK.get()
-        );
     }
 }

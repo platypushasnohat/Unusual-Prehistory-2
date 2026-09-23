@@ -39,7 +39,7 @@ public class TransmogrificationCategory implements IRecipeCategory<Transmogrific
     public TransmogrificationCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createDrawable(BACKGROUND, 32, 28, 116, 52);
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(UP2Blocks.TRANSMOGRIFIER.get()));
-        this.fuel = guiHelper.drawableBuilder(BACKGROUND, 176, 0, TransmogrifierScreen.FUEL_WIDTH, TransmogrifierScreen.FUEL_HEIGHT).buildAnimated(800, IDrawableAnimated.StartDirection.RIGHT, true);
+        this.fuel = guiHelper.drawableBuilder(BACKGROUND, 176, 0, TransmogrifierScreen.FUEL_WIDTH, TransmogrifierScreen.FUEL_HEIGHT).buildAnimated(1200, IDrawableAnimated.StartDirection.RIGHT, true);
         this.progress = guiHelper.drawableBuilder(BACKGROUND, 176, 14, TransmogrifierScreen.PROGRESS_WIDTH, TransmogrifierScreen.PROGRESS_HEIGHT).buildAnimated(1200, IDrawableAnimated.StartDirection.LEFT, false);;
     }
 

@@ -1,7 +1,6 @@
 package com.barl_inc.unusual_prehistory.entity.cliff_fossil;
 
 import com.barl_inc.unusual_prehistory.entity.base.AquaticPrehistoricMob;
-import com.barl_inc.unusual_prehistory.registry.UP2Blocks;
 import com.barl_inc.unusual_prehistory.registry.UP2Entities;
 import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
 import com.platypushasnohat.sinew.Sinew;
@@ -14,8 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -32,11 +29,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -184,20 +179,12 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (!this.isBaby()) {
-            if (itemStack.is(Tags.Items.TOOLS_SHEAR)) {
-                this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
-                this.gameEvent(GameEvent.SHEAR, player);
-                if (!player.addItem(new ItemStack(UP2Blocks.LEEDSICHTHYS_CHUNK.get()))) {
-                    player.spawnAtLocation(UP2Blocks.LEEDSICHTHYS_CHUNK.get());
-                }
-                itemStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-                return InteractionResult.SUCCESS;
-            }
-            else if (this.isTame() && this.getOwner() == player) {
+            if (this.isTame()) {
                 if (player.isShiftKeyDown()) {
                     if (!this.getPassengers().isEmpty()) {
                         this.removePassengers();
-                    } else {
+                    }
+                    else if (this.getOwner() == player) {
                         if (this.getCommand() != COMMAND_SIT) {
                             this.setCommand(COMMAND_SIT);
                         } else {
@@ -223,7 +210,7 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
 
     @Override
     public boolean canBeCollidedWith() {
-        return this.isAlive() && this.isTame() && !this.hasControllingPassenger() && this.getCommand() == COMMAND_SIT;
+        return this.isAlive() && this.isTame() && this.getCommand() == COMMAND_SIT;
     }
 
     @Override
@@ -349,13 +336,19 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
 
         this.prevSwimPitch = this.swimPitch;
         float targetPitch = 0.0F;
-        Vec3 movement = this.getDeltaMovement();
-        boolean grounded = this.onGround() || this.verticalCollisionBelow;
-        if (!grounded && (movement.horizontalDistanceSqr() > 1.0E-7D || this.hasControllingPassenger()) && (this.isInWater() || movement.lengthSqr() > 0.03D)) {
-            targetPitch = -((float) (Mth.atan2(movement.y, movement.horizontalDistance()) * Mth.RAD_TO_DEG));
-            targetPitch = Mth.clamp(targetPitch, -40.0F, 40.0F);
+        if (this.isInWater()) {
+            double dx = this.getX() - this.xo;
+            double dy = this.getY() - this.yo;
+            double dz = this.getZ() - this.zo;
+            double horizontal = Math.sqrt(dx * dx + dz * dz);
+            double speed = Math.sqrt(horizontal * horizontal + dy * dy);
+            float speedFactor = (float) Mth.clamp((speed - 0.01D) / (0.05D - 0.01D), 0.0D, 1.0D);
+            if (speedFactor > 0.0F) {
+                float angle = (float) (-(Mth.atan2(dy, horizontal) * Mth.RAD_TO_DEG));
+                targetPitch = Mth.clamp(angle, -35.0F, 35.0F) * speedFactor;
+            }
         }
-        this.swimPitch += (targetPitch - this.swimPitch) * (grounded ? 0.25F : 0.07F);
+        this.swimPitch += (targetPitch - this.swimPitch) * 0.08F;
         this.bodyChain.tick(this.yBodyRot, this.swimPitch, targetPitch);
 
         if (this.wasPreviouslyBaby != this.isBaby()) {
@@ -366,7 +359,7 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
             }
         }
 
-        if (this.hasControllingPassenger()) {
+        if (this.isControlledByLocalInstance()) {
             if (this.controlDownTicks > 0 && !this.onGround()) {
                 this.controlDownTicks--;
             } else if (this.controlUpTicks > 0 && this.getFluidTypeHeight(NeoForgeMod.WATER_TYPE.value()) > 4.0D) {

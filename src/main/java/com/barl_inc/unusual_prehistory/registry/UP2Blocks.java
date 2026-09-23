@@ -5,7 +5,6 @@ import com.barl_inc.unusual_prehistory.block.*;
 import com.barl_inc.unusual_prehistory.item.FossilBedBlockItem;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
@@ -52,9 +51,7 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> BIOSTEEL_TILE_STAIRS = registerBlock("biosteel_tile_stairs", () -> new StairBlock(BIOSTEEL_BLOCK.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get())));
     public static final DeferredBlock<Block> BIOSTEEL_TILE_SLAB = registerBlock("biosteel_tile_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get())));
 
-    public static final DeferredBlock<Block> TRANSMOGRIFIER = registerBlock("transmogrifier", () -> new TransmogrifierBlock(BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get()).lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 7 : 0)));
-
-    public static final DeferredBlock<Block> LEEDSICHTHYS_CHUNK = registerEdibleBlock("leedsichthys_chunk", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).instrument(NoteBlockInstrument.HARP).strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)), UP2FoodProperties.LEEDSICHTHYS_CHUNK);
+    public static final DeferredBlock<Block> TRANSMOGRIFIER = registerBlock("transmogrifier", () -> new TransmogrifierBlock(BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get()).lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 10 : 0)));
 
     public static final DeferredBlock<Block> LEEDSICHTHYS_ROE = registerEggBlock("leedsichthys_roe", () -> new UnderwaterEggBlock(WATER_EGG_PROPERTIES, UP2Entities.LEEDSICHTHYS::get, 1));
 
@@ -82,13 +79,6 @@ public class UP2Blocks {
     private static <B extends Block> DeferredBlock<B> registerFossilBedBlock(String name, FossilBedBlockItem.FossilBedRarity rarity, Supplier<? extends B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
         UP2Items.ITEMS.register(name, () -> new FossilBedBlockItem(block.get(), new Item.Properties(), rarity));
-        return block;
-    }
-
-    private static <B extends Block> DeferredBlock<B> registerEdibleBlock(String name, Supplier<? extends B> supplier, FoodProperties foodProperties) {
-        DeferredBlock<B> block = BLOCKS.register(name, supplier);
-        UP2Items.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().food(foodProperties)));
-        BLOCK_TRANSLATIONS.add(block);
         return block;
     }
 }
