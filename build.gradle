@@ -118,6 +118,9 @@ dependencies {
     localRuntime "maven.modrinth:cyanide:v4LiMGGH"
 
     localRuntime "maven.modrinth:farmers-delight:1.21.1-1.3.4"
+
+    localRuntime "maven.modrinth:commandstructures:rTiLoxgs"
+    localRuntime "maven.modrinth:worldedit:7.3.6"
 }
 
 tasks.withType(ProcessResources).configureEach {

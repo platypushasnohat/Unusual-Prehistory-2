@@ -1,0 +1,7 @@
+{
+  "type": "unusual_prehistory:abandoned_lab",
+  "biomes": "#unusual_prehistory:has_structure/abandoned_lab",
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_thin",
+  "spawn_overrides": {}
+}

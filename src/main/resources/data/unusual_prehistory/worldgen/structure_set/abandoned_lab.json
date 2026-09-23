@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "unusual_prehistory:abandoned_lab",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 9182,
+    "separation": 16,
+    "spacing": 32,
+    "type": "minecraft:random_spread"
+  }
+}

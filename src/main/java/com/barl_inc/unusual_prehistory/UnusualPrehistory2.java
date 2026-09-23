@@ -43,8 +43,9 @@ public class UnusualPrehistory2 {
         UP2RecipeTypes.RECIPE_SERIALIZERS.register(modEventBus);
         UP2SoundEvents.SOUND_EVENT.register(modEventBus);
         UP2ParticleTypes.PARTICLE_TYPES.register(modEventBus);
+        UP2StructurePieceTypes.STRUCTURE_PIECE_TYPES.register(modEventBus);
+        UP2StructureTypes.STRUCTURE_TYPES.register(modEventBus);
         UP2CreativeTabs.CREATIVE_MODE_TAB.register(modEventBus);
-
         modEventBus.addListener(this::dataSetup);
     }
 
