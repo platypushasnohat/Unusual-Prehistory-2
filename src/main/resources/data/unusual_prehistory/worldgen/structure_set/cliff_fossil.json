@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "unusual_prehistory:cliff_fossil",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1132,
+    "separation": 8,
+    "spacing": 16,
+    "type": "minecraft:random_spread"
+  }
+}

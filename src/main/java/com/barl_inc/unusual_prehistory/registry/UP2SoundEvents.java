@@ -12,6 +12,12 @@ public class UP2SoundEvents {
 
     public static final DeferredHolder<SoundEvent, SoundEvent> TRANSMOGRIFIER_PROCESSING = registerSoundEvent("transmogrifier_processing");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> AMMONITE_HURT = registerSoundEvent("ammonite_hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> AMMONITE_DEATH = registerSoundEvent("ammonite_death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> AMMONITE_IDLE = registerSoundEvent("ammonite_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> AMMONITE_FLOP = registerSoundEvent("ammonite_flop");
+    public static final DeferredHolder<SoundEvent, SoundEvent> AMMONITE_SWIM = registerSoundEvent("ammonite_swim");
+
     public static final DeferredHolder<SoundEvent, SoundEvent> LEEDSICHTHYS_HURT = registerSoundEvent("leedsichthys_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> LEEDSICHTHYS_DEATH = registerSoundEvent("leedsichthys_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> LEEDSICHTHYS_IDLE = registerSoundEvent("leedsichthys_idle");

@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -38,7 +39,12 @@ public class UP2Blocks {
     public static final DeferredBlock<Block> FOSSILIZED_BONE_SPIKE = registerBlock("fossilized_bone_spike", () -> new FossilizedBoneSpikeBlock(BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get()).noOcclusion()));
     public static final DeferredBlock<Block> FOSSILIZED_BONE_ROW = registerBlock("fossilized_bone_row", () -> new FossilizedBoneRowBlock(BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get()).noOcclusion()));
 
-    public static final DeferredBlock<Block> DIRT_MATRIX = registerBlock("dirt_matrix", () -> new MatrixBlock(Blocks.DIRT, SoundEvents.BRUSH_GENERIC, SoundEvents.GRAVEL_BREAK, BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+    public static final DeferredBlock<Block> GRAVEL_MATRIX = registerBlock("gravel_matrix", () -> new MatrixBlock(Blocks.GRAVEL, SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(0.6F).sound(SoundType.SUSPICIOUS_GRAVEL).pushReaction(PushReaction.DESTROY).instrument(NoteBlockInstrument.SNARE)));
+    public static final DeferredBlock<Block> SAND_MATRIX = registerBlock("sand_matrix", () -> new MatrixBlock(Blocks.SAND, SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED, BlockBehaviour.Properties.of().mapColor(MapColor.SAND).strength(0.5F).sound(SoundType.SUSPICIOUS_SAND).pushReaction(PushReaction.DESTROY).instrument(NoteBlockInstrument.SNARE)));
+    public static final DeferredBlock<Block> RED_SAND_MATRIX = registerBlock("red_sand_matrix", () -> new MatrixBlock(Blocks.RED_SAND, SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.5F).sound(SoundType.SUSPICIOUS_SAND).pushReaction(PushReaction.DESTROY).instrument(NoteBlockInstrument.SNARE)));
+    public static final DeferredBlock<Block> DIRT_MATRIX = registerBlock("dirt_matrix", () -> new MatrixBlock(Blocks.DIRT, SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED, BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5F).sound(SoundType.SUSPICIOUS_GRAVEL)));
+    public static final DeferredBlock<Block> MUD_MATRIX = registerBlock("mud_matrix", () -> new MatrixBlock(Blocks.MUD, SoundEvents.BRUSH_GENERIC, SoundEvents.MUD_BREAK, BlockBehaviour.Properties.ofFullCopy(Blocks.MUD).pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> SNOW_MATRIX = registerBlock("snow_matrix", () -> new MatrixBlock(Blocks.SNOW_BLOCK, SoundEvents.BRUSH_GENERIC, SoundEvents.SNOW_BREAK, BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW_BLOCK).pushReaction(PushReaction.DESTROY)));
 
     public static final DeferredBlock<Block> COMMON_FOSSIL_BED = registerFossilBedBlock("common_fossil_bed", FossilBedBlockItem.FossilBedRarity.COMMON, () -> new FossilBedBlock(UniformInt.of(0, 1), BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get())));
     public static final DeferredBlock<Block> UNCOMMON_FOSSIL_BED = registerFossilBedBlock("uncommon_fossil_bed", FossilBedBlockItem.FossilBedRarity.UNCOMMON, () -> new FossilBedBlock(UniformInt.of(1, 3), BlockBehaviour.Properties.ofFullCopy(FOSSILIZED_BONE_BLOCK.get())));
@@ -53,6 +59,7 @@ public class UP2Blocks {
 
     public static final DeferredBlock<Block> TRANSMOGRIFIER = registerBlock("transmogrifier", () -> new TransmogrifierBlock(BlockBehaviour.Properties.ofFullCopy(BIOSTEEL_BLOCK.get()).lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 10 : 0)));
 
+    public static final DeferredBlock<Block> AMMONITE_EGGS = registerEggBlock("ammonite_eggs", () -> new UnderwaterEggBlock(WATER_EGG_PROPERTIES, UP2Entities.AMMONITE::get, 4));
     public static final DeferredBlock<Block> LEEDSICHTHYS_ROE = registerEggBlock("leedsichthys_roe", () -> new UnderwaterEggBlock(WATER_EGG_PROPERTIES, UP2Entities.LEEDSICHTHYS::get, 1));
 
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {

@@ -5,6 +5,12 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 
 public class UP2ModelLayers {
 
+    public static final ModelLayerLocation AMMONITE_CRIOCERATITES = register("ammonite_crioceratites");
+    public static final ModelLayerLocation AMMONITE_HOPLITES = register("ammonite_hoplites");
+    public static final ModelLayerLocation AMMONITE_NOSTOCERAS = register("ammonite_nostoceras");
+    public static final ModelLayerLocation AMMONITE_PINACOCERAS = register("ammonite_pinacoceras");
+    public static final ModelLayerLocation AMMONITE_TROPITES = register("ammonite_tropites");
+
     public static final ModelLayerLocation LEEDSICHTHYS = register("leedsichthys");
     public static final ModelLayerLocation LEEDSICHTHYS_BABY = register("leedsichthys_baby");
 

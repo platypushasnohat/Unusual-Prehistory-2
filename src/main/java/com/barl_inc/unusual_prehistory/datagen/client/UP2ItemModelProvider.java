@@ -20,8 +20,11 @@ public class UP2ItemModelProvider extends SinewItemModelProvider {
     protected void registerModels() {
         this.generatedItem(
                 UP2Items.ORGANIC_OOZE,
+                UP2Items.SPIRAL_FOSSIL,
                 UP2Items.GARGANTUAN_FOSSIL,
-                UP2Blocks.LEEDSICHTHYS_ROE
+                UP2Blocks.AMMONITE_EGGS,
+                UP2Blocks.LEEDSICHTHYS_ROE,
+                UP2Items.AMMONITE_BUCKET
         );
 
         for (Item item : BuiltInRegistries.ITEM) {

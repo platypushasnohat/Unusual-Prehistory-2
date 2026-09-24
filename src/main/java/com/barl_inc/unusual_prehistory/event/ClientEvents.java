@@ -1,9 +1,11 @@
 package com.barl_inc.unusual_prehistory.event;
 
 import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
+import com.barl_inc.unusual_prehistory.client.model.AmmoniteModel;
 import com.barl_inc.unusual_prehistory.client.model.LeedsichthysModel;
 import com.barl_inc.unusual_prehistory.client.particle.OutOfWaterBubbleParticle;
 import com.barl_inc.unusual_prehistory.client.particle.SnowflakeParticle;
+import com.barl_inc.unusual_prehistory.client.render.entity.AmmoniteRenderer;
 import com.barl_inc.unusual_prehistory.client.render.entity.LeedsichthysRenderer;
 import com.barl_inc.unusual_prehistory.client.screen.TransmogrifierScreen;
 import com.barl_inc.unusual_prehistory.registry.UP2Entities;
@@ -22,11 +24,18 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(UP2Entities.AMMONITE.get(), AmmoniteRenderer::new);
         event.registerEntityRenderer(UP2Entities.LEEDSICHTHYS.get(), LeedsichthysRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerEntityLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(UP2ModelLayers.AMMONITE_CRIOCERATITES, AmmoniteModel::createCrioceratitesBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.AMMONITE_HOPLITES, AmmoniteModel::createHoplitesBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.AMMONITE_NOSTOCERAS, AmmoniteModel::createNostocerasBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.AMMONITE_PINACOCERAS, AmmoniteModel::createPinacocerasBodyLayer);
+        event.registerLayerDefinition(UP2ModelLayers.AMMONITE_TROPITES, AmmoniteModel::createTropitesBodyLayer);
+
         event.registerLayerDefinition(UP2ModelLayers.LEEDSICHTHYS, LeedsichthysModel::createBodyLayer);
         event.registerLayerDefinition(UP2ModelLayers.LEEDSICHTHYS_BABY, LeedsichthysModel::createBabyBodyLayer);
     }

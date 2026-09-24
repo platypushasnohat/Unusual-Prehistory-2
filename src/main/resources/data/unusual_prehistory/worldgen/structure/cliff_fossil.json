@@ -1,0 +1,7 @@
+{
+  "type": "unusual_prehistory:cliff_fossil",
+  "biomes": "#unusual_prehistory:has_structure/cliff_fossil",
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "spawn_overrides": {}
+}

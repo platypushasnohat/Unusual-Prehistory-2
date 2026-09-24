@@ -23,5 +23,9 @@ public class UP2ItemTagsProvider extends ItemTagsProvider {
 		this.tag(UP2ItemTags.TRANSMOGRIFIER_FUEL).add(UP2Items.ORGANIC_OOZE.get());
 
 		this.tag(Tags.Items.SLIME_BALLS).add(UP2Items.ORGANIC_OOZE.get());
+
+		this.tag(Tags.Items.BUCKETS_ENTITY_WATER).add(
+				UP2Items.AMMONITE_BUCKET.get()
+		);
 	}
 }

@@ -13,10 +13,15 @@ public class UP2CreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, UnusualPrehistory2.MOD_ID);
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> UNUSUAL_PREHISTORY_TAB = CREATIVE_MODE_TAB.register("unusual_prehistory_creative_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(UP2Blocks.FOSSILIZED_SKULL_LAMP.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(UP2Items.SPIRAL_FOSSIL.get()))
                     .title(Component.translatable("creative_tab.unusual_prehistory"))
                     .displayItems((parameters, output) -> {
+                        output.accept(UP2Blocks.SAND_MATRIX.get());
+                        output.accept(UP2Blocks.RED_SAND_MATRIX.get());
+                        output.accept(UP2Blocks.GRAVEL_MATRIX.get());
                         output.accept(UP2Blocks.DIRT_MATRIX.get());
+                        output.accept(UP2Blocks.MUD_MATRIX.get());
+                        output.accept(UP2Blocks.SNOW_MATRIX.get());
 
                         output.accept(UP2Blocks.COMMON_FOSSIL_BED.get());
                         output.accept(UP2Blocks.UNCOMMON_FOSSIL_BED.get());
@@ -42,11 +47,16 @@ public class UP2CreativeTabs {
                         output.accept(UP2Blocks.BIOSTEEL_TILE_SLAB.get());
                         output.accept(UP2Blocks.BIOSTEEL_LATTICE.get());
 
+                        output.accept(UP2Items.AMMONITE_SPAWN_EGG.get());
                         output.accept(UP2Items.LEEDSICHTHYS_SPAWN_EGG.get());
 
+                        output.accept(UP2Items.SPIRAL_FOSSIL.get());
                         output.accept(UP2Items.GARGANTUAN_FOSSIL.get());
+
+                        output.accept(UP2Blocks.AMMONITE_EGGS.get());
                         output.accept(UP2Blocks.LEEDSICHTHYS_ROE.get());
 
+                        output.accept(UP2Items.AMMONITE_BUCKET.get());
                     })
                     .build());
 }

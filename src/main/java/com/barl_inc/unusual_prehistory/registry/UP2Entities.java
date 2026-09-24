@@ -1,6 +1,7 @@
 package com.barl_inc.unusual_prehistory.registry;
 
 import com.barl_inc.unusual_prehistory.UnusualPrehistory2;
+import com.barl_inc.unusual_prehistory.entity.cliff_fossil.Ammonite;
 import com.barl_inc.unusual_prehistory.entity.cliff_fossil.Leedsichthys;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
@@ -19,6 +20,7 @@ public class UP2Entities {
 
     public static List<DeferredHolder<EntityType<?>, ? extends EntityType<?>>> ENTITY_TRANSLATIONS = new ArrayList<>();
 
+    public static final DeferredHolder<EntityType<?>, EntityType<Ammonite>> AMMONITE = registerEntity("ammonite", Ammonite::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.9F, 0.9F).eyeHeight(0.45F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Leedsichthys>> LEEDSICHTHYS = registerEntity("leedsichthys", Leedsichthys::new, MobCategory.WATER_CREATURE, builder -> builder.sized(4.5F, 4.25F).eyeHeight(1.9F).clientTrackingRange(10));
 
     public static <E extends Entity> DeferredHolder<EntityType<?>, EntityType<E>> registerEntity(String name, EntityType.EntityFactory<E> factory, MobCategory entityClassification, Consumer<EntityType.Builder<E>> builderConsumer) {

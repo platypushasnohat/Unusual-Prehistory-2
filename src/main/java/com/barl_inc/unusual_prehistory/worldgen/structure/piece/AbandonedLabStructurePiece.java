@@ -6,14 +6,18 @@ import com.barl_inc.unusual_prehistory.worldgen.structure.processor.AbandonedLab
 import com.google.common.collect.Maps;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructurePieceAccessor;
@@ -21,6 +25,7 @@ import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
+import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,5 +79,12 @@ public class AbandonedLabStructurePiece extends TemplateStructurePiece {
 
     @Override
     protected void handleDataMarker(String metaData, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox boundingBox) {
+        level.setBlock(pos, Blocks.AIR.defaultBlockState(), 0);
+        if (metaData.equals("loot_chest")) {
+            ResourceKey<LootTable> lootTable = ResourceKey.create(Registries.LOOT_TABLE, UnusualPrehistory2.location("chests/abandoned_lab"));
+            if (level.getBlockEntity(pos.below()) instanceof RandomizableContainerBlockEntity container) {
+                container.setLootTable(lootTable, random.nextLong());
+            }
+        }
     }
 }

@@ -1,5 +1,10 @@
 {
   "values": [
-    "unusual_prehistory:dirt_matrix"
+    "unusual_prehistory:dirt_matrix",
+    "unusual_prehistory:gravel_matrix",
+    "unusual_prehistory:sand_matrix",
+    "unusual_prehistory:red_sand_matrix",
+    "unusual_prehistory:mud_matrix",
+    "unusual_prehistory:snow_matrix"
   ]
 }
