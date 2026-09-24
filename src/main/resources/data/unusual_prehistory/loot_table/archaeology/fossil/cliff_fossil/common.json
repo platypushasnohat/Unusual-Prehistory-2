@@ -2,11 +2,11 @@
   "type": "minecraft:chest",
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "bonus_rolls": 0,
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "unusual_prehistory:archaeology/fossil/common_junk",
+          "value": "unusual_prehistory:archaeology/fossil/common_junk",
           "weight": 1
         },
         {
@@ -17,8 +17,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 4.0,
-        "min": 2.0
+        "max": 4,
+        "min": 2
       }
     }
   ],

@@ -61,9 +61,13 @@ public abstract class SchoolingPrehistoricMob extends AquaticPrehistoricMob {
         return false;
     }
 
+    public boolean canAddFollowers(SchoolingPrehistoricMob mob) {
+        return true;
+    }
+
     public void addFollowers(Stream<? extends SchoolingPrehistoricMob> entity) {
         entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((mob) -> mob != this).forEach((mob) -> {
-            if (this.getVariant() == mob.getVariant()) {
+            if (this.canAddFollowers(mob)) {
                 mob.startFollowing(this);
             }
         });

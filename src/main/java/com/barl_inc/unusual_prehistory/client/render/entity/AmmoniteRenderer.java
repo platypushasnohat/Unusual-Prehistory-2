@@ -14,16 +14,16 @@ import java.util.Locale;
 
 public class AmmoniteRenderer extends MobRenderer<Ammonite, AmmoniteModel> {
 
-    private final AmmoniteModel crioceratitesModel;
     private final AmmoniteModel hoplitesModel;
+    private final AmmoniteModel crioceratitesModel;
     private final AmmoniteModel nostocerasModel;
     private final AmmoniteModel pinacocerasModel;
     private final AmmoniteModel tropitesModel;
 
     public AmmoniteRenderer(EntityRendererProvider.Context context) {
         super(context, new AmmoniteModel(context.bakeLayer(UP2ModelLayers.AMMONITE_HOPLITES)), 0.25F);
-        this.crioceratitesModel = new AmmoniteModel(context.bakeLayer(UP2ModelLayers.AMMONITE_CRIOCERATITES));
         this.hoplitesModel = new AmmoniteModel(context.bakeLayer(UP2ModelLayers.AMMONITE_HOPLITES));
+        this.crioceratitesModel = new AmmoniteModel(context.bakeLayer(UP2ModelLayers.AMMONITE_CRIOCERATITES));
         this.nostocerasModel = new AmmoniteModel(context.bakeLayer(UP2ModelLayers.AMMONITE_NOSTOCERAS));
         this.pinacocerasModel = new AmmoniteModel(context.bakeLayer(UP2ModelLayers.AMMONITE_PINACOCERAS));
         this.tropitesModel = new AmmoniteModel(context.bakeLayer(UP2ModelLayers.AMMONITE_TROPITES));
@@ -31,7 +31,7 @@ public class AmmoniteRenderer extends MobRenderer<Ammonite, AmmoniteModel> {
 
     @Override
     public void render(Ammonite entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
-        Ammonite.AmmoniteVariant variant = Ammonite.AmmoniteVariant.byId(entity.getVariant());
+        Ammonite.AmmoniteVariant variant = entity.getVariant();
         switch (variant) {
             case Ammonite.AmmoniteVariant.AMMONITE_CRIOCERATITES:
                 this.model = this.crioceratitesModel;
@@ -59,7 +59,7 @@ public class AmmoniteRenderer extends MobRenderer<Ammonite, AmmoniteModel> {
 
     @Override
     public ResourceLocation getTextureLocation(Ammonite entity) {
-        Ammonite.AmmoniteVariant variant = Ammonite.AmmoniteVariant.byId(entity.getVariant());
+        Ammonite.AmmoniteVariant variant = entity.getVariant();
         return UnusualPrehistory2.location("textures/entity/ammonite/" + variant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }

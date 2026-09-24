@@ -64,7 +64,7 @@ public class TransmogrificationCategory implements IRecipeCategory<Transmogrific
         return this.icon;
     }
 
-    protected void drawProgress(TransmogrificationRecipe recipe, GuiGraphics guiGraphics, int y, int x) {
+    protected void drawProgress(TransmogrificationRecipe recipe, GuiGraphics guiGraphics) {
         int cookTime = recipe.processingTime();
         float experience = recipe.experience();
         Minecraft minecraft = Minecraft.getInstance();
@@ -73,19 +73,19 @@ public class TransmogrificationCategory implements IRecipeCategory<Transmogrific
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
             int stringWidth = fontRenderer.width(timeString);
-            guiGraphics.drawString(fontRenderer, timeString, (this.getWidth() - stringWidth) + x, y, 0xFF808080, false);
+            guiGraphics.drawString(fontRenderer, timeString, (this.getWidth() - stringWidth) + -91, 24, 0xFF808080, false);
         }
         if (experience > 0) {
             Component experienceString = Component.translatable("gui.jei.category.smelting.experience", experience);
             int stringWidth = fontRenderer.width(experienceString);
-            guiGraphics.drawString(fontRenderer, experienceString, (this.getWidth() - stringWidth) + x + 6, y + 10, 0xFF808080, false);
+            guiGraphics.drawString(fontRenderer, experienceString, (this.getWidth() - stringWidth) + -91 + 6, 24 + 10, 0xFF808080, false);
         }
     }
 
     @Override
     public void draw(TransmogrificationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
-        this.drawProgress(recipe, guiGraphics, 24, -91);
+        this.drawProgress(recipe, guiGraphics);
         this.fuel.draw(guiGraphics, 70, 32);
         this.progress.draw(guiGraphics, 30, 1);
     }

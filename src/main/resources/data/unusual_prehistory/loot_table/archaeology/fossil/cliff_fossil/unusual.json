@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "unusual_prehistory:gargantuan_fossil",
+          "value": "unusual_prehistory:gargantuan_fossil",
           "weight": 1
         }
       ],

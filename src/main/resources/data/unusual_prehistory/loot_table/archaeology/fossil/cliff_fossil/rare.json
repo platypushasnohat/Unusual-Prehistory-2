@@ -6,13 +6,13 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "unusual_prehistory:archaeology/fossil/rare_junk",
+          "value": "unusual_prehistory:archaeology/fossil/rare_junk",
           "weight": 1
         },
         {
           "type": "minecraft:item",
           "name": "unusual_prehistory:spiral_fossil",
-          "weight": 1
+          "weight": 3
         }
       ],
       "rolls": {

@@ -6,11 +6,14 @@ import com.barl_inc.unusual_prehistory.entity.utils.UP2MobUtils;
 import com.barl_inc.unusual_prehistory.registry.UP2Entities;
 import com.barl_inc.unusual_prehistory.registry.UP2Items;
 import com.barl_inc.unusual_prehistory.registry.UP2SoundEvents;
+import com.mojang.serialization.Codec;
 import com.platypushasnohat.sinew.entity.ai.control.SwimmingMoveControl;
 import com.platypushasnohat.sinew.entity.ai.goal.AquaticPanicGoal;
 import com.platypushasnohat.sinew.entity.ai.goal.SwimWanderGoal;
 import com.platypushasnohat.sinew.entity.utils.SwimPitch;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -20,7 +23,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -33,15 +38,19 @@ import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class Ammonite extends SchoolingPrehistoricMob implements Bucketable {
+import java.util.function.IntFunction;
+
+public class Ammonite extends SchoolingPrehistoricMob implements VariantHolder<Ammonite.AmmoniteVariant>, Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Ammonite.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Ammonite.class, EntityDataSerializers.INT);
 
     public SwimPitch swimPitch = new SwimPitch(this, 85.0F, 20.0F);
 
@@ -63,26 +72,39 @@ public class Ammonite extends SchoolingPrehistoricMob implements Bucketable {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new AquaticPanicGoal(this, 1.4D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.4D, 1.4D));
-        this.goalSelector.addGoal(3, new SwimWanderGoal(this, 1.0D, 40, 70));
+        this.goalSelector.addGoal(3, new SwimWanderGoal(this, 1.0D, 40));
         this.goalSelector.addGoal(4, new FollowVariantLeaderGoal(this));
     }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
         builder.define(FROM_BUCKET, false);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compoundTag) {
-        super.addAdditionalSaveData(compoundTag);
-        compoundTag.putBoolean("FromBucket", this.fromBucket());
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("Variant", this.getVariant().getId());
+        compound.putBoolean("FromBucket", this.fromBucket());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compoundTag) {
-        super.readAdditionalSaveData(compoundTag);
-        this.setFromBucket(compoundTag.getBoolean("FromBucket"));
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setVariant(AmmoniteVariant.byId(compound.getInt("Variant")));
+        this.setFromBucket(compound.getBoolean("FromBucket"));
+    }
+
+    @Override
+    public AmmoniteVariant getVariant() {
+        return AmmoniteVariant.byId(this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void setVariant(AmmoniteVariant variant) {
+        this.entityData.set(VARIANT, variant.getId());
     }
 
     @Override
@@ -108,11 +130,13 @@ public class Ammonite extends SchoolingPrehistoricMob implements Bucketable {
     @Override
     public void saveToBucketTag(ItemStack bucket) {
         UP2MobUtils.savePrehistoricDataToBucket(this, bucket);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, compoundTag -> compoundTag.putInt("Variant", this.getVariant().getId()));
     }
 
     @Override
     public void loadFromBucketTag(CompoundTag compoundTag) {
         UP2MobUtils.loadPrehistoricDataFromBucket(this, compoundTag);
+        this.setVariant(AmmoniteVariant.byId(compoundTag.getInt("Variant")));
     }
 
     @Override
@@ -123,6 +147,11 @@ public class Ammonite extends SchoolingPrehistoricMob implements Bucketable {
     @Override
     public int getMaxSchoolSize() {
         return 5;
+    }
+
+    @Override
+    public boolean canAddFollowers(SchoolingPrehistoricMob mob) {
+        return this.getVariant() == ((Ammonite) mob).getVariant();
     }
 
     @Override
@@ -205,28 +234,35 @@ public class Ammonite extends SchoolingPrehistoricMob implements Bucketable {
     protected void playStepSound(BlockPos pos, BlockState state) {
     }
 
-    public enum AmmoniteVariant {
-        AMMONITE_CRIOCERATITES(0),
-        AMMONITE_HOPLITES(1),
-        AMMONITE_NOSTOCERAS(2),
-        AMMONITE_PINACOCERAS(3),
-        AMMONITE_TROPITES(4);
+    public enum AmmoniteVariant implements StringRepresentable {
+        AMMONITE_HOPLITES(0, "ammonite_hoplites"),
+        AMMONITE_CRIOCERATITES(1, "ammonite_crioceratites"),
+        AMMONITE_NOSTOCERAS(2, "ammonite_nostoceras"),
+        AMMONITE_PINACOCERAS(3, "ammonite_pinacoceras"),
+        AMMONITE_TROPITES(4, "ammonite_tropites");
 
-        private final int variant;
+        private static final IntFunction<AmmoniteVariant> BY_ID = ByIdMap.sparse(AmmoniteVariant::getId, values(), AMMONITE_HOPLITES);
+        public static final Codec<AmmoniteVariant> CODEC = StringRepresentable.fromEnum(AmmoniteVariant::values);
 
-        AmmoniteVariant(int variant) {
-            this.variant = variant;
+        private final int id;
+        private final String name;
+
+        AmmoniteVariant(int id, String name) {
+            this.id = id;
+            this.name = name;
         }
 
         public int getId() {
-            return this.variant;
+            return this.id;
         }
 
         public static AmmoniteVariant byId(int id) {
-            if (id < 0 || id >= AmmoniteVariant.values().length) {
-                id = 0;
-            }
-            return AmmoniteVariant.values()[id];
+            return BY_ID.apply(id);
+        }
+
+        @Override
+        public String getSerializedName() {
+            return this.name;
         }
     }
 
@@ -237,7 +273,7 @@ public class Ammonite extends SchoolingPrehistoricMob implements Bucketable {
         if (this.fromBucket()) {
             return spawnGroupData;
         }
-        this.setVariant(this.getRandom().nextInt(AmmoniteVariant.values().length));
+        this.setVariant(Util.getRandom(AmmoniteVariant.values(), level.getRandom()));
         return spawnGroupData;
     }
 }

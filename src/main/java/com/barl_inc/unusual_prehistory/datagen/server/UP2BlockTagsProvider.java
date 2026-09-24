@@ -35,7 +35,7 @@ public class UP2BlockTagsProvider extends BlockTagsProvider {
                 COMMON_FOSSIL_BED.get(),
                 UNCOMMON_FOSSIL_BED.get(),
                 RARE_FOSSIL_BED.get(),
-                UNCOMMON_FOSSIL_BED.get(),
+                UNUSUAL_FOSSIL_BED.get(),
 
                 BIOSTEEL_BLOCK.get(),
                 BIOSTEEL_LATTICE.get(),

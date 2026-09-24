@@ -7,7 +7,10 @@ import com.platypushasnohat.sinew.Sinew;
 import com.platypushasnohat.sinew.entity.ai.control.SwimmingMoveControl;
 import com.platypushasnohat.sinew.entity.ai.goal.SwimWanderGoal;
 import com.platypushasnohat.sinew.entity.ai.goal.TamedSitGoal;
-import com.platypushasnohat.sinew.entity.utils.*;
+import com.platypushasnohat.sinew.entity.utils.BodyChain;
+import com.platypushasnohat.sinew.entity.utils.BodyChainMob;
+import com.platypushasnohat.sinew.entity.utils.KeybindUsingMount;
+import com.platypushasnohat.sinew.entity.utils.SinewPartEntity;
 import com.platypushasnohat.sinew.network.MountedEntityKeyPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -27,8 +30,8 @@ import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForgeMod;
@@ -63,6 +66,7 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
     public Leedsichthys(EntityType<? extends Leedsichthys> entityType, Level level) {
         super(entityType, level);
         this.switchShallowNavigation(false);
+        this.setPathfindingMalus(PathType.WATER_BORDER, 16.0F);
         this.moveControl = new SwimmingMoveControl(this, 45, 4, 0.02F);
         this.lookControl = new SmoothSwimmingLookControl(this, 5);
         this.headPart = new SinewPartEntity<>(this, 4.5F, 4.25F);
@@ -81,7 +85,7 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TamedSitGoal(this));
-        this.goalSelector.addGoal(1, new SwimWanderGoal(this, 1.0D, 60, 30, 15, 3, 100));
+        this.goalSelector.addGoal(1, new SwimWanderGoal(this, 1.0D, 50, 15, 10));
     }
 
     @Override
@@ -144,14 +148,6 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
 
     public float getSwimPitch(float partialTicks) {
         return Mth.lerp(partialTicks, this.prevSwimPitch, this.swimPitch);
-    }
-
-    @Override
-    public float getWalkTargetValue(BlockPos pos, LevelReader level) {
-        if (this.getRandom().nextFloat() < 0.23F) {
-            return SinewPathfindingUtils.getDepthPathfindingFavor(pos, level);
-        }
-        return super.getWalkTargetValue(pos, level);
     }
 
     private void yeetPassenger(Entity passenger) {
