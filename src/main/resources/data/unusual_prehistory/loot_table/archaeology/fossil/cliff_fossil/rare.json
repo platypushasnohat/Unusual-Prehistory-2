@@ -2,23 +2,33 @@
   "type": "minecraft:chest",
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "unusual_prehistory:spiral_fossil",
+          "weight": 1
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 2,
+        "min": 1
+      }
+    },
+    {
+      "bonus_rolls": 0,
       "entries": [
         {
           "type": "minecraft:loot_table",
           "value": "unusual_prehistory:archaeology/fossil/rare_junk",
           "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "unusual_prehistory:spiral_fossil",
-          "weight": 3
         }
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 2.0,
-        "min": 1.0
+        "max": 1,
+        "min": 0
       }
     }
   ],

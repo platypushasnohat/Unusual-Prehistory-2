@@ -5,11 +5,6 @@
       "bonus_rolls": 0,
       "entries": [
         {
-          "type": "minecraft:loot_table",
-          "value": "unusual_prehistory:archaeology/fossil/common_junk",
-          "weight": 1
-        },
-        {
           "type": "minecraft:item",
           "name": "unusual_prehistory:spiral_fossil",
           "weight": 1
@@ -18,7 +13,22 @@
       "rolls": {
         "type": "minecraft:uniform",
         "max": 4,
-        "min": 2
+        "min": 1
+      }
+    },
+    {
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "value": "unusual_prehistory:archaeology/fossil/common_junk",
+          "weight": 1
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 1,
+        "min": 0
       }
     }
   ],

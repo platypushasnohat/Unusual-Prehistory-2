@@ -2,15 +2,15 @@
   "type": "minecraft:chest",
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "bonus_rolls": 0,
       "entries": [
         {
           "type": "minecraft:item",
-          "value": "unusual_prehistory:gargantuan_fossil",
+          "name": "unusual_prehistory:gargantuan_fossil",
           "weight": 1
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "unusual_prehistory:archaeology/fossil/cliff_fossil/unusual"
