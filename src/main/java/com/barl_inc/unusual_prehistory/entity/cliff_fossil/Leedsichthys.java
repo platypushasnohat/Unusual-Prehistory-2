@@ -39,7 +39,6 @@ import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
 import java.util.List;
 
 public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob, KeybindUsingMount {
@@ -48,10 +47,6 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
     private final SinewPartEntity<Leedsichthys> tailPart1;
     private final SinewPartEntity<Leedsichthys> tailPart2;
     private final SinewPartEntity<?>[] allParts;
-
-    @SuppressWarnings("MismatchedReadAndWriteOfArray")
-    private final float[] yawBuffer = new float[128];
-    private int yawPointer = -1;
 
     private boolean wasPreviouslyBaby;
 
@@ -116,14 +111,6 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
     }
 
     private void tickMultipart() {
-        if (this.yawPointer == -1) {
-            Arrays.fill(this.yawBuffer, this.yBodyRot);
-        }
-        if (++this.yawPointer == this.yawBuffer.length) {
-            this.yawPointer = 0;
-        }
-        this.yawBuffer[this.yawPointer] = this.yBodyRot;
-
         Vec3[] vec3s = new Vec3[this.allParts.length];
         for (int j = 0; j < this.allParts.length; j++) {
             vec3s[j] = new Vec3(this.allParts[j].getX(), this.allParts[j].getY(), this.allParts[j].getZ());
