@@ -16,7 +16,9 @@ import javax.annotation.Nullable;
 
 public class AbandonedLabProcessor extends StructureProcessor {
 
-    public static final MapCodec<AbandonedLabProcessor> CODEC = MapCodec.unit(AbandonedLabProcessor::new);
+    private static final AbandonedLabProcessor INSTANCE = new AbandonedLabProcessor();
+
+    public static final MapCodec<AbandonedLabProcessor> CODEC = MapCodec.unit(() -> AbandonedLabProcessor.INSTANCE);
 
     public AbandonedLabProcessor() {
     }
@@ -30,8 +32,8 @@ public class AbandonedLabProcessor extends StructureProcessor {
     @Nullable
     @Override
     public StructureTemplate.StructureBlockInfo processBlock(LevelReader level, BlockPos blockPos, BlockPos pos, StructureTemplate.StructureBlockInfo relativeInfo, StructureTemplate.StructureBlockInfo info, StructurePlaceSettings settings) {
-        BlockState state = info.state();
         RandomSource random = settings.getRandom(info.pos());
+        BlockState state = info.state();
         if (state.is(Blocks.COBBLESTONE) && random.nextFloat() < 0.25F) {
             return new StructureTemplate.StructureBlockInfo(info.pos(), Blocks.MOSSY_COBBLESTONE.defaultBlockState(), info.nbt());
         }

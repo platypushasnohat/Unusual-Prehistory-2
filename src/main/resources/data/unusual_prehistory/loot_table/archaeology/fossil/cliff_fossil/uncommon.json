@@ -7,12 +7,12 @@
         {
           "type": "minecraft:item",
           "name": "unusual_prehistory:spiral_fossil",
-          "weight": 2
+          "weight": 1
         }
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 3,
+        "max": 2,
         "min": 1
       }
     },

@@ -56,16 +56,16 @@ public class CliffFossilStructurePiece extends TemplateFossilStructurePiece {
 
     @Override
     public void postProcess(WorldGenLevel level, StructureManager manager, ChunkGenerator generator, RandomSource random, BoundingBox boundingBox, ChunkPos chunkPos, BlockPos pos) {
-        BlockPos blockPos = this.templatePosition;
-        this.templatePosition = this.templatePosition.below(HEIGHT_TO_TEMPLATES.get(ResourceLocation.parse(this.templateName)));
+        int commonFossilCap = 5 + random.nextInt(2);
+        int uncommonFossilCap = 3 + random.nextInt(2);
+        int rareFossilCap = 1 + random.nextInt(2);
+        int unusualFossilCap = random.nextInt(2);
         this.placeSettings.clearProcessors()
                 .addProcessor(new CliffFossilProcessor(HEIGHT_TO_TEMPLATES.get(ResourceLocation.parse(this.templateName))))
-                .addProcessor(this.matrixProcessor(Blocks.GRAVEL.defaultBlockState(), UP2Blocks.GRAVEL_MATRIX.get().defaultBlockState(), UnusualPrehistory2.location("archaeology/fossil/cliff_fossil/common"), "common", 7))
-                .addProcessor(this.matrixProcessor(Blocks.GRAVEL.defaultBlockState(), UP2Blocks.GRAVEL_MATRIX.get().defaultBlockState(), UnusualPrehistory2.location("archaeology/fossil/cliff_fossil/uncommon"), "uncommon", 5))
-                .addProcessor(this.matrixProcessor(Blocks.GRAVEL.defaultBlockState(), UP2Blocks.GRAVEL_MATRIX.get().defaultBlockState(), UnusualPrehistory2.location("archaeology/fossil/cliff_fossil/rare"), "rare", 3))
-                .addProcessor(this.matrixProcessor(Blocks.GRAVEL.defaultBlockState(), UP2Blocks.GRAVEL_MATRIX.get().defaultBlockState(), UnusualPrehistory2.location("archaeology/fossil/cliff_fossil/unusual"), "unusual", 1));
+                .addProcessor(this.matrixProcessor(Blocks.GRAVEL.defaultBlockState(), UP2Blocks.GRAVEL_MATRIX.get().defaultBlockState(), UnusualPrehistory2.location("archaeology/fossil/cliff_fossil/common"), "common", commonFossilCap))
+                .addProcessor(this.matrixProcessor(Blocks.GRAVEL.defaultBlockState(), UP2Blocks.GRAVEL_MATRIX.get().defaultBlockState(), UnusualPrehistory2.location("archaeology/fossil/cliff_fossil/uncommon"), "uncommon", uncommonFossilCap))
+                .addProcessor(this.matrixProcessor(Blocks.GRAVEL.defaultBlockState(), UP2Blocks.GRAVEL_MATRIX.get().defaultBlockState(), UnusualPrehistory2.location("archaeology/fossil/cliff_fossil/rare"), "rare", rareFossilCap))
+                .addProcessor(this.matrixProcessor(Blocks.GRAVEL.defaultBlockState(), UP2Blocks.GRAVEL_MATRIX.get().defaultBlockState(), UnusualPrehistory2.location("archaeology/fossil/cliff_fossil/unusual"), "unusual", unusualFossilCap));
         super.postProcess(level, manager, generator, random, boundingBox, chunkPos, pos);
-        this.templatePosition = blockPos;
     }
-
 }

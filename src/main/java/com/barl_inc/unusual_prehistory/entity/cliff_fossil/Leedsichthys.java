@@ -84,7 +84,7 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TamedSitGoal(this));
+        this.goalSelector.addGoal(0, new TamedSitGoal(this, true));
         this.goalSelector.addGoal(1, new SwimWanderGoal(this, 1.0D, 50, 15, 10));
     }
 
@@ -385,13 +385,17 @@ public class Leedsichthys extends AquaticPrehistoricMob implements BodyChainMob,
         }
     }
 
+    private boolean canSupportPassenger(Entity entity) {
+        return entity instanceof Mob && !(entity instanceof AquaticPrehistoricMob) && !(entity instanceof WaterAnimal) && !(entity instanceof Drowned) && !(entity instanceof Player);
+    }
+
     private void addPassengers(Entity entity) {
         List<Entity> list = this.level().getEntities(this, entity.getBoundingBox().inflate(0.2F, -0.01F, 0.2F), EntitySelector.pushableBy(this));
         if (!list.isEmpty()) {
-            boolean flag = !this.level().isClientSide && !(this.getControllingPassenger() instanceof Player) && this.getCommand() == COMMAND_SIT;
+            boolean flag = !this.level().isClientSide && !this.hasControllingPassenger() && this.getCommand() == COMMAND_SIT;
             for (Entity passenger : list) {
                 if (!passenger.hasPassenger(this)) {
-                    if (flag && this.canAddPassenger(passenger) && !passenger.isPassenger() && passenger instanceof LivingEntity && !(passenger instanceof AquaticPrehistoricMob) && !(passenger instanceof WaterAnimal) && !(passenger instanceof Drowned) && !(passenger instanceof Player)) {
+                    if (flag && this.canAddPassenger(passenger) && !passenger.isPassenger() && this.canSupportPassenger(passenger)) {
                         passenger.startRiding(this);
                     }
                 }
